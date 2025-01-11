@@ -1,0 +1,82 @@
+/* Banner.module.css */
+.bannerWrapper {
+  position: relative;
+  overflow: hidden;
+  padding: 170px 0 225px;
+  background: url("../../assets/images/banner-bg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 9;
+}
+
+.bannerContent {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.bannerIcon {
+  margin: 0 0 24px;
+}
+
+.bannerTitle {
+  margin: 0 0 20px;
+  text-transform: uppercase;
+  text-shadow: 0 0 15px black;
+}
+
+.description {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 1000;
+  margin: 0 0 40px;
+  text-shadow: 0 0 15px black;
+}
+
+.bannerBtn {
+  margin: 0 auto;
+}
+
+/* Responsive styles */
+@media only screen and (max-width: 991px) {
+  .bannerWrapper {
+    padding: 150px 0 200px;
+  }
+
+  .bannerContent .bannerTitle {
+    margin: 0 0 20px;
+    font-size: 40px;
+    text-shadow: 0 0 15px black;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .bannerContent .bannerTitle {
+    font-size: 30px;
+    text-shadow: 0 0 15px black;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .bannerContent .bannerTitle {
+    font-size: 28px;
+    margin-bottom: 10px;
+    text-shadow: 0 0 15px black;
+  }
+
+  .description {
+    font-size: 16px;
+    margin: 0 0 30px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .bannerWrapper {
+    padding-top: 120px;
+  }
+
+  .bannerContent .bannerTitle {
+    font-size: 24px;
+    text-shadow: 0 0 15px black;
+  }
+}

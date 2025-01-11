@@ -1,0 +1,111 @@
+.pageHeaderWrapper {
+  background: url("../../assets/images/bg/breadcrumbs-bg.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 35px 0 35px;
+}
+
+.breadcrumbArea {
+  font-family: "Russo One", sans-serif;
+}
+
+.breadcrumbMenu {
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: var(--green-color);
+}
+
+.breadcrumbMenu a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+}
+
+.breadcrumbMenu a:hover {
+  color: #ffffff;
+}
+
+.breadcrumbMenu span {
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 10px;
+}
+
+.breadcrumbMenu img {
+  margin-left: 15px;
+}
+
+.breadcrumbTitle {
+  color: #ffffff;
+  font-size: 36px;
+  margin: 15px 0 0;
+}
+
+.projectTimeline {
+  text-align: right;
+  font-size: 28px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 0;
+}
+
+.share {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  position: relative;
+  padding-right: 100px;
+  top: -15px;
+}
+
+.share a {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.share a:hover {
+  color: #ffffff;
+}
+
+@media only screen and (max-width: 991px) {
+  .breadcrumbTitle {
+    font-size: 30px;
+  }
+
+  .projectTimeline {
+    margin-top: 40px;
+    text-align: left;
+  }
+
+  .share {
+    top: -40px;
+    padding-right: 50px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .breadcrumbTitle {
+    font-size: 26px;
+  }
+}
+
+@media only screen and (max-width: 540px) {
+  .breadcrumbMenu a {
+    font-size: 14px;
+  }
+
+  .breadcrumbTitle {
+    font-size: 22px;
+  }
+
+  .projectTimeline {
+    font-size: 24px;
+  }
+}
+
+@media only screen and (max-width: 540px) {
+  .breadcrumbArea .breadcrumbMenu {
+    font-size: 14px;
+  }
+}

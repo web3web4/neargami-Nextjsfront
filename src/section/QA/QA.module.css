@@ -1,0 +1,68 @@
+.qaStyleWrapper{
+  background: var(--primary-background-color);
+  padding-top: 70px;
+  padding-bottom: 140px;
+}
+  
+.qaStyleWrapper p {
+    margin-bottom: 26px;
+  }
+
+  .qaStyleWrapper input:not(input[type="checkbox"]) {
+    width: 90%;
+    margin-bottom: 15px;
+    background: transparent;
+    outline: none;
+    height: 60px;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    box-sizing: border-box;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 45px;
+    color: rgba(255, 255, 255, 0.5);
+    padding: 0px 21px;
+    height: 50px;
+    border-radius: 10px;
+  }
+
+  .qaStyleWrapper input[type="checkbox"] {
+    width: 25px;
+    margin-bottom: 17px;
+    margin-right: 15px;
+  }
+
+  .discriptionQuill {
+    width: 90%;
+  }
+  .qaStyleWrapper :global(.ql-container) {
+    height: 175px;
+  }
+
+  .editLesson {
+    display: flex;
+  }
+
+  .leftContent {
+    flex: 1;
+  }
+
+  .rightContent {
+    flex: 1;
+  }
+
+  @media only screen and (max-width: 999px) {
+    .editLesson {
+      flex-direction: column;
+    }
+
+    .rightContent {
+      margin-top: 15px;
+    }
+  }
+  @media only screen and (max-width: 999px) {
+    .discriptionQuill {
+      width: 100%;
+    }
+  }

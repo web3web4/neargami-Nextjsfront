@@ -1,0 +1,42 @@
+.gamfiHeader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  margin-top: 1px;
+  height: 100px;
+  transition: all 0.3s;
+  z-index: 99;
+}
+
+.gamfiMenuSect {
+  height: 90px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.gamfiMenuRightSect {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  z-index: 99;
+}
+
+@media (max-width: 991px) {
+  .gamfiMenuRightSect {
+    justify-content: end;
+  }
+}
+
+@media (max-width: 540px) {
+  .gamfiMenuRightSect {
+    width: 50%;
+  }
+
+  .gamfiMenuRightSect {
+    width: 50%;
+  }
+}

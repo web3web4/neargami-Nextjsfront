@@ -1,0 +1,28 @@
+.contentAnswer {
+  display: flex;
+}
+
+.answer {
+  width: 60% !important;
+}
+.answerRight {
+  margin-top: 12px;
+  margin-left: 10px;
+}
+
+@media only screen and (max-width: 480px) {
+  .contentAnswer {
+    flex-direction: column;
+  }
+  .answer {
+    width: 100% !important;
+  }
+
+  .contentAnswer label {
+    padding: 0;
+  }
+
+  .answerRight {
+    margin-bottom: 12px;
+  }
+}

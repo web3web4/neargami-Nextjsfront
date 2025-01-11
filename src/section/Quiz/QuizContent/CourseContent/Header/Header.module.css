@@ -1,0 +1,57 @@
+.navWrapper {
+  z-index: 999;
+  position: relative;
+  background: var(--primary-background-color);
+}
+
+.navWrapper::before,
+.navWrapper::after {
+  position: absolute;
+  left: -25px;
+  top: 0;
+  width: 300px;
+  height: 100%;
+  background-size: cover;
+  content: "";
+  opacity: 0.7;
+}
+
+.navWrapper::before {
+  background: url("../../../../../assets/images/bg/header-shape1.png") center
+    no-repeat;
+}
+
+.navWrapper::after {
+  left: auto;
+  right: -25px;
+  background: url("../../../../../assets/images/bg/header-shape2.png") center
+    no-repeat;
+}
+
+.navWrapper.gamfiHeader {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  width: 100%;
+  height: 90px;
+  transition: 0.3s;
+  z-index: 12;
+  padding: 0px 50px;
+}
+
+.navWrapper.gamfiHeader.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(27, 34, 38, 0.8);
+  backdrop-filter: blur(15px);
+  z-index: 1000;
+  margin-top: 0px;
+  transition: all 0.2s;
+}
+
+.logo img {
+  width: 100px;
+  z-index: 9999;
+  position: relative;
+}

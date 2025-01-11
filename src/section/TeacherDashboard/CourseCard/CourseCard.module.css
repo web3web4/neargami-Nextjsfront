@@ -1,0 +1,108 @@
+.courseCard {
+  padding: 30px 30px 10px;
+  background: var(--card-background-color);
+  transition: all 0.4s;
+  position: relative;
+  z-index: 2;
+}
+
+.courseCard::before {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.05);
+  height: 60px;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  content: "";
+}
+
+.courseCard .courseInfo {
+  margin-bottom: 10px;
+}
+
+.courseCard .courseInfo img {
+  margin-bottom: 50px;
+}
+
+.courseCard .courseInfo a {
+  color: #ffffff;
+}
+
+.courseCard .courseInfo .courseAuthor {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.courseCard .courseInfo .courseAuthor h4 {
+  margin-bottom: 10px;
+  font-size: 22px;
+}
+
+.courseCard .courseContent .courseHeader {
+  position: relative;
+  margin-bottom: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.courseCard .courseContent .courseHeader::before {
+  position: absolute;
+  width: 197px;
+  height: 35px;
+  background: url("../../../assets/images/bg/shape-bg.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  left: -30px;
+  top: 0;
+  content: "";
+  z-index: 111;
+}
+
+.courseCard .courseContent .headingTitle h4 {
+  font-size: 16px;
+  margin-bottom: 0;
+  margin-top: 7px;
+  position: relative;
+}
+
+.courseCard .publishStatus {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.courseCard:hover {
+  background-image: radial-gradient(
+    circle,
+    rgba(137, 120, 211, 0.4) 0%,
+    #1e1f35 100%
+  );
+}
+
+.courseCard:hover .cardHoverWrapper {
+  opacity: 1;
+  visibility: visible;
+}
+
+@media only screen and (max-width: 1199px) {
+  .courseCard {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .courseCard .courseInfo .courseAuthor h4 {
+    font-size: 20px;
+  }
+
+  .courseCard .courseContent .courseHeader::before {
+    left: -20px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .courseCard .courseInfo {
+    flex-direction: column;
+    row-gap: 20px;
+  }
+}

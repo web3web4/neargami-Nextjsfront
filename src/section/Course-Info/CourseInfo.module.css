@@ -1,0 +1,219 @@
+.courseInfoWrapper {
+  background: var(--primary-background-color);
+  padding-top: 70px;
+  padding-bottom: 140px;
+}
+
+.courseInfoWrapper p {
+  margin-bottom: 26px;
+}
+
+.courseInfoWrapper :global(input:not(input[type="radio"])) {
+  width: 90%;
+  background: transparent;
+  outline: none;
+  height: 60px;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  box-sizing: border-box;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 45px;
+  color: rgba(255, 255, 255, 0.5);
+  padding: 0px 21px;
+  height: 50px;
+  border-radius: 10px;
+}
+
+.styledTextArea {
+  width: 90%;
+  background: transparent;
+  outline: none;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 45px;
+  color: rgba(255, 255, 255, 0.5);
+  padding: 0px 21px;
+  border-radius: 10px;
+  height: 100px;
+  resize: none;
+}
+
+.courseInfo {
+  display: flex;
+}
+
+.leftContent {
+  flex: 1;
+}
+
+.fieldContent {
+  margin-bottom: 15px;
+}
+
+.rightContent {
+  flex: 1;
+}
+
+.courseDifficulty {
+  display: flex;
+  width: 90%;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  padding: 10px 20px 0 20px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.courseInfoWrapper :global(input[type="radio"]) {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 15px;
+  height: 15px;
+  border: 2px solid white;
+  border-radius: 50%;
+  position: relative;
+  outline: none;
+  cursor: pointer;
+}
+
+.courseInfoWrapper :global(input[type="radio"]:checked) {
+  background-color: white;
+  border-color: white;
+}
+
+.courseInfoWrapper :global(input[type="radio"] + label) {
+  margin-left: 10px;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.courseLogo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  padding: 0 50px 0 30px;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.courseLogo + label {
+  font-weight: 600;
+}
+
+.courseLogo img {
+  cursor: pointer;
+}
+
+.discriptionQuill {
+  width: 90%;
+}
+
+.courseInfoWrapper :global(.charCounter) {
+  display: flex;
+  justify-content: end;
+  width: 90%;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--secondary-color);
+}
+
+.courseInfoWrapper :global(.ql-container) {
+  height: 688px;
+}
+
+/*  =============== Start Selector ================== */
+
+.courseInfoWrapper :global(#selector) {
+  margin-top: 5px;
+}
+
+.courseInfoWrapper :global(.css-13cymwt-control) {
+  height: 48px;
+}
+
+.courseInfoWrapper :global(.css-hlgwow) {
+  height: 48px;
+}
+
+.courseInfoWrapper :global(.css-1wy0on6) {
+  height: 48px;
+}
+
+.courseInfoWrapper :global(.css-19bb58m) {
+  margin-top: 5px;
+  color: #bbbbc1;
+}
+
+.courseInfoWrapper :global(.css-13cymwt-control) {
+  width: 90%;
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+.courseInfoWrapper :global(#react-select-2-placeholder) {
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
+
+.courseInfoWrapper :global(.css-1iinogm-singleValue) {
+  margin-bottom: 10px;
+}
+
+.courseInfoWrapper :global(.css-5736gi-menu) {
+  width: 90%;
+}
+
+/*  =============== End Selector ================== */
+@media only screen and (max-width: 999px) {
+  .courseInfo {
+    flex-direction: column;
+  }
+
+  .rightContent {
+    margin-top: 15px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .courseDifficulty {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .courseInfoWrapper :global(input:not(input[type="radio"])) {
+    width: 100%;
+  }
+
+  .courseLogo {
+    width: 100%;
+    margin-bottom: 12px;
+  }
+
+  .discriptionQuill {
+    width: 100%;
+  }
+
+  .courseInfoWrapper :global(.css-rrhtqz-control) {
+    width: 100%;
+  }
+  .courseInfoWrapper :global(.css-5736gi-menu) {
+    width: 100%;
+  }
+  .courseInfoWrapper :global(.css-19nvztv-control) {
+    width: 100%;
+  }
+  .courseInfoWrapper :global(.charCounter) {
+    width: 100%;
+  }
+  .styledTextArea {
+    width: 100%;
+  }
+}

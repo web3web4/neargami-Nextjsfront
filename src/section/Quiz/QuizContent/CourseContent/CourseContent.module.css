@@ -1,0 +1,5 @@
+.contentLeft {
+    height: calc(100vh - 90px);
+    padding: 50px;
+    overflow-y: auto; /* Enable vertical scrolling */
+  }

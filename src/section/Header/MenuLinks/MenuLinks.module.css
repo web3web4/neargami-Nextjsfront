@@ -1,0 +1,151 @@
+.gamfiMenuList ul {
+  margin-left: 0;
+  display: flex;
+  align-items: center;
+  column-gap: 40px;
+}
+
+.gamfiMenuList li {
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.gamfiMenuList li a {
+  font-family: "Russo One", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  text-align: center;
+  color: #ffffff;
+  position: relative;
+  display: flex;
+  align-items: center;
+  column-gap: 4px;
+}
+
+.gamfiMenuList li a svg {
+  font-size: 18px;
+}
+
+.gamfiMenuList li:hover a {
+  color: var(--green-color);
+}
+
+.gamfiMenuList li:hover .subMenuList {
+  opacity: 1;
+  visibility: visible;
+  transform: scaleY(1);
+  z-index: 1;
+}
+
+.btnHeader {
+    font-family: "Russo One", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    color: #ffffff;
+    position: relative;
+    column-gap: 4px;
+  }
+  
+  .btnHeader:hover {
+    color: var(--green-color);
+  }
+
+  .subMenuList {
+    margin: 0;
+    display: block;
+    width: 240px;
+    position: absolute;
+    left: 0;
+    top: calc(100% + 40px);
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+    transform: scaleY(0);
+    transform-origin: 0 0 0;
+    transition: all 0.3s ease-in-out;
+    z-index: -9999;
+  }
+  
+  .subMenuList li {
+    display: block;
+    position: relative;
+  }
+  
+  .subMenuList li a {
+    position: relative;
+    display: block;
+    background: #222231;
+    font-size: 16px;
+    font-family: "Russo One", sans-serif;
+    color: hsla(0, 0%, 100%, 0.7);
+    padding: 15px 24px;
+    transition: 0.4s;
+    text-align: left;
+  }
+  
+  .subMenuList li a svg {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+  }
+  
+  .subMenuList li:hover a {
+    color: var(--green-color);
+  }
+  
+  .subMenuList li:hover .subMenuChildList {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+    z-index: 1;
+  }
+  
+  .subMenuList li + li {
+    border-top: 1px solid #343441;
+  }
+  
+  .subMenuChildList {
+    margin: 0;
+    display: block;
+    width: 240px;
+    position: absolute;
+    left: 100%;
+    top: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+    transform: scaleY(0);
+    transform-origin: 0 0 0;
+    transition: all 0.3s ease-in-out;
+    z-index: -9999;
+  }
+  
+@media (max-width: 1024px) {
+  .gamfiMenuList {
+    margin-right: 20px;
+  }
+
+  .gamfiMenuList ul {
+    column-gap: 20px;
+  }
+
+  .subMenuList,
+  .subMenuChildList {
+    width: 210px !important;
+  }
+}
+
+@media (max-width: 991px) {
+  .gamfiMenuList {
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+  }
+}

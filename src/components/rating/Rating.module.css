@@ -1,0 +1,48 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.startsContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.star {
+  font-size: 50px;
+  cursor: pointer;
+  color: #c3c2bb;
+}
+
+.messageSearchInput {
+  width: 100%;
+  margin-bottom: 15px;
+  background: transparent;
+  outline: none;
+  height: 150px;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  box-sizing: border-box;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 45px;
+  color: rgba(255, 255, 255, 0.5);
+  padding: 0px 21px;
+  height: 50px;
+  border-radius: 10px;
+}
+
+.message {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.btnRating {
+  margin-top: 50px;
+  display: flex;
+}

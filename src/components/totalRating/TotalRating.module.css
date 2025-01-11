@@ -1,0 +1,22 @@
+.starsGray {
+  position: relative;
+  display: inline-block;
+  color: gray;
+  overflow: hidden;
+  top: 10px;
+}
+
+.startsGold {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: gold;
+}
+
+.startsLinear {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: gold;
+  overflow: hidden;
+}

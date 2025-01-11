@@ -1,0 +1,171 @@
+.courseHeaderStyleWrapper {
+  background: var(--primary-background-color);
+  display: flex;
+  justify-content: center;
+}
+
+.CourseHeaderContainer {
+  position: relative;
+  padding: 150px 0 20px 0;
+  background: var(--card-background-color);
+  z-index: 1;
+  margin-top: 50px;
+  width: 80%;
+}
+
+.CourseHeaderContainer::before {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0%;
+  top: 0;
+  background: url("../../../assets/images/bg/card-bg-shape-big.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  content: "";
+  opacity: 0.8;
+  z-index: -1;
+}
+
+.totalRatingContent {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.starsRating {
+  font-size: 20px;
+}
+
+.countRating {
+  font-size: 16px;
+}
+
+.courseLogo {
+  position: absolute;
+  top: -100px;
+  left: calc((100% - 200px) / 2);
+  width: 200px;
+  height: 200px;
+  border-radius: 20px;
+}
+
+.userLogo {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.userLogo img {
+  width: 70px;
+  height: 70px;
+  border-radius: 10px;
+}
+
+.courseName {
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  font-size: 36px;
+  line-height: 1.35;
+  padding: 15px;
+  text-align: center;
+}
+
+.courseTitle {
+  margin-bottom: 10px;
+  padding: 15px;
+  text-align: center;
+}
+
+.btnWrapper {
+  margin: 0 auto;
+}
+
+.footerCourse {
+  width: 80%;
+  margin-left: 10%;
+}
+
+.courseText {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.studentCount {
+  display: flex;
+}
+
+.studentCount div {
+  margin-left: 20px;
+  color: white;
+}
+
+.studentCount img {
+  margin-right: 5px;
+}
+
+@media only screen and (max-width: 991px) {
+  .courseName {
+    font-size: 30px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .courseText {
+    flex-direction: column;
+  }
+
+  .courseName {
+    font-size: 26px;
+  }
+
+  .totalRatingContent {
+    position: relative;
+    top: 0px;
+    right: 0px;
+  }
+
+  .userLogo {
+    position: relative;
+    top: 0px;
+    left: 0px;
+  }
+
+  .studentCount {
+    justify-content: center;
+  }
+
+  .studentCount div {
+    margin-left: 0;
+    margin-right: 20px;
+    color: white;
+  }
+
+  .CourseHeaderContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .courseName {
+    font-size: 22px;
+  }
+
+  .courseTitle {
+    padding: 0 10px;
+  }
+
+  .totalRatingContent {
+    position: relative;
+    top: 0px;
+    right: 0px;
+  }
+}

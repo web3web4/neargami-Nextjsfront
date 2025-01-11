@@ -1,0 +1,24 @@
+.gamfiMenuLeftSect {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 15%;
+}
+
+.gamfiMenuLeftSect .logo {
+  z-index: 5;
+}
+
+.gamfiMenuLeftSect .logo a {
+  display: inline-block;
+}
+
+@media (max-width: 540px) {
+  .gamfiMenuLeftSect {
+    width: 180px;
+  }
+
+  .gamfiMenuLeftSect .logo img {
+    width: 100px;
+  }
+}
