@@ -1,7 +1,6 @@
 "use client";
-
 import React from "react";
-import ProgressBar from "@/components/progressBar/ProgressBar";
+import ProgressBar from "@/components/progressBar/v2/ProgressBar";
 import Button from "@/components/button/Button";
 import CountrySelector from "@/components/countrySelector/CountrySelector";
 import banner from "@/assets/images/banner-bg.jpg";
@@ -10,10 +9,7 @@ import styles from "./Wizzard.module.css";
 import Image from "next/image";
 import { useWizard } from "@/hooks/useWizard";
 
-
-
-
-const Wizard = () =>{
+const Wizard = () => {
   const {
     step,
     formInput,
@@ -26,7 +22,6 @@ const Wizard = () =>{
     handleCheckboxChange,
     handleComplateToProfile,
   } = useWizard();
-
 
   return (
     <div className={styles.Wizard}>
@@ -41,7 +36,9 @@ const Wizard = () =>{
           <form>
             {step === 1 && (
               <div className={styles.formDiv}>
-                <div className={styles.stepTitle}>Please fill with your details</div>
+                <div className={styles.stepTitle}>
+                  Please fill with your details
+                </div>
                 <div>
                   <input
                     type="text"
@@ -103,27 +100,32 @@ const Wizard = () =>{
                   Personal Details
                 </div>
                 <span className={styles.subTitleContent}>First Name: </span>
-                <span className={styles.WizardSubText}>{formInput.firstname}</span>
+                <span className={styles.WizardSubText}>
+                  {formInput.firstname}
+                </span>
                 <br />
                 <span className={styles.subTitleContent}>Last Name: </span>
-                <span className={styles.WizardSubText}>{formInput.lastname}</span>
+                <span className={styles.WizardSubText}>
+                  {formInput.lastname}
+                </span>
                 <br />
                 <span className={styles.subTitleContent}>Email: </span>
                 <span className={styles.WizardSubText}>{formInput.email}</span>
                 <br />
                 <span className={styles.subTitleContent}>Country: </span>
-                <span className={styles.WizardSubText}>{formInput.country}</span>
+                <span className={styles.WizardSubText}>
+                  {formInput.country}
+                </span>
                 <br />
                 <br />
               </div>
             )}
             <hr />
-  
+
             <div className={styles.button}>
               {step === 1 && (
                 <>
-  
-                  <Button size="sm" variant="white" href={'/'} >
+                  <Button size="sm" variant="white" href={"/"}>
                     Skip
                   </Button>
 
@@ -137,7 +139,11 @@ const Wizard = () =>{
                   <Button size="md" variant="white" onClick={handlePrev}>
                     Prev
                   </Button>
-                  <Button size="lg" variant="blue" onClick={handleComplateToProfile}>
+                  <Button
+                    size="lg"
+                    variant="blue"
+                    onClick={handleComplateToProfile}
+                  >
                     Complate To Profile
                   </Button>
                   <Button size="lg" variant="mint" onClick={handleBackToHome}>
@@ -151,7 +157,6 @@ const Wizard = () =>{
       </div>
     </div>
   );
-  
-}
+};
 
 export default Wizard;

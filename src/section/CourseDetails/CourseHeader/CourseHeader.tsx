@@ -1,6 +1,6 @@
 "use client"; // need refactor
 import styles from "./CourseHeader.module.css";
-import ProgressBar from "@/components/progressBar/ProgressBar";
+import ProgressBar from "@/components/progressBar/v1/ProgressBar";
 import studentIcon from "@/assets/images/icons/student.svg";
 import viewsIcon from "@/assets/images/icons/view.svg";
 import photoDefault from "@/assets/images/no-Course.png";

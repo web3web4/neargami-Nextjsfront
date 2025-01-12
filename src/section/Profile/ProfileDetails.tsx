@@ -81,7 +81,7 @@ const ProfileDetails = ({ playerId, data  } : ProfileDetailsProps) => {
                     />
                   </span>
                 </li>
-                {playerId && (
+                {!playerId && (
                   <>
                     <li style={{ position: "relative" }}>
                       <strong>Tokens In Your Wallet:</strong>{" "}
@@ -229,11 +229,11 @@ const ProfileDetails = ({ playerId, data  } : ProfileDetailsProps) => {
                     ></canvas>
 
                     {loading && (
-                      <div className="unity-loading-overlay">
-                        <div className="loading-logo">
+                      <div className={styles.unityLoadingOverlay}>
+                        <div className={styles.loadingLogo}>
                           <Image src={logo} alt="Loading Logo" />
                         </div>
-                        <div className="loading-text">
+                        <div className={styles.loadingText}>
                           Loading... {Math.round(progress * 100)}%
                         </div>
                       </div>

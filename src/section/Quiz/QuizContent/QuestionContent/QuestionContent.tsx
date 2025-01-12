@@ -1,7 +1,7 @@
 "use client";
 import { useQuizContent } from "@/hooks/useQuizContent";
 import styles from "./QuestionContent.module.css";
-import ProgressBar from "@/components/progressBar/ProgressBar";
+import ProgressBar from "@/components/progressBar/v1/ProgressBar";
 import CourseTitle from "./CourseTitle/CourseTitle";
 import correctIcon from "@/assets/images/icons/correct.png";
 import unCorrectIcon from "@/assets/images/icons/unCorrect.png";

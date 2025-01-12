@@ -1,5 +1,5 @@
 import { Slider, SliderItem } from "@/components/slider/Slider";
-import ProgressBar from "@/components/progressBar/ProgressBar";
+import ProgressBar from "@/components/progressBar/v1/ProgressBar";
 import styles from "./CourseCard.module.css";
 import studentIcon from "@/assets/images/icons/student.svg";
 import viewsIcon from "@/assets/images/icons/view.svg";
