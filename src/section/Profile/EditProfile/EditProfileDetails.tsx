@@ -13,8 +13,6 @@ import Image from "next/image";
 import CropImage from "@/components/cropImage/CropImage";
 import { useEditProfile } from "@/hooks/useEditProfile";
 
-
-
 const EditProfileDetails = () => {
   const {
     fileInputRef,

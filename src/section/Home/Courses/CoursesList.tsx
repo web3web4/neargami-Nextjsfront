@@ -6,15 +6,19 @@ import { FiSearch } from "react-icons/fi";
 import { searchOnCourses } from "@/apiService";
 import { CoursesResponse } from "@/interfaces/api";
 
-export default function CoursesList({ courses }: { courses: CoursesResponse[] }) {
+export default function CoursesList({
+  courses,
+}: {
+  courses: CoursesResponse[];
+}) {
   const searchRef = useRef<HTMLInputElement>(null);
-  const [filterCourses, setFilterCourses] = useState<CoursesResponse[]>(courses);
+  const [filterCourses, setFilterCourses] =
+    useState<CoursesResponse[]>(courses);
   const handleSearch = async () => {
     if (searchRef.current?.value.trim() !== "") {
       try {
         const response = await searchOnCourses(searchRef.current!.value);
         const coursesData: CoursesResponse[] = response;
-        console.log("Courses data after search:", coursesData);
         setFilterCourses(coursesData);
       } catch {}
     } else {
@@ -59,11 +63,12 @@ export default function CoursesList({ courses }: { courses: CoursesResponse[] })
           </div>
         </div>
         <div className="row">
-          {filterCourses && filterCourses.map((filteredCourse, i) => (
-            <div key={i} className="col-lg-4 col-md-6">
-              <CourseCard {...filteredCourse} />
-            </div>
-          ))}
+          {filterCourses &&
+            filterCourses.map((filteredCourse, i) => (
+              <div key={i} className="col-lg-4 col-md-6">
+                <CourseCard {...filteredCourse} />
+              </div>
+            ))}
         </div>
       </div>
     </div>

@@ -54,7 +54,7 @@ const validateTokenAndProceed = async ( callback: () => Promise<any>) => {
 const handleResponse = <T>(response: ApiResponse<T>, expectedMessage: string): T => {
   console.log("Response:", response);
   
-  if (response.message !== expectedMessage) {
+  if (response.message !== expectedMessage && !response.message.includes(expectedMessage)) {
     throw new Error(`Unexpected server response: ${response.message}`);
   }
 
@@ -688,20 +688,20 @@ export const checkAnswer = async (
  * this function for search on courses
  * @param text this parameter for course id.
  */
-export const searchOnCourses = async (text: string): Promise<CoursesResponse[]> => {
-  return validateTokenAndProceed(async () => {
-    const response = await authFetch<ApiResponse<CoursesResponse[]>>(
-      `${API_BASE_URL}/courses/full-search/${text}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+export const searchOnCourses = async (
+  text: string
+): Promise<CoursesResponse[]> => {
+  const response = await authFetch<ApiResponse<CoursesResponse[]>>(
+    `${API_BASE_URL}/courses/full-search/${text}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
 
-    return handleResponse(response, "search successful");
-  });
+  return handleResponse(response, "findAll courses about");
 };
 
 /**

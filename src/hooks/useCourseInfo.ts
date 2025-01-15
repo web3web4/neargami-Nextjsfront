@@ -5,8 +5,10 @@ import { useRouter } from "next/navigation";
 import { CoursesResponse } from "@/interfaces/api";
 import Swal from "sweetalert2";
 
-
-export const useCourseInfo = (courseId: string, data: CoursesResponse | null) => {
+export const useCourseInfo = (
+  courseId: string,
+  data: CoursesResponse | null
+) => {
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [image, setImage] = useState<string | null>(null);
@@ -49,7 +51,7 @@ export const useCourseInfo = (courseId: string, data: CoursesResponse | null) =>
   };
 
   useEffect(() => {
-    if(data !== null){
+    if (data !== null) {
       setFormInput({
         name: data!.name,
         title: data!.title,
@@ -61,14 +63,13 @@ export const useCourseInfo = (courseId: string, data: CoursesResponse | null) =>
       });
       setImage(data!.logo);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   /**
    * This is to send data to the back end in case of creating a new course.
    */
   const handleSubmit = async () => {
-    console.log(formInput);
     if (!formInput.tag || !formInput.tag.trim()) {
       Swal.fire({
         icon: "warning",
@@ -79,17 +80,19 @@ export const useCourseInfo = (courseId: string, data: CoursesResponse | null) =>
     }
     try {
       const create = await createCourse(formInput);
-      if (create) {
-        Swal.fire({
-          icon: "success",
-          title: "Success",
-          text: "The course has been created successfully!",
-        });
-        router.push(`/show-lesson/${create.data.id}`);
-      }
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "The course has been created successfully!",
+      });
+      router.push(`/show-lesson/${create.id}`);
     } catch (error) {
-      const msgError = error instanceof Error && error.cause && typeof (error.cause as any).message === "string" ?
-      (error.cause as any).message : error;
+      const msgError =
+        error instanceof Error &&
+        error.cause &&
+        typeof (error.cause as any).message === "string"
+          ? (error.cause as any).message
+          : error;
       Swal.fire({
         icon: "error",
         title: "Error",
@@ -121,8 +124,12 @@ export const useCourseInfo = (courseId: string, data: CoursesResponse | null) =>
         });
       }
     } catch (error) {
-      const msgError = error instanceof Error && error.cause && typeof (error.cause as any).message === "string" ?
-      (error.cause as any).message : error;
+      const msgError =
+        error instanceof Error &&
+        error.cause &&
+        typeof (error.cause as any).message === "string"
+          ? (error.cause as any).message
+          : error;
       Swal.fire({
         icon: "error",
         title: "Error",
