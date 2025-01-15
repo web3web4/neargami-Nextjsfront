@@ -196,7 +196,7 @@ export const useProfileDetails = (playerId: string | null) => {
       }
   
       navigator.clipboard
-        .writeText((data as UserProfileData).address)
+        .writeText((data as any).address)
         .then(() => {
           setIsCopied(true);
           setTimeout(() => setIsCopied(false), 4000);

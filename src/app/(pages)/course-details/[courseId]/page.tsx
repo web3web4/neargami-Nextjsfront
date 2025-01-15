@@ -42,6 +42,7 @@ export default async function CourseDetailsPage({ params }: { params: any }) {
         currentPage="Course Details"
         pageTitle=""
         isShowShareIcon={true}
+        
       />
       <CourseHeader data={data} />
       <CourseLesson data={data.lectures} />

@@ -709,7 +709,6 @@ export const searchOnCourses = async (text: string): Promise<CoursesResponse[]> 
  * @returns data from backend
  */
 export const getAllPlayers = async (): Promise<UserProfileData[]> => {
-  return validateTokenAndProceed(async () => {
     const response = await authFetch<ApiResponse<UserProfileResponse[]>>(
       `${API_BASE_URL}/users`,
       {
@@ -722,7 +721,6 @@ export const getAllPlayers = async (): Promise<UserProfileData[]> => {
 
     return handleResponse(response, "findAll");
 
-  });
 };
 
 /**
