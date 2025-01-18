@@ -1,0 +1,173 @@
+.courseCard {
+    padding: 20px 30px 10px;
+    background: var(--card-background-color);
+    transition: all 0.4s;
+    position: relative;
+    z-index: 2;
+    margin-top: 40px;
+    overflow: hidden;
+  }
+  
+  .courseCard a {
+    color: #ffffff;
+    text-decoration: none;
+  }
+  
+  .courseCard a:hover {
+    color: #ffffff;
+  }
+  
+  .courseAuother h1 {
+    font-size: 22px;
+  }
+  
+  .courseInfo {
+    margin-bottom: 10px;
+    column-gap: 20px;
+    row-gap: 15px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .courseAuother h4 {
+    margin-bottom: 10px;
+    font-size: 22px;
+  }
+  
+  .userLogo img {
+    border-radius: 5px;
+  }
+  
+  .courseContent {
+    margin-bottom: 50px;
+  }
+  
+  .courseHeader {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .courseHeader::before {
+    position: absolute;
+    width: 197px;
+    height: 35px;
+    /*background: url("../../../../assets/images/bg/shape-bg.png");*/
+    background-position: center;
+    background-repeat: no-repeat;
+    left: -70px;
+    top: 1px;
+    content: "";
+    z-index: 111;
+  }
+  
+  .headingTitle h2 {
+    font-size: 16px;
+    margin-bottom: 0;
+    margin-top: 7px;
+    position: relative;
+  }
+  
+  .courseCard:hover {
+    background-image: radial-gradient(
+      circle,
+      rgba(137, 120, 211, 0.4) 0%,
+      #1e1f35 100%
+    );
+  }
+  
+  .courseCard:hover .cardHoverWrapper {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .starsRating {
+    font-size: 22px;
+  }
+  
+  .tagContent {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-top: 8px;
+    height: 25.6px;
+  }
+  
+  .tagContent .textContent {
+    white-space: wrap;
+    overflow: hidden;
+    font-size: 14px;
+    height: 45px;
+    margin: 10px 0;
+  }
+  
+  .totalRating {
+    margin-top: 15px;
+  }
+  
+  .courseName {
+    white-space: wrap;
+    overflow: hidden;
+    height: 82px !important;
+  }
+  
+  .ratingDiv {
+    margin-bottom: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: end;
+  }
+  
+  .studentCount {
+    background: rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    height: 45px;
+    bottom: 0;
+    left: 0;
+  }
+  
+  .studentCount div {
+    margin: 0 20px;
+  }
+  
+  .studentCount img {
+    margin-right: 5px;
+  }
+  
+  .starsRating {
+    font-size: 22px;
+  }
+  
+  .totalRating {
+    margin-top: 5px;
+  }
+  
+  .cardHoverWrapper {
+    opacity: 0;
+    visibility: hidden;
+  }
+  
+  @media only screen and (max-width: 1199px) {
+    .courseCard {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  
+    .courseContent .courseHeader::before {
+      left: -20px;
+    }
+  }
+  
+  @media only screen and (max-width: 480px) {
+    .courseInfo {
+      flex-direction: column;
+      row-gap: 20px;
+    }
+  }
+  
