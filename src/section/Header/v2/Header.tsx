@@ -1,7 +1,7 @@
 import styles from "./Header.module.css";
 import Logo from "../Logo/Logo";
 import MenuLinks from "../MenuLinks/MenuLinks";
-import MenuButtons from "./MenuButtons/MenuButtons";
+import MenuButtons from "../MenuButtons/MenuButtons";
 
 const Header = () => {
   return (

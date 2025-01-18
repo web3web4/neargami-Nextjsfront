@@ -7,9 +7,31 @@ import {
   MdOutlineKeyboardArrowDown,
   MdOutlineKeyboardArrowRight,
 } from "react-icons/md";
+import { useAuth } from "@/context/authContext";
+import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
 
 export default function MenuLinks() {
   const { handleNearLogout } = useWallet();
+  const { jwtToken } = useAuth();
+  const router = useRouter();
+
+  const handleMenuClick = async (
+    e: any,
+    url: string,
+    isNeedAuth: boolean | undefined
+  ) => {
+    if (!jwtToken && isNeedAuth) {
+      e.preventDefault();
+      Swal.fire({
+        icon: "warning",
+        title: "No Token Found",
+        text: "Please log in to continue.",
+      });
+    } else {
+      router.push(url);
+    }
+  };
 
   return (
     <div className={styles.gamfiMenuList}>
@@ -21,12 +43,15 @@ export default function MenuLinks() {
                 {menu.title}
               </div>
             ) : (
-              <Link href={menu.url}>
+              <div
+                className={styles.btnHeader}
+                onClick={(e) => handleMenuClick(e, menu.url, menu.isNeedAuth)}
+              >
                 {menu.title}{" "}
                 {menu.subMenus && menu.subMenus?.length > 0 && (
                   <MdOutlineKeyboardArrowDown />
                 )}
-              </Link>
+              </div>
             )}
 
             {menu.subMenus && menu.subMenus?.length > 0 && (
