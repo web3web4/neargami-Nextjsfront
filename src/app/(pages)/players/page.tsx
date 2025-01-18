@@ -4,10 +4,12 @@ import PageHeader from "@/components/pageHeader/PageHeader";
 import PlayersList from "@/section/Players/PlayersList/PlayerList";
 import { UserProfileData } from "@/interfaces/api";
 import { getAllPlayers } from "@/apiService";
+import { generatePlayersMetadata } from "@/utils/generateMetadata";
+
+export const metadata = generatePlayersMetadata();
 
 export default async function PlayersPage() {
   const data:UserProfileData[] = await getAllPlayers();
-  console.log("rere",data);
 
   return (
     <Fragment>

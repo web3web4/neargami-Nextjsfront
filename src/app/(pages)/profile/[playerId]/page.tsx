@@ -4,9 +4,17 @@ import PageHeader from "@/components/pageHeader/PageHeader";
 import ProfileDetails from "@/section/Profile/ProfileDetails";
 import { getUserProfile } from "@/apiService";
 import { UserProfileData } from "@/interfaces/api";
+import { generateProfileMetadata } from "@/utils/generateMetadata";
 
 interface ProfilePageProps {
   params: Promise<{ playerId: string }>;
+}
+
+export async function generateMetadata({ params }: ProfilePageProps) {
+  const { playerId } = await params;
+  const data: UserProfileData = await getUserProfile(playerId);
+
+  return generateProfileMetadata(data, playerId);
 }
 
 export default async function ProfilePage({ params }: ProfilePageProps) {
