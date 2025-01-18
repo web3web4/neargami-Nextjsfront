@@ -3,13 +3,28 @@ import { Lecture } from "./lecture";
 import {Options} from "@/interfaces/qa";
 
 export interface UserProfileData {
-    firstname?: string;
-    lastname?: string;
-    email?: string;
-    country?: string;
-    id? : string;
-    image?:string;
-    [key: string]: any; 
+    id?: string,
+    firstname?: string,
+    lastname?: string,
+    email?: string,
+    address?: string,
+    signature?: string,
+    message?: string,
+    country?: string,
+    phone?: string,
+    linkedin?: string,
+    discord?: string,
+    facebook?: string,
+    twitter?: string,
+    ngc?: number,
+    top_points?: number,
+    about?: null,
+    slug?: null,
+    createdAt?: any,
+    image?: string,
+    game?: any,
+    isAdmin?: boolean,
+    [key: string]: any;
   }
   
 export interface CourseData  {
@@ -54,27 +69,27 @@ export interface ApiResponse<T> {
   }
 
 export interface UserProfileResponse {
-    id: string,
+    id?: string,
     firstname: string,
     lastname: string,
     email: string,
-    address: string,
-    signature: string,
-    message: string,
+    address?: string,
+    signature?: string,
+    message?: string,
     country: string,
-    phone: string,
+    phone?: string,
     linkedin: string,
     discord: string,
     facebook: string,
     twitter: string,
-    ngc: number,
-    top_points: number,
-    about: null,
-    slug: null,
-    createdAt: any,
+    ngc?: number,
+    top_points?: number,
+    about?: null,
+    slug?: null,
+    createdAt?: any,
     image: string,
-    game: any,
-    isAdmin: boolean,
+    game?: any,
+    isAdmin?: boolean,
     [key: string]: any;
 
   }
