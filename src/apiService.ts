@@ -157,27 +157,6 @@ export const getAllCoursesForTeacher = async (): Promise<CoursesResponse[]> => {
 
 
 /**
- * this function for get all Course
- * @method isTokenValid To verify the current session
- * @returns data from backend
- */
-export const getProfileCourses = async (userId:string): Promise<CoursesResponse[]> => {
-  return validateTokenAndProceed(async () => {
-    if (!userId) throw new Error("User ID is missing");
-
-    const response = await authFetch<ApiResponse<CoursesResponse[]>>(`${API_BASE_URL}/courses/teacher/${userId}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    return handleResponse(response, "findAll");
-  });
-};
-
-
-/**
  * this function for get all Course by status for Admin
  * @method isTokenValid To verify the current session
  * @returns data from backend

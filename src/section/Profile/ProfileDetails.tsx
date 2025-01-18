@@ -13,20 +13,14 @@ import pointIcon from "@/assets/images/icons/point-info.png";
 import LoadingWrapper from "@/components/loading/loadingWrapper/LoadingWrapper";
 import Image from "next/image";
 import styles from "./ProfileDetails.module.css";
-import { UserProfileData , CoursesResponse } from "@/interfaces/api";
-import { useEffect, useState } from "react";
-import CoursesList from "./CourseList/CoursesList";
-
+import { UserProfileData } from "@/interfaces/api";
 
 interface ProfileDetailsProps {
   playerId: string | null;
   data: UserProfileData;
-  courses?:CoursesResponse[];
 }
 
-const ProfileDetails = ({ playerId, data , courses  } : ProfileDetailsProps) => {
-  const [filterCourses, setFilterCourses] = useState<CoursesResponse[]>([]);
-
+const ProfileDetails = ({ playerId, data  } : ProfileDetailsProps) => {
   const {
     balance,
     isCopied,
@@ -37,17 +31,6 @@ const ProfileDetails = ({ playerId, data , courses  } : ProfileDetailsProps) => 
     handleClaims,
   } = useProfileDetails(playerId);
 
-  useEffect(() => {
-    if (courses) {
-      const approvedCourses = courses.filter(
-        (course) => course.publish_status === "APPROVED"
-      );
-      setFilterCourses(approvedCourses);
-    } else {
-      setFilterCourses([]);
-    }
-  }, [courses]);
-  
 
   return (
     <div className={styles.ProfileDetailsStyleWrapper}>
@@ -279,29 +262,7 @@ const ProfileDetails = ({ playerId, data , courses  } : ProfileDetailsProps) => 
             </div>
           </div>
         </div>
-        
-        {courses && (
-          <>
-            <h2 className={styles.rightContentTitle}>Courses Offered</h2>
-            <div className="row">
-              {filterCourses && filterCourses.length > 0 ? (
-                filterCourses.map((filteredCourse, i) => (
-                  <div key={i} className="col-lg-4 col-md-6">
-                    <CoursesList {...filteredCourse} />
-                  </div>
-                ))
-              ) : (
-                <div className="col-12 text-center">
-                  <p className={styles.sectionCourses}>There are no courses published yet.</p>
-                </div>
-              )}
-            </div>
-          </>
-        )}
-
-
       </div>
-
     </div>
   );
 };
