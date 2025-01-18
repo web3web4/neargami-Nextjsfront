@@ -1,6 +1,7 @@
-import { getUserProfile, updateUserProfile, uploadFile } from "@/apiService";
+"use client";
+import {  updateUserProfile, uploadFile } from "@/apiService";
 import { useLoading } from "@/context/LoadingContext";
-import { UserProfileData } from "@/interfaces/api";
+import { UserProfileData,UserProfileResponse } from "@/interfaces/api";
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import { SingleValue } from "react-select";
 import Swal from "sweetalert2";
@@ -11,11 +12,11 @@ interface CountryData {
     value: string;
   }
   
-export const useEditProfile = () => {
+export const useEditProfile = (data:UserProfileResponse) => {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const { setIsLoading } = useLoading();
     const [image, setImage] = useState<string | null>(null);
-    const [formInput, setFormInput] = useState<UserProfileData>({
+    const [formInput, setFormInput] = useState<UserProfileResponse>({
       firstname: "",
       lastname: "",
       email: "",
@@ -42,13 +43,15 @@ export const useEditProfile = () => {
         ...prevInput,
         [id]: value,
       }));
-    };
+    };  
+
+
   
     const handleCroppedImage = async (img: any) => {
       try {
         setImage(img);
         const url = await uploadFile(img);
-        setFormInput((prevInput) => ({
+        setFormInput((prevInput : any) => ({
           ...prevInput,
           image: url,
         }));
@@ -94,22 +97,27 @@ export const useEditProfile = () => {
         });
       }
     };
-  
+
+
     useEffect(() => {
       const getUser = async () => {
         setIsLoading(true);
         try {
-          const response: UserProfileData = await getUserProfile();
+          const response =  data;
+          console.log('datat responce',response);
           setFormInput(response);
+          console.log('data frominput',formInput);
           setIsLoading(false);
         } catch (error) {
-          console.error("Error fetching user profile:", error);
+          console.error("Error fetching get user:", error);
           setIsLoading(false);
         }
       };
   
       getUser();
-    }, [setIsLoading]);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+  
 
   return {
     fileInputRef,

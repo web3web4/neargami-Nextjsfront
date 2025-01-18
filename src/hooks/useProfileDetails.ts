@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 import { UserProfileData } from "@/interfaces/api";
 import { useAuth } from "@/context/authContext";
 
-export const useProfileDetails = (playerId: string | null) => {
+export const useProfileDetails = (playerId: string | null ) => {
     const [data, setData] = useState<UserProfileData>({});
     const [balance, setBalance] = useState<string | null>("0");
     const [loading, setLoading] = useState<boolean>(true);
@@ -196,13 +196,15 @@ export const useProfileDetails = (playerId: string | null) => {
       }
   
       navigator.clipboard
-        .writeText((data as UserProfileData).address)
+        .writeText((data as any).address)
         .then(() => {
           setIsCopied(true);
           setTimeout(() => setIsCopied(false), 4000);
         })
         .catch((err) => console.error("Failed to copy!", err));
     };
+
+
 
 
 
