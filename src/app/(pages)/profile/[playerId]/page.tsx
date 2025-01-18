@@ -9,6 +9,13 @@ interface ProfilePageProps {
   params: Promise<{ playerId: string }>;
 }
 
+export async function generateMetadata({ params }: ProfilePageProps) {
+  const { playerId } = await params;
+  const data: UserProfileData = await getUserProfile(playerId);
+
+  return generateProfileMetadata(data, playerId);
+}
+
 export default async function ProfilePage({ params }: ProfilePageProps) {
   const { playerId } = await params;
   const data: UserProfileData = await getUserProfile(playerId);
