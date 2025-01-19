@@ -4,7 +4,7 @@ import PageHeader from "@/components/pageHeader/PageHeader";
 import CourseHeader from "@/section/CourseDetails/CourseHeader/CourseHeader";
 import CourseLesson from "@/section/CourseDetails/CourseLesson/CourseLesson";
 import CourseContent from "@/section/CourseDetails/CourseContent/CourseContent";
-import { getAllLectureForCourse } from "@/apiService";
+import { fetchEndPlayers, fetchStartPlayers, getAllLectureForCourse } from "@/apiService";
 import { generateCourseDetailsMetadata } from "@/utils/generateMetadata";
 
 export async function generateMetadata({ params }: { params: any }) {
@@ -17,6 +17,9 @@ export async function generateMetadata({ params }: { params: any }) {
 export default async function CourseDetailsPage({ params }: { params: any }) {
   const { courseId } = await params;
   const data = await getAllLectureForCourse(courseId);
+  const popupEndUser = await fetchEndPlayers(courseId);
+  const popupStartUser = await fetchStartPlayers(courseId);
+
 
   return (
     <Fragment>
@@ -27,7 +30,7 @@ export default async function CourseDetailsPage({ params }: { params: any }) {
         isShowShareIcon={true}
         
       />
-      <CourseHeader data={data} />
+      <CourseHeader data={data} popupEndUser={popupEndUser} popupStartUser={popupStartUser}/>
       <CourseLesson data={data.lectures} />
       <CourseContent content={data.lectures[0]?.course?.description} />
     </Fragment>

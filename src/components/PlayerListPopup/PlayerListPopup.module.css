@@ -1,0 +1,54 @@
+.popupContainer {
+    padding: 20px;
+    text-align: center;
+    max-height: 80vh; /* تحديد الحد الأقصى للارتفاع */
+    overflow-y: auto; /* تمكين التمرير عمودي */
+  }
+  
+  .popupContainer h3 {
+    margin-bottom: 15px;
+  }
+  
+  .popupContainer .playerList {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 عناصر في كل صف */
+    gap: 20px; /* المسافة بين الأعمدة */
+    justify-content: center; /* محاذاة العناصر في المنتصف */
+  }
+  
+  .popupContainer .playerItem {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  
+  .popupContainer .playerImage {
+    border-radius: 50%;
+    margin-right: 10px;
+    width: 40px; /* عرض الصورة */
+    height: 40px; /* ارتفاع الصورة */
+  }
+  
+  .popupContainer .playerDetails {
+    display: flex;
+  }
+  
+  .popupContainer .playerDetails p {
+    margin: 0;
+    font-size: 14px;
+  }
+  
+  .closeButton {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 15px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .closeButton:hover {
+    background-color: #d32f2f;
+  }
+  

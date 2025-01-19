@@ -152,3 +152,11 @@ export interface UserProfileResponse {
     width: number,
     thumbnailUrl: string,
   }
+
+  export interface DataPopup {
+    id:string,
+    firstname:string,
+    lastname:string,
+    image?:string
+    [key: string]: any;
+  }
