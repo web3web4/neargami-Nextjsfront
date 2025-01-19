@@ -17,8 +17,8 @@ export async function generateMetadata({ params }: { params: any }) {
 export default async function CourseDetailsPage({ params }: { params: any }) {
   const { courseId } = await params;
   const data = await getAllLectureForCourse(courseId);
-  const popupEndUser = await fetchEndPlayers(courseId);
-  const popupStartUser = await fetchStartPlayers(courseId);
+  const popupEndUser = await fetchEndPlayers(/*courseId*/);
+  const popupStartUser = await fetchStartPlayers(/*courseId*/);
 
 
   return (

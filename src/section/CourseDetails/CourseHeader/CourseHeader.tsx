@@ -62,7 +62,7 @@ const CourseHeader = ({ data , popupEndUser , popupStartUser}: HeaderCourses) =>
   const handleRatingClick = () => {
     setShowPopup(true);
   };
-
+/*
   const fetchStartPlayers = async (): Promise<string[]> => {
     const response = await fetch(`/api/start-players?courseId=${data.id}`);
     if (!response.ok) {
@@ -78,7 +78,7 @@ const CourseHeader = ({ data , popupEndUser , popupStartUser}: HeaderCourses) =>
     }
     return response.json();
   };
-
+*/
   return (
     <Fragment>
 

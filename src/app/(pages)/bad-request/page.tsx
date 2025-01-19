@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 
 export default function BadRequestPage() {
   const searchParams = useSearchParams();
@@ -12,9 +13,9 @@ export default function BadRequestPage() {
       <h1 style={{ fontSize: "72px", color: "#ff6347" }}>😢</h1>
       <h2>Error {errorCode}</h2>
       <p>{errorMessage}</p>
-      <a href="/" style={{ color: "#0070f3", textDecoration: "underline" }}>
+      <Link href="/" style={{ color: "#0070f3", textDecoration: "underline" }}>
         Go back to the homepage
-      </a>
+      </Link>
     </div>
   );
 }
