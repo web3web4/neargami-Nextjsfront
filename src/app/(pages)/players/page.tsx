@@ -14,7 +14,7 @@ interface Props {
 export default async function PlayersPage({ searchParams }: Props) {
   const page = parseInt(searchParams.page as string) || 1; 
 
-  const data:UserProfileData[] = await getAllPlayers();
+  const data:UserProfileData[] = await getAllPlayers(page);
 
 
   return (

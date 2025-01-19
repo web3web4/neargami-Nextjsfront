@@ -729,9 +729,9 @@ export const searchOnCourses = async (text: string): Promise<CoursesResponse[]> 
  * this function for get all palyers
  * @returns data from backend
  */
-export const getAllPlayers = async (): Promise<UserProfileData[]> => {
+export const getAllPlayers = async (page:any): Promise<UserProfileData[]> => {
     const response = await authFetch<ApiResponse<UserProfileResponse[]>>(
-      `${API_BASE_URL}/users`,
+      `${API_BASE_URL}/users?page=${page}`,
       {
         method: "GET",
         headers: {

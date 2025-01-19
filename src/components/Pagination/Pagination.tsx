@@ -15,7 +15,7 @@ const Pagination = ({ currentPage }: PaginationProps) => {
   };
 
   const renderPageNumbers = () => {
-    const totalPages = 3; // افترض أن لديك 100 صفحة أو يمكنك جلب العدد من API
+    const totalPages = 6; 
     const pageNumbers = [];
 
     for (let i = 1; i <= totalPages; i++) {
