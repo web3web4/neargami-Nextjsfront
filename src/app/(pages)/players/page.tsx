@@ -7,15 +7,21 @@ import { getAllPlayers } from "@/apiService";
 import { generatePlayersMetadata } from "@/utils/generateMetadata";
 
 export const metadata = generatePlayersMetadata();
+interface Props {
+  searchParams: { [key: string]: string | string[] };
+}
 
-export default async function PlayersPage() {
+export default async function PlayersPage({ searchParams }: Props) {
+  const page = parseInt(searchParams.page as string) || 1; 
+
   const data:UserProfileData[] = await getAllPlayers();
+
 
   return (
     <Fragment>
         <Header />
         <PageHeader currentPage="Players" pageTitle="NearGami Players" />
-        <PlayersList data={data} />
+        <PlayersList data={data} currentPage={page} />
     </Fragment>
   );
 }

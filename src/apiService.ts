@@ -2,7 +2,7 @@
 
 import {authFetch, isTokenValidServer } from "./utils/authFetch";
 import { jwtDecode } from "jwt-decode";
-import {UserProfileData , CourseData , ApiResponse ,UserProfileResponse , CoursesResponse , LessonData, LessonResponse, QAResponse, QAData, CheckAnswerResponse, NgcResponse, UploadFileResponse} from "@/interfaces/api";
+import {UserProfileData , CourseData , ApiResponse ,UserProfileResponse , CoursesResponse , LessonData, LessonResponse, QAResponse, QAData, CheckAnswerResponse, NgcResponse, UploadFileResponse, DataPopup} from "@/interfaces/api";
 import { cookies } from "next/headers";
 import { dataUrlToBlob } from "./utils/dataUrlToBlob";
 import { CourseInProgress } from "./interfaces/course";
@@ -838,4 +838,43 @@ export const uploadFile = async (fileUpload: any): Promise<UploadFileResponse> =
     return response.data?.url;
   });
 });
+};
+
+
+/**
+ * this function for get all palyers Attending the course in popup header
+ * @returns data from backend
+ */
+export const fetchStartPlayers = async (courseId:string): Promise<DataPopup[]> => {
+  const response = await authFetch<ApiResponse<DataPopup[]>>(
+    `${API_BASE_URL}/users`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  return handleResponse(response, "findAll");
+
+};
+
+/**
+ * this function for get all palyers Completed the Course in popup header
+ * @returns data from backend
+ */
+export const fetchEndPlayers = async (courseId:string): Promise<DataPopup[]> => {
+  const response = await authFetch<ApiResponse<DataPopup[]>>(
+    `${API_BASE_URL}/users`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  return handleResponse(response, "findAll");
+
 };
