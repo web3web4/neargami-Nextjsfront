@@ -1,8 +1,8 @@
-"use client"; // need refactor
-import { useEffect, useState } from "react";
+"use client";
 import styles from "./CourseLesson.module.css";
 import Link from "next/link";
 import { Lecture } from "@/interfaces/lecture";
+import { useEffect, useState } from "react";
 
 const CourseLesson = ({ data }: { data: Lecture[] }) => {
   const [lessons, setLessons] = useState<Lecture[]>([]);
@@ -18,47 +18,51 @@ const CourseLesson = ({ data }: { data: Lecture[] }) => {
     <div className={styles.courseLessonStyleWrapper}>
       <div className="container">
         <div className={styles.lessonRow}>
-          {lessons?.map((data, i) => (
+          {lessons?.map((lecture, i) => (
             <div
-              key={data.id}
+              key={lecture.id}
               className={`${styles.lessonItem} ${
-                data?.userLecture[0]?.end_at !== null &&
-                data?.userLecture[0]?.end_at !== undefined
+                lecture?.userLecture &&
+                lecture.userLecture.length > 0 &&
+                lecture?.userLecture[0]?.end_at !== null &&
+                lecture?.userLecture[0]?.end_at !== undefined
                   ? styles.shapeActive
                   : ""
               }`}
             >
-              <Link href={`/quiz/${data.course.id}/${data.id}`}>
+              <Link href={`/quiz/${lecture.course.id}/${lecture.id}`}>
                 <div className={styles.lessonItemInner}>
                   <h4
                     className={`${styles.lessonTitle} ${
-                      data?.userLecture[0]?.end_at !== null &&
-                      data?.userLecture[0]?.end_at !== undefined
+                      lecture?.userLecture &&
+                      lecture.userLecture.length > 0 &&
+                      lecture?.userLecture[0]?.end_at !== null &&
+                      lecture?.userLecture[0]?.end_at !== undefined
                         ? styles.active
                         : ""
                     }`}
                   >
-                    Lesson #{data.order}
+                    Lesson #{lecture.order}
                   </h4>
                   <ul className={styles.lessonCheckList}>
-                    <div className={styles.lessonName}>{data.title}</div>
+                    <div className={styles.lessonName}>{lecture.title}</div>
                   </ul>
                 </div>
               </Link>
               <div className={styles.arrowContent}>
                 <h3
                   className={
-                    data?.userLecture[0]?.end_at !== null &&
-                    data?.userLecture[0]?.end_at !== undefined
+                    lecture?.userLecture &&
+                    lecture.userLecture.length > 0 &&
+                    lecture?.userLecture[0]?.end_at !== null &&
+                    lecture?.userLecture[0]?.end_at !== undefined
                       ? styles.active
                       : ""
                   }
                 >
-                  points {data.question.length * 10}
+                  points {lecture.totalPrize}
                 </h3>
-                {lessons.length - 1 !== i && (
-                  <div className={styles.arrowDown} />
-                )}
+                {data.length - 1 !== i && <div className={styles.arrowDown} />}
               </div>
             </div>
           ))}

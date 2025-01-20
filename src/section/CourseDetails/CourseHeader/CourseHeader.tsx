@@ -12,42 +12,27 @@ import Rating from "@/components/rating/Rating";
 import Button from "@/components/button/Button";
 import Image from "next/image";
 import Link from "next/link";
-import { Lecture } from "@/interfaces/lecture";
 import { LessonResponse } from "@/interfaces/api";
+import { useAuth } from "@/context/authContext";
 
 const CourseHeader = ({ data }: { data: LessonResponse }) => {
-  const [course, setCourse] = useState<Lecture>();
-  const [completedLessons, setCompletedLessons] = useState(0);
-  const [totalPrize, setTotalPrize] = useState<number>(0);
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [isNotStartCourse, setIsNotStartCourse] = useState<boolean>(true);
+  const { jwtToken } = useAuth();
 
   useEffect(() => {
     if (data && data?.lectures?.length > 0) {
-      setCourse(data.lectures[0]);
-      const count = data.lectures.reduce((init, lecture) => {
-        const isCompleted = lecture.userLecture.some(
-          (userLecture: any) => userLecture.end_at !== null
+      if (data?.lectures[0]?.userLecture) {
+        const isCourseNotStarted = data?.lectures?.every(
+          (item) =>
+            item?.userLecture[0]?.start_at === null ||
+            item?.userLecture[0]?.start_at === undefined ||
+            item?.userLecture[0] === undefined
         );
-        return isCompleted ? init + 1 : init;
-      }, 0);
-      setCompletedLessons(count);
-
-      const sumPrize = data.lectures.reduce((init, lecture) => {
-        const prize = lecture.question.length * 10;
-        return init + prize;
-      }, 0);
-      setTotalPrize(sumPrize);
-
-      const isCourseNotStarted = data.lectures.every(
-        (item) =>
-          item?.userLecture[0]?.start_at === null ||
-          item?.userLecture[0]?.start_at === undefined ||
-          item?.userLecture[0] === undefined
-      );
-      setIsNotStartCourse(isCourseNotStarted);
+        setIsNotStartCourse(isCourseNotStarted);
+      }
     }
-  }, [data, course]);
+  }, [data]);
 
   const handleRatingClick = () => {
     setShowPopup(true);
@@ -57,7 +42,7 @@ const CourseHeader = ({ data }: { data: LessonResponse }) => {
     <Fragment>
       <CustomPopup open={showPopup} closed={setShowPopup}>
         <Rating
-          courseId={course?.course ? course.course.id : 0}
+          courseId={data.lectures[0]?.course ? data.lectures[0].course.id : 0}
           closed={setShowPopup}
         />
       </CustomPopup>
@@ -65,7 +50,7 @@ const CourseHeader = ({ data }: { data: LessonResponse }) => {
         <div className={styles.CourseHeaderContainer}>
           <div>
             <Image
-              src={course?.course?.logo || photoDefault}
+              src={data.lectures[0]?.course?.logo || photoDefault}
               className={styles.courseLogo}
               width={200}
               height={200}
@@ -73,9 +58,9 @@ const CourseHeader = ({ data }: { data: LessonResponse }) => {
             />
           </div>
           <div className={styles.userLogo}>
-            <Link href={`/profile/${course?.course?.teacher.id}`}>
+            <Link href={`/profile/${data.lectures[0]?.course?.teacher.id}`}>
               <Image
-                src={course?.course?.teacher.image || userDefault}
+                src={data.lectures[0]?.course?.teacher.image || userDefault}
                 width={70}
                 height={70}
                 alt="user logo"
@@ -86,28 +71,39 @@ const CourseHeader = ({ data }: { data: LessonResponse }) => {
             <TotalRating
               starsRatingStyle={styles.starsRating}
               countRatingStyle={styles.countRating}
-              courseId={course?.course ? course.course.id : 0}
+              courseId={
+                data.lectures[0]?.course ? data.lectures[0].course.id : 0
+              }
             />
-            {!isNotStartCourse && (
+            {!isNotStartCourse && jwtToken && (
               <Button size="sm" variant="mint" onClick={handleRatingClick}>
                 Rating
               </Button>
             )}
           </div>
-          <h2 className={styles.courseName}>{course?.course?.name}</h2>
-          <div className={styles.courseTitle}>{course?.course?.title}</div>
+          <h2 className={styles.courseName}>
+            {data.lectures[0]?.course?.name}
+          </h2>
+          <div className={styles.courseTitle}>
+            {data.lectures[0]?.course?.title}
+          </div>
           <div className={styles.footerCourse}>
+            {jwtToken && (
+              <>
+                <div className={styles.courseText}>
+                  <h5>
+                    Course Progress {data?.completedLessons}/
+                    {data?.lectures?.length}
+                  </h5>
+                </div>
+                <ProgressBar
+                  progress={`
+                ${(data?.completedLessons * 100) / data?.lectures?.length}%`}
+                />
+              </>
+            )}
             <div className={styles.courseText}>
-              <h5>
-                Course Progress {completedLessons}/{data?.lectures?.length}
-              </h5>
-            </div>
-            <ProgressBar
-              progress={`
-                ${(completedLessons * 100) / data?.lectures?.length}%`}
-            />
-            <div className={styles.courseText}>
-              <h5>Total Prize {totalPrize} NGC</h5>
+              <h5>Total Prize {data?.totalCoursePrize} NGC</h5>
               <div className={styles.studentCount}>
                 <div>
                   <Image src={viewsIcon} height={25} width={25} alt="" />
