@@ -12,8 +12,16 @@ import styles from "./EditProfileDetails.module.css";
 import Image from "next/image";
 import CropImage from "@/components/cropImage/CropImage";
 import { useEditProfile } from "@/hooks/useEditProfile";
+import { UserProfileResponse } from "@/interfaces/api";
 
-const EditProfileDetails = () => {
+interface EditProfile {
+  data:UserProfileResponse
+}
+
+const EditProfileDetails = ({data }:EditProfile) => {
+  console.log("Data received in EditProfileDetails:", data);
+
+
   const {
     fileInputRef,
     formInput,
@@ -23,7 +31,10 @@ const EditProfileDetails = () => {
     handleCroppedImage,
     handleButtonClick,
     handleSubmit,
-  } = useEditProfile();
+  } = useEditProfile(data);
+
+
+
 
   return (
     <LoadingWrapper>
@@ -74,6 +85,7 @@ const EditProfileDetails = () => {
                   <input
                     type="text"
                     id="firstname"
+                    name="firstname"
                     className={styles.input}
                     placeholder="Enter your first name"
                     value={formInput.firstname}

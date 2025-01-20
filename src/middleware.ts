@@ -29,7 +29,6 @@ export const config = {
     '/profile/:path*',  // only this path without sub-route...  example /profile/game this work ,  or /profile  don't work
     '/edit-profile',
     '/teacher-dashboard',
-    '/players',
     '/leader-board',
     '/quiz/:courseId/:lectureId',  // dynamic route
   ], 

@@ -2,6 +2,9 @@ import { Fragment } from "react";
 import Header from "@/section/Header/v1/Header";
 import PageHeader from "@/components/pageHeader/PageHeader";
 import LegalDisclaimer from "@/section/LegalDisclaimer/LegalDisclaimer";
+import { generateLegalDisclaimerMetadata } from "@/utils/generateMetadata";
+
+export const metadata = generateLegalDisclaimerMetadata();
 
 export default function LegalDisclaimerPage() {
   return (

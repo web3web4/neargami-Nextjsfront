@@ -64,7 +64,7 @@ import Link from "next/link";
           className={styles.playerImage}
           width={100}
           height={100}
-          onError={() => (props.image = userDefault.src)}
+          onError={() => (props.image == userDefault)}
         />
       </div>
       <div className={styles.playerDetail}>

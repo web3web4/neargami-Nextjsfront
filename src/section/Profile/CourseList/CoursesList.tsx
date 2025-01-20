@@ -1,6 +1,6 @@
 import TotalRating from "@/components/totalRating/TotalRating";
 import ngcIcons from "@/assets/images/brand/Logo/Without-BG/Logo-3-Size/32.png";
-import styles from "./CourseCard.module.css";
+import styles from "./CoursesList.module.css";
 import studentIcon from "@/assets/images/icons/student.svg";
 import viewsIcon from "@/assets/images/icons/view.svg";
 import photoDefault from "@/assets/images/no-Course.png";
@@ -10,18 +10,18 @@ import Image from "next/image";
 import CardHover from "@/components/cardHover/CardHover";
 import { CoursesResponse } from "@/interfaces/api";
 
-const CourseCard = (props: CoursesResponse) => {
+const CoursesList = (props: CoursesResponse) => {
   return (
     <div className={styles.courseCard}>
-      <Link href={`/course-details/${props.slug}`}>
+      <Link href={`/course-details/${props.id}`}>
         <div className={styles.courseInfo}>
           <div>
             <Image src={ngcIcons} width={23} alt="" /> {props.total_score} NGC
           </div>
           <Image
             src={props.logo || photoDefault}
-            width={500}
-            height={500}
+            width={400}
+            height={400}
             alt={`${props.name} logo`}
             loading="lazy"
           />
@@ -76,4 +76,4 @@ const CourseCard = (props: CoursesResponse) => {
   );
 };
 
-export default CourseCard;
+export default CoursesList;

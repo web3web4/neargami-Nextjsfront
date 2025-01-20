@@ -17,7 +17,7 @@ export default function MenuButtons() {
   const [buttonText, setButtonText] = useState<string>("Connect");
   const [isMobileMenu, setMobileMenu] = useState<boolean>(false);
   const { handleNearLogin } = useWallet();
-  const { jwtToken  } = useAuth();
+  const { jwtToken } = useAuth();
 
   const handleMobileMenu = () => {
     setMobileMenu(!isMobileMenu);
@@ -25,11 +25,11 @@ export default function MenuButtons() {
 
   return (
     <div className={styles.gamfiMenuBtns}>
+      <button className={styles.menuBtn} onClick={() => handleMobileMenu()}>
+        <MdNotes />
+      </button>
       {jwtToken ? (
         <>
-          <button className={styles.menuBtn} onClick={() => handleMobileMenu()}>
-            <MdNotes />
-          </button>
           <Link href="/profile">
             <div className={styles.walletBtn}>
               <Image src={ngcIcons} width={25} alt="icon" />
