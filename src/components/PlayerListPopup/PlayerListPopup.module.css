@@ -1,19 +1,27 @@
 .popupContainer {
     padding: 20px;
     text-align: center;
-    max-height: 80vh; /* تحديد الحد الأقصى للارتفاع */
-    overflow-y: auto; /* تمكين التمرير عمودي */
+    max-height: 80vh; 
+    overflow-y: auto; 
   }
   
   .popupContainer h3 {
     margin-bottom: 15px;
   }
+
+  .description {
+    margin-bottom: 15px;
+    color: white;
+    font-size: 16px;
+    text-align: left;
+  }
+  
   
   .popupContainer .playerList {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 عناصر في كل صف */
-    gap: 20px; /* المسافة بين الأعمدة */
-    justify-content: center; /* محاذاة العناصر في المنتصف */
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 20px; 
+    justify-content: center; 
   }
   
   .popupContainer .playerItem {
@@ -25,8 +33,8 @@
   .popupContainer .playerImage {
     border-radius: 50%;
     margin-right: 10px;
-    width: 40px; /* عرض الصورة */
-    height: 40px; /* ارتفاع الصورة */
+    width: 40px; 
+    height: 40px; 
   }
   
   .popupContainer .playerDetails {
