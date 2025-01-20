@@ -4,11 +4,13 @@ import { UserProfileData } from "@/interfaces/api";
 import PlayerCard from "../PlayerCard/PlayerCard";
 import LoadingWrapper from "@/components/loading/loadingWrapper/LoadingWrapper";
 import style from "./PlayerList.module.css";
+import Pagination from "@/components/Pagination/Pagination";
 interface PlayerDetailsProps {
   data: UserProfileData[]; 
+  currentPage: number;
 }
 
-export default function PlayersList( {data} : PlayerDetailsProps) {
+export default function PlayersList( {data,currentPage} : PlayerDetailsProps) {
 
   return (
     <LoadingWrapper>
@@ -21,6 +23,7 @@ export default function PlayersList( {data} : PlayerDetailsProps) {
             </div>
           ))}
         </div>
+        <Pagination currentPage={currentPage} />
       </div>
     </LoadingWrapper>
   );

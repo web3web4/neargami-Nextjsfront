@@ -2,20 +2,7 @@
 
 import { authFetch, isTokenValidServer } from "./utils/authFetch";
 import { jwtDecode } from "jwt-decode";
-import {
-  UserProfileData,
-  CourseData,
-  ApiResponse,
-  UserProfileResponse,
-  CoursesResponse,
-  LessonData,
-  LessonResponse,
-  QAResponse,
-  QAData,
-  CheckAnswerResponse,
-  NgcResponse,
-  UploadFileResponse,
-} from "@/interfaces/api";
+import {UserProfileData , CourseData , ApiResponse ,UserProfileResponse , CoursesResponse , LessonData, LessonResponse, QAResponse, QAData, CheckAnswerResponse, NgcResponse, UploadFileResponse, DataPopup} from "@/interfaces/api";
 import { cookies } from "next/headers";
 import { dataUrlToBlob } from "./utils/dataUrlToBlob";
 import { CourseInProgress } from "./interfaces/course";
@@ -776,16 +763,16 @@ export const searchOnCourses = async (
  * this function for get all palyers
  * @returns data from backend
  */
-export const getAllPlayers = async (): Promise<UserProfileData[]> => {
-  const response = await authFetch<ApiResponse<UserProfileResponse[]>>(
-    `${API_BASE_URL}/users`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
+export const getAllPlayers = async (page:any): Promise<UserProfileData[]> => {
+    const response = await authFetch<ApiResponse<UserProfileResponse[]>>(
+      `${API_BASE_URL}/users?page=${page}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
   return handleResponse(response, "findAll");
 };
@@ -872,17 +859,56 @@ export const uploadFile = async (
   return validateTokenAndProceed(async () => {
     if (fileUpload?.name === undefined) fileUpload = dataUrlToBlob(fileUpload);
 
-    const formData = new FormData();
-    formData.append("file", fileUpload);
-    return validateTokenAndProceed(async () => {
-      const response = await authFetch<ApiResponse<UploadFileResponse>>(
-        `${API_BASE_URL}/upload`,
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-      return response.data?.url;
-    });
+  const formData = new FormData();
+  formData.append("file", fileUpload);
+  return validateTokenAndProceed(async () => {
+    const response = await authFetch<ApiResponse<UploadFileResponse>>(
+      `${API_BASE_URL}/upload`, 
+      {
+      method: "POST",
+      body: formData,
+    }
+  );
+    return response.data?.url;
   });
+});
+};
+
+
+/**
+ * this function for get all palyers Attending the course in popup header
+ * @returns data from backend
+ */
+export const fetchStartPlayers = async (/*courseId:string*/): Promise<DataPopup[]> => {
+  const response = await authFetch<ApiResponse<DataPopup[]>>(
+    `${API_BASE_URL}/users`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  return handleResponse(response, "findAll");
+
+};
+
+/**
+ * this function for get all palyers Completed the Course in popup header
+ * @returns data from backend
+ */
+export const fetchEndPlayers = async (/*courseId:string*/): Promise<DataPopup[]> => {
+  const response = await authFetch<ApiResponse<DataPopup[]>>(
+    `${API_BASE_URL}/users`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  return handleResponse(response, "findAll");
+
 };
