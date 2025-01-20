@@ -21,12 +21,21 @@ export const authFetch = async<T> (url: string, options: RequestInit = {}): Prom
     try {
       const response = await fetch(url, { ...options, headers });
   
-      if (![200, 201, 204].includes(response.status)) {
+
+      if (![200, 201, 204 ,304].includes(response.status)) {
         const errorDetails = await response.json();
-        throw new Error(`HTTP error! Status: ${response.status}`, { cause: errorDetails });
+        if (typeof window !== "undefined") {
+          window.location.href = `/bad-request?code=${response.status}&message=${encodeURIComponent(
+            errorDetails.message || "An error occurred."
+          )}`;
+        }
+        throw new Error(`HTTP error! Status: ${response.status}`, {
+          cause: errorDetails,
+        });
       }
       const jsonResponse = await response.json();
       return jsonResponse as T;
+
     } catch (error:any) {
       console.error("authFetch error:", error.message);
       throw error;

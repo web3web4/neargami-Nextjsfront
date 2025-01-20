@@ -729,9 +729,9 @@ export const searchOnCourses = async (text: string): Promise<CoursesResponse[]> 
  * this function for get all palyers
  * @returns data from backend
  */
-export const getAllPlayers = async (): Promise<UserProfileData[]> => {
+export const getAllPlayers = async (page:any): Promise<UserProfileData[]> => {
     const response = await authFetch<ApiResponse<UserProfileResponse[]>>(
-      `${API_BASE_URL}/users`,
+      `${API_BASE_URL}/users?page=${page}`,
       {
         method: "GET",
         headers: {
@@ -845,7 +845,7 @@ export const uploadFile = async (fileUpload: any): Promise<UploadFileResponse> =
  * this function for get all palyers Attending the course in popup header
  * @returns data from backend
  */
-export const fetchStartPlayers = async (courseId:string): Promise<DataPopup[]> => {
+export const fetchStartPlayers = async (/*courseId:string*/): Promise<DataPopup[]> => {
   const response = await authFetch<ApiResponse<DataPopup[]>>(
     `${API_BASE_URL}/users`,
     {
@@ -864,7 +864,7 @@ export const fetchStartPlayers = async (courseId:string): Promise<DataPopup[]> =
  * this function for get all palyers Completed the Course in popup header
  * @returns data from backend
  */
-export const fetchEndPlayers = async (courseId:string): Promise<DataPopup[]> => {
+export const fetchEndPlayers = async (/*courseId:string*/): Promise<DataPopup[]> => {
   const response = await authFetch<ApiResponse<DataPopup[]>>(
     `${API_BASE_URL}/users`,
     {
