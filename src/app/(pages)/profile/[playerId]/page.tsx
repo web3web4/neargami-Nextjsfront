@@ -4,6 +4,7 @@ import PageHeader from "@/components/pageHeader/PageHeader";
 import ProfileDetails from "@/section/Profile/ProfileDetails";
 import { getProfileCourses, getUserProfile } from "@/apiService";
 import { CoursesResponse, UserProfileData } from "@/interfaces/api";
+import { generateProfileMetadata } from "@/utils/generateMetadata";
 
 interface ProfilePageProps {
   params: Promise<{ playerId: string }>;
