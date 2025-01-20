@@ -128,9 +128,12 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
        * Step 3: Save initial state to cookies for the user
        */
       setAuthData("nearSignature", accountId);
-      setAuthData("firstLogin", "true");
-      setAuthData("firstShowingOfHome", "true");
+      if (!getCookie("nearSignature")) {
+        setAuthData("firstLogin", "true");
+        setAuthData("firstShowingOfHome", "true");
+      }
 
+      setAuthData("nearSignature", accountId);
       /**
        * Step 4: Get challenge data from backend and sign the message
        */
@@ -210,8 +213,6 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
        */
       setAuthData("nearSignature", null);
       deleteCookie("jwtToken");
-      setAuthData("firstLogin", false);
-      setAuthData("firstShowingOfHome", false);
 
       /**
        * Step 3: Redirect to homepage
