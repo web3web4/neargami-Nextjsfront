@@ -12,27 +12,26 @@ import Rating from "@/components/rating/Rating";
 import Button from "@/components/button/Button";
 import Image from "next/image";
 import Link from "next/link";
-import { Lecture } from "@/interfaces/lecture";
 import { DataPopup, LessonResponse } from "@/interfaces/api";
 import PlayerListPopup from "@/components/PlayerListPopup/PlayerListPopup";
 import { useAuth } from "@/context/authContext";
 
-interface HeaderCourses  {
-  data:LessonResponse,
-  popupEndUser:DataPopup[],
-  popupStartUser:DataPopup[]
+interface HeaderCourses {
+  data: LessonResponse;
+  popupEndUser: DataPopup[];
+  popupStartUser: DataPopup[];
 }
 
-const CourseHeader = ({ data , popupEndUser , popupStartUser}: HeaderCourses) => {
-  const [course, setCourse] = useState<Lecture>();
-  const [completedLessons, setCompletedLessons] = useState(0);
-  const [totalPrize, setTotalPrize] = useState<number>(0);
+const CourseHeader = ({
+  data,
+  popupEndUser,
+  popupStartUser,
+}: HeaderCourses) => {
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [isNotStartCourse, setIsNotStartCourse] = useState<boolean>(true);
-  const { jwtToken } = useAuth();
-
   const [showStartPopup, setShowStartPopup] = useState<boolean>(false);
   const [showEndPopup, setShowEndPopup] = useState<boolean>(false);
+  const { jwtToken } = useAuth();
 
   useEffect(() => {
     if (data && data?.lectures?.length > 0) {
@@ -51,7 +50,7 @@ const CourseHeader = ({ data , popupEndUser , popupStartUser}: HeaderCourses) =>
   const handleRatingClick = () => {
     setShowPopup(true);
   };
-/*
+  /*
   const fetchStartPlayers = async (): Promise<string[]> => {
     const response = await fetch(`/api/start-players?courseId=${data.id}`);
     if (!response.ok) {
@@ -70,7 +69,6 @@ const CourseHeader = ({ data , popupEndUser , popupStartUser}: HeaderCourses) =>
 */
   return (
     <Fragment>
-
       <PlayerListPopup
         open={showStartPopup}
         onClose={() => setShowStartPopup(false)}
@@ -83,7 +81,6 @@ const CourseHeader = ({ data , popupEndUser , popupStartUser}: HeaderCourses) =>
         title="Students Who Completed the Course"
         fetchPlayers={popupEndUser}
       />
-
 
       <CustomPopup open={showPopup} closed={setShowPopup}>
         <Rating
@@ -150,11 +147,17 @@ const CourseHeader = ({ data , popupEndUser , popupStartUser}: HeaderCourses) =>
             <div className={styles.courseText}>
               <h5>Total Prize {data?.totalCoursePrize} NGC</h5>
               <div className={styles.studentCount}>
-                <div onClick={() => setShowStartPopup(true)} style={{ cursor: "pointer" }}>
+                <div
+                  onClick={() => setShowStartPopup(true)}
+                  style={{ cursor: "pointer" }}
+                >
                   <Image src={viewsIcon} height={25} width={25} alt="" />
                   {data?.counts?.[0]?._count?.start_time || 0}
                 </div>
-                <div onClick={() => setShowEndPopup(true)} style={{ cursor: "pointer" }}>
+                <div
+                  onClick={() => setShowEndPopup(true)}
+                  style={{ cursor: "pointer" }}
+                >
                   <Image src={studentIcon} height={25} width={25} alt="" />
                   {data?.counts?.[0]?._count?.end_time || 0}
                 </div>
