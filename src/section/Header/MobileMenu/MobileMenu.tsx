@@ -6,8 +6,10 @@ import logo from "@/assets/images/brand/Logo/Without-BG/Logo-5.png";
 import data from "@/assets/data/menu/menuDataMobile";
 import Image from "next/image";
 import Link from "next/link";
-import { Url } from "next/dist/shared/lib/router/router";
 import { useWallet } from "@/auth/nearAuth";
+import Swal from "sweetalert2";
+import { useAuth } from "@/context/authContext";
+import { useRouter } from "next/navigation";
 
 const MobileMenu = ({
   mobileMenuhandle,
@@ -16,6 +18,25 @@ const MobileMenu = ({
 }) => {
   const [menuId, setMenuId] = useState<string>("");
   const { handleNearLogout } = useWallet();
+  const { jwtToken } = useAuth();
+  const router = useRouter();
+
+  const handleMenuClick = async (
+    e: any,
+    url: string,
+    isNeedAuth: boolean | undefined
+  ) => {
+    if (!jwtToken && isNeedAuth) {
+      e.preventDefault();
+      Swal.fire({
+        icon: "warning",
+        title: "No Token Found",
+        text: "Please log in to continue.",
+      });
+    } else {
+      router.push(url);
+    }
+  };
 
   return (
     <div className={styles.gamfiMobileMenu}>
@@ -53,7 +74,14 @@ const MobileMenu = ({
                     {menu.title}
                   </div>
                 ) : (
-                  <Link href={menu.url as Url}>{menu.title}</Link>
+                  <div
+                    className={styles.btnHeader}
+                    onClick={(e) =>
+                      handleMenuClick(e, menu.url, menu.isNeedAuth)
+                    }
+                  >
+                    {menu.title}
+                  </div>
                 )}
               </li>
             ))}

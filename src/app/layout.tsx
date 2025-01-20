@@ -3,6 +3,7 @@ import { inter, russoOne } from "@/utils/font";
 import { AuthProvider } from "../context/authContext";
 import "./index.css";
 import { WalletProvider } from "@/auth/nearAuth";
+import { Analytics } from '@vercel/analytics/next';
 
 export const metadata: Metadata = {
   title: "NearGami",
@@ -40,6 +41,7 @@ export default function RootLayout({
         <AuthProvider>
           <WalletProvider>
             <main>{children}</main>
+            <Analytics />
           </WalletProvider>
         </AuthProvider>
       </body>

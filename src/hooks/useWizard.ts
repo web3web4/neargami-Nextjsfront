@@ -1,5 +1,6 @@
 import { updateUserProfile } from "@/apiService";
 import { UserProfileData } from "@/interfaces/api";
+import { setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { SingleValue } from "react-select";
@@ -23,7 +24,7 @@ const [formInput, setFormInput] = useState<UserProfileData>({
 });
 
 useEffect(() => {
-  localStorage.removeItem("firstLogin");
+  setCookie("firstLogin", false);
 }, []);
 
 const handleCountryChange = (selectedCountry: SingleValue<CountryData>) => {

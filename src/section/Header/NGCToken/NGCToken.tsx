@@ -16,11 +16,10 @@ export default function NGCToken() {
       } catch (error) {
         console.log(error);
       }
-
     };
 
     getCurrNgcs();
   }, []);
 
-  return <div>{points?.toString()}</div>;
+  return <div>{points ? points.toString() : 0}</div>;
 }
