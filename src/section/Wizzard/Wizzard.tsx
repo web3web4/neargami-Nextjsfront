@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { Fragment, useState } from "react";
 import ProgressBar from "@/components/progressBar/v2/ProgressBar";
 import Button from "@/components/button/Button";
 import CountrySelector from "@/components/countrySelector/CountrySelector";
@@ -8,12 +8,15 @@ import land from "@/assets/images/Land.png";
 import styles from "./Wizzard.module.css";
 import Image from "next/image";
 import { useWizard } from "@/hooks/useWizard";
+import PlayerListPopup from "@/components/PlayerListPopup/PlayerListPopup";
 
 const Wizard = () => {
+  const [showStartPopup, setShowStartPopup] = useState<boolean>(false);
   const {
     step,
     formInput,
     isAccepted,
+    descriptionpopup,
     handleNext,
     handlePrev,
     handleBackToHome,
@@ -24,6 +27,14 @@ const Wizard = () => {
   } = useWizard();
 
   return (
+    <Fragment>
+      <PlayerListPopup
+        open={showStartPopup}
+        onClose={() => setShowStartPopup(false)}
+        title="Terms and condition"
+        fetchPlayers={null}
+        description={descriptionpopup}
+      />
     <div className={styles.Wizard}>
       <div className={styles.WizardLogo}>
         <Image src={banner} alt="" />
@@ -87,7 +98,7 @@ const Wizard = () => {
                   <label className={styles.label}>
                     Please accept our{" "}
                     <span>
-                      <a href="#d">Terms and condition</a>
+                      <a href="#" onClick={()=>setShowStartPopup(true)}>Terms and condition</a>
                     </span>{" "}
                   </label>
                 </div>
@@ -156,6 +167,7 @@ const Wizard = () => {
         </div>
       </div>
     </div>
+    </Fragment>
   );
 };
 
