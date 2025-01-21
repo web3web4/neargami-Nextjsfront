@@ -13,12 +13,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [nearSignature, setNearSignature] = useState<string | null>(
     (getCookie("nearSignature") as string) || null
   );
-  const [firstLogin, setFirstLogin] = useState<boolean>(
-    getCookie("firstLogin") === "true"
-  );
-  const [firstShowingOfHome, setFirstShowingOfHome] = useState<boolean>(
-    getCookie("firstShowingOfHome") === "true"
-  );
   const [jwtToken, setJwtToken] = useState<string | null >(
     (getCookie("jwtToken") as string) || null
   );
@@ -28,12 +22,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (key === "nearSignature") {
       setNearSignature(value);
       setCookie("nearSignature", value);
-    } else if (key === "firstLogin") {
-      setFirstLogin(value);
-      setCookie("firstLogin", value);
-    } else if (key === "firstShowingOfHome") {
-      setFirstShowingOfHome(value);
-      setCookie("firstShowingOfHome", value);
     } else if (key === "jwtToken") {
       setJwtToken(value);
       setCookie("jwtToken", value);
@@ -137,7 +125,7 @@ useEffect(() => {
 
   return (
     <AuthContext.Provider
-      value={{ nearSignature, firstLogin, firstShowingOfHome, jwtToken, setAuthData }}
+      value={{ nearSignature, jwtToken, setAuthData }}
     >
       {children}
     </AuthContext.Provider>

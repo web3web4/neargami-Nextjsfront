@@ -1,7 +1,5 @@
 export interface IAuthContextType {
     nearSignature: string | null;
-    firstLogin: boolean;
-    firstShowingOfHome: boolean;
     jwtToken:string | null;
     setAuthData: (key: string, value: any) => void;
     //isTokenValid: (showMessage?: boolean) => Promise<boolean>;
