@@ -4,13 +4,15 @@ import CourseCard from "./CourseCard/CourseCard";
 import styles from "./CoursesList.module.css";
 import { FiSearch } from "react-icons/fi";
 import { searchOnCourses } from "@/apiService";
-import { CoursesResponse } from "@/interfaces/api";
+import { CoursesResponse, DataPopup } from "@/interfaces/api";
 
-export default function CoursesList({
-  courses,
-}: {
-  courses: CoursesResponse[];
-}) {
+interface CourseList {
+  courses:CoursesResponse[],
+  popupEndUser:DataPopup[],
+  popupStartUser:DataPopup[]
+}
+export default function CoursesList({courses,popupEndUser,popupStartUser}: CourseList) {
+
   const searchRef = useRef<HTMLInputElement>(null);
   const [filterCourses, setFilterCourses] =
     useState<CoursesResponse[]>(courses);
@@ -66,7 +68,7 @@ export default function CoursesList({
           {filterCourses &&
             filterCourses.map((filteredCourse, i) => (
               <div key={i} className="col-lg-4 col-md-6">
-                <CourseCard {...filteredCourse} />
+                <CourseCard props={filteredCourse} popupEndUser={popupEndUser} popupStartUser={popupStartUser}/>
               </div>
             ))}
         </div>

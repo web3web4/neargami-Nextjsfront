@@ -50,23 +50,7 @@ const CourseHeader = ({
   const handleRatingClick = () => {
     setShowPopup(true);
   };
-  /*
-  const fetchStartPlayers = async (): Promise<string[]> => {
-    const response = await fetch(`/api/start-players?courseId=${data.id}`);
-    if (!response.ok) {
-      throw new Error("Failed to fetch start players");
-    }
-    return response.json();
-  };
 
-  const fetchEndPlayers = async (): Promise<string[]> => {
-    const response = await fetch(`/api/end-players?courseId=${data.id}`);
-    if (!response.ok) {
-      throw new Error("Failed to fetch end players");
-    }
-    return response.json();
-  };
-*/
   return (
     <Fragment>
       <PlayerListPopup
