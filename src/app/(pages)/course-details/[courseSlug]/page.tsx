@@ -8,15 +8,16 @@ import { fetchEndPlayers, fetchStartPlayers, getAllLectureForCourse } from "@/ap
 import { generateCourseDetailsMetadata } from "@/utils/generateMetadata";
 
 export async function generateMetadata({ params }: { params: any }) {
-  const { courseId } = params;
-  const data = await getAllLectureForCourse(courseId);
+  const { courseSlug } = params;
+  const data = await getAllLectureForCourse(courseSlug);
 
-  return generateCourseDetailsMetadata(data, courseId);
+  return generateCourseDetailsMetadata(data, courseSlug);
 }
 
 export default async function CourseDetailsPage({ params }: { params: any }) {
-  const { courseId } = await params;
-  const data = await getAllLectureForCourse(courseId);
+  const { courseSlug } = await params;
+  const data = await getAllLectureForCourse(courseSlug);
+  // You Can Get Course Id From Data,
   const popupEndUser = await fetchEndPlayers(/*courseId*/);
   const popupStartUser = await fetchStartPlayers(/*courseId*/);
 

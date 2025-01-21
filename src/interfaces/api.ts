@@ -103,6 +103,7 @@ export interface UserProfileResponse {
     tag: string;
     difficulty: string;
     isAdmin?: boolean; 
+    slug: string;
     teacher?: {
       id: number;
       image: string;
