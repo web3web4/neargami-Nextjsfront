@@ -8,10 +8,34 @@ import userDefault from "@/assets/images/no-User.png";
 import Link from "next/link";
 import Image from "next/image";
 import CardHover from "@/components/cardHover/CardHover";
-import { CoursesResponse } from "@/interfaces/api";
+import { CoursesResponse, DataPopup } from "@/interfaces/api";
+import { Fragment, useState } from "react";
+import PlayerListPopup from "@/components/PlayerListPopup/PlayerListPopup";
 
-const CourseCard = (props: CoursesResponse) => {
+interface CourseCardProps {
+  props: CoursesResponse; 
+  popupEndUser: DataPopup[]; 
+  popupStartUser: DataPopup[]; 
+}
+
+const CourseCard =  ({props , popupEndUser,popupStartUser}: CourseCardProps ) => {
+
+    const [showStartPopup, setShowStartPopup] = useState<boolean>(false);
+    const [showEndPopup, setShowEndPopup] = useState<boolean>(false);
   return (
+    <Fragment>
+      <PlayerListPopup
+        open={showStartPopup}
+        onClose={() => setShowStartPopup(false)}
+        title="Students Attending the course"
+        fetchPlayers={popupStartUser}
+      />
+      <PlayerListPopup
+        open={showEndPopup}
+        onClose={() => setShowEndPopup(false)}
+        title="Students Who Completed the Course"
+        fetchPlayers={popupEndUser}
+      />
     <div className={styles.courseCard}>
       <Link href={`/course-details/${props.slug}`}>
         <div className={styles.courseInfo}>
@@ -62,17 +86,24 @@ const CourseCard = (props: CoursesResponse) => {
         </div>
       </div>
       <div className={styles.studentCount}>
-        <div>
-          <Image src={viewsIcon} width={25} alt="" />
+        <div
+          onClick={() => setShowStartPopup(true)}
+          style={{ cursor: "pointer" }}
+        >
+          <Image src={viewsIcon} height={25} width={25} alt="" />
           {props.counts?._count?.start_time || 0}
         </div>
-        <div>
-          <Image src={studentIcon} width={25} alt="" />
-          {props.counts?._count?.end_time || 0}
+        <div
+          onClick={() => setShowEndPopup(true)}
+          style={{ cursor: "pointer" }}
+        >
+          <Image src={studentIcon} height={25} width={25} alt="" />
+          {props.counts?._count?.start_time || 0}
         </div>
       </div>
       <CardHover styles={styles} />
     </div>
+    </Fragment>
   );
 };
 

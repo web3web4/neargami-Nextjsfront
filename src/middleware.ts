@@ -26,10 +26,10 @@ export function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     '/wizard/:path*',  //  Any sub-route within /wizard don't work
-    '/profile/:path*',  // only this path without sub-route...  example /profile/game this work ,  or /profile  don't work
+    //'/profile/:path*',  // only this path without sub-route...  example /profile/game this work ,  or /profile  don't work
     '/edit-profile',
+    '/profile',
     '/teacher-dashboard',
-    '/leader-board',
     '/quiz/:courseId/:lectureId',  // dynamic route
   ], 
 };

@@ -17,7 +17,7 @@ export const data: MenuItem[] = [
     id: "1W3WV",
     title: "Leader Board",
     url: "/leader-board",
-    isNeedAuth: true,
+    isNeedAuth: false,
   },
   {
     id: "1W4WV",

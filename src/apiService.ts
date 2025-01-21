@@ -127,7 +127,6 @@ export const updateUserProfile = async (
 export const getUserProfile = async (
   playerId?: string | null
 ): Promise<UserProfileResponse> => {
-  return validateTokenAndProceed(async () => {
     const userId = playerId || (await getUserIdFromToken());
     if (!userId) throw new Error("User ID is missing");
 
@@ -142,7 +141,7 @@ export const getUserProfile = async (
     );
 
     return handleResponse(response, "find one user");
-  });
+
 };
 
 /**
@@ -177,7 +176,7 @@ export const getAllCoursesForTeacher = async (): Promise<CoursesResponse[]> => {
 export const getProfileCourses = async (
   userId: string
 ): Promise<CoursesResponse[]> => {
-  return validateTokenAndProceed(async () => {
+  
     if (!userId) throw new Error("User ID is missing");
 
     const response = await authFetch<ApiResponse<CoursesResponse[]>>(
@@ -191,7 +190,6 @@ export const getProfileCourses = async (
     );
 
     return handleResponse(response, "findAll");
-  });
 };
 
 /**
