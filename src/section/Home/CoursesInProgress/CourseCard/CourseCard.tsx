@@ -13,13 +13,13 @@ const CourseCard = ({ data }: { data: CourseInProgress[] }) => {
   const sliderSettings = {
     dots: true,
     arrows: false,
-    autoplay: true,
+    autoplay: false,
     speed: 1500,
     autoplaySpeed: 4000,
     cssEase: "linear",
     centerMode: true,
     centerPadding: "0px",
-    infinite: true,
+    infinite: data.length > 1,
     slidesToShow: 1,
     slidesToScroll: 1,
   };
