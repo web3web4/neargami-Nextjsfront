@@ -65,12 +65,12 @@ export const generateHomeMetadata = () => {
 // For Course Details Page
 export const generateCourseDetailsMetadata = (
   data: LessonResponse,
-  courseId: string
+  courseSlug: string
 ) => {
   return returnMetadata(
     data.lectures[0].course.name || defaultTitle,
     data.lectures[0].course.description || defaultDescription,
-    `/course-details/${courseId}`,
+    `/course-details/${courseSlug}`,
     {
       url: data.lectures[0].course.logo || defaultCourseLogo,
       width: 600,
@@ -82,12 +82,12 @@ export const generateCourseDetailsMetadata = (
 // For Course Info Page
 export const generateCourseInfoMetadata = (
   data: CoursesResponse | null,
-  courseId: string
+  courseSlug: string
 ) => {
   return returnMetadata(
     (data && data.name) || defaultTitle,
     (data && data.description) || defaultDescription,
-    `/course-info/${courseId}`,
+    `/course-info/${courseSlug}`,
     {
       url: (data && data.logo) || defaultCourseLogo.src,
       width: 600,

@@ -13,7 +13,7 @@ const CourseCard = ({ data }: { data: CourseInProgress[] }) => {
   const sliderSettings = {
     dots: true,
     arrows: false,
-    autoplay: false,
+    autoplay: true,
     speed: 1500,
     autoplaySpeed: 4000,
     cssEase: "linear",

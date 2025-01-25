@@ -14,6 +14,7 @@ const CourseCard = ({
   difficulty,
   publish_status,
   isAdmin,
+  slug
 }: CoursesResponse) => {
   return (
     <div className={styles.courseCard}>
@@ -43,9 +44,9 @@ const CourseCard = ({
       </div>
       <div className={styles.publishStatus}>
         {isAdmin ? (
-          <CardButtons id={id!} publish_status={publish_status} style={styles.publishStatus}/>
+          <CardButtons id={id!} slug={slug!} publish_status={publish_status} style={styles.publishStatus}/>
         ) : publish_status.toUpperCase() !== "REJECTED" ? (
-          <Button variant="mint" size="sm" href={`/course-info/${id}`}>
+          <Button variant="mint" size="sm" href={`/course-info/${slug}`}>
             Edit
           </Button>
         ) : (

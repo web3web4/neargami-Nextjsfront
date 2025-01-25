@@ -7,10 +7,12 @@ import Swal from "sweetalert2";
 export default function CardButtons({
   id,
   publish_status,
+  slug,
   style,
 }: {
   id: number;
   publish_status: string;
+  slug: string;
   style: string;
 }) {
   const [showRejectInput, setShowRejectInput] = useState(false);
@@ -78,7 +80,7 @@ export default function CardButtons({
       <Button
         variant="mint"
         size="sm"
-        href={`/course-info/${id}`}
+        href={`/course-info/${slug}`}
         style={{ marginRight: "10px" }}
       >
         Edit

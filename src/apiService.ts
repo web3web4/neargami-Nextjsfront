@@ -2,7 +2,21 @@
 
 import { authFetch, isTokenValidServer } from "./utils/authFetch";
 import { jwtDecode } from "jwt-decode";
-import {UserProfileData , CourseData , ApiResponse ,UserProfileResponse , CoursesResponse , LessonData, LessonResponse, QAResponse, QAData, CheckAnswerResponse, NgcResponse, UploadFileResponse, DataPopup} from "@/interfaces/api";
+import {
+  UserProfileData,
+  CourseData,
+  ApiResponse,
+  UserProfileResponse,
+  CoursesResponse,
+  LessonData,
+  LessonResponse,
+  QAResponse,
+  QAData,
+  CheckAnswerResponse,
+  NgcResponse,
+  UploadFileResponse,
+  DataPopup,
+} from "@/interfaces/api";
 import { cookies } from "next/headers";
 import { dataUrlToBlob } from "./utils/dataUrlToBlob";
 import { CourseInProgress } from "./interfaces/course";
@@ -54,8 +68,11 @@ const handleResponse = <T>(
   expectedMessage: string
 ): T => {
   console.log("Response:", response);
-  
-  if (response.message !== expectedMessage && !response.message.includes(expectedMessage)) {
+
+  if (
+    response.message !== expectedMessage &&
+    !response.message.includes(expectedMessage)
+  ) {
     throw new Error(`Unexpected server response: ${response.message}`);
   }
 
@@ -127,21 +144,20 @@ export const updateUserProfile = async (
 export const getUserProfile = async (
   playerId?: string | null
 ): Promise<UserProfileResponse> => {
-    const userId = playerId || (await getUserIdFromToken());
-    if (!userId) throw new Error("User ID is missing");
+  const userId = playerId || (await getUserIdFromToken());
+  if (!userId) throw new Error("User ID is missing");
 
-    const response = await authFetch<ApiResponse<UserProfileResponse>>(
-      `${API_BASE_URL}/users/${userId}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+  const response = await authFetch<ApiResponse<UserProfileResponse>>(
+    `${API_BASE_URL}/users/${userId}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
 
-    return handleResponse(response, "find one user");
-
+  return handleResponse(response, "find one user");
 };
 
 /**
@@ -176,20 +192,19 @@ export const getAllCoursesForTeacher = async (): Promise<CoursesResponse[]> => {
 export const getProfileCourses = async (
   userId: string
 ): Promise<CoursesResponse[]> => {
-  
-    if (!userId) throw new Error("User ID is missing");
+  if (!userId) throw new Error("User ID is missing");
 
-    const response = await authFetch<ApiResponse<CoursesResponse[]>>(
-      `${API_BASE_URL}/courses/teacher/${userId}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+  const response = await authFetch<ApiResponse<CoursesResponse[]>>(
+    `${API_BASE_URL}/courses/teacher/${userId}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
 
-    return handleResponse(response, "findAll");
+  return handleResponse(response, "findAll");
 };
 
 /**
@@ -247,12 +262,12 @@ export const updateCourseStatus = async (
  * @method isTokenValid To verify the current session
  * @returns data from backend
  */
-export const getCourseById = async (
-  courseId: string
+export const getCourseBySlug = async (
+  courseSlug: string
 ): Promise<CoursesResponse> => {
   return validateTokenAndProceed(async () => {
     const response = await authFetch<ApiResponse<CoursesResponse>>(
-      `${API_BASE_URL}/courses/${courseId}`,
+      `${API_BASE_URL}/courses/${courseSlug}`,
       {
         method: "GET",
         headers: {
@@ -261,7 +276,7 @@ export const getCourseById = async (
       }
     );
 
-    return handleResponse(response, "findOne");
+    return handleResponse(response, "findAll");
   });
 };
 
@@ -591,15 +606,12 @@ export const getAllLectureForCourse = async (
     apiUrl = `${API_BASE_URL}/course/slugAuth/${slug}/lectures`;
   }
 
-  const response = await authFetch<ApiResponse<LessonResponse>>(
-    apiUrl,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
+  const response = await authFetch<ApiResponse<LessonResponse>>(apiUrl, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
   return handleResponse(response, "findAll Lectures by course slug");
 };
 
@@ -759,16 +771,16 @@ export const searchOnCourses = async (
  * this function for get all palyers
  * @returns data from backend
  */
-export const getAllPlayers = async (page:any): Promise<UserProfileData[]> => {
-    const response = await authFetch<ApiResponse<UserProfileResponse[]>>(
-      `${API_BASE_URL}/users?page=${page}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+export const getAllPlayers = async (page: any): Promise<UserProfileData[]> => {
+  const response = await authFetch<ApiResponse<UserProfileResponse[]>>(
+    `${API_BASE_URL}/users?page=${page}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
 
   return handleResponse(response, "findAll");
 };
@@ -855,27 +867,28 @@ export const uploadFile = async (
   return validateTokenAndProceed(async () => {
     if (fileUpload?.name === undefined) fileUpload = dataUrlToBlob(fileUpload);
 
-  const formData = new FormData();
-  formData.append("file", fileUpload);
-  return validateTokenAndProceed(async () => {
-    const response = await authFetch<ApiResponse<UploadFileResponse>>(
-      `${API_BASE_URL}/upload`, 
-      {
-      method: "POST",
-      body: formData,
-    }
-  );
-    return response.data?.url;
+    const formData = new FormData();
+    formData.append("file", fileUpload);
+    return validateTokenAndProceed(async () => {
+      const response = await authFetch<ApiResponse<UploadFileResponse>>(
+        `${API_BASE_URL}/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+      return response.data?.url;
+    });
   });
-});
 };
-
 
 /**
  * this function for get all palyers Attending the course in popup header
  * @returns data from backend
  */
-export const fetchStartPlayers = async (/*courseId:string*/): Promise<DataPopup[]> => {
+export const fetchStartPlayers = async (/*courseId:string*/): Promise<
+  DataPopup[]
+> => {
   const response = await authFetch<ApiResponse<DataPopup[]>>(
     `${API_BASE_URL}/users`,
     {
@@ -887,14 +900,15 @@ export const fetchStartPlayers = async (/*courseId:string*/): Promise<DataPopup[
   );
 
   return handleResponse(response, "findAll");
-
 };
 
 /**
  * this function for get all palyers Completed the Course in popup header
  * @returns data from backend
  */
-export const fetchEndPlayers = async (/*courseId:string*/): Promise<DataPopup[]> => {
+export const fetchEndPlayers = async (/*courseId:string*/): Promise<
+  DataPopup[]
+> => {
   const response = await authFetch<ApiResponse<DataPopup[]>>(
     `${API_BASE_URL}/users`,
     {
@@ -906,5 +920,4 @@ export const fetchEndPlayers = async (/*courseId:string*/): Promise<DataPopup[]>
   );
 
   return handleResponse(response, "findAll");
-
 };
