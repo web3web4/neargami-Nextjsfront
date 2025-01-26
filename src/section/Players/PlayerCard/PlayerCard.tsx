@@ -55,7 +55,7 @@ import Link from "next/link";
 
   return (
 <div className={styles.wrapper}>
-  <Link href={`/profile/${props.id}`} >
+  <Link href={`/profile/${props.username}/${props.id}`} >
     <div className={styles.playerInfo}>
       <div className={styles.playerLogo}>
         <Image

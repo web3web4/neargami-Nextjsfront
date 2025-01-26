@@ -179,12 +179,13 @@ export const generateLeaderboardMetadata = () => {
 // For Profile Page
 export const generateProfileMetadata = (
   data: UserProfileData,
-  playerId: string | null
+  username: string | null,
+  playerId: string | null,
 ) => {
   return returnMetadata(
     `${data.firstname} ${data.lastname} | NearGami`,
     "View and manage your profile on NearGami. Track your progress, achievements, and points as you learn and play!",
-    `${playerId !== null ? `/profile/${playerId}` : "/profile"}`,
+    `${playerId !== null ? `/profile/${username}/${playerId}` : "/profile"}`,
     {
       url: data.image,
       width: 600,

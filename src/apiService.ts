@@ -161,6 +161,31 @@ export const getUserProfile = async (
 };
 
 /**
+ * this function for get profile By id
+ * @param userId This parameter for user id.
+ * @method isTokenValid To verify the current session
+ * @returns data from backend
+ */
+export const getUserProfileByUsername = async (
+  username?: string | null
+): Promise<UserProfileResponse> => {
+  if (username) {
+    const response = await authFetch<ApiResponse<UserProfileResponse>>(
+      `${API_BASE_URL}/users/username/${username}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return handleResponse(response, "User fetched successfully");
+  } else {
+    return await getUserProfile(null);
+  }
+};
+
+/**
  * this function for get all Course
  * @method isTokenValid To verify the current session
  * @returns data from backend

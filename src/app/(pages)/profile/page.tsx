@@ -9,7 +9,7 @@ import { generateProfileMetadata } from "@/utils/generateMetadata";
 export async function generateMetadata() {
   const data: UserProfileData = await getUserProfile();
 
-  return generateProfileMetadata(data, null);
+  return generateProfileMetadata(data, null, null);
 }
 
 export default async function ProfilePage() {
