@@ -806,10 +806,11 @@ export const getCurrentNgcs = async (): Promise<NgcResponse> => {
     return handleResponse(response, "found");
   });
 };
+
 /**
  * this function for claims ngcs Token
  * @method isTokenValid To verify the current session
- * @param courseId this parameter for course id.
+ * @param ngcs this parameter for current ngcs.
  */
 export const claimsNgcs = async (ngcs: number): Promise<any> => {
   return validateTokenAndProceed(async () => {
@@ -920,4 +921,30 @@ export const fetchEndPlayers = async (/*courseId:string*/): Promise<
   );
 
   return handleResponse(response, "findAll");
+};
+
+/**
+ * this function for check username is available
+ * @method validateTokenAndProceed To verify the current session
+ * @param username this parameter for username.
+ */
+export const checkUsernameIsAvailable = async (
+  username: string
+): Promise<any> => {
+  return validateTokenAndProceed(async () => {
+    const response = await authFetch<any>(
+      `${API_BASE_URL}/users/checkUsername/${username}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (response.message !== "Username is available") {
+      throw new Error(`Unexpected server response: ${response.message}`);
+    }
+
+    return response.available;
+  });
 };
