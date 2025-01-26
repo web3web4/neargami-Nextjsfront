@@ -170,9 +170,11 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
 
         const jwtToken = verifyData.data.authenticate.token;
         setAuthData("jwtToken", jwtToken);
-      
-        if (verifyData.data.signUpUserData.flags.first_request_approved_courses == true) {
-          setCookie("firstShowingOfHome", true);
+
+        // This Flag For Show Course Intro, When First Show Home Page After Connect
+        // In Step 1 Add False Value, In Wizard Update To True And Show Course Intro After Exit To Home
+        if (verifyData.data.signUpUserData.flags.first_request_approved_courses == false) {
+          setCookie("firstShowingOfHome", false);
         }
 
         /**

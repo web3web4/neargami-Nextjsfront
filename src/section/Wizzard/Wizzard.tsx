@@ -130,7 +130,7 @@ const Wizard = () => {
                   </div>
                   <span className={styles.subTitleContent}>Username: </span>
                   <span className={styles.WizardSubText}>
-                    {formInput.firstname}
+                    {formInput.username}
                   </span>
                   <br />
                   <span className={styles.subTitleContent}>First Name: </span>

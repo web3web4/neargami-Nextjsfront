@@ -1,6 +1,6 @@
 import { updateUserProfile } from "@/apiService";
 import { UserProfileData } from "@/interfaces/api";
-import { setCookie } from "cookies-next";
+import { deleteCookie, getCookie, setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { SingleValue } from "react-select";
@@ -15,7 +15,9 @@ export const useWizard = () => {
   const router = useRouter();
   const [isAccepted, setIsAccepted] = useState<boolean>(false);
   const [step, setStep] = useState<number>(1);
-  const [isUsernameAvailable, setIsUsernameAvailable] = useState<boolean | null>(null);
+  const [isUsernameAvailable, setIsUsernameAvailable] = useState<
+    boolean | null
+  >(null);
   const [formInput, setFormInput] = useState<UserProfileData>({
     firstname: "",
     lastname: "",
@@ -25,7 +27,10 @@ export const useWizard = () => {
   });
 
   useEffect(() => {
-    setCookie("firstLogin", false);
+    deleteCookie("firstLogin");
+    if (getCookie("firstShowingOfHome")) {
+      setCookie("firstShowingOfHome", true);
+    }
   }, []);
 
   const handleCountryChange = (selectedCountry: SingleValue<CountryData>) => {
@@ -55,6 +60,14 @@ export const useWizard = () => {
         icon: "error",
         title: "Error",
         text: "Please accept the terms and conditions before proceeding.",
+      });
+      return;
+    }
+    if (formInput.username.trim() === "") {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "The Username Field Is Required. Please Enter Your Username.",
       });
       return;
     }

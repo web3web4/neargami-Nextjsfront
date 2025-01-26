@@ -973,3 +973,30 @@ export const checkUsernameIsAvailable = async (
     return response.available;
   });
 };
+
+/**
+ * this function for get profile By id
+ * @param key This parameter for flag key.
+ * @param value This parameter for flag value.
+ * @method isTokenValid To verify the current session
+ * @returns data from backend
+ */
+export const updateUserFlags = async (
+  key: string,
+  value: boolean
+): Promise<void> => {
+  const parameter = JSON.stringify({
+    key: key,
+    value: value,
+  });
+    await authFetch<ApiResponse<UserProfileResponse>>(
+      `${API_BASE_URL}/users/editFlag`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: parameter,
+      }
+    );
+};
