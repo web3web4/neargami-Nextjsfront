@@ -122,6 +122,7 @@ export interface UserProfileResponse {
     description: string, 
     options: Options[],
     answer: Options[],
+    lecture: Lecture,
     [key: string]: any;
   }
   

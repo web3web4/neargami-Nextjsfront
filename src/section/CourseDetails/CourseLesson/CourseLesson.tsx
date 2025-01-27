@@ -30,7 +30,7 @@ const CourseLesson = ({ data }: { data: Lecture[] }) => {
                   : ""
               }`}
             >
-              <Link href={`/quiz/${lecture.course.id}/${lecture.id}`}>
+              <Link href={`/quiz/${lecture.course.id}/${lecture.id}/${lecture.slug}`}>
                 <div className={styles.lessonItemInner}>
                   <h4
                     className={`${styles.lessonTitle} ${

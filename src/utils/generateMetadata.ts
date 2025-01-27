@@ -234,12 +234,13 @@ export const generateQAMetadata = (
 export const generateQuizMetadata = (
   data: QAResponse[],
   courseId: string,
-  lecturId: string
+  lecturId: string,
+  lectureSlug: string
 ) => {
   return returnMetadata(
     `Quiz | ${data[0]?.lecture.title}`,
     data[0]?.lecture.description,
-    `/quiz/${courseId}/${lecturId}`,
+    `/quiz/${courseId}/${lecturId}/${lectureSlug}`,
     {
       url: data[0]?.lecture.course.logo,
       width: 600,

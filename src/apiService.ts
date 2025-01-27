@@ -647,23 +647,20 @@ export const getAllLectureForCourse = async (
  * @param lectureId this parameter for lecture id.
  * @returns data from backend
  */
-export const getAllQuestionsForLecture = async (
-  courseId: string,
-  lectureId: string
+export const getAllQuestionsForLectureBySlug = async (
+  lectureSlug: string
 ): Promise<QAResponse[]> => {
-  return validateTokenAndProceed(async () => {
-    const response = await authFetch<ApiResponse<QAResponse[]>>(
-      `${API_BASE_URL}/course/${courseId}/lecture/${lectureId}/questions`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+  const response = await authFetch<ApiResponse<QAResponse[]>>(
+    `${API_BASE_URL}/course/lecture/questions/slug/${lectureSlug}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
 
-    return handleResponse(response, "findAll");
-  });
+  return handleResponse(response, "find All Questions by lecture slug");
 };
 
 /**
@@ -989,14 +986,14 @@ export const updateUserFlags = async (
     key: key,
     value: value,
   });
-    await authFetch<ApiResponse<UserProfileResponse>>(
-      `${API_BASE_URL}/users/editFlag`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: parameter,
-      }
-    );
+  await authFetch<ApiResponse<UserProfileResponse>>(
+    `${API_BASE_URL}/users/editFlag`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: parameter,
+    }
+  );
 };
