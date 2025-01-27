@@ -2,7 +2,11 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
-import { getCourseBySlug, getCoursesInProgress } from "@/apiService";
+import {
+  getCourseBySlug,
+  getCoursesInProgress,
+  updateUserFlags,
+} from "@/apiService";
 import { deleteCookie, getCookie } from "cookies-next";
 import { CourseInProgress } from "@/interfaces/course";
 import { useAuth } from "@/context/authContext";
@@ -39,6 +43,7 @@ export const useHome = () => {
           route.push(`/course-details/${courseSlug}`);
         },
       });
+      updateUserFlags("first_request_approved_courses", true);
       deleteCookie("firstShowingOfHome");
     } catch (error) {
       console.error("Error fetching course data:", error);
@@ -65,7 +70,7 @@ export const useHome = () => {
     if (getCookie("firstShowingOfHome") === "true") {
       setTimeout(function () {
         GetIntroCourse();
-      }, 5000);
+      }, 3000);
     }
   });
 

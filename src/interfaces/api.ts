@@ -69,6 +69,7 @@ export interface ApiResponse<T> {
   }
 
 export interface UserProfileResponse {
+  username?: string,
     id?: string,
     firstname: string,
     lastname: string,

@@ -1,98 +1,120 @@
 import { updateUserProfile } from "@/apiService";
 import { UserProfileData } from "@/interfaces/api";
-import { setCookie } from "cookies-next";
+import { deleteCookie, getCookie, setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { SingleValue } from "react-select";
 import Swal from "sweetalert2";
 
-
 interface CountryData {
-    label: string;
-    value: string;
-  }
+  label: string;
+  value: string;
+}
+
 export const useWizard = () => {
-const router = useRouter();
+  const router = useRouter();
+  const [isAccepted, setIsAccepted] = useState<boolean>(false);
+  const [step, setStep] = useState<number>(1);
+  const [isUsernameAvailable, setIsUsernameAvailable] = useState<
+    boolean | null
+  >(null);
+  const [formInput, setFormInput] = useState<UserProfileData>({
+    firstname: "",
+    lastname: "",
+    email: "",
+    country: "",
+    username: "",
+  });
 
-const [isAccepted, setIsAccepted] = useState<boolean>(false);
-const [step, setStep] = useState<number>(1);
-const [formInput, setFormInput] = useState<UserProfileData>({
-  firstname: "",
-  lastname: "",
-  email: "",
-  country: "",
-});
+  useEffect(() => {
+    deleteCookie("firstLogin");
+    if (getCookie("firstShowingOfHome")) {
+      setCookie("firstShowingOfHome", true);
+    }
+  }, []);
 
-useEffect(() => {
-  setCookie("firstLogin", false);
-}, []);
+  const handleCountryChange = (selectedCountry: SingleValue<CountryData>) => {
+    if (selectedCountry) {
+      setFormInput((prevInput) => ({
+        ...prevInput,
+        country: selectedCountry.label,
+      }));
+    }
+  };
 
-const handleCountryChange = (selectedCountry: SingleValue<CountryData>) => {
-  if (selectedCountry) {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
     setFormInput((prevInput) => ({
       ...prevInput,
-      country: selectedCountry.label,
+      [id]: value,
     }));
-  }
-};
+  };
 
-const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-  const { id, value } = e.target;
-  setFormInput((prevInput) => ({
-    ...prevInput,
-    [id]: value,
-  }));
-};
+  const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setIsAccepted(e.target.checked);
+  };
 
-const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
-  setIsAccepted(e.target.checked);
-};
+  const handleNext = () => {
+    if (step === 1 && !isAccepted) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Please accept the terms and conditions before proceeding.",
+      });
+      return;
+    }
+    if (formInput.username.trim() === "") {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "The Username Field Is Required. Please Enter Your Username.",
+      });
+      return;
+    }
+    if (!isUsernameAvailable) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Username Is Already Exist",
+      });
+      return;
+    }
+    if (step < 2) setStep(step + 1);
+  };
 
-const handleNext = () => {
-  if (step === 1 && !isAccepted) {
-    Swal.fire({
-      icon: "error",
-      title: "Error",
-      text: "Please accept the terms and conditions before proceeding.",
-    });
-    return;
-  }
-  if (step < 2) setStep(step + 1);
-};
+  const handlePrev = () => {
+    if (step > 1) setStep(step - 1);
+  };
 
-const handlePrev = () => {
-  if (step > 1) setStep(step - 1);
-};
+  /**
+   * This function updates the user's profile.
+   */
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    try {
+      const responce = await updateUserProfile(formInput); // Ensure updateUserProfile is typed correctly elsewhere
+      console.log("User updated successfully", responce);
+    } catch (error) {
+      console.error("Error updating user profile:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "There was an error created.",
+      });
+    }
+  };
 
-/**
- * This function updates the user's profile.
- */
-const handleSubmit = async (e: FormEvent) => {
-  e.preventDefault();
-  try {
-    const responce = await updateUserProfile(formInput); // Ensure updateUserProfile is typed correctly elsewhere
-    console.log("User updated successfully",responce);
-  } catch (error) {
-    console.error("Error updating user profile:", error);
-    Swal.fire({
-      icon: "error",
-      title: "Error",
-      text: "There was an error created.",
-    });
-  }
-};
+  const handleComplateToProfile = async (e: FormEvent) => {
+    await handleSubmit(e);
+    router.push("/profile"); // Using direct navigation instead of Link
+  };
 
-const handleComplateToProfile = async (e: FormEvent) => {
-  await handleSubmit(e);
-  router.push('/profile'); // Using direct navigation instead of Link
-};
+  const handleBackToHome = async (e: FormEvent) => {
+    await handleSubmit(e);
+    router.push("/"); // Using direct navigation instead of Link
+  };
 
-const handleBackToHome = async (e: FormEvent) => {
-  await handleSubmit(e);
-  router.push('/');; // Using direct navigation instead of Link
-};
-
-const descriptionpopup = `By using our service you automatically agree to our Privacy Policy and our Legal Disclaimer. Otherwise, please do not use our service.
+  const descriptionpopup = `By using our service you automatically agree to our Privacy Policy and our Legal Disclaimer. Otherwise, please do not use our service.
 Legal Disclaimer
 General Information:
 The information provided here is for informational purposes only and does not constitute legal, financial, or investment advice. By accessing this website or participating in our platform, you agree to these terms.
@@ -131,7 +153,7 @@ Contact Information:
 For any inquiries or concerns regarding these disclaimers, contact us at [contact email/phone number].
 
 By participating in our platform, users acknowledge these conditions and the functional limitations of the tokens.`;
-return{
+  return {
     step,
     formInput,
     isAccepted,
@@ -143,6 +165,6 @@ return{
     handleCountryChange,
     handleCheckboxChange,
     handleComplateToProfile,
-}
-
+    setIsUsernameAvailable,
+  };
 };

@@ -13,28 +13,24 @@ import Image from "next/image";
 import CropImage from "@/components/cropImage/CropImage";
 import { useEditProfile } from "@/hooks/useEditProfile";
 import { UserProfileResponse } from "@/interfaces/api";
+import CheckUsername from "@/components/checkUsername/CheckUsername";
 
 interface EditProfile {
-  data:UserProfileResponse
+  data: UserProfileResponse;
 }
 
-const EditProfileDetails = ({data }:EditProfile) => {
-  console.log("Data received in EditProfileDetails:", data);
-
-
+const EditProfileDetails = ({ data }: EditProfile) => {
   const {
+    initUsername,
     fileInputRef,
     formInput,
-    //image,
     handleCountryChange,
     handleInputChange,
     handleCroppedImage,
     handleButtonClick,
     handleSubmit,
+    setIsUsernameAvailable,
   } = useEditProfile(data);
-
-
-
 
   return (
     <LoadingWrapper>
@@ -116,7 +112,7 @@ const EditProfileDetails = ({data }:EditProfile) => {
                 </div>
                 <div>
                   <h6 className={styles.h6}>Country</h6>
-                  <div id={styles.selector}>
+                  <div className={styles.selector}>
                     <CountrySelector
                       value={formInput.country}
                       onChange={handleCountryChange}
@@ -135,6 +131,23 @@ const EditProfileDetails = ({data }:EditProfile) => {
                       }}
                     />
                   </div>
+                </div>
+                <div>
+                  <h6 className={styles.h6}>Username</h6>
+                  <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    className={styles.input}
+                    placeholder="Enter your Username"
+                    value={formInput.username}
+                    onChange={handleInputChange}
+                  />
+                  <CheckUsername
+                    username={formInput.username!}
+                    intiUsername={initUsername}
+                    onAvailabilityChange={setIsUsernameAvailable}
+                  />
                 </div>
               </div>
               <div className={styles.rightContentSection2}>
@@ -194,7 +207,7 @@ const EditProfileDetails = ({data }:EditProfile) => {
               </div>
             </div>
           </div>
-          <div className={`${styles.mt3} ${styles.btu}`}>
+          <div className={`${styles.btu}`}>
             <Button variant="mint" size="cust" onClick={handleSubmit}>
               Save Change
             </Button>

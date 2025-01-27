@@ -161,6 +161,31 @@ export const getUserProfile = async (
 };
 
 /**
+ * this function for get profile By id
+ * @param userId This parameter for user id.
+ * @method isTokenValid To verify the current session
+ * @returns data from backend
+ */
+export const getUserProfileByUsername = async (
+  username?: string | null
+): Promise<UserProfileResponse> => {
+  if (username) {
+    const response = await authFetch<ApiResponse<UserProfileResponse>>(
+      `${API_BASE_URL}/users/username/${username}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return handleResponse(response, "User fetched successfully");
+  } else {
+    return await getUserProfile(null);
+  }
+};
+
+/**
  * this function for get all Course
  * @method isTokenValid To verify the current session
  * @returns data from backend
@@ -806,10 +831,11 @@ export const getCurrentNgcs = async (): Promise<NgcResponse> => {
     return handleResponse(response, "found");
   });
 };
+
 /**
  * this function for claims ngcs Token
  * @method isTokenValid To verify the current session
- * @param courseId this parameter for course id.
+ * @param ngcs this parameter for current ngcs.
  */
 export const claimsNgcs = async (ngcs: number): Promise<any> => {
   return validateTokenAndProceed(async () => {
@@ -920,4 +946,57 @@ export const fetchEndPlayers = async (/*courseId:string*/): Promise<
   );
 
   return handleResponse(response, "findAll");
+};
+
+/**
+ * this function for check username is available
+ * @method validateTokenAndProceed To verify the current session
+ * @param username this parameter for username.
+ */
+export const checkUsernameIsAvailable = async (
+  username: string
+): Promise<any> => {
+  return validateTokenAndProceed(async () => {
+    const response = await authFetch<any>(
+      `${API_BASE_URL}/users/checkUsername/${username}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (response.message !== "Username is available") {
+      throw new Error(`Unexpected server response: ${response.message}`);
+    }
+
+    return response.available;
+  });
+};
+
+/**
+ * this function for get profile By id
+ * @param key This parameter for flag key.
+ * @param value This parameter for flag value.
+ * @method isTokenValid To verify the current session
+ * @returns data from backend
+ */
+export const updateUserFlags = async (
+  key: string,
+  value: boolean
+): Promise<void> => {
+  const parameter = JSON.stringify({
+    key: key,
+    value: value,
+  });
+    await authFetch<ApiResponse<UserProfileResponse>>(
+      `${API_BASE_URL}/users/editFlag`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: parameter,
+      }
+    );
 };

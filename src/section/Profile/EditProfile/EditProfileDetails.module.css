@@ -116,6 +116,7 @@
 
 .selector {
   margin-top: 5px;
+  margin-bottom: 15px !important;
 }
 
 .img {
@@ -129,7 +130,8 @@
 }
 
 .btu {
-  margin-left: 300px;
+  margin-left: 330px;
+  margin-top: 25px;
 }
 
 .EditProfileDetailsStyleWrapper :global(.css-1iinogm-singleValue) {
@@ -142,6 +144,15 @@
 
 .EditProfileDetailsStyleWrapper :global(.css-5736gi-menu) {
   width: 90%;
+}
+
+.EditProfileDetailsStyleWrapper :global(.css-qdv3v5-placeholder) {
+  margin-left: 10px;
+}
+
+.EditProfileDetailsStyleWrapper :global(.css-1u9des2-indicatorSeparator) {
+  height: 30px;
+  margin-top: 7px !important;
 }
 
 @media only screen and (max-width: 999px) {
