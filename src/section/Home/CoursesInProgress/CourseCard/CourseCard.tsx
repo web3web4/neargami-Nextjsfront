@@ -30,7 +30,7 @@ const CourseCard = ({ data }: { data: CourseInProgress[] }) => {
       <Slider {...sliderSettings}>
         {data?.map((courseDetail, i) => (
           <SliderItem key={i}>
-            <Link href={`/course-details/${courseDetail.course_id}`}>
+            <Link href={`/course-details/${courseDetail.course.slug}`}>
               <div className={styles.courseCardWrpapper}>
                 <div className={styles.courseContent}>
                   <div className={styles.coursrCardLeftSection}>

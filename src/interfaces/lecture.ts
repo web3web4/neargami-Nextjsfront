@@ -11,6 +11,7 @@ export interface Lecture {
   userLecture: UserLecture[];
   question: Question[];
   course: Course;
+  slug: string;
   [key: string]: any;
 }
 
@@ -21,6 +22,7 @@ export interface Course {
   logo: string;
   description: string;
   teacher: Teacher;
+  slug: string;
 }
 
 export interface Teacher {

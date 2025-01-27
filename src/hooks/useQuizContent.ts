@@ -110,7 +110,6 @@ export const useQuizContent = (courseId: string, lectureId: string, data: QAResp
     };
   
     const handleNextQuestion = async () => {
-
       if (currentQuestionSequence === sortedQuestions.length) {
         await updateFinishLectureInCourse(courseId, lectureId);
         Swal.fire({
@@ -118,7 +117,7 @@ export const useQuizContent = (courseId: string, lectureId: string, data: QAResp
           title: "Congratulations!",
           text: "You have successfully completed this lesson. Proceed to the next lesson to continue your progress.",
         });
-          router.push(`/course-details/${courseId}`);
+          router.push(`/course-details/${data[0].lecture.course.slug}`);
       }
 
       setSelectedAnswers([]);

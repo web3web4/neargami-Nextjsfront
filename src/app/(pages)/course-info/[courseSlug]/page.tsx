@@ -8,17 +8,17 @@ import { generateCourseInfoMetadata } from "@/utils/generateMetadata";
 
 export async function generateMetadata({ params }: { params: any }) {
   const { courseSlug } = await params;
-  const isEdit = courseSlug;
+  const isEdit = courseSlug !== "add";
   let data: CoursesResponse | null = null;
   if (isEdit) data = await getCourseBySlug(courseSlug);
   return generateCourseInfoMetadata(data, courseSlug);
 }
 
 export default async function CourseInfoPage({ params }: { params: any }) {
-  const { courseId } = await params;
-  const isEdit = Number(courseId);
+  const { courseSlug } = await params;
+  const isEdit = courseSlug !== "add";
   let data: CoursesResponse | null = null;
-  if (isEdit) data = await getCourseBySlug(courseId);
+  if (isEdit) data = await getCourseBySlug(courseSlug);
 
   return (
     <Fragment>
@@ -27,7 +27,7 @@ export default async function CourseInfoPage({ params }: { params: any }) {
         currentPage={`${isEdit ? "Edit" : "Add"} Course Info`}
         pageTitle="Add Course Info"
       />
-      <CourseInfo courseId={courseId} data={data} />
+      <CourseInfo courseId={courseSlug} data={data} />
     </Fragment>
   );
 }

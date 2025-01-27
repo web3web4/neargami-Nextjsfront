@@ -39,6 +39,7 @@ export interface CoursesHome {
         name: string,
         title: string,
         logo: string,
+        slug: string,
         lecture: any[],
         teacher: {
           image: string

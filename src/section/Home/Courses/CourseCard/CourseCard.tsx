@@ -13,15 +13,18 @@ import { Fragment, useState } from "react";
 import PlayerListPopup from "@/components/PlayerListPopup/PlayerListPopup";
 
 interface CourseCardProps {
-  props: CoursesResponse; 
-  popupEndUser: DataPopup[]; 
-  popupStartUser: DataPopup[]; 
+  props: CoursesResponse;
+  popupEndUser: DataPopup[];
+  popupStartUser: DataPopup[];
 }
 
-const CourseCard =  ({props , popupEndUser,popupStartUser}: CourseCardProps ) => {
-
-    const [showStartPopup, setShowStartPopup] = useState<boolean>(false);
-    const [showEndPopup, setShowEndPopup] = useState<boolean>(false);
+const CourseCard = ({
+  props,
+  popupEndUser,
+  popupStartUser,
+}: CourseCardProps) => {
+  const [showStartPopup, setShowStartPopup] = useState<boolean>(false);
+  const [showEndPopup, setShowEndPopup] = useState<boolean>(false);
   return (
     <Fragment>
       <PlayerListPopup
@@ -36,73 +39,73 @@ const CourseCard =  ({props , popupEndUser,popupStartUser}: CourseCardProps ) =>
         title="Students Who Completed the Course"
         fetchPlayers={popupEndUser}
       />
-    <div className={styles.courseCard}>
-      <Link href={`/course-details/${props.slug}`}>
-        <div className={styles.courseInfo}>
-          <div>
-            <Image src={ngcIcons} width={23} alt="" /> {props.total_score} NGC
-          </div>
-          <Image
-            src={props.logo || photoDefault}
-            width={500}
-            height={500}
-            alt={`${props.name} logo`}
-            loading="lazy"
-          />
-          <div className={styles.courseAuother}>
-            <h1 className={styles.courseName}>{props.name}</h1>
-            <div className={styles.tagContent}>
-              <div className={styles.textContent}>
-                {props.tag ? `#${props.tag}` : null}
+      <div className={styles.courseCard}>
+        <Link href={`/course-details/${props.slug}`}>
+          <div className={styles.courseInfo}>
+            <div>
+              <Image src={ngcIcons} width={23} alt="" /> {props.total_score} NGC
+            </div>
+            <Image
+              src={props.logo || photoDefault}
+              width={500}
+              height={500}
+              alt={`${props.name} logo`}
+              loading="lazy"
+            />
+            <div className={styles.courseAuother}>
+              <h1 className={styles.courseName}>{props.name}</h1>
+              <div className={styles.tagContent}>
+                <div className={styles.textContent}>
+                  {props.tag ? `#${props.tag}` : null}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </Link>
-      <div className={styles.courseContent}>
-        <div className={styles.courseHeader}>
-          <div className={styles.headingTitle}>
-            <h2>{props.difficulty}</h2>
-            <div>
-              <TotalRating
-                courseId={props.id!}
-                starsRatingStyle={styles.starsRating}
-                totalRatingStyle={styles.totalRating}
-              />
+        </Link>
+        <div className={styles.courseContent}>
+          <div className={styles.courseHeader}>
+            <div className={styles.headingTitle}>
+              <h2>{props.difficulty}</h2>
+              <div>
+                <TotalRating
+                  courseId={props.id!}
+                  starsRatingStyle={styles.starsRating}
+                  totalRatingStyle={styles.totalRating}
+                />
+              </div>
+            </div>
+            <div className={styles.userLogo}>
+              <Link href={`/profile/${props.teacher!.id}`}>
+                <Image
+                  src={props.teacher!.image || userDefault}
+                  width={70}
+                  height={70}
+                  alt="teacher image"
+                  quality={75}
+                  loading="lazy"
+                />
+              </Link>
             </div>
           </div>
-          <div className={styles.userLogo}>
-            <Link href={`/profile/${props.teacher!.id}`}>
-              <Image
-                src={props.teacher!.image || userDefault}
-                width={70}
-                height={70}
-                alt="teacher image"
-                quality={75}
-                loading="lazy"
-              />
-            </Link>
+        </div>
+        <div className={styles.studentCount}>
+          <div
+            onClick={() => setShowStartPopup(true)}
+            style={{ cursor: "pointer" }}
+          >
+            <Image src={viewsIcon} height={25} width={25} alt="" />
+            {props.counts?._count?.start_time || 0}
+          </div>
+          <div
+            onClick={() => setShowEndPopup(true)}
+            style={{ cursor: "pointer" }}
+          >
+            <Image src={studentIcon} height={25} width={25} alt="" />
+            {props.counts?._count?.end_time || 0}
           </div>
         </div>
+        <CardHover styles={styles} />
       </div>
-      <div className={styles.studentCount}>
-        <div
-          onClick={() => setShowStartPopup(true)}
-          style={{ cursor: "pointer" }}
-        >
-          <Image src={viewsIcon} height={25} width={25} alt="" />
-          {props.counts?._count?.start_time || 0}
-        </div>
-        <div
-          onClick={() => setShowEndPopup(true)}
-          style={{ cursor: "pointer" }}
-        >
-          <Image src={studentIcon} height={25} width={25} alt="" />
-          {props.counts?._count?.start_time || 0}
-        </div>
-      </div>
-      <CardHover styles={styles} />
-    </div>
     </Fragment>
   );
 };
