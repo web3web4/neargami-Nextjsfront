@@ -1,0 +1,29 @@
+{
+  "Home": {
+    "Search Course": "Search Course"
+  },
+  "Header": {
+    "All Courses": "All Courses",
+    "Players": "Players",
+    "Leader Board": "Leader Board",
+    "Teacher Dashboard": "Teacher Dashboard",
+    "Disconnect": "Disconnect",
+    "Profile": "Profile",
+    "Connect": "Connect",
+    "Processing": "Processing",
+    "Connected": "Connected"
+  },
+  "Banner": {
+    "Gamified e-learning platform": "Gamified e-learning platform",
+    "focusing on NEAR and blockchain agnostic technologies": "focusing on NEAR and blockchain agnostic technologies",
+    "Play to learn & learn to earn": "Play to learn & learn to earn"
+  },
+  "CoursesInProgress": {
+    "Courses In Progress": "Courses In Progress",
+    "Course Progress": "Course Progress",
+    "Total Prize": "Total Prize"
+  },
+  "Footer": {
+    "FIND US ON SOCIAL": "FIND US ON SOCIAL"
+  }
+}

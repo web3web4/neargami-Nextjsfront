@@ -1,0 +1,29 @@
+{
+  "Home": {
+    "Search Course": "بحث"
+  },
+  "Header": {
+    "All Courses": "الدورات",
+    "Players": "اللاعبين",
+    "Leader Board": "المتصدرين",
+    "Teacher Dashboard": "لوحة تحكم المدرب",
+    "Disconnect": "قطع الاتصال",
+    "Profile": "الملف الشخصي",
+    "Connect": "اتصال",
+    "Processing": "يتم المعالجة",
+    "Connected": "متصل"
+  },
+  "Banner": {
+    "Gamified e-learning platform": "منصة تعليمية تفاعلية تعتمد على الألعاب",
+    "focusing on NEAR and blockchain agnostic technologies": "تركز على تقنيات NEAR وتقنيات البلوكشين المستقلة",
+    "Play to learn & learn to earn": "العب لتتعلم وتعلم لتربح"
+  },
+  "CoursesInProgress": {
+    "Courses In Progress": "الدورات قيد التقدم",
+    "Course Progress": "تقدم الدورة",
+    "Total Prize": "الجائزة الإجمالية"
+  },
+  "Footer": {
+    "FIND US ON SOCIAL": "تجدنا على وسائل التواصل الاجتماعي"
+  }
+}
