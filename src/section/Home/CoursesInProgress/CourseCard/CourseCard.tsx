@@ -8,8 +8,10 @@ import userDefault from "@/assets/images/no-User.png";
 import { CourseInProgress } from "@/interfaces/course";
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 const CourseCard = ({ data }: { data: CourseInProgress[] }) => {
+  const translate = useTranslations("CoursesInProgress");
   const sliderSettings = {
     dots: true,
     arrows: false,
@@ -26,7 +28,7 @@ const CourseCard = ({ data }: { data: CourseInProgress[] }) => {
 
   return (
     <div className={`${styles.courseCardWrraper} container`}>
-      <h2 className={styles.title}>Courses In Progress</h2>
+      <h2 className={styles.title}>{translate("Courses In Progress")}</h2>
       <Slider {...sliderSettings}>
         {data?.map((courseDetail, i) => (
           <SliderItem key={i}>
@@ -45,7 +47,8 @@ const CourseCard = ({ data }: { data: CourseInProgress[] }) => {
                       </div>
                     </div>
                     <div className={styles.courseEndLesson}>
-                      Course Progress {courseDetail.endedLecturesCount}/
+                      {translate("Course Progress")}{" "}
+                      {courseDetail.endedLecturesCount}/
                       {courseDetail?.course.lecture?.length}
                     </div>
                   </div>
@@ -71,7 +74,9 @@ const CourseCard = ({ data }: { data: CourseInProgress[] }) => {
                   />
                 </div>
                 <div className={styles.courseMoreDetails}>
-                  <h5>Total Prize {courseDetail.totalPoints} NGC</h5>
+                  <h5>
+                    {translate("Total Prize")} {courseDetail.totalPoints} NGC
+                  </h5>
                   <div className={styles.studentCount}>
                     <div>
                       <Image src={viewsIcon} height={25} width={25} alt="" />

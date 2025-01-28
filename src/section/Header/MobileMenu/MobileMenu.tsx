@@ -10,6 +10,7 @@ import { useWallet } from "@/auth/nearAuth";
 import Swal from "sweetalert2";
 import { useAuth } from "@/context/authContext";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 const MobileMenu = ({
   mobileMenuhandle,
@@ -20,6 +21,7 @@ const MobileMenu = ({
   const { handleNearLogout } = useWallet();
   const { jwtToken } = useAuth();
   const router = useRouter();
+  const translate = useTranslations("Header");
 
   const handleMenuClick = async (
     e: any,
@@ -71,7 +73,7 @@ const MobileMenu = ({
               >
                 {menu.action ? (
                   <div className={styles.btnHeader} onClick={handleNearLogout}>
-                    {menu.title}
+                    {translate(menu.title)}
                   </div>
                 ) : (
                   <div
@@ -80,7 +82,7 @@ const MobileMenu = ({
                       handleMenuClick(e, menu.url, menu.isNeedAuth)
                     }
                   >
-                    {menu.title}
+                    {translate(menu.title)}
                   </div>
                 )}
               </li>

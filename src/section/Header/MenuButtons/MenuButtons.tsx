@@ -12,12 +12,15 @@ import { MdNotes } from "react-icons/md";
 import styles from "./MenuButtons.module.css";
 import NGCToken from "@/section/Header/NGCToken/NGCToken";
 import MobileMenu from "@/section/Header/MobileMenu/MobileMenu";
+import { useTranslations } from "next-intl";
 
 export default function MenuButtons() {
-  const [buttonText, setButtonText] = useState<string>("Connect");
+  const translate = useTranslations("Header");
+  const [buttonText, setButtonText] = useState<string>(translate("Connect"));
   const [isMobileMenu, setMobileMenu] = useState<boolean>(false);
   const { handleNearLogin } = useWallet();
   const { jwtToken } = useAuth();
+  
 
   const handleMobileMenu = () => {
     setMobileMenu(!isMobileMenu);
