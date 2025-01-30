@@ -38,5 +38,15 @@
     "Total Prize": "الجائزة الإجمالية",
     "Lesson": "الدرس",
     "Rating": "تقييم"
+  },
+  "Quiz": {
+    "Lesson": "الدرس",
+    "Progress": "التقدم",
+    "Check": "تحقق",
+    "Next Question": "السؤال التالي",
+    "Finish Lesson": "إنهاء الدرس",
+    "Correct Answers:": "الإجابات الصحيحة:",
+    "Incorrect Answer": "الإجابة غير صحيحة",
+    "Correct Answer":"الإجابة صحيحة"
   }
 }

@@ -27,6 +27,6 @@
 }
 
 .titleRight img {
-  margin-right: 7px;
+  margin-inline-end: 7px;
   border-radius: 3px;
 }

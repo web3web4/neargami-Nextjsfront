@@ -38,5 +38,15 @@
     "Total Prize": "Total Prize",
     "Lesson": "Lesson",
     "Rating": "Rating"
+  },
+  "Quiz": {
+    "Lesson": "Lesson",
+    "Progress": "Progress",
+    "Check": "Check",
+    "Next Question": "Next Question",
+    "Finish Lesson": "Finish Lesson",
+    "Correct Answers:": "Correct Answers:",
+    "Incorrect Answer": "Incorrect Answer",
+    "Correct Answer":"Correct Answer"
   }
 }

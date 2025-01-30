@@ -2,6 +2,7 @@ import ngcIcons from "@/assets/images/brand/Logo/Without-BG/Logo-3-Size/32.png";
 import photoDefault from "@/assets/images/no-Course.png";
 import Image from "next/image";
 import styles from "./CourseTitle.module.css";
+import { useTranslations } from "next-intl";
 
 interface CourseTitleProps{
   courseLogo: string, 
@@ -10,6 +11,7 @@ interface CourseTitleProps{
 }
 
 export default function CourseTitle({ courseLogo, lessonNumber, points }: CourseTitleProps) {
+  const translate = useTranslations('Quiz');
   return (
     <div>
       <div className={styles.title}>
@@ -25,7 +27,7 @@ export default function CourseTitle({ courseLogo, lessonNumber, points }: Course
               alt="course logo"
             />
             <div className={styles.lessonNumber}>
-              <div>Lesson</div>
+              <div>{translate("Lesson")}</div>
               <div>#{lessonNumber}</div>
             </div>
           </div>
