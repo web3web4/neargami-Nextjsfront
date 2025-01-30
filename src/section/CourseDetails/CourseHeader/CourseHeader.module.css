@@ -31,7 +31,7 @@
 .totalRatingContent {
   position: absolute;
   top: 20px;
-  right: 20px;
+  inset-inline-end: 20px;
   display: flex;
   flex-direction: column;
   margin-bottom: 10px;
@@ -57,7 +57,7 @@
 .userLogo {
   position: absolute;
   top: 20px;
-  left: 20px;
+  inset-inline-start: 20px;
 }
 
 .userLogo img {
@@ -87,7 +87,7 @@
 
 .footerCourse {
   width: 80%;
-  margin-left: 10%;
+  margin-inline-start: 10%;
 }
 
 .courseText {
@@ -106,7 +106,7 @@
 }
 
 .studentCount img {
-  margin-right: 5px;
+  margin-inline-end: 5px;
 }
 
 @media only screen and (max-width: 991px) {
@@ -127,13 +127,13 @@
   .totalRatingContent {
     position: relative;
     top: 0px;
-    right: 0px;
+    inset-inline-end: 0px;
   }
 
   .userLogo {
     position: relative;
     top: 0px;
-    left: 0px;
+    inset-inline-start: 0px;
   }
 
   .studentCount {
@@ -166,6 +166,6 @@
   .totalRatingContent {
     position: relative;
     top: 0px;
-    right: 0px;
+    inset-inline-end: 0px;
   }
 }

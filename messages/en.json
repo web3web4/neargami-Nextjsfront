@@ -2,6 +2,11 @@
   "Home": {
     "Search Course": "Search Course"
   },
+  "PageHeader": {
+    "Course Details": "Course Details",
+    "Home": "Home",
+    "SHARE": "SHARE"
+  },
   "Header": {
     "All Courses": "All Courses",
     "Players": "Players",
@@ -25,5 +30,13 @@
   },
   "Footer": {
     "FIND US ON SOCIAL": "FIND US ON SOCIAL"
+  },
+  "CourseDetails": {
+    "Course Details": "Course Details",
+    "Points": "Points",
+    "Course Progress": "Course Progress",
+    "Total Prize": "Total Prize",
+    "Lesson": "Lesson",
+    "Rating": "Rating"
   }
 }

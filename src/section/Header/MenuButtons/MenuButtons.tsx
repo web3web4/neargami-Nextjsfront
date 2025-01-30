@@ -16,11 +16,10 @@ import { useTranslations } from "next-intl";
 
 export default function MenuButtons() {
   const translate = useTranslations("Header");
-  const [buttonText, setButtonText] = useState<string>(translate("Connect"));
+  const [buttonText, setButtonText] = useState<string>("Connect");
   const [isMobileMenu, setMobileMenu] = useState<boolean>(false);
   const { handleNearLogin } = useWallet();
   const { jwtToken } = useAuth();
-  
 
   const handleMobileMenu = () => {
     setMobileMenu(!isMobileMenu);
@@ -53,7 +52,7 @@ export default function MenuButtons() {
           onClick={() => handleNearLogin(setButtonText)}
         >
           <Image src={connectIcon} alt="icon" />
-          {buttonText}
+          {translate(buttonText)}
         </Button>
       )}
       {isMobileMenu && <MobileMenu mobileMenuhandle={handleMobileMenu} />}

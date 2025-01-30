@@ -15,6 +15,7 @@ import Link from "next/link";
 import { DataPopup, LessonResponse } from "@/interfaces/api";
 import PlayerListPopup from "@/components/PlayerListPopup/PlayerListPopup";
 import { useAuth } from "@/context/authContext";
+import { useTranslations } from "next-intl";
 
 interface HeaderCourses {
   data: LessonResponse;
@@ -31,6 +32,7 @@ const CourseHeader = ({
   const [isNotStartCourse, setIsNotStartCourse] = useState<boolean>(true);
   const [showStartPopup, setShowStartPopup] = useState<boolean>(false);
   const [showEndPopup, setShowEndPopup] = useState<boolean>(false);
+  const translate = useTranslations('CourseDetails');
   const { jwtToken } = useAuth();
 
   useEffect(() => {
@@ -103,7 +105,7 @@ const CourseHeader = ({
             />
             {!isNotStartCourse && jwtToken && (
               <Button size="sm" variant="mint" onClick={handleRatingClick}>
-                Rating
+                {translate("Rating")}
               </Button>
             )}
           </div>
@@ -118,7 +120,7 @@ const CourseHeader = ({
               <>
                 <div className={styles.courseText}>
                   <h5>
-                    Course Progress {data?.completedLessons}/
+                  {translate("Course Progress")} {data?.completedLessons}/
                     {data?.lectures?.length}
                   </h5>
                 </div>
@@ -129,7 +131,7 @@ const CourseHeader = ({
               </>
             )}
             <div className={styles.courseText}>
-              <h5>Total Prize {data?.totalCoursePrize} NGC</h5>
+              <h5>{translate("Total Prize")} {data?.totalCoursePrize} NGC</h5>
               <div className={styles.studentCount}>
                 <div
                   onClick={() => setShowStartPopup(true)}

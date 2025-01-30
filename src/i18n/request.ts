@@ -10,7 +10,7 @@ export default getRequestConfig(async () => {
 
   // if language is not supported, set default language en
   if (!supportedLanguages.includes(selectedLang)) {
-    selectedLang = "ar";
+    selectedLang = "en";
   }
 
   return {

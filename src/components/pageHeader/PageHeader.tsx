@@ -4,6 +4,7 @@ import shareIcon from "@/assets/images/icons/shareIcon.png";
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 interface PageHeaderProps {
   currentPage: string;
@@ -18,6 +19,8 @@ const PageHeader = ({
   isShowShareIcon,
   style,
 }: PageHeaderProps) => {
+  const translate = useTranslations('PageHeader');
+
   return (
     <div className={styles.pageHeaderWrapper} style={style}>
       <div className="container">
@@ -26,13 +29,13 @@ const PageHeader = ({
             <div className={styles.breadcrumbArea}>
               <div className={styles.breadcrumbMenu}>
                 <>
-                  <Link href="/">Home</Link> <span>.</span>{" "}
-                  {currentPage && currentPage}
+                  <Link href="/">{translate("Home")}</Link> <span>.</span>{" "}
+                  {currentPage && translate(currentPage)}
                 </>
                 <Image src={titleShape} alt="bithu nft heading shape" />
               </div>
               <h2 className={`${styles.breadcrumbTitle} text-uppercase`}>
-                {pageTitle && pageTitle}
+                {pageTitle && translate(pageTitle)}
               </h2>
             </div>
           </div>
@@ -41,7 +44,7 @@ const PageHeader = ({
               <div className={styles.share}>
                 <Link href="#">
                   <Image src={shareIcon} width={20} alt="" />
-                  <span>SHARE</span>
+                  <span>{translate("SHARE")}</span>
                 </Link>
               </div>
             </div>

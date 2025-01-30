@@ -2,6 +2,11 @@
   "Home": {
     "Search Course": "بحث"
   },
+  "PageHeader": {
+    "Course Details": "تفاصيل الدورة",
+    "Home": "الرئيسية",
+    "SHARE": "مشاركة"
+  },
   "Header": {
     "All Courses": "الدورات",
     "Players": "اللاعبين",
@@ -25,5 +30,13 @@
   },
   "Footer": {
     "FIND US ON SOCIAL": "تجدنا على وسائل التواصل الاجتماعي"
+  },
+  "CourseDetails": {
+    "Course Details": "تفاصيل الدورة",
+    "Points": "النقاط",
+    "Course Progress": "تقدم الدورة",
+    "Total Prize": "الجائزة الإجمالية",
+    "Lesson": "الدرس",
+    "Rating": "تقييم"
   }
 }

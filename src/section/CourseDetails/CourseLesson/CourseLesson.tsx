@@ -3,9 +3,11 @@ import styles from "./CourseLesson.module.css";
 import Link from "next/link";
 import { Lecture } from "@/interfaces/lecture";
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 const CourseLesson = ({ data }: { data: Lecture[] }) => {
   const [lessons, setLessons] = useState<Lecture[]>([]);
+  const translate = useTranslations('CourseDetails');
 
   useEffect(() => {
     if (data && data.length > 0) {
@@ -42,7 +44,7 @@ const CourseLesson = ({ data }: { data: Lecture[] }) => {
                         : ""
                     }`}
                   >
-                    Lesson #{lecture.order}
+                    {translate("Lesson")} #{lecture.order}
                   </h4>
                   <ul className={styles.lessonCheckList}>
                     <div className={styles.lessonName}>{lecture.title}</div>
@@ -60,7 +62,7 @@ const CourseLesson = ({ data }: { data: Lecture[] }) => {
                       : ""
                   }
                 >
-                  points {lecture.totalPrize}
+                  {translate("Points")} {lecture.totalPrize}
                 </h3>
                 {data.length - 1 !== i && <div className={styles.arrowDown} />}
               </div>
