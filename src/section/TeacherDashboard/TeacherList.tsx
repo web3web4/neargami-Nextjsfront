@@ -7,6 +7,7 @@ import { FiSearch } from "react-icons/fi";
 import { ChangeEvent, useEffect, useState } from "react";
 import { TeacherTabs } from "../../utils/Enums";
 import { CoursesResponse } from "@/interfaces/api";
+import { useTranslations } from "next-intl";
 
 export const teacherTabs = [
   { tabName: TeacherTabs.Draft },
@@ -16,6 +17,7 @@ export const teacherTabs = [
 
 const TeacherList = ({ courses }: { courses: CoursesResponse[] }) => {
   const [filterCourse, setFilterCourse] = useState<CoursesResponse[]>([]);
+  const translate = useTranslations("TeacherDashboard");
 
   useEffect(() => {
     setFilterCourse(courses);
@@ -45,7 +47,7 @@ const TeacherList = ({ courses }: { courses: CoursesResponse[] }) => {
                   {teacherTabs.map((tap, i) => (
                     <Tab key={i}>
                       <button>
-                        {tap.tabName} ({" "}
+                        {translate(tap.tabName)} ({" "}
                         {
                           // TODO: improve to filter once for both here and in the TabPanel below. Or get them categorized already from the backend.
                           filterCourse.filter(
@@ -66,7 +68,7 @@ const TeacherList = ({ courses }: { courses: CoursesResponse[] }) => {
                     type="text"
                     id="search"
                     name="search"
-                    placeholder="Search Course"
+                    placeholder={translate("Search Course")}
                     onChange={handelChangeSearch}
                   />
                   <button>
@@ -74,7 +76,7 @@ const TeacherList = ({ courses }: { courses: CoursesResponse[] }) => {
                   </button>
                 </div>
                 <Button size="md" variant="mint" href={`/course-info/add`}>
-                  Add a Course
+                  {translate("Add a Course")}
                 </Button>
               </div>
               {teacherTabs.map((tap, i) => (
@@ -96,16 +98,16 @@ const TeacherList = ({ courses }: { courses: CoursesResponse[] }) => {
           ) : (
             <div className={styles.noCourses}>
               <p className={styles.noCoursesText}>
-                Start by adding new courses.
+                {translate("Start by adding new courses")}
               </p>
               <p className={styles.noCoursesText}>
-                We will approve high-quality contents.
+                {translate("We will approve high-quality contents")}
               </p>
               <br />
               <br />
               <br />
               <Button size="md" variant="mint" href={`/course-info`}>
-                Add a Course
+                {translate("Add a Course")}
               </Button>
             </div>
           )}

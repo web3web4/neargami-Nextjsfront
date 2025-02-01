@@ -3,9 +3,13 @@
     "Search Course": "بحث"
   },
   "PageHeader": {
-    "Course Details": "تفاصيل الدورة",
     "Home": "الرئيسية",
-    "SHARE": "مشاركة"
+    "SHARE": "مشاركة",
+    "Course Details": "تفاصيل الدورة",
+    "Players": "اللاعبين",
+    "NearGami Players": "اللاعبين",
+    "Leader Board": "المتصدرين",
+    "Teacher Dashboard": "لوحة تحكم المدرب"
   },
   "Header": {
     "All Courses": "الدورات",
@@ -47,6 +51,18 @@
     "Finish Lesson": "إنهاء الدرس",
     "Correct Answers:": "الإجابات الصحيحة:",
     "Incorrect Answer": "الإجابة غير صحيحة",
-    "Correct Answer":"الإجابة صحيحة"
+    "Correct Answer": "الإجابة صحيحة"
+  },
+  "LeaderBoard": {
+    "Comming Soon": "قريبا..."
+  },
+  "TeacherDashboard": {
+    "Start by adding new courses": "ابدأ بإضافة الدورات.",
+    "We will approve high-quality contents": "سنقبل محتوى عالي الجودة.",
+    "Add a Course": "إضافة دورة",
+    "Search Course": "بحث",
+    "DRAFT": "قيد المراجعة",
+    "REJECTED": "مرفوض",
+    "APPROVED": "مقبول"
   }
 }
