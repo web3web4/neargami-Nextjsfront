@@ -9,7 +9,9 @@
     "Players": "اللاعبين",
     "NearGami Players": "اللاعبين",
     "Leader Board": "المتصدرين",
-    "Teacher Dashboard": "لوحة تحكم المدرب"
+    "Teacher Dashboard": "لوحة تحكم المدرب",
+    "Edit Course Info": "تعديل معلومات الدورة",
+    "Add Course Info": "اضافة معلومات الدورة"
   },
   "Header": {
     "All Courses": "الدورات",
@@ -68,5 +70,29 @@
     "Reject": "رفض",
     "Approve": "قبول",
     "Submit": "إرسال"
+  },
+  "CourseInfo":{
+    "Course Name": "اسم الدورة",
+    "Course Description": "وصف الدورة",
+    "Course Tags": "وسوم الدورة",
+    "Course Difficulty": "مستوى الدورة",
+    "Course Logo": "صورة الدورة",
+    "Upload from your Device": "اختيار صورة من الجهاز",
+    "Course Language": "لغة الدورة",
+    "Course Out Lines": "حول الدورة التدريبية",
+    "Edit Lessons": "تعديل الدروس",
+    "Enter the course name": "ادخل اسم الدورة",
+    "Ex: Learn about near protocol and": "مثال: تعلم عن near protocol و......",
+    "Tags of the course like: JavaScript, Smart-Contract, AI": "وسوم للدورة مثل: JavaScript, Smart-Contract, AI و......",
+    "Select language a course": "حدد لغة الدورة",
+    "Enter a detailed outline of the course":"ادخل تفاصيل حول الدورة التدريبية",
+    "Add and Edit Lessons" :"اضافة وتعديل الدروس",
+    "Update": "تعديل",
+    "Beginner": "1. مبتدئ",
+    "Normal": "2. متعلم",
+    "Advanced": "3. متقدم",
+    "Legend": "4. أسطورة",
+    "Master": "5. ماجستير",
+    "Hacker": "6. هاكر"
   }
 }

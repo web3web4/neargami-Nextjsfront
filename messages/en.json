@@ -9,7 +9,9 @@
     "Players": "Players",
     "NearGami Players": "NearGami Players",
     "Leader Board": "Leader Board",
-    "Teacher Dashboard": "Teacher Dashboard"
+    "Teacher Dashboard": "Teacher Dashboard",
+    "Edit Course Info": "Edit Course Info",
+    "Add Course Info": "Add Course Info"
   },
   "Header": {
     "All Courses": "All Courses",
@@ -68,5 +70,29 @@
     "Edit": "Edit",
     "Approve": "Approve",
     "Submit": "Submit"
+  },
+  "CourseInfo": {
+    "Course Name": "Course Name",
+    "Course Description": "Course Description",
+    "Course Tags": "Course Tags",
+    "Course Difficulty": "Course Difficulty",
+    "Course Logo": "Course Logo",
+    "Upload from your Device": "Upload from your Device",
+    "Course Language": "Course Language",
+    "Course Out Lines": "Course Out Lines",
+    "Edit Lessons": "Edit Lessons",
+    "Enter the course name": "Enter the course name",
+    "Ex: Learn about near protocol and": "Ex: Learn about near protocol and.......",
+    "Tags of the course like: JavaScript, Smart-Contract, AI": "Tags of the course like: JavaScript, Smart-Contract, AI .......",
+    "Select language a course": "Select language a course",
+    "Add and Edit Lessons": "Add and Edit Lessons",
+    "Enter a detailed outline of the course": "Enter a detailed outline of the course",
+    "Update": "Update",
+    "Beginner": "1. Newbie (Beginner)",
+    "Normal": "2. Learner (Normal)",
+    "Advanced": "3. Pro (Advanced)",
+    "Legend": "4. Legend",
+    "Master": "5. Master",
+    "Hacker": "6. Hacker"
   }
 }

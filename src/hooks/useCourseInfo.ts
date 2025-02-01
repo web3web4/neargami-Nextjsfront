@@ -6,7 +6,6 @@ import { CoursesResponse } from "@/interfaces/api";
 import Swal from "sweetalert2";
 
 export const useCourseInfo = (
-  courseId: string,
   data: CoursesResponse | null
 ) => {
   const router = useRouter();
@@ -115,7 +114,7 @@ export const useCourseInfo = (
     }
     try {
       console.log(formInput);
-      const update = await updateCourse(formInput, courseId);
+      const update = await updateCourse(formInput, data!.id!.toString());
       if (update) {
         Swal.fire({
           icon: "success",

@@ -1,12 +1,12 @@
 import { CourseDifficulty, CourseLanguage } from "@/utils/Enums";
 
 export const courseDifficultyList = [
-  { value: CourseDifficulty.Beginner, label: "1. Newbie (Beginner)" },
-  { value: CourseDifficulty.Normal, label: "2. Learner (Normal)" },
-  { value: CourseDifficulty.Advanced, label: "3. Pro (Advanced)" },
-  { value: CourseDifficulty.Legend, label: "4. Legend" },
-  { value: CourseDifficulty.Master, label: "5. Master" },
-  { value: CourseDifficulty.Hacker, label: "6. Hacker" },
+  { value: CourseDifficulty.Beginner, label: "Beginner" },
+  { value: CourseDifficulty.Normal, label: "Normal" },
+  { value: CourseDifficulty.Advanced, label: "Advanced" },
+  { value: CourseDifficulty.Legend, label: "Legend" },
+  { value: CourseDifficulty.Master, label: "Master" },
+  { value: CourseDifficulty.Hacker, label: "Hacker" },
 ];
 
 export const languageOptions = [

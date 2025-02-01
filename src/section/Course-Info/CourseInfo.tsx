@@ -11,12 +11,13 @@ import styles from "./CourseInfo.module.css";
 import Button from "@/components/button/Button";
 import Select from "react-select";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 export default function CourseInfo({
-  courseId,
+  isEdit,
   data,
 }: {
-  courseId: string;
+  isEdit: boolean;
   data: CoursesResponse | null;
 }) {
   const {
@@ -29,7 +30,8 @@ export default function CourseInfo({
     handleCroppedImage,
     handleButtonClick,
     handleInputChange,
-  } = useCourseInfo(courseId, data);
+  } = useCourseInfo(data);
+  const translate = useTranslations("CourseInfo");
 
   return (
     <Fragment>
@@ -44,11 +46,11 @@ export default function CourseInfo({
               <div className={styles.courseInfo}>
                 <div className={styles.leftContent}>
                   <div className={styles.fieldContent}>
-                    <h6>Course Name</h6>
+                    <h6>{translate("Course Name")}</h6>
                     <input
                       type="text"
                       name="name"
-                      placeholder="Enter the course name"
+                      placeholder={translate("Enter the course name")}
                       maxLength={50}
                       value={formInput.name}
                       onChange={handleInputChange}
@@ -59,11 +61,13 @@ export default function CourseInfo({
                     />
                   </div>
                   <div className={styles.fieldContent}>
-                    <h6>Course Description</h6>
+                    <h6>{translate("Course Description")}</h6>
                     <textarea
                       className={styles.styledTextArea}
                       name="title"
-                      placeholder="Ex: Learn about near protocol and ......."
+                      placeholder={translate(
+                        "Ex: Learn about near protocol and"
+                      )}
                       maxLength={150}
                       value={formInput.title}
                       onChange={handleInputChange}
@@ -74,11 +78,13 @@ export default function CourseInfo({
                     />
                   </div>
                   <div className={styles.fieldContent}>
-                    <h6>Course Tags</h6>
+                    <h6>{translate("Course Tags")}</h6>
                     <input
                       type="text"
                       name="tag"
-                      placeholder="Tags of the course like: JavaScript, Smart-Contract, AI ..."
+                      placeholder={translate(
+                        "Tags of the course like: JavaScript, Smart-Contract, AI"
+                      )}
                       maxLength={150}
                       value={formInput.tag}
                       onChange={handleInputChange}
@@ -90,7 +96,7 @@ export default function CourseInfo({
                   </div>
                   {/* Start Radio Option */}
                   <div className={styles.fieldContent}>
-                    <h6>Course Difficulty</h6>
+                    <h6>{translate("Course Difficulty")}</h6>
                     <div className={styles.courseDifficulty}>
                       <div className="flex-grow-1">
                         {courseDifficultyList
@@ -106,7 +112,7 @@ export default function CourseInfo({
                                 }
                                 onChange={handleInputChange}
                               />
-                              <label>{difficulty.label}</label>
+                              <label>{translate(difficulty.label)}</label>
                             </div>
                           ))}
                       </div>
@@ -124,7 +130,7 @@ export default function CourseInfo({
                                 }
                                 onChange={handleInputChange}
                               />
-                              <label>{difficulty.label}</label>
+                              <label>{translate(difficulty.label)}</label>
                             </div>
                           ))}
                       </div>
@@ -132,9 +138,9 @@ export default function CourseInfo({
                   </div>
                   {/* End Radio Option */}
                   <div className={styles.fieldContent}>
-                    <h6>Course Logo</h6>
+                    <h6>{translate("Course Logo")}</h6>
                     <div className={styles.courseLogo}>
-                      <label>Upload from your Device</label>
+                      <label>{translate("Upload from your Device")}</label>
                       <Image
                         src={image ? image : uploadIcon}
                         alt=""
@@ -148,12 +154,12 @@ export default function CourseInfo({
                     </div>
                   </div>
                   <div>
-                    <h6>Course Language</h6>
+                    <h6>{translate("Course Language")}</h6>
                     <div id="selector">
                       <Select
                         styles={customStyles}
                         options={languageOptions}
-                        placeholder="Select language a course"
+                        placeholder={translate("Select language a course")}
                         value={languageOptions.find(
                           (option) => option.value === formInput.language
                         )}
@@ -165,10 +171,12 @@ export default function CourseInfo({
 
                 <div className={styles.rightContent}>
                   <div>
-                    <h6>Course Out Lines</h6>
+                    <h6>{translate("Course Out Lines")}</h6>
                     <div className={styles.discriptionQuill}>
                       <RichBoxQuill
-                        placeholder="Enter a detailed outline of the course"
+                        placeholder={translate(
+                          "Enter a detailed outline of the course"
+                        )}
                         value={formInput.description}
                         onChange={(val) =>
                           handleInputChange({
@@ -184,19 +192,21 @@ export default function CourseInfo({
                 <Button
                   variant="mint"
                   size="lg"
-                  onClick={!Number(courseId) ? handleSubmit : handleUpdate}
+                  onClick={!isEdit ? handleSubmit : handleUpdate}
                 >
-                  {!Number(courseId) ? "Add and Edit Lessons" : "Update"}
+                  {!isEdit
+                    ? translate("Add and Edit Lessons")
+                    : translate("Update")}
                 </Button>
               </div>
               <div className="mt-3 btu">
-                {Number(courseId) ? (
+                {isEdit ? (
                   <Button
                     variant="mint"
                     size="lg"
-                    href={`/show-lesson/${courseId}`}
+                    href={`/show-lesson/${data?.id}`}
                   >
-                    Edit Lessons
+                    {translate("Edit Lessons")}
                   </Button>
                 ) : (
                   <></>
