@@ -44,7 +44,7 @@ export default function CustomerList({data} : AdminLists)  {
 
     return (
           <>
-            <SimpleTable columns={columns} data={data} title="Admin Table" enableRowAction={true} actions={actions} />
+            <SimpleTable columns={columns} data={data} title="Customer Table" enableRowAction={true} actions={actions} />
           </>
     );
   };

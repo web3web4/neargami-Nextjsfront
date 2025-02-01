@@ -4,7 +4,7 @@ import {
 } from "mantine-react-table";
 
 // biome-ignore lint/complexity/noBannedTypes: <explanation>
-export type CustomTableOptions<TData extends Record<string, any> = {}> = Omit<
+export type CustomTableOptions<TData extends Record<string, any> = object> = Omit<
   MRT_TableOptions<TData>,
   | "manualPagination"
   | "enablePagination"
@@ -16,7 +16,7 @@ export type CustomTableOptions<TData extends Record<string, any> = {}> = Omit<
 >;
 
 // biome-ignore lint/complexity/noBannedTypes: <explanation>
-export const useCustomTable = <TData extends Record<string, any> = {}>(
+export const useCustomTable = <TData extends Record<string, any> = object>(
   tableOptions: CustomTableOptions<TData>,
 ) => {
   return useMantineReactTable({

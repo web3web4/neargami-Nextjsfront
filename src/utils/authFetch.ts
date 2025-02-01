@@ -2,7 +2,7 @@
 import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
 //import router from "next/router";
-import Swal from "sweetalert2";
+//import Swal from "sweetalert2";
 
 /**
  * Authenticated fetch function
@@ -76,11 +76,13 @@ export const authFetch = async<T> (url: string, options: RequestInit = {}): Prom
       console.warn("JWT Token not found in cookies.");
 
       if (showMessage) {
+        /*
         Swal.fire({
           icon: "warning",
           title: "Session not available",
           text: "Please register or log in first.",
         });
+        */
       }
       return false;
     }
@@ -91,11 +93,13 @@ export const authFetch = async<T> (url: string, options: RequestInit = {}): Prom
   
     if (decodedToken.exp < now) {
       if (showMessage) {
+        /*
         Swal.fire({
           icon: "warning",
           title: "Session Expired",
           text: "Please log in again.",
         });
+        */
       }
       return false;
     }

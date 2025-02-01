@@ -1,3 +1,4 @@
+/*
 "use client";
 
 import { Badge, Paper, Rating, Space, Title } from "@mantine/core";
@@ -78,3 +79,4 @@ export function PaginationTable() {
     </Paper>
   );
 }
+*/
