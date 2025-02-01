@@ -26,7 +26,7 @@ export default async function LessonPage({ params }: { params: any }) {
       <Header />
       <PageHeader
         currentPage="Add Course Info"
-        pageTitle={`${!isEdit ? "Add" : "Edit"}  Lesson`}
+        pageTitle={!isEdit ? "Add Lesson" : "Edit Lesson"}
       />
       <Lesson courseId={courseId} lessonId={lessonId} data={data} />
     </Fragment>

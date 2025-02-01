@@ -88,7 +88,7 @@ const TeacherList = ({ courses }: { courses: CoursesResponse[] }) => {
                         tap.tabName.toLowerCase()
                     )
                     .map((filteredCourse, j) => (
-                      <div key={j} className="col-lg-3 col-md-6">
+                      <div key={j} className="col-lg-4 col-md-6">
                         <CourseCard {...filteredCourse} />
                       </div>
                     ))}

@@ -32,6 +32,7 @@ export default function CourseInfo({
     handleInputChange,
   } = useCourseInfo(data);
   const translate = useTranslations("CourseInfo");
+  const transDifficulty = useTranslations("CourseDifficulty");
 
   return (
     <Fragment>
@@ -112,7 +113,7 @@ export default function CourseInfo({
                                 }
                                 onChange={handleInputChange}
                               />
-                              <label>{translate(difficulty.label)}</label>
+                              <label>{`${index + 1}${". "} ${transDifficulty(difficulty.label)}`}</label>
                             </div>
                           ))}
                       </div>
@@ -130,7 +131,7 @@ export default function CourseInfo({
                                 }
                                 onChange={handleInputChange}
                               />
-                              <label>{translate(difficulty.label)}</label>
+                              <label>{`${index + 4}${". "} ${transDifficulty(difficulty.label)}`}</label>
                             </div>
                           ))}
                       </div>

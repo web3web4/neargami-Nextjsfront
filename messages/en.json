@@ -11,7 +11,12 @@
     "Leader Board": "Leader Board",
     "Teacher Dashboard": "Teacher Dashboard",
     "Edit Course Info": "Edit Course Info",
-    "Add Course Info": "Add Course Info"
+    "Add Course Info": "Add Course Info",
+    "Course Lessons": "Course Lessons",
+    "Edit Lesson": "Edit Lesson",
+    "Add Lesson": "Add Lesson",
+    "Add Q/A": "Add Q/A",
+    "Edit Q/A": "Edit Q/A"
   },
   "Header": {
     "All Courses": "All Courses",
@@ -87,12 +92,51 @@
     "Select language a course": "Select language a course",
     "Add and Edit Lessons": "Add and Edit Lessons",
     "Enter a detailed outline of the course": "Enter a detailed outline of the course",
-    "Update": "Update",
-    "Beginner": "1. Newbie (Beginner)",
-    "Normal": "2. Learner (Normal)",
-    "Advanced": "3. Pro (Advanced)",
-    "Legend": "4. Legend",
-    "Master": "5. Master",
-    "Hacker": "6. Hacker"
+    "Update": "Update"
+  },
+  "CourseDifficulty": {
+    "Beginner": "Newbie (Beginner)",
+    "Normal": "Learner (Normal)",
+    "Advanced": "Pro (Advanced)",
+    "Legend": "Legend",
+    "Master": "Master",
+    "Hacker": "Hacker"
+  },
+  "ShowLesson": {
+    "All Lessons": "All Lessons",
+    "Lessons": "Lessons",
+    "Add a Lesson": "Add a Lesson",
+    "Back to Edit Course": "Back to Edit Course"
+  },
+  "ListManager": {
+    "Arrange": "Arrange",
+    "title": "Title",
+    "Rearrange": "Rearrange",
+    "description": "Description",
+    "Edit": "Edit"
+  },
+  "Lesson": {
+    "Main Info": "Main Info",
+    "Lesson Name": "Lesson Name",
+    "Discription": "Discription",
+    "Pre Lesson Note": "Pre Lesson Note",
+    "After Lesson Note": "After Lesson Note",
+    "Lesson arrangement": "Lesson arrangement",
+    "Save And Publish": "Save And Publish",
+    "Add Q/A": "Add Q/A",
+    "Choose Q/A Type": "Choose Q/A Type",
+    "Multiple-choice questions": "Multiple-choice questions",
+    "Enter your lesson name": "Enter your lesson name",
+    "Enter discription talking about this lesson": "Enter discription talking about this lesson",
+    "Enter pre note": "Enter pre note",
+    "Enter next note": "Enter next note"
+  },
+  "QA": {
+    "Question": "Question",
+    "The Answer": "The Answer",
+    "Save": "Save",
+    "Right answer": "Right answer",
+    "Enter discription talking about this course": "Enter discription talking about this course",
+    "Enter your answer": "Enter your answer"
   }
 }

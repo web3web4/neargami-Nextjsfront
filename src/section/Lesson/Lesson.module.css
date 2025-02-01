@@ -56,6 +56,11 @@
   min-height: 200px;
 }
 
+[dir="rtl"] .lessonWrapper :global(.ql-editor) {
+  direction: rtl;
+  text-align: right;
+}
+
 .lessonWrapper select {
   padding: 20px;
   width: 50%;

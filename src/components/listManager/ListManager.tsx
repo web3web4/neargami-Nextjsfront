@@ -4,6 +4,7 @@ import Rearrange from "@/components/rearrange/Rearrange";
 import Button from "../button/Button";
 import { moveUp, moveDown } from "./index";
 import styles from "./ListManager.module.css";
+import { useTranslations } from "next-intl";
 
 interface ListManagerProps {
   initialData: any;
@@ -21,6 +22,8 @@ const ListManager = ({
   arrangeFild,
 }: ListManagerProps) => {
   const [data, setData] = useState(initialData);
+  const translate = useTranslations("ListManager");
+
   const extractTextFromHTML = (htmlString: string) => {
     const tempDiv = document.createElement("div");
     tempDiv.innerHTML = htmlString;
@@ -38,15 +41,13 @@ const ListManager = ({
    * send data lesson to backend and create
    */
 
-  
-
   return (
     <div className={styles.listManagerWrapper}>
       <div className={styles.listManager}>
         {data?.map((col: any, i: number) => (
           <ul key={i} className={styles.listManagerItem}>
-            <li data-title="Arrange"> {col[arrangeFild]} </li>
-            <li data-title={mainField}>
+            <li data-title={translate("Arrange")}> {col[arrangeFild]} </li>
+            <li data-title={translate(mainField)}>
               <div
                 className={styles.des}
                 dangerouslySetInnerHTML={{
@@ -54,21 +55,17 @@ const ListManager = ({
                 }}
               />
             </li>
-            <li data-title="Rearrange">
+            <li data-title={translate("Rearrange")}>
               <Rearrange
-                onClickUp={() =>
-                  moveUp(i, arrangeFild, data, setData)
-                }
-                onClickDown={() =>
-                  moveDown(i, arrangeFild, data, setData)
-                }
+                onClickUp={() => moveUp(i, arrangeFild, data, setData)}
+                onClickDown={() => moveDown(i, arrangeFild, data, setData)}
               />
             </li>
             <li data-title="">
               <Button variant="mint" size="sm" href={`${href}/${col[idField]}`}>
-                Edit
+                {translate("Edit")}
               </Button>
-            </li>
+            </li> 
           </ul>
         ))}
       </div>

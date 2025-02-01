@@ -18,6 +18,7 @@ const CourseCard = ({
   slug
 }: CoursesResponse) => {
     const translate = useTranslations("TeacherDashboard");
+    const transDifficulty = useTranslations("CourseDifficulty");
   
   return (
     <div className={styles.courseCard}>
@@ -41,7 +42,7 @@ const CourseCard = ({
       <div className={styles.courseContent}>
         <div className={styles.courseHeader}>
           <div className={styles.headingTitle}>
-            <h4>{difficulty}</h4>
+            <h4>{transDifficulty(difficulty)}</h4>
           </div>
         </div>
       </div>

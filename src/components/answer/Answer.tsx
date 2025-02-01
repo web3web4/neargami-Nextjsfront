@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import styles from "./Answer.module.css";
 interface AnswerProps {
   id: string;
@@ -14,6 +15,8 @@ export default function Answer({
   handleInputChange,
   handleCheckboxChange,
 }: AnswerProps) {
+  const translate = useTranslations("QA");
+
   return (
     <div className={styles.contentAnswer}>
       <input
@@ -21,12 +24,12 @@ export default function Answer({
         className={styles.answer}
         type="text"
         name="description"
-        placeholder="Enter your choice"
+        placeholder={translate("Enter your answer")}
         value={descriptionValue}
         onChange={handleInputChange}
       />
       <div className={styles.answerRight}>
-        <label>Right answer</label>
+        <label>{translate("Right answer")}</label>
         <input
           id={id}
           type="checkbox"

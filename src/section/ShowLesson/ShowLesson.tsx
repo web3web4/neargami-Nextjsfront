@@ -2,6 +2,7 @@ import styles from "./ShowLesson.module.css";
 import ListManager from "@/components/listManager/ListManager";
 import Button from "@/components/button/Button";
 import { LessonResponse } from "@/interfaces/api";
+import { useTranslations } from "next-intl";
 
 export default function ShowLesson({
   courseId,
@@ -10,21 +11,21 @@ export default function ShowLesson({
   courseId: string;
   data: LessonResponse;
 }) {
+  const translate = useTranslations("ShowLesson");
   return (
     <div className={styles.showLessonStyleWrapper}>
       <div className="container">
         <h4>
           {data && data?.lectures?.length > 0
-            ? data?.lectures[0]?.course?.name
-            : "All"}{" "}
-          Lessons
+            ? `${translate("Lessons")} ${data?.lectures[0]?.course?.name}`
+            : translate("All Lessons")}{" "}
         </h4>
         <div className="d-flex justify-content-between">
           <Button size="md" variant="mint" href={`/lesson/${courseId}/add`}>
-            Add a Lesson
+            {translate("Add a Lesson")}
           </Button>
           <Button size="md" variant="mint" href={`/course-info/${courseId}`}>
-            Back to Edit Course
+            {translate("Back to Edit Course")}
           </Button>
         </div>
         <div className="row">
