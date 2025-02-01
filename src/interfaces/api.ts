@@ -97,14 +97,14 @@ export interface UserProfileResponse {
 
 
   export interface CoursesResponse {
-    id?: number;
+    id?: number ;
     name: string;
     logo: string;
     total_score?: number;
     tag: string;
     difficulty: string;
     isAdmin?: boolean; 
-    slug?: string;
+    slug: string;
     teacher?: {
       id: number;
       image: string;
@@ -157,9 +157,17 @@ export interface UserProfileResponse {
   }
 
   export interface DataPopup {
-    id:string,
-    firstname:string,
-    lastname:string,
-    image?:string
+      id?: number,
+      start_time?: string | null,
+      end_time?: string | null,
+      user_id?: string | null,
+      course_id?: number,
+      user: {
+          id: string,
+          slug:string,
+          firstname: string |null,
+          lastname: string |null,
+          image?: string |null
+      }
     [key: string]: any;
   }

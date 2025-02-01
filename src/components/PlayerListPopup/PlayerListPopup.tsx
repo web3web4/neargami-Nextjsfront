@@ -42,17 +42,17 @@ const PlayerListPopup: React.FC<PlayerListPopupProps> = ({ open, onClose, title,
           ) : players && players.length > 0 ? (
             <div className={styles.playerList}>
               {players.map((player, index) => (
-                <Link href={`/profile/${player.id}`} key={index}>
+                <Link href={`/profile/${player.user.slug}/${player.user.id}`} key={index}>
                   <div className={styles.playerItem}>
                     <Image
-                      src={player.image || userDefault} 
+                      src={player.user.image || userDefault} 
                       alt={`${player.firstname} ${player.lastname}`}
                       width={50}
                       height={50}
                       className={styles.playerImage}
                     />
                     <div className={styles.playerDetails}>
-                      <p>{player.firstname}</p> <p>{player.lastname}</p>
+                      <p>{player.user.firstname}</p> <p>{player.user.lastname}</p>
                     </div>
                   </div>
                 </Link>
