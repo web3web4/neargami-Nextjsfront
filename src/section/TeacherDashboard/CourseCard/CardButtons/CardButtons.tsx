@@ -1,6 +1,7 @@
 "use client";
 import { updateCourseStatus } from "@/apiService";
 import Button from "@/components/button/Button";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import Swal from "sweetalert2";
 
@@ -17,6 +18,7 @@ export default function CardButtons({
 }) {
   const [showRejectInput, setShowRejectInput] = useState(false);
   const [rejectDescription, setRejectDescription] = useState("");
+  const translate = useTranslations("TeacherDashboard");
 
   const handleReject = () => {
     setShowRejectInput(true);
@@ -83,7 +85,7 @@ export default function CardButtons({
         href={`/course-info/${slug}`}
         style={{ marginRight: "10px" }}
       >
-        Edit
+        {translate("Edit")}
       </Button>
       {publish_status.toUpperCase() !== "REJECTED" && (
         <Button
@@ -92,12 +94,12 @@ export default function CardButtons({
           onClick={handleReject}
           style={{ marginRight: "10px" }}
         >
-          Reject
+          {translate("Reject")}
         </Button>
       )}
       {publish_status.toUpperCase() !== "APPROVED" && (
         <Button variant="mint" size="sm" onClick={handleApprove}>
-          Approve
+          {translate("Approve")}
         </Button>
       )}
 
@@ -110,7 +112,7 @@ export default function CardButtons({
             onChange={(e) => setRejectDescription(e.target.value)}
           />
           <Button variant="blue" size="sm" onClick={handleSubmitReject}>
-            Submit
+            {translate("Submit")}
           </Button>
         </div>
       )}

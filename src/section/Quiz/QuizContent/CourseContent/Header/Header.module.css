@@ -22,6 +22,7 @@
 }
 
 .navWrapper::after {
+  left: auto;
   right: 0px;
   background: url("../../../../../assets/images/bg/header-shape2.png") center
     no-repeat;

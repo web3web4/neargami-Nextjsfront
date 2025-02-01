@@ -3,9 +3,13 @@
     "Search Course": "Search Course"
   },
   "PageHeader": {
-    "Course Details": "Course Details",
     "Home": "Home",
-    "SHARE": "SHARE"
+    "SHARE": "SHARE",
+    "Course Details": "Course Details",
+    "Players": "Players",
+    "NearGami Players": "NearGami Players",
+    "Leader Board": "Leader Board",
+    "Teacher Dashboard": "Teacher Dashboard"
   },
   "Header": {
     "All Courses": "All Courses",
@@ -47,6 +51,22 @@
     "Finish Lesson": "Finish Lesson",
     "Correct Answers:": "Correct Answers:",
     "Incorrect Answer": "Incorrect Answer",
-    "Correct Answer":"Correct Answer"
+    "Correct Answer": "Correct Answer"
+  },
+  "LeaderBoard": {
+    "Comming Soon": "Comming Soon..."
+  },
+  "TeacherDashboard": {
+    "Start by adding new courses": "Start by adding new courses.",
+    "We will approve high-quality contents": "We will approve high-quality contents.",
+    "Add a Course": "Add a Course",
+    "Search Course": "Search Course",
+    "DRAFT": "Draft",
+    "REJECTED": "Rejected",
+    "APPROVED": "Approved",
+    "Reject": "Reject",
+    "Edit": "Edit",
+    "Approve": "Approve",
+    "Submit": "Submit"
   }
 }
