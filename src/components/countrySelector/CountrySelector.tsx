@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import React, { useState, useEffect } from "react";
 import Select, { SingleValue, StylesConfig } from "react-select";
 import countryList from "react-select-country-list";
@@ -14,6 +15,7 @@ interface CountrySelectorProps {
 }
 
 const CountrySelector = ({ onChange, style, value }: CountrySelectorProps) => {
+  const translate = useTranslations("Wizard");
   const [selectedCountry, setSelectedCountry] =
     useState<SingleValue<CountryData>>(null);
 
@@ -54,7 +56,7 @@ const CountrySelector = ({ onChange, style, value }: CountrySelectorProps) => {
       options={options}
       value={selectedCountry}
       onChange={handleChange}
-      placeholder="Country"
+      placeholder={translate("Country")}
     />
   );
 };

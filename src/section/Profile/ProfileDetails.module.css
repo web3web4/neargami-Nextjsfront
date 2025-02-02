@@ -65,20 +65,20 @@
 
 .container {
   width: 100%;
-    padding-right: var(--bs-gutter-x, .75rem);
-    padding-left: var(--bs-gutter-x, .75rem);
-    margin-right: auto;
-    margin-left: auto;
+  padding-right: var(--bs-gutter-x, 0.75rem);
+  padding-left: var(--bs-gutter-x, 0.75rem);
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .row {
   --bs-gutter-x: 1.5rem;
-    --bs-gutter-y: 0;
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: calc(var(--bs-gutter-y)* -1);
-    margin-right: calc(var(--bs-gutter-x)* -.5);
-    margin-left: calc(var(--bs-gutter-x)* -.5);
+  --bs-gutter-y: 0;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: calc(var(--bs-gutter-y) * -1);
+  margin-right: calc(var(--bs-gutter-x) * -0.5);
+  margin-left: calc(var(--bs-gutter-x) * -0.5);
 }
 
 .memberDetails li strong {
@@ -92,13 +92,13 @@
   font-family: "Inter";
   line-height: 40px;
   color: #ffffff;
-  margin-left: 10px;
+  margin-inline-start: 10px;
 }
 
 .memberDetails .socialItems a img {
   height: 18px;
   width: 18px;
-  margin-left: 15px;
+  margin-inline-start: 15px;
 }
 
 .memberDetails .socialItems a:hover {
@@ -148,11 +148,11 @@
 
 .sectionCourses {
   text-align: center;
-    background: #00ec97;
-    padding: 20px;
-    font-size: 18px;
-    margin-top: 20px;
-    color: black;
+  background: #00ec97;
+  padding: 20px;
+  font-size: 18px;
+  margin-top: 20px;
+  color: black;
 }
 
 @media only screen and (max-width: 768px) {

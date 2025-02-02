@@ -119,14 +119,14 @@
   margin-bottom: 15px !important;
 }
 
-.img {
-  margin-right: 3px;
+.rightContentSection2 img {
+  margin-inline-end: 3px;
   position: relative;
   top: -5px;
 }
 
 .h6 {
-  margin-left: 10px;
+  margin-inline-start: 10px;
 }
 
 .btu {

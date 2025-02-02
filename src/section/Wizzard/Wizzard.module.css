@@ -48,7 +48,7 @@
 }
 
 .checkbox + .label {
-  margin-left: 10px;
+  margin-inline-start: 10px;
   color: #212529;
 }
 
