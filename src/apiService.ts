@@ -909,11 +909,11 @@ export const uploadFile = async (
  * this function for get all palyers Attending the course in popup header
  * @returns data from backend
  */
-export const fetchStartPlayers = async (/*courseId:string*/): Promise<
+export const fetchStartPlayers = async (courseSlug:string): Promise<
   DataPopup[]
 > => {
   const response = await authFetch<ApiResponse<DataPopup[]>>(
-    `${API_BASE_URL}/users`,
+    `${API_BASE_URL}/user-courses/${courseSlug}`,
     {
       method: "GET",
       headers: {
@@ -929,11 +929,11 @@ export const fetchStartPlayers = async (/*courseId:string*/): Promise<
  * this function for get all palyers Completed the Course in popup header
  * @returns data from backend
  */
-export const fetchEndPlayers = async (/*courseId:string*/): Promise<
+export const fetchEndPlayers = async (courseSlug:string): Promise<
   DataPopup[]
 > => {
   const response = await authFetch<ApiResponse<DataPopup[]>>(
-    `${API_BASE_URL}/users`,
+    `${API_BASE_URL}/user-courses/${courseSlug}?finished=true`,
     {
       method: "GET",
       headers: {
@@ -997,3 +997,4 @@ export const updateUserFlags = async (
     }
   );
 };
+

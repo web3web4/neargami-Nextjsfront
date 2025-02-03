@@ -16,17 +16,16 @@ import { DataPopup, LessonResponse } from "@/interfaces/api";
 import PlayerListPopup from "@/components/PlayerListPopup/PlayerListPopup";
 import { useAuth } from "@/context/authContext";
 import { useTranslations } from "next-intl";
+import { fetchEndPlayers, fetchStartPlayers } from "@/apiService";
 
 interface HeaderCourses {
   data: LessonResponse;
-  popupEndUser: DataPopup[];
-  popupStartUser: DataPopup[];
+  courseSlug:string
 }
 
 const CourseHeader = ({
   data,
-  popupEndUser,
-  popupStartUser,
+  courseSlug,
 }: HeaderCourses) => {
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [isNotStartCourse, setIsNotStartCourse] = useState<boolean>(true);
@@ -34,6 +33,10 @@ const CourseHeader = ({
   const [showEndPopup, setShowEndPopup] = useState<boolean>(false);
   const translate = useTranslations('CourseDetails');
   const { jwtToken } = useAuth();
+  const [popupEndUser, setPopupEndUser] = useState<DataPopup[]>([]);
+  const [popupStartUser, setPopupStartUser] = useState<DataPopup[]>([]);
+  
+
 
   useEffect(() => {
     if (data && data?.lectures?.length > 0) {
@@ -52,6 +55,24 @@ const CourseHeader = ({
   const handleRatingClick = () => {
     setShowPopup(true);
   };
+
+  useEffect(() => {
+    const fetchPlayers = async (courseSlug: string) => {
+      try {
+        const endUsers = await fetchEndPlayers(courseSlug);
+        const startUsers = await fetchStartPlayers(courseSlug);
+        setPopupEndUser(endUsers);
+        setPopupStartUser(startUsers);
+      } catch (error) {
+        console.error("Error fetching players:", error);
+      }
+    };
+  
+    if (courseSlug) {
+        fetchPlayers(courseSlug);
+      
+    }
+  }, [courseSlug]);
 
   return (
     <Fragment>

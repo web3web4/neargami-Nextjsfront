@@ -21,6 +21,7 @@ export const useCourseInfo = (
     description: "",
     logo: "",
     language: CourseLanguage.English,
+    slug:""
   });
 
   const handleSelectChange = (selectedOption: any) => {
@@ -61,6 +62,7 @@ export const useCourseInfo = (
         logo: data!.logo,
         tag: data!.tag,
         language: data!.language,
+        slug:data!.slug
       });
       setImage(data!.logo);
     }
