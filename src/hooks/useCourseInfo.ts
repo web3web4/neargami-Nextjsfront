@@ -4,12 +4,13 @@ import { CourseDifficulty, CourseLanguage } from "../utils/Enums";
 import { useRouter } from "next/navigation";
 import { CoursesResponse } from "@/interfaces/api";
 import Swal from "sweetalert2";
+import { useTranslations } from "next-intl";
 
 export const useCourseInfo = (
-  courseId: string,
   data: CoursesResponse | null
 ) => {
   const router = useRouter();
+  const translate = useTranslations("messages");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [image, setImage] = useState<string | null>(null);
   const [formInput, setFormInput] = useState<CoursesResponse>({
@@ -75,8 +76,8 @@ export const useCourseInfo = (
     if (!formInput.tag || !formInput.tag.trim()) {
       Swal.fire({
         icon: "warning",
-        title: "Required Field",
-        text: "The Tags field is required. Please enter all related tags.",
+        title: translate("Required Field"),
+        text: translate("The Tags field is required Please enter all related tags"),
       });
       return;
     }
@@ -84,8 +85,8 @@ export const useCourseInfo = (
       const create = await createCourse(formInput);
       Swal.fire({
         icon: "success",
-        title: "Success",
-        text: "The course has been created successfully!",
+        title: translate("Success"),
+        text: translate("The course has been created successfully!"),
       });
       router.push(`/show-lesson/${create.id}`);
     } catch (error) {
@@ -110,19 +111,19 @@ export const useCourseInfo = (
     if (!formInput.tag || !formInput.tag.trim()) {
       Swal.fire({
         icon: "warning",
-        title: "Required Field",
-        text: "The Tags field is required. Please enter all related tags.",
+        title: translate("Required Field"),
+        text: translate("The Tags field is required Please enter all related tags"),
       });
       return;
     }
     try {
       console.log(formInput);
-      const update = await updateCourse(formInput, courseId);
+      const update = await updateCourse(formInput, data!.id!.toString());
       if (update) {
         Swal.fire({
           icon: "success",
-          title: "Success",
-          text: "The course has been updated successfully.",
+          title: translate("Success"),
+          text: translate("The course has been updated successfully!"),
         });
       }
     } catch (error) {

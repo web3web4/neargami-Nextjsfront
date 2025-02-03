@@ -4,9 +4,11 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import { QAResponse } from "@/interfaces/api";
+import { useTranslations } from "next-intl";
 
 export const useQA = (courseId: string, lessonId: string, qaId: string, data: QAResponse | null ) => {
   const route = useRouter();
+  const translate = useTranslations("messages");
   const [formInput, setFormInput] = useState<QA>({
     description: "",
     options: [],
@@ -25,8 +27,8 @@ export const useQA = (courseId: string, lessonId: string, qaId: string, data: QA
     if (!hasCorrectAnswer) {
       Swal.fire({
         icon: "warning",
-        title: "Warning",
-        text: "Please select at least one correct answer before submitting.",
+        title: translate("Warning"),
+        text: translate("Please select at least one correct answer before submitting"),
       });
       return;
     }
@@ -46,8 +48,8 @@ export const useQA = (courseId: string, lessonId: string, qaId: string, data: QA
       if (create) {
         Swal.fire({
           icon: "success",
-          title: "Success",
-          text: "QA Created successfully!",
+          title: translate("Success"),
+          text: translate("QA Created successfully!"),
         });
         route.push(`/lesson/${courseId}/${lessonId}`);
       }
@@ -56,8 +58,8 @@ export const useQA = (courseId: string, lessonId: string, qaId: string, data: QA
       (error.cause as any).message : error;
       Swal.fire({
         icon: "error",
-        title: "Error",
-        text: `There was an error created QA.${msgError}`,
+        title: translate("Error"),
+        text: `${translate("There was an error created QA")}.${msgError}`,
       });
     }
   };
@@ -75,8 +77,8 @@ export const useQA = (courseId: string, lessonId: string, qaId: string, data: QA
     if (!hasCorrectAnswer) {
       Swal.fire({
         icon: "warning",
-        title: "Warning",
-        text: "Please select at least one correct answer before submitting.",
+        title: translate("Warning"),
+        text: translate("Please select at least one correct answer before submitting"),
       });
       return;
     }
@@ -97,16 +99,16 @@ export const useQA = (courseId: string, lessonId: string, qaId: string, data: QA
       if (update) {
         Swal.fire({
           icon: "success",
-          title: "Success",
-          text: "QA Updated successfully!",
+          title: translate("Success"),
+          text: translate("QA Updated successfully!"),
         });
       }
     } catch (error) {
       console.error("Error updating QA:", error);
       Swal.fire({
         icon: "error",
-        title: "Error",
-        text: "There was an error update QA.",
+        title: translate("Error"),
+        text: translate("Warning"),
       });
     }
   };

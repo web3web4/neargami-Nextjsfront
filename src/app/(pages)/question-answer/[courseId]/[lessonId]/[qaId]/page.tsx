@@ -26,7 +26,7 @@ export default async function EditQaPage({params}: {params: any}) {
         <Header />
         <PageHeader
           currentPage="Add Course Info"
-          pageTitle={`${!isEdit ? "Add" : "Edit"} Q/A`}
+          pageTitle={ !isEdit ? "Add Q/A" : "Edit Q/A"}
         />
         <QA courseId={courseId} lessonId={lessonId} qaId={qaId} data={data} />
     </Fragment>

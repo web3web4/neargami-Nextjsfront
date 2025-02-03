@@ -12,8 +12,10 @@ import { MdNotes } from "react-icons/md";
 import styles from "./MenuButtons.module.css";
 import NGCToken from "@/section/Header/NGCToken/NGCToken";
 import MobileMenu from "@/section/Header/MobileMenu/MobileMenu";
+import { useTranslations } from "next-intl";
 
 export default function MenuButtons() {
+  const translate = useTranslations("Header");
   const [buttonText, setButtonText] = useState<string>("Connect");
   const [isMobileMenu, setMobileMenu] = useState<boolean>(false);
   const { handleNearLogin } = useWallet();
@@ -50,7 +52,7 @@ export default function MenuButtons() {
           onClick={() => handleNearLogin(setButtonText)}
         >
           <Image src={connectIcon} alt="icon" />
-          {buttonText}
+          {translate(buttonText)}
         </Button>
       )}
       {isMobileMenu && <MobileMenu mobileMenuhandle={handleMobileMenu} />}

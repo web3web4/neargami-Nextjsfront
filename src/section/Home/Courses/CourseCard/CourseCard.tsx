@@ -11,6 +11,7 @@ import CardHover from "@/components/cardHover/CardHover";
 import { CoursesResponse, DataPopup } from "@/interfaces/api";
 import { Fragment, useState } from "react";
 import PlayerListPopup from "@/components/PlayerListPopup/PlayerListPopup";
+import { useTranslations } from "next-intl";
 
 interface CourseCardProps {
   props: CoursesResponse;
@@ -25,6 +26,8 @@ const CourseCard = ({
 }: CourseCardProps) => {
   const [showStartPopup, setShowStartPopup] = useState<boolean>(false);
   const [showEndPopup, setShowEndPopup] = useState<boolean>(false);
+    const transDifficulty = useTranslations("CourseDifficulty");
+  
   return (
     <Fragment>
       <PlayerListPopup
@@ -65,7 +68,7 @@ const CourseCard = ({
         <div className={styles.courseContent}>
           <div className={styles.courseHeader}>
             <div className={styles.headingTitle}>
-              <h2>{props.difficulty}</h2>
+              <h2>{transDifficulty(props.difficulty)}</h2>
               <div>
                 <TotalRating
                   courseId={props.id!}

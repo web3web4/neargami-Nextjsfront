@@ -1,22 +1,28 @@
 import type { Metadata } from "next";
 import { inter, russoOne } from "@/utils/font";
 import { AuthProvider } from "../context/authContext";
-import "./index.css";
 import { WalletProvider } from "@/auth/nearAuth";
-import { Analytics } from '@vercel/analytics/next';
+import { Analytics } from "@vercel/analytics/next";
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale, getMessages } from "next-intl/server";
+import "./index.css";
 
 export const metadata: Metadata = {
   title: "NearGami",
   description: "Play to learn & learn to earn",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+  const messages = await getMessages();
+  const direction = locale === "ar" ? "rtl" : "ltr";
+
   return (
-    <html lang="en">
+    <html lang={locale} dir={direction}>
       <head>
         <link
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
@@ -40,7 +46,11 @@ export default function RootLayout({
       <body className={`${inter.variable} ${russoOne.variable}`}>
         <AuthProvider>
           <WalletProvider>
-            <main>{children}</main>
+            <main>
+              <NextIntlClientProvider messages={messages}>
+                {children}
+              </NextIntlClientProvider>
+            </main>
             <Analytics />
           </WalletProvider>
         </AuthProvider>

@@ -7,9 +7,9 @@
 .navWrapper::before,
 .navWrapper::after {
   position: absolute;
-  left: -25px;
+  left: 0px;
   top: 0;
-  width: 300px;
+  width: 25%;
   height: 100%;
   background-size: cover;
   content: "";
@@ -23,7 +23,7 @@
 
 .navWrapper::after {
   left: auto;
-  right: -25px;
+  right: 0px;
   background: url("../../../../../assets/images/bg/header-shape2.png") center
     no-repeat;
 }

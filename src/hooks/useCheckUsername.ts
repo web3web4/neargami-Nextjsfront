@@ -7,6 +7,7 @@ export function useCheckUsername(username: string, onAvailabilityChange: (isAvai
   const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
   const [isChecking, setIsChecking] = useState<boolean | null>(false);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const checkUsername = useCallback(
     debounce(async (username: string) => {
       setIsChecking(true);
@@ -32,6 +33,7 @@ export function useCheckUsername(username: string, onAvailabilityChange: (isAvai
       setIsChecking(null);
       onAvailabilityChange(null);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [username]);
 
   return { isAvailable, isChecking, checkUsername };

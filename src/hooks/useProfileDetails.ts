@@ -6,6 +6,7 @@ import { claimsNgcs, getUserProfile, getCurrentNgcs } from "@/apiService";
 import Swal from "sweetalert2";
 import { UserProfileData } from "@/interfaces/api";
 import { useAuth } from "@/context/authContext";
+import { useTranslations } from "next-intl";
 
 export const useProfileDetails = (playerId: string | null ) => {
     const [data, setData] = useState<UserProfileData>({});
@@ -18,9 +19,10 @@ export const useProfileDetails = (playerId: string | null ) => {
     const { setIsLoading } = useLoading();
     const {jwtToken} = useAuth();
     const [isCopied, setIsCopied] = useState<boolean>(false);
+    const translate = useTranslations("messages");
     console.log(balance);
     console.log(error);
-
+    
     useEffect(() => {
       window.GetUserID = () => playerId || getUserIdFromToken();
       window.IsGameReadOnly = () => !!playerId;
@@ -162,16 +164,16 @@ export const useProfileDetails = (playerId: string | null ) => {
         }
         Swal.fire({
           icon: "success",
-          title: "Success",
-          html: `Your claim has been registered successfully.
-          <a href="/privacy-policy">Privacy Policy</a>
-          <a href="/legal-disclaimer">Legal Disclaimer</a>.`,
+          title: translate("Success"),
+          html: `${translate("Your claim has been registered successfully!")}.
+          <a href="/privacy-policy">${translate("Privacy Policy")}</a>
+          <a href="/legal-disclaimer">${translate("Legal Disclaimer")}</a>.`,
         });
       } else {
         Swal.fire({
           icon: "warning",
-          title: "Warning",
-          html: `No points available to claim. <a href="/privacy-policy">Privacy Policy</a>.`,
+          title: translate("Warning"),
+          html: `${translate("No points available to claim")}. <a href="/privacy-policy">${translate("Privacy Policy")}</a>.`,
         });
       }
     };

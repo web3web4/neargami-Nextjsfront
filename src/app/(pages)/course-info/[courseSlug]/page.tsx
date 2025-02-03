@@ -27,7 +27,7 @@ export default async function CourseInfoPage({ params }: { params: any }) {
         currentPage={`${isEdit ? "Edit" : "Add"} Course Info`}
         pageTitle="Add Course Info"
       />
-      <CourseInfo courseId={courseSlug} data={data} />
+      <CourseInfo isEdit={isEdit} data={data} />
     </Fragment>
   );
 }

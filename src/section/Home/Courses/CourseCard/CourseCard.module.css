@@ -57,10 +57,15 @@
   background: url("../../../../assets/images/bg/shape-bg.png");
   background-position: center;
   background-repeat: no-repeat;
-  left: -70px;
+  inset-inline-start: -70px;
   top: 1px;
   content: "";
   z-index: 111;
+}
+
+[dir="rtl"] .courseHeader::before {
+ transform: rotate(180deg);
+ transform: scaleX(-1);
 }
 
 .headingTitle h2 {
@@ -137,7 +142,7 @@
 }
 
 .studentCount img {
-  margin-right: 5px;
+  margin-inline-end: 5px;
 }
 
 .starsRating {

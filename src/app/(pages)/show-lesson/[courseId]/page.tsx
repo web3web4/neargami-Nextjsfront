@@ -19,7 +19,7 @@ export default async function ShowLessonPage({ params }: { params: any }) {
   return (
     <Fragment>
       <Header />
-      <PageHeader currentPage="Add Course Info" pageTitle="Course Lesson" />
+      <PageHeader currentPage="Add Course Info" pageTitle="Course Lessons" />
       <ShowLesson courseId={courseId} data={data} />
     </Fragment>
   );

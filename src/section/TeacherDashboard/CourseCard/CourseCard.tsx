@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { CoursesResponse } from "@/interfaces/api";
 import CardButtons from "./CardButtons/CardButtons";
+import { useTranslations } from "next-intl";
 
 const CourseCard = ({
   id,
@@ -16,6 +17,9 @@ const CourseCard = ({
   isAdmin,
   slug
 }: CoursesResponse) => {
+    const translate = useTranslations("TeacherDashboard");
+    const transDifficulty = useTranslations("CourseDifficulty");
+  
   return (
     <div className={styles.courseCard}>
       <div className={styles.courseInfo}>
@@ -38,7 +42,7 @@ const CourseCard = ({
       <div className={styles.courseContent}>
         <div className={styles.courseHeader}>
           <div className={styles.headingTitle}>
-            <h4>{difficulty}</h4>
+            <h4>{transDifficulty(difficulty)}</h4>
           </div>
         </div>
       </div>
@@ -47,7 +51,7 @@ const CourseCard = ({
           <CardButtons id={id!} slug={slug!} publish_status={publish_status} style={styles.publishStatus}/>
         ) : publish_status.toUpperCase() !== "REJECTED" ? (
           <Button variant="mint" size="sm" href={`/course-info/${slug}`}>
-            Edit
+            {translate("Edit")}
           </Button>
         ) : (
           <h4>{publish_status}</h4>

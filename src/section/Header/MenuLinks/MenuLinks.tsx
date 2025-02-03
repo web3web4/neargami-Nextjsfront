@@ -10,11 +10,14 @@ import {
 import { useAuth } from "@/context/authContext";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 export default function MenuLinks() {
   const { handleNearLogout } = useWallet();
   const { jwtToken } = useAuth();
   const router = useRouter();
+  const translate = useTranslations("Header");
+
 
   const handleMenuClick = async (
     e: any,
@@ -40,14 +43,14 @@ export default function MenuLinks() {
           <li key={i}>
             {menu.action ? (
               <div className={styles.btnHeader} onClick={handleNearLogout}>
-                {menu.title}
+                {translate(menu.title)}
               </div>
             ) : (
               <div
                 className={styles.btnHeader}
                 onClick={(e) => handleMenuClick(e, menu.url, menu.isNeedAuth)}
               >
-                {menu.title}{" "}
+                {translate(menu.title)}{" "}
                 {menu.subMenus && menu.subMenus?.length > 0 && (
                   <MdOutlineKeyboardArrowDown />
                 )}

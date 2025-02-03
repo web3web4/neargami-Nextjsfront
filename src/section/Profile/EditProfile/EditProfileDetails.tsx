@@ -1,5 +1,4 @@
 "use client";
-
 import CountrySelector from "@/components/countrySelector/CountrySelector";
 import Button from "@/components/button/Button";
 import fbIcon from "@/assets/images/icons/facebook.svg";
@@ -14,12 +13,16 @@ import CropImage from "@/components/cropImage/CropImage";
 import { useEditProfile } from "@/hooks/useEditProfile";
 import { UserProfileResponse } from "@/interfaces/api";
 import CheckUsername from "@/components/checkUsername/CheckUsername";
-
+import { useTranslations } from "next-intl";
+import Select from "react-select";
+import { languageOptions, customStyles } from "./index";
+import { getCookie } from "cookies-next";
 interface EditProfile {
   data: UserProfileResponse;
 }
 
 const EditProfileDetails = ({ data }: EditProfile) => {
+  const translate = useTranslations("Profile");
   const {
     initUsername,
     fileInputRef,
@@ -30,6 +33,7 @@ const EditProfileDetails = ({ data }: EditProfile) => {
     handleButtonClick,
     handleSubmit,
     setIsUsernameAvailable,
+    handleSelectLangChange,
   } = useEditProfile(data);
 
   return (
@@ -60,58 +64,60 @@ const EditProfileDetails = ({ data }: EditProfile) => {
                   className={styles.bannerBtn}
                   onClick={handleButtonClick}
                 >
-                  Upload Photo
+                  {translate("Upload Photo")}
                 </Button>
-                <h5 className={`${styles.mt2} ${styles.mb2}`}>OR</h5>
+                <h5 className={`${styles.mt2} ${styles.mb2}`}>
+                  {translate("OR")}
+                </h5>
                 <Button
                   href="/edit-profile"
                   variant="white"
                   size="cust"
                   className={styles.bannerBtn}
                 >
-                  Select Avatar
+                  {translate("Select Avatar")}
                 </Button>
               </div>
             </div>
             <div className={styles.rightContent}>
               <div className={styles.rightContentSection1}>
-                <h4 className={styles.mb3}>Account Info</h4>
+                <h4 className={styles.mb3}>{translate("Account Info")}</h4>
                 <div>
-                  <h6 className={styles.h6}>First Name</h6>
+                  <h6 className={styles.h6}>{translate("First Name")}</h6>
                   <input
                     type="text"
                     id="firstname"
                     name="firstname"
                     className={styles.input}
-                    placeholder="Enter your first name"
+                    placeholder={translate("Enter your first name")}
                     value={formInput.firstname}
                     onChange={handleInputChange}
                   />
                 </div>
                 <div>
-                  <h6 className={styles.h6}>Last Name</h6>
+                  <h6 className={styles.h6}>{translate("Last Name")}</h6>
                   <input
                     type="text"
                     id="lastname"
                     className={styles.input}
-                    placeholder="Enter your last name"
+                    placeholder={translate("Enter your last name")}
                     value={formInput.lastname}
                     onChange={handleInputChange}
                   />
                 </div>
                 <div>
-                  <h6 className={styles.h6}>Email</h6>
+                  <h6 className={styles.h6}>{translate("Email")}</h6>
                   <input
                     type="email"
                     id="email"
                     className={styles.input}
-                    placeholder="Enter your email"
+                    placeholder={translate("Enter your email")}
                     value={formInput.email}
                     onChange={handleInputChange}
                   />
                 </div>
                 <div>
-                  <h6 className={styles.h6}>Country</h6>
+                  <h6 className={styles.h6}>{translate("Country")}</h6>
                   <div className={styles.selector}>
                     <CountrySelector
                       value={formInput.country}
@@ -133,13 +139,13 @@ const EditProfileDetails = ({ data }: EditProfile) => {
                   </div>
                 </div>
                 <div>
-                  <h6 className={styles.h6}>Username</h6>
+                  <h6 className={styles.h6}>{translate("Username")}</h6>
                   <input
                     type="text"
                     id="username"
                     name="username"
                     className={styles.input}
-                    placeholder="Enter your Username"
+                    placeholder={translate("Enter your Username")}
                     value={formInput.username}
                     onChange={handleInputChange}
                   />
@@ -151,55 +157,58 @@ const EditProfileDetails = ({ data }: EditProfile) => {
                 </div>
               </div>
               <div className={styles.rightContentSection2}>
-                <h4 className={styles.mb3}>Social Media Info</h4>
+                <h4 className={styles.mb3}>{translate("Social Media Info")}</h4>
                 <div>
                   <h6 className={styles.h6}>
-                    <Image src={discordIcon} alt="icon" /> Discord
+                    <Image src={discordIcon} alt="icon" />{" "}
+                    {translate("Discord")}
                   </h6>
                   <input
                     type="text"
                     id="discord"
                     className={styles.input}
-                    placeholder="Discord user name or link"
+                    placeholder={translate("Discord user name or link")}
                     value={formInput.discord}
                     onChange={handleInputChange}
                   />
                 </div>
                 <div>
                   <h6 className={styles.h6}>
-                    <Image src={fbIcon} alt="icon" /> Facebook
+                    <Image src={fbIcon} alt="icon" /> {translate("Facebook")}
                   </h6>
                   <input
                     type="text"
                     id="facebook"
                     className={styles.input}
-                    placeholder="Facebook profile link"
+                    placeholder={translate("Facebook profile link")}
                     value={formInput.facebook}
                     onChange={handleInputChange}
                   />
                 </div>
                 <div>
                   <h6 className={styles.h6}>
-                    <Image src={twitterIcon} alt="icon" /> Twitter
+                    <Image src={twitterIcon} alt="icon" />{" "}
+                    {translate("Twitter")}
                   </h6>
                   <input
                     type="text"
                     id="twitter"
                     className={styles.input}
-                    placeholder="Twitter profile link"
+                    placeholder={translate("Twitter profile link")}
                     value={formInput.twitter}
                     onChange={handleInputChange}
                   />
                 </div>
                 <div>
                   <h6 className={styles.h6}>
-                    <Image src={linkedIcon} alt="icon" /> Linkedin
+                    <Image src={linkedIcon} alt="icon" />
+                    {translate("Linkedin")}
                   </h6>
                   <input
                     type="text"
                     id="linkedin"
                     className={styles.input}
-                    placeholder="Linkedin profile link"
+                    placeholder={translate("Linkedin profile link")}
                     value={formInput.linkedin}
                     onChange={handleInputChange}
                   />
@@ -209,8 +218,22 @@ const EditProfileDetails = ({ data }: EditProfile) => {
           </div>
           <div className={`${styles.btu}`}>
             <Button variant="mint" size="cust" onClick={handleSubmit}>
-              Save Change
+              {translate("Save Changes")}
             </Button>
+          </div>
+        </div>
+        <div className={styles.separator} />
+        <div className={styles.webSiteLanguage}>
+          <h6>{translate("WebSiteLanguage")}</h6>
+          <div>
+            <Select
+              styles={customStyles}
+              options={languageOptions}
+              value={languageOptions.find(
+                (option) => option.value === (getCookie("language") || "en")
+              )}
+              onChange={handleSelectLangChange}
+            />
           </div>
         </div>
       </div>

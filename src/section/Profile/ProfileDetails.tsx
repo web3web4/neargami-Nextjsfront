@@ -13,20 +13,20 @@ import pointIcon from "@/assets/images/icons/point-info.png";
 import LoadingWrapper from "@/components/loading/loadingWrapper/LoadingWrapper";
 import Image from "next/image";
 import styles from "./ProfileDetails.module.css";
-import { UserProfileData , CoursesResponse } from "@/interfaces/api";
+import { UserProfileData, CoursesResponse } from "@/interfaces/api";
 import { useEffect, useState } from "react";
 import CoursesList from "./CourseList/CoursesList";
-
+import { useTranslations } from "next-intl";
 
 interface ProfileDetailsProps {
   playerId: string | null;
   data: UserProfileData;
-  courses?:CoursesResponse[];
+  courses?: CoursesResponse[];
 }
 
-const ProfileDetails = ({ playerId, data , courses  } : ProfileDetailsProps) => {
+const ProfileDetails = ({ playerId, data, courses }: ProfileDetailsProps) => {
   const [filterCourses, setFilterCourses] = useState<CoursesResponse[]>([]);
-
+  const translate = useTranslations("Profile");
   const {
     balance,
     isCopied,
@@ -47,7 +47,6 @@ const ProfileDetails = ({ playerId, data , courses  } : ProfileDetailsProps) => 
       setFilterCourses([]);
     }
   }, [courses]);
-  
 
   return (
     <div className={styles.ProfileDetailsStyleWrapper}>
@@ -71,7 +70,7 @@ const ProfileDetails = ({ playerId, data , courses  } : ProfileDetailsProps) => 
 
               <ul className={styles.memberDetails}>
                 <li>
-                  <strong>NearGami Coins:</strong>{" "}
+                  <strong>{translate("NearGami Coins")}</strong>{" "}
                   <span>
                     {data.ngc}
                     <Image
@@ -79,13 +78,13 @@ const ProfileDetails = ({ playerId, data , courses  } : ProfileDetailsProps) => 
                       width={20}
                       alt="Info Icon"
                       data-tooltip-id="my-tooltip"
-                      data-tooltip-content="Your current balance of off-chain tokens ready for use within our website's online game environment."
+                      data-tooltip-content={translate("NearGamiCoinsTooltip")}
                       className={styles.infoIcon}
                     />
                   </span>
                 </li>
                 <li style={{ position: "relative" }}>
-                  <strong>Top Points:</strong>{" "}
+                  <strong>{translate("Top Points")}</strong>{" "}
                   <span>
                     {data.top_points}
                     <Image
@@ -93,7 +92,7 @@ const ProfileDetails = ({ playerId, data , courses  } : ProfileDetailsProps) => 
                       width={20}
                       alt="Info Icon"
                       data-tooltip-id="my-tooltip"
-                      data-tooltip-content="The cumulative number of coins you've earned since joining our service."
+                      data-tooltip-content={translate("TopPointsTooltip")}
                       className={styles.infoIcon}
                     />
                   </span>
@@ -101,7 +100,7 @@ const ProfileDetails = ({ playerId, data , courses  } : ProfileDetailsProps) => 
                 {!playerId && (
                   <>
                     <li style={{ position: "relative" }}>
-                      <strong>Tokens In Your Wallet:</strong>{" "}
+                      <strong>{translate("Tokens In Your Wallet")}</strong>{" "}
                       <span>
                         {balance}
                         <Image
@@ -109,13 +108,13 @@ const ProfileDetails = ({ playerId, data , courses  } : ProfileDetailsProps) => 
                           width={20}
                           alt="Info Icon"
                           data-tooltip-id="my-tooltip"
-                          data-tooltip-content="Tokens exist at your NEAR wallet on-chain."
+                          data-tooltip-content={translate("TokensInYourWalletToolTip")}
                           className={styles.infoIcon}
                         />
                       </span>
                     </li>
                     <li style={{ position: "relative" }}>
-                      <strong>Claimed Token:</strong>{" "}
+                      <strong>{translate("Claimed Token")}</strong>{" "}
                       <span>
                         {data.ngc_claimed}
                         <Image
@@ -123,7 +122,7 @@ const ProfileDetails = ({ playerId, data , courses  } : ProfileDetailsProps) => 
                           width={20}
                           alt="Info Icon"
                           data-tooltip-id="my-tooltip"
-                          data-tooltip-content="will be transferred to your wallet soon."
+                          data-tooltip-content={translate("ClaimedTokenTooltip")}
                           className={styles.infoIcon}
                         />
                       </span>
@@ -131,10 +130,12 @@ const ProfileDetails = ({ playerId, data , courses  } : ProfileDetailsProps) => 
                   </>
                 )}
                 <li>
-                  <strong>Player Country:</strong> <span>{data.country}</span>
+                  <strong>{translate("Player Country")}</strong>{" "}
+                  <span>{data.country}</span>
                 </li>
                 <li>
-                  <strong>Email:</strong> <span>{data.email}</span>
+                  <strong>{translate("Email")}</strong>{" "}
+                  <span>{data.email}</span>
                 </li>
                 <li
                   style={{
@@ -143,7 +144,7 @@ const ProfileDetails = ({ playerId, data , courses  } : ProfileDetailsProps) => 
                     gap: "10px",
                   }}
                 >
-                  <strong>Address:</strong>
+                  <strong>{translate("Address")}</strong>
                   <span>
                     {data.address ? formatAddress(data.address) : "N/A"}
                   </span>
@@ -174,7 +175,7 @@ const ProfileDetails = ({ playerId, data , courses  } : ProfileDetailsProps) => 
                   }}
                 />
                 <li className={styles.socialItems}>
-                  <strong>Social:</strong>
+                  <strong>{translate("Social")}</strong>
                   <a href={data.discord}>
                     <Image src={discordIcon} alt="icon" />
                   </a>
@@ -190,7 +191,7 @@ const ProfileDetails = ({ playerId, data , courses  } : ProfileDetailsProps) => 
                 </li>
               </ul>
               <div className="mt-3 mb-3">
-                {!playerId  && (
+                {!playerId && (
                   <>
                     <Button
                       href="/edit-profile"
@@ -198,7 +199,7 @@ const ProfileDetails = ({ playerId, data , courses  } : ProfileDetailsProps) => 
                       size="md"
                       className="banner-btn"
                     >
-                      Edit Profile
+                      {translate("Edit Profile")}
                     </Button>
                     <div className="mt-2">
                       <Button
@@ -207,7 +208,7 @@ const ProfileDetails = ({ playerId, data , courses  } : ProfileDetailsProps) => 
                         className="banner-btn"
                         onClick={handleClaims}
                       >
-                        Claim Coins
+                        {translate("Claim Coins")}
                       </Button>
                     </div>
                   </>
@@ -217,7 +218,9 @@ const ProfileDetails = ({ playerId, data , courses  } : ProfileDetailsProps) => 
           </div>
           <div className="col-md-8" style={{ marginTop: "-43px" }}>
             <div className={styles.rightContent}>
-              <h2 className={styles.rightContentTitle}>Near Land</h2>
+              <h2 className={styles.rightContentTitle}>
+                {translate("Near Land")}
+              </h2>
               <div className={styles.imgNearLand}>
                 <div
                   id="unity-container"
@@ -251,7 +254,8 @@ const ProfileDetails = ({ playerId, data , courses  } : ProfileDetailsProps) => 
                           <Image src={logo} alt="Loading Logo" />
                         </div>
                         <div className={styles.loadingText}>
-                          Loading... {Math.round(progress * 100)}%
+                          {translate("Loading")}{Math.round(progress * 100)}
+                          %
                         </div>
                       </div>
                     )}
@@ -279,10 +283,12 @@ const ProfileDetails = ({ playerId, data , courses  } : ProfileDetailsProps) => 
             </div>
           </div>
         </div>
-        
+
         {courses && (
           <>
-            <h2 className={styles.rightContentTitle}>Courses Offered</h2>
+            <h2 className={styles.rightContentTitle}>
+              {translate("Courses Offered")}
+            </h2>
             <div className="row">
               {filterCourses && filterCourses.length > 0 ? (
                 filterCourses.map((filteredCourse, i) => (
@@ -292,16 +298,15 @@ const ProfileDetails = ({ playerId, data , courses  } : ProfileDetailsProps) => 
                 ))
               ) : (
                 <div className="col-12 text-center">
-                  <p className={styles.sectionCourses}>There are no courses published yet.</p>
+                  <p className={styles.sectionCourses}>
+                    {translate("There are no courses published yet")}
+                  </p>
                 </div>
               )}
             </div>
           </>
         )}
-
-
       </div>
-
     </div>
   );
 };

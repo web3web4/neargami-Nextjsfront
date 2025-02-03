@@ -1,6 +1,7 @@
 import { updateUserProfile } from "@/apiService";
 import { UserProfileData } from "@/interfaces/api";
 import { deleteCookie, getCookie, setCookie } from "cookies-next";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { SingleValue } from "react-select";
@@ -13,11 +14,10 @@ interface CountryData {
 
 export const useWizard = () => {
   const router = useRouter();
+  const translate = useTranslations("messages");
   const [isAccepted, setIsAccepted] = useState<boolean>(false);
   const [step, setStep] = useState<number>(1);
-  const [isUsernameAvailable, setIsUsernameAvailable] = useState<
-    boolean | null
-  >(null);
+  const [isUsernameAvailable, setIsUsernameAvailable] = useState<boolean | null>(null);
   const [formInput, setFormInput] = useState<UserProfileData>({
     firstname: "",
     lastname: "",
@@ -58,24 +58,32 @@ export const useWizard = () => {
     if (step === 1 && !isAccepted) {
       Swal.fire({
         icon: "error",
-        title: "Error",
-        text: "Please accept the terms and conditions before proceeding.",
+        title: translate("Error"),
+        text: translate("Please accept the terms and conditions before proceeding"),
       });
       return;
     }
     if (formInput.username.trim() === "") {
       Swal.fire({
         icon: "error",
-        title: "Error",
-        text: "The Username Field Is Required. Please Enter Your Username.",
+        title: translate("Error"),
+        text: translate("The Username Field Is Required Please Enter Your Username"),
+      });
+      return;
+    }
+    if (formInput.username.length < 4) {
+      Swal.fire({
+        icon: "error",
+        title: translate("Error"),
+        text: translate("The username must be at least 4 characters long"),
       });
       return;
     }
     if (!isUsernameAvailable) {
       Swal.fire({
         icon: "error",
-        title: "Error",
-        text: "Username Is Already Exist",
+        title: translate("Error"),
+        text: translate("Username Is Already Exist"),
       });
       return;
     }
@@ -98,8 +106,8 @@ export const useWizard = () => {
       console.error("Error updating user profile:", error);
       Swal.fire({
         icon: "error",
-        title: "Error",
-        text: "There was an error created.",
+        title: translate("Error"),
+        text: translate("There was an error updating the Profile"),
       });
     }
   };

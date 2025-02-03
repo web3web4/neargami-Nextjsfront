@@ -5,6 +5,7 @@ import styles from "./CoursesList.module.css";
 import { FiSearch } from "react-icons/fi";
 import { fetchEndPlayers, fetchStartPlayers, searchOnCourses } from "@/apiService";
 import { CoursesResponse, DataPopup } from "@/interfaces/api";
+import { useTranslations } from "next-intl";
 
 interface CourseList {
   courses:CoursesResponse[],
@@ -12,6 +13,7 @@ interface CourseList {
 export default function CoursesList({courses}: CourseList) {
 
   const searchRef = useRef<HTMLInputElement>(null);
+  const translate = useTranslations("Home");
   const [filterCourses, setFilterCourses] = useState<CoursesResponse[]>(courses);
   
   const [popupEndUser, setPopupEndUser] = useState<DataPopup[]>([]);
@@ -60,7 +62,7 @@ export default function CoursesList({courses}: CourseList) {
                 type="text"
                 id="search"
                 name="search"
-                placeholder="Search Course"
+                placeholder={translate("Search Course")}
                 onChange={() => handleSearch()}
               />
               <button

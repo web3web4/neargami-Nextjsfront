@@ -300,6 +300,14 @@ button {
   padding: 0 30px;
 }
 
+[dir="rtl"] .nws-slider::before {
+  inset-inline-start: 15px;
+}
+
+[dir="rtl"] .nws-switch {
+  margin-inline-start: 12px;
+}
+
 @media only screen and (min-width: 1200px) {
   .container {
     max-width: 1200px !important;

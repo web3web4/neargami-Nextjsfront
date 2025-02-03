@@ -53,7 +53,7 @@
 .listManagerItem li::before {
   display: none;
   position: absolute;
-  left: 0;
+  inset-inline-start: 0;
   top: -75px;
   content: attr(data-title);
   font-family: "Russo One", sans-serif;

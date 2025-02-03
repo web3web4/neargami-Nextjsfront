@@ -10,9 +10,11 @@ import Image from "next/image";
 import { useWizard } from "@/hooks/useWizard";
 import PlayerListPopup from "@/components/PlayerListPopup/PlayerListPopup";
 import CheckUsername from "@/components/checkUsername/CheckUsername";
+import { useTranslations } from "next-intl";
 
 const Wizard = () => {
   const [showStartPopup, setShowStartPopup] = useState<boolean>(false);
+  const translate = useTranslations("Wizard");
   const {
     step,
     formInput,
@@ -33,7 +35,7 @@ const Wizard = () => {
       <PlayerListPopup
         open={showStartPopup}
         onClose={() => setShowStartPopup(false)}
-        title="Terms and condition"
+        title={translate("Terms and conditions")}
         fetchPlayers={null}
         description={descriptionpopup}
       />
@@ -50,13 +52,13 @@ const Wizard = () => {
               {step === 1 && (
                 <div className={styles.formDiv}>
                   <div className={styles.stepTitle}>
-                    Please fill with your details
+                    {translate("Please fill with your details")}
                   </div>
                   <div>
                     <input
                       type="text"
                       id="username"
-                      placeholder="Username"
+                      placeholder={translate("Username")}
                       className={styles.formControl}
                       value={formInput.username}
                       onChange={handleInputChange}
@@ -70,7 +72,7 @@ const Wizard = () => {
                     <input
                       type="text"
                       id="firstname"
-                      placeholder="First Name"
+                      placeholder={translate("First Name")}
                       className={styles.formControl}
                       value={formInput.firstname}
                       onChange={handleInputChange}
@@ -80,7 +82,7 @@ const Wizard = () => {
                     <input
                       type="text"
                       id="lastname"
-                      placeholder="Last Name"
+                      placeholder={translate("Last Name")}
                       className={styles.formControl}
                       value={formInput.lastname}
                       onChange={handleInputChange}
@@ -90,7 +92,7 @@ const Wizard = () => {
                     <input
                       type="email"
                       id="email"
-                      placeholder="Your Email"
+                      placeholder={translate("Your Email")}
                       className={styles.formControl}
                       value={formInput.email}
                       onChange={handleInputChange}
@@ -112,10 +114,10 @@ const Wizard = () => {
                       className={styles.checkbox}
                     />
                     <label className={styles.label}>
-                      Please accept our{" "}
+                      {translate("Please accept our")}{" "}
                       <span>
                         <a href="#" onClick={() => setShowStartPopup(true)}>
-                          Terms and condition
+                          {translate("Terms and conditions")}
                         </a>
                       </span>{" "}
                     </label>
@@ -124,31 +126,41 @@ const Wizard = () => {
               )}
               {step === 2 && (
                 <div className={styles.formDiv}>
-                  <div className={styles.stepTitle}>Summary</div>
+                  <div className={styles.stepTitle}>{translate("Summary")}</div>
                   <div className={styles.subTitle} data-number="1">
-                    Personal Details
+                    {translate("Personal Details")}
                   </div>
-                  <span className={styles.subTitleContent}>Username: </span>
+                  <span className={styles.subTitleContent}>
+                    {translate("Username")}:{" "}
+                  </span>
                   <span className={styles.WizardSubText}>
                     {formInput.username}
                   </span>
                   <br />
-                  <span className={styles.subTitleContent}>First Name: </span>
+                  <span className={styles.subTitleContent}>
+                    {translate("First Name")}:{" "}
+                  </span>
                   <span className={styles.WizardSubText}>
                     {formInput.firstname}
                   </span>
                   <br />
-                  <span className={styles.subTitleContent}>Last Name: </span>
+                  <span className={styles.subTitleContent}>
+                    {translate("Last Name")}:{" "}
+                  </span>
                   <span className={styles.WizardSubText}>
                     {formInput.lastname}
                   </span>
                   <br />
-                  <span className={styles.subTitleContent}>Email: </span>
+                  <span className={styles.subTitleContent}>
+                    {translate("Email")}:{" "}
+                  </span>
                   <span className={styles.WizardSubText}>
                     {formInput.email}
                   </span>
                   <br />
-                  <span className={styles.subTitleContent}>Country: </span>
+                  <span className={styles.subTitleContent}>
+                    {translate("Country")}:{" "}
+                  </span>
                   <span className={styles.WizardSubText}>
                     {formInput.country}
                   </span>
@@ -162,28 +174,28 @@ const Wizard = () => {
                 {step === 1 && (
                   <>
                     <Button size="sm" variant="white" href={"/"}>
-                      Skip
+                      {translate("Skip")}
                     </Button>
 
                     <Button size="sm" variant="mint" onClick={handleNext}>
-                      Next
+                      {translate("Next")}
                     </Button>
                   </>
                 )}
                 {step > 1 && (
                   <>
                     <Button size="md" variant="white" onClick={handlePrev}>
-                      Prev
+                      {translate("Prev")}
                     </Button>
                     <Button
                       size="lg"
                       variant="blue"
                       onClick={handleComplateToProfile}
                     >
-                      Complate To Profile
+                      {translate("Complate To Profile")}
                     </Button>
                     <Button size="lg" variant="mint" onClick={handleBackToHome}>
-                      Back To Home
+                      {translate("Back To Home")}
                     </Button>
                   </>
                 )}
