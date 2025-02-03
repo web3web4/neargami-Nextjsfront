@@ -2,6 +2,8 @@
 import { updateUserProfile, uploadFile } from "@/apiService";
 import { useLoading } from "@/context/LoadingContext";
 import { UserProfileData, UserProfileResponse } from "@/interfaces/api";
+import { setCookie } from "cookies-next";
+import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import { SingleValue } from "react-select";
 import Swal from "sweetalert2";
@@ -14,6 +16,7 @@ interface CountryData {
 export const useEditProfile = (data: UserProfileResponse) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { setIsLoading } = useLoading();
+  const router = useRouter();
   const [image, setImage] = useState<string | null>(null);
   const [isUsernameAvailable, setIsUsernameAvailable] = useState<
     boolean | null
@@ -129,6 +132,11 @@ export const useEditProfile = (data: UserProfileResponse) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const handleSelectLangChange = (selectedLang: any) => {
+    setCookie("language", selectedLang.value);
+    router.refresh();
+  };
+
   return {
     initUsername,
     fileInputRef,
@@ -140,5 +148,6 @@ export const useEditProfile = (data: UserProfileResponse) => {
     handleButtonClick,
     handleSubmit,
     setIsUsernameAvailable,
+    handleSelectLangChange,
   };
 };

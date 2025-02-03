@@ -14,7 +14,9 @@ import { useEditProfile } from "@/hooks/useEditProfile";
 import { UserProfileResponse } from "@/interfaces/api";
 import CheckUsername from "@/components/checkUsername/CheckUsername";
 import { useTranslations } from "next-intl";
-
+import Select from "react-select";
+import { languageOptions, customStyles } from "./index";
+import { getCookie } from "cookies-next";
 interface EditProfile {
   data: UserProfileResponse;
 }
@@ -31,6 +33,7 @@ const EditProfileDetails = ({ data }: EditProfile) => {
     handleButtonClick,
     handleSubmit,
     setIsUsernameAvailable,
+    handleSelectLangChange,
   } = useEditProfile(data);
 
   return (
@@ -63,7 +66,9 @@ const EditProfileDetails = ({ data }: EditProfile) => {
                 >
                   {translate("Upload Photo")}
                 </Button>
-                <h5 className={`${styles.mt2} ${styles.mb2}`}>{translate("OR")}</h5>
+                <h5 className={`${styles.mt2} ${styles.mb2}`}>
+                  {translate("OR")}
+                </h5>
                 <Button
                   href="/edit-profile"
                   variant="white"
@@ -155,7 +160,8 @@ const EditProfileDetails = ({ data }: EditProfile) => {
                 <h4 className={styles.mb3}>{translate("Social Media Info")}</h4>
                 <div>
                   <h6 className={styles.h6}>
-                    <Image src={discordIcon} alt="icon" /> {translate("Discord")}
+                    <Image src={discordIcon} alt="icon" />{" "}
+                    {translate("Discord")}
                   </h6>
                   <input
                     type="text"
@@ -181,7 +187,8 @@ const EditProfileDetails = ({ data }: EditProfile) => {
                 </div>
                 <div>
                   <h6 className={styles.h6}>
-                    <Image src={twitterIcon} alt="icon" /> {translate("Twitter")}
+                    <Image src={twitterIcon} alt="icon" />{" "}
+                    {translate("Twitter")}
                   </h6>
                   <input
                     type="text"
@@ -194,7 +201,8 @@ const EditProfileDetails = ({ data }: EditProfile) => {
                 </div>
                 <div>
                   <h6 className={styles.h6}>
-                    <Image src={linkedIcon} alt="icon" />{translate("Linkedin")} 
+                    <Image src={linkedIcon} alt="icon" />
+                    {translate("Linkedin")}
                   </h6>
                   <input
                     type="text"
@@ -210,8 +218,22 @@ const EditProfileDetails = ({ data }: EditProfile) => {
           </div>
           <div className={`${styles.btu}`}>
             <Button variant="mint" size="cust" onClick={handleSubmit}>
-            {translate("Save Changes")}
+              {translate("Save Changes")}
             </Button>
+          </div>
+        </div>
+        <div className={styles.separator} />
+        <div className={styles.webSiteLanguage}>
+          <h6>{translate("WebSiteLanguage")}</h6>
+          <div>
+            <Select
+              styles={customStyles}
+              options={languageOptions}
+              value={languageOptions.find(
+                (option) => option.value === (getCookie("language") || "en")
+              )}
+              onChange={handleSelectLangChange}
+            />
           </div>
         </div>
       </div>

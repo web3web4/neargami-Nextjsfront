@@ -186,7 +186,10 @@
     "Twitter profile link": "Twitter profile link",
     "Linkedin": "Linkedin",
     "Linkedin profile link": "Linkedin profile link",
-    "Save Changes": "Save Changes"
+    "Save Changes": "Save Changes",
+    "WebSiteLanguage": "Site Language",
+    "English": "English",
+    "Arabic": "Arabic"
   },
   "Wizard": {
     "Terms and conditions": "Terms and conditions",
@@ -244,7 +247,7 @@
     "Introduction": "Introduction:",
     "By using our service you automatically acknowledge and agree to our Privacy Policy and you acknowledge and agree to our Legal Disclaimer Otherwise please do not use our service": "By using our service you automatically acknowledge and agree to our Privacy Policy and you acknowledge and agree to our Legal Disclaimer. Otherwise, please do not use our service.",
     "Privacy Policy": "Privacy Policy",
-    "This Privacy Policy explains how NearGami we us or our collects uses and shares personal information of users you of our website": "This Privacy Policy explains how NearGami (we, us, or our) collects, uses, and shares personal information of users (you) of our website ",
+    "This Privacy Policy explains how NearGami we us or our collects uses and shares personal information of users you of our website": "This Privacy Policy explains how NearGami (\"we\", \"us\", or \"our\") collects, uses, and shares personal information of users (\"you\") of our website ",
     "and its associated services like": "and its associated services like ",
     "Information We Collect": "Information We Collect:",
     "Personal Information": "Personal Information:",

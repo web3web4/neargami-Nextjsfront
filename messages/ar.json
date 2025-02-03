@@ -186,7 +186,10 @@
     "Twitter profile link": "رابط الملف الشخصي في تويتر",
     "Linkedin": "لينكدان",
     "Linkedin profile link": "رابط الملف الشخصي في لينكدان",
-    "Save Changes": "حفظ التغييرات"
+    "Save Changes": "حفظ التغييرات",
+    "WebSiteLanguage": "لغة الموقع",
+    "English": "انجليزي",
+    "Arabic": "عربي"
   },
   "Wizard": {
     "Terms and conditions": "الشروط والاحكام",
@@ -244,7 +247,7 @@
     "Introduction": "مقدمة:",
     "By using our service you automatically acknowledge and agree to our Privacy Policy and you acknowledge and agree to our Legal Disclaimer Otherwise please do not use our service": "باستخدامك خدمتنا، فإنك تُقر وتوافق تلقائيًا على سياسة الخصوصية الخاصة بنا وتُقر وتوافق على إخلاء المسؤولية القانونية الخاص بنا. بخلاف ذلك، يرجى عدم استخدام خدمتنا.",
     "Privacy Policy": "سياسة الخصوصية",
-    "This Privacy Policy explains how NearGami we us or our collects uses and shares personal information of users you of our website": "توضح سياسة الخصوصية هذه كيف تقوم NearGami (نحن، لنا، أو خاصتنا) بجمع واستخدام ومشاركة المعلومات الشخصية للمستخدمين (أنت) من موقعنا الإلكتروني ",
+    "This Privacy Policy explains how NearGami we us or our collects uses and shares personal information of users you of our website": "توضح سياسة الخصوصية هذه كيف تقوم NearGami (\"نحن\"، \"لنا\"، أو \"خاصتنا\") بجمع واستخدام ومشاركة المعلومات الشخصية للمستخدمين (\"أنت\") من موقعنا الإلكتروني ",
     "and its associated services like": "وخدماتها المرتبطة مثل ",
     "Information We Collect": "المعلومات التي نجمعها:",
     "Personal Information": "المعلومات الشخصية:",

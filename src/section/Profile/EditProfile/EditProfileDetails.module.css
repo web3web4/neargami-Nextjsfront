@@ -130,7 +130,7 @@
 }
 
 .btu {
-  margin-left: 330px;
+  margin-inline-start: 330px;
   margin-top: 25px;
 }
 
@@ -155,6 +155,19 @@
   margin-top: 7px !important;
 }
 
+.separator {
+  width: 80%;
+  height: 2px;
+  background-color: rgba(255, 255, 255, 0.15);
+  margin: 25px auto;
+}
+
+.webSiteLanguage {
+  width: inherit;
+  margin-inline-start: 330px;
+  padding: 12px;
+}
+
 @media only screen and (max-width: 999px) {
   .editProfileContent {
     flex-direction: column;
@@ -165,7 +178,11 @@
   }
 
   .btu {
-    margin-left: 0;
+    margin-inline-start: 0;
+  }
+
+  .webSiteLanguage {
+    margin-inline-start: 0px;
   }
 
   .leftContent {
