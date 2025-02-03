@@ -2,11 +2,10 @@ import type { Metadata } from "next";
 import { inter, russoOne } from "@/utils/font";
 import { AuthProvider } from "../context/authContext";
 import { WalletProvider } from "@/auth/nearAuth";
-import { Analytics } from '@vercel/analytics/next';
-import {NextIntlClientProvider} from 'next-intl';
-import {getLocale, getMessages} from 'next-intl/server';
+import { Analytics } from "@vercel/analytics/next";
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale, getMessages } from "next-intl/server";
 import "./index.css";
-
 
 export const metadata: Metadata = {
   title: "NearGami",
@@ -47,9 +46,11 @@ export default async function RootLayout({
       <body className={`${inter.variable} ${russoOne.variable}`}>
         <AuthProvider>
           <WalletProvider>
-            <main><NextIntlClientProvider messages={messages}>
-          {children}
-        </NextIntlClientProvider></main>
+            <main>
+              <NextIntlClientProvider messages={messages}>
+                {children}
+              </NextIntlClientProvider>
+            </main>
             <Analytics />
           </WalletProvider>
         </AuthProvider>

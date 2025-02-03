@@ -3,6 +3,7 @@ import { updateUserProfile, uploadFile } from "@/apiService";
 import { useLoading } from "@/context/LoadingContext";
 import { UserProfileData, UserProfileResponse } from "@/interfaces/api";
 import { setCookie } from "cookies-next";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import { SingleValue } from "react-select";
@@ -22,6 +23,7 @@ export const useEditProfile = (data: UserProfileResponse) => {
     boolean | null
   >(null);
   const [initUsername, setInitUsername] = useState<string>("");
+  const translate = useTranslations("messages");
   const [formInput, setFormInput] = useState<UserProfileResponse>({
     username: "",
     firstname: "",
@@ -71,11 +73,29 @@ export const useEditProfile = (data: UserProfileResponse) => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    if (formInput.username!.trim() === "") {
+      Swal.fire({
+        icon: "error",
+        title: translate("Error"),
+        text: translate(
+          "The Username Field Is Required Please Enter Your Username"
+        ),
+      });
+      return;
+    }
+    if (formInput.username!.length < 4) {
+      Swal.fire({
+        icon: "error",
+        title: translate("Error"),
+        text: translate("The username must be at least 4 characters long"),
+      });
+      return;
+    }
     if (!isUsernameAvailable) {
       Swal.fire({
         icon: "error",
-        title: "Error",
-        text: "Username Is Already Exist",
+        title: translate("Error"),
+        text: translate("Username Is Already Exist"),
       });
       return;
     }
@@ -98,16 +118,16 @@ export const useEditProfile = (data: UserProfileResponse) => {
       if (updatedUser) {
         Swal.fire({
           icon: "success",
-          title: "Success",
-          text: "Profile updated successfully!",
+          title: translate("Success"),
+          text: translate("Profile updated successfully!"),
         });
       }
     } catch (error) {
       console.error("Error updating user profile:", error);
       Swal.fire({
         icon: "error",
-        title: "Error",
-        text: "There was an error updating the Profile.",
+        title: translate("Error"),
+        text: translate("There was an error updating the Profile"),
       });
     }
   };

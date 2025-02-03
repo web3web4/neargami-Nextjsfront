@@ -1,5 +1,6 @@
 import { useCheckUsername } from "@/hooks/useCheckUsername";
 import styles from "./CheckUsername.module.css";
+import { useTranslations } from "next-intl";
 
 interface CheckUsernameProps {
   username: string;
@@ -12,6 +13,7 @@ export default function CheckUsername({
   intiUsername,
   onAvailabilityChange,
 }: CheckUsernameProps) {
+  const translate = useTranslations("CheckUsername");
   const { isAvailable, isChecking } = useCheckUsername(
     username,
     onAvailabilityChange
@@ -23,7 +25,7 @@ export default function CheckUsername({
         {isChecking && (
           <div>
             <div className={styles.spinner} />
-            Checking...
+            {translate("Checking")}
           </div>
         )}
         {isAvailable !== null &&
@@ -31,10 +33,10 @@ export default function CheckUsername({
           username != "" &&
           intiUsername != username &&
           (isAvailable ? (
-            <div className={styles.available}>{username} Is Available</div>
+            <div className={styles.available}>{username} {translate("Is Available")}</div>
           ) : (
             <div className={styles.notAvailable}>
-              {username} Is Already Exist
+              {username} {translate("Is Already Exist")}
             </div>
           ))}
       </div>

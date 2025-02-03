@@ -10,10 +10,12 @@ import {
 import { deleteCookie, getCookie } from "cookies-next";
 import { CourseInProgress } from "@/interfaces/course";
 import { useAuth } from "@/context/authContext";
+import { useTranslations } from "next-intl";
 
 export const useHome = () => {
   const route = useRouter();
   const [courses, setCourses] = useState<CourseInProgress[]>([]);
+  const translate = useTranslations("messages");
   const { jwtToken } = useAuth();
 
   const GetIntroCourse = async () => {
@@ -23,10 +25,10 @@ export const useHome = () => {
       Swal.fire({
         html: `
               <div style="text-align: center;">
-                <h2 style="margin-bottom: 20px; color: #1a1a2f">Welcome to NearGami!</h2>
+                <h2 style="margin-bottom: 20px; color: #1a1a2f">${translate("Welcome to NearGami")}!</h2>
                 <img src="${response.logo}" alt="Course Image" width="150" height="150" style="display: block; margin: 0 auto; margin-bottom: 10px;">
                 <h3 style="font-weight: bold; color: #282841;">${response.name}</h3>
-                <p>To help you get started, we recommend our introductory course to learn more about our features and how to make the most out of your experience.</p>
+                <p>${translate("To help you get started we recommend our introductory course to learn more about our features and how to make the most out of your experience")}</p>
               </div>
             `,
         didOpen: () => {

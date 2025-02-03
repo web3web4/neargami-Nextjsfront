@@ -4,11 +4,13 @@ import { createLesson, updateLesson } from "@/apiService";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
+import { useTranslations } from "next-intl";
 
 export const useLesson = (courseId: string, lessonId: string, data: LessonResponse | null) => {
     const route = useRouter();
     const [showQA, setShowQA] = useState<boolean>(false);
     const [lessonid, setLessonId] = useState<number | null>(Number(lessonId));
+    const translate = useTranslations("messages");
     const [formInput, setFormInput] = useState<LessonData>({
         title: "",
         description: "",
@@ -43,8 +45,8 @@ export const useLesson = (courseId: string, lessonId: string, data: LessonRespon
           setShowQA(true);
           Swal.fire({
             icon: "success",
-            title: "Success",
-            text: "The lesson has been created successfully!  You can add questions to the lesson from the side section.",
+            title: translate("Success"),
+            text: translate("The lesson has been created successfully You can add questions to the lesson from the side section"),
           });
           window.scrollTo({
             top: 0,
@@ -54,8 +56,8 @@ export const useLesson = (courseId: string, lessonId: string, data: LessonRespon
         console.error("Error in creating Lesson:", error);
         Swal.fire({
           icon: "error",
-          title: "Error",
-          text: "There was an error creating the lesson.",
+          title: translate("Error"),
+          text: translate("There was an error creating the lesson"),
         });
       }
     };
@@ -80,15 +82,15 @@ export const useLesson = (courseId: string, lessonId: string, data: LessonRespon
         await updateLesson(lessonData, courseId, lessonId);
         Swal.fire({
           icon: "success",
-          title: "Success",
-          text: "The lesson has been updated successfully!",
+          title: translate("Success"),
+          text: translate("The lesson has been updated successfully!"),
         });
       } catch (error) {
         console.error("Error in update Lesson:", error);
         Swal.fire({
           icon: "error",
-          title: "Error",
-          text: "There was an error update the lesson.",
+          title: translate("Error"),
+          text: translate("There was an error update the lesson"),
         });
       }
     };

@@ -106,7 +106,7 @@ const TeacherList = ({ courses }: { courses: CoursesResponse[] }) => {
               <br />
               <br />
               <br />
-              <Button size="md" variant="mint" href={`/course-info`}>
+              <Button size="md" variant="mint" href={`/course-info/add`}>
                 {translate("Add a Course")}
               </Button>
             </div>

@@ -8,6 +8,7 @@ import {
     createStartInCourse,
   } from "@/apiService";
 import { CheckAnswerResponse, QAResponse } from "@/interfaces/api";
+import { useTranslations } from "next-intl";
 
 export const useQuizContent = (courseId: string, lectureId: string, data: QAResponse[]) => {
   const router = useRouter();
@@ -15,6 +16,8 @@ export const useQuizContent = (courseId: string, lectureId: string, data: QAResp
     const [selectedAnswers, setSelectedAnswers] = useState<number[]>([]);
     const [answers, setAnswers] = useState<CheckAnswerResponse>();
     const [currentQuestionSequence, setCurrentQuestionSequence] = useState<number>(1);
+    const translate = useTranslations("messages");
+    
   
     // Create User Course And Lecture
     useEffect(() => {
@@ -66,8 +69,8 @@ export const useQuizContent = (courseId: string, lectureId: string, data: QAResp
       if (selectedAnswers.length === 0) {
         Swal.fire({
           icon: "warning",
-          title: "Warning",
-          text: "Please select at least one correct answer before submitting.",
+          title: translate("Warning"),
+          text: translate("Please select at least one correct answer before submitting"),
         });
         return;
       }
@@ -87,8 +90,8 @@ export const useQuizContent = (courseId: string, lectureId: string, data: QAResp
         if (!answers) {
           Swal.fire({
             icon: "error",
-            title: "Error",
-            text: ``,
+            title: translate("Error"),
+            text: translate("There Was An Error When Check Answers"),
           });
         }
         setAnswers(answers);
@@ -114,8 +117,8 @@ export const useQuizContent = (courseId: string, lectureId: string, data: QAResp
         await updateFinishLectureInCourse(courseId, lectureId);
         Swal.fire({
           icon: "success",
-          title: "Congratulations!",
-          text: "You have successfully completed this lesson. Proceed to the next lesson to continue your progress.",
+          title: translate("Congratulations!"),
+          text: translate("You have successfully completed this lesson Proceed to the next lesson to continue your progress"),
         });
           router.push(`/course-details/${data[0].lecture.course.slug}`);
       }
