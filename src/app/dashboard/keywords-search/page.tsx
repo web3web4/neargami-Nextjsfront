@@ -1,5 +1,5 @@
 import DashboardShell from "@/components/DashboardShell";
-import Keywords  from "@/section/Keywords-Search/keywords";
+import Keywords  from "@/section/Keywords-Search/Keywords";
 import { PageContainer } from "@/components/PageContainer/PageContainer";
 import {keyWordsSearch} from "@/apiServiceDashboard";
 
