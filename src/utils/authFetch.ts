@@ -76,6 +76,8 @@ export const authFetch = async<T> (url: string, options: RequestInit = {}): Prom
       console.warn("JWT Token not found in cookies.");
 
       if (showMessage) {
+        console.log("Session not available");
+
         /*
         Swal.fire({
           icon: "warning",
@@ -93,6 +95,7 @@ export const authFetch = async<T> (url: string, options: RequestInit = {}): Prom
   
     if (decodedToken.exp < now) {
       if (showMessage) {
+        console.log("Session Expired");
         /*
         Swal.fire({
           icon: "warning",

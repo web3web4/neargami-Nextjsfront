@@ -171,3 +171,10 @@ export interface UserProfileResponse {
       }
     [key: string]: any;
   }
+
+export interface KeywordsSearch {
+  id:string | number,
+  query:string[],
+  keyword:string,
+  timestamp:string,
+}

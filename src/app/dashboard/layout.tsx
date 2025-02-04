@@ -28,12 +28,12 @@ export const metadata = {
   ],
   authors: [
     {
-      name: "jotyy",
-      url: "https://jotyy.vercel.app",
+      name: "NearGami",
+      url: "",
     },
   ],
-  creator: "jotyy",
-  manifest: "https://mantine-admin.vercel.app/site.webmanifest",
+  creator: "NearGami",
+  manifest: "",
 };
 
 interface Props {
