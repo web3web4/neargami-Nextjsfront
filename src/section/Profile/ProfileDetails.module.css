@@ -88,11 +88,11 @@
   line-height: 40px;
 }
 
-.memberDetails li span {
+.memberDetails li strong {
   font-family: "Inter";
   line-height: 40px;
   color: #ffffff;
-  margin-inline-start: 10px;
+  margin-inline-start: 20px;
 }
 
 .memberDetails .socialItems a img {
@@ -163,7 +163,7 @@
   }
 
   .rightContent {
-    padding: 0 15px 0 0;
+    padding: 0 5px 0 5px;
   }
 }
 

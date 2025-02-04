@@ -201,7 +201,7 @@ const ProfileDetails = ({ playerId, data, courses }: ProfileDetailsProps) => {
                     >
                       {translate("Edit Profile")}
                     </Button>
-                    <div className="mt-2">
+                    <div className="mt-2 mb-3">
                       <Button
                         variant="blue"
                         size="md"
@@ -216,7 +216,7 @@ const ProfileDetails = ({ playerId, data, courses }: ProfileDetailsProps) => {
               </div>
             </LoadingWrapper>
           </div>
-          <div className="col-md-8" style={{ marginTop: "-43px" }}>
+          <div className="col-md-8" style={{ marginTop: "-20px" }}>
             <div className={styles.rightContent}>
               <h2 className={styles.rightContentTitle}>
                 {translate("Near Land")}

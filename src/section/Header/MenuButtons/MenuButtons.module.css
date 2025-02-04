@@ -63,6 +63,7 @@
 
   .gamfiMenuBtns .menuBtn {
     display: block;
+    z-index: 5;
   }
 
   .gamfiMenuBtns .profileBtn {

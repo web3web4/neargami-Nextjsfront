@@ -37,7 +37,7 @@
 
 .mobileMenuCloseBtn {
   position: absolute;
-  right: 0px;
+  inset-inline-end: 0px;
   top: 50%;
   background: none;
   border: none;
