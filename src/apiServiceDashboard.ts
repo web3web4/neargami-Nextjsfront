@@ -1,4 +1,4 @@
-import { ApiResponse, UserProfileData, UserProfileResponse } from "./interfaces/api";
+import { ApiResponse, KeywordsSearch, UserProfileData, UserProfileResponse } from "./interfaces/api";
 import { authFetch, isTokenValidServer } from "./utils/authFetch";
 import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
@@ -95,7 +95,7 @@ const handleResponseWithoutData = (
 
 */
 /**
- * this function for get profile By id
+ * this function for get admins
  * @param userId This parameter for user id.
  * @method isTokenValid To verify the current session
  * @returns data from backend
@@ -136,3 +136,24 @@ export const getAllCustomers = async (): Promise<UserProfileData[]> => {
   return allUsers.filter(user => !user.isAdmin);
 };
 
+/**
+ * this function for get all keyWords search from frontend
+ * @returns data from backend
+ */
+export const keyWordsSearch = async (): Promise<KeywordsSearch[]> => {
+  return validateTokenAndProceed(async () => {
+
+  const response = await authFetch <ApiResponse<KeywordsSearch[]>>(
+    `${API_BASE_URL}/courses/keywords`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  return handleResponse(response, "keywords");
+});
+
+};

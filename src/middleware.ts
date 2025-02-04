@@ -1,7 +1,7 @@
 import { jwtDecode } from 'jwt-decode';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { getUserProfile } from './apiService';
+//import { getUserProfile } from './apiService';
 
 export async function middleware(request: NextRequest) {
   const jwtToken = request.cookies.get('jwtToken')?.value;
@@ -17,7 +17,7 @@ export async function middleware(request: NextRequest) {
     if (decodedToken.exp < now) {
       return NextResponse.redirect(new URL('/', request.url));
     }
-
+/*
     const userId = decodedToken.id;
     const userResponse = await getUserProfile(userId);
 
@@ -26,6 +26,7 @@ export async function middleware(request: NextRequest) {
     if (isDashboardRoute && !userResponse.isAdmin) {
       return NextResponse.redirect(new URL('/', request.url));
     }
+  */
   } catch (error) {
     console.error('Error in middleware:', error);
     return NextResponse.redirect(new URL('/', request.url));
