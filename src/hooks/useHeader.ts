@@ -3,10 +3,16 @@ import { useRouter } from "next/navigation";
 import { setCookie } from "cookies-next";
 import { useWallet } from "@/auth/nearAuth";
 import { Dispatch, SetStateAction } from "react";
+import Swal from "sweetalert2";
+import { useAuth } from "@/context/authContext";
+import { useTranslations } from "next-intl";
 
 export const useHeader = (setMenuId: Dispatch<SetStateAction<string>>) => {
   const route = useRouter();
   const { handleNearLogout } = useWallet();
+  const translate = useTranslations("messages");
+  const { jwtToken } = useAuth();
+  const router = useRouter();
 
   const data: MenuItem[] = [
     {
@@ -83,8 +89,26 @@ export const useHeader = (setMenuId: Dispatch<SetStateAction<string>>) => {
     route.refresh();
   };
 
+  const handleMenuClick = async (
+    e: any,
+    url: string,
+    isNeedAuth: boolean | undefined
+  ) => {
+    if (!jwtToken && isNeedAuth) {
+      e.preventDefault();
+      Swal.fire({
+        icon: "warning",
+        title: translate("Warning"),
+        text: translate("Please log in to continue"),
+      });
+    } else {
+      router.push(url);
+    }
+  };
+
   return {
     data,
     mobileData,
+    handleMenuClick,
   };
 };

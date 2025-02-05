@@ -3,35 +3,13 @@ import { useHeader } from "@/hooks/useHeader";
 import styles from "./MenuLinks.module.css";
 import Link from "next/link";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
-import { useAuth } from "@/context/authContext";
-import Swal from "sweetalert2";
-import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 export default function MenuLinks() {
   const [menuId, setMenuId] = useState<string>("");
-  const { data } = useHeader(setMenuId);
-  const { jwtToken } = useAuth();
-  const router = useRouter();
+  const { data, handleMenuClick } = useHeader(setMenuId);
   const translate = useTranslations("Header");
-
-  const handleMenuClick = async (
-    e: any,
-    url: string,
-    isNeedAuth: boolean | undefined
-  ) => {
-    if (!jwtToken && isNeedAuth) {
-      e.preventDefault();
-      Swal.fire({
-        icon: "warning",
-        title: "No Token Found",
-        text: "Please log in to continue.",
-      });
-    } else {
-      router.push(url);
-    }
-  };
 
   return (
     <div className={styles.gamfiMenuList}>
