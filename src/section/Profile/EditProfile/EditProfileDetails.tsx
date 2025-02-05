@@ -14,9 +14,6 @@ import { useEditProfile } from "@/hooks/useEditProfile";
 import { UserProfileResponse } from "@/interfaces/api";
 import CheckUsername from "@/components/checkUsername/CheckUsername";
 import { useTranslations } from "next-intl";
-import Select from "react-select";
-import { languageOptions, customStyles } from "./index";
-import { getCookie } from "cookies-next";
 interface EditProfile {
   data: UserProfileResponse;
 }
@@ -33,7 +30,6 @@ const EditProfileDetails = ({ data }: EditProfile) => {
     handleButtonClick,
     handleSubmit,
     setIsUsernameAvailable,
-    handleSelectLangChange,
   } = useEditProfile(data);
 
   return (
@@ -220,20 +216,6 @@ const EditProfileDetails = ({ data }: EditProfile) => {
             <Button variant="mint" size="cust" onClick={handleSubmit}>
               {translate("Save Changes")}
             </Button>
-          </div>
-        </div>
-        <div className={styles.separator} />
-        <div className={styles.webSiteLanguage}>
-          <h6>{translate("WebSiteLanguage")}</h6>
-          <div>
-            <Select
-              styles={customStyles}
-              options={languageOptions}
-              value={languageOptions.find(
-                (option) => option.value === (getCookie("language") || "en")
-              )}
-              onChange={handleSelectLangChange}
-            />
           </div>
         </div>
       </div>

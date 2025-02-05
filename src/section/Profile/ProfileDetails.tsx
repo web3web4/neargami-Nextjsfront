@@ -190,22 +190,22 @@ const ProfileDetails = ({ playerId, data, courses }: ProfileDetailsProps) => {
                   </a>
                 </li>
               </ul>
-              <div className="mt-3 mb-3">
+              <div className={styles.btn}>
                 {!playerId && (
                   <>
-                    <Button
+                  <div className="mt-2 mb-3"> 
+                  <Button
                       href="/edit-profile"
                       variant="mint"
                       size="md"
-                      className="banner-btn"
                     >
                       {translate("Edit Profile")}
                     </Button>
+                  </div>
                     <div className="mt-2 mb-3">
                       <Button
                         variant="blue"
                         size="md"
-                        className="banner-btn"
                         onClick={handleClaims}
                       >
                         {translate("Claim Coins")}

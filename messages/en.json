@@ -72,7 +72,10 @@
     "Profile": "Profile",
     "Connect": "Connect",
     "Processing": "Processing",
-    "Connected": "Connected"
+    "Connected": "Connected",
+    "Language": "Language",
+    "English": "English",
+    "Arabic": "Arabic"
   },
   "Banner": {
     "Gamified e-learning platform": "Gamified e-learning platform",
@@ -225,9 +228,7 @@
     "Linkedin": "Linkedin",
     "Linkedin profile link": "Linkedin profile link",
     "Save Changes": "Save Changes",
-    "WebSiteLanguage": "Site Language",
-    "English": "English",
-    "Arabic": "Arabic"
+    "WebSiteLanguage": "Site Language"
   },
   "Wizard": {
     "Terms and conditions": "Terms and conditions",
@@ -328,4 +329,3 @@
     "Legal Disclaimer": "Legal Disclaimer"
   }
 }
-
