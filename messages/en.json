@@ -61,7 +61,8 @@
     "You have successfully completed this lesson Proceed to the next lesson to continue your progress": "You have successfully completed this lesson. Proceed to the next lesson to continue your progress.",
     "Please accept the terms and conditions before proceeding": "Please accept the terms and conditions before proceeding.",
     "The Username Field Is Required Please Enter Your Username": "The Username Field Is Required. Please Enter Your Username.",
-    "The username must be at least 4 characters long": "The username must be at least 4 characters long."
+    "The username must be at least 4 characters long": "The username must be at least 4 characters long.",
+    "Please log in to continue": "Please log in to continue."
   },
   "Header": {
     "All Courses": "All Courses",

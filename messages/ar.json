@@ -62,7 +62,8 @@
     "Please accept the terms and conditions before proceeding": "يرجى الموافقة على الشروط والأحكام قبل الإستمرار.",
     "The Username Field Is Required Please Enter Your Username": "يجب إدخال اسم المستخدم.",
     "The username must be at least 4 characters long": "يجب أن يكون اسم المستخدم على الأقل 4 أحرف",
-    "There was an error created": "حدث خطأ أثناء إنشاء الدورة."
+    "There was an error created": "حدث خطأ أثناء إنشاء الدورة.",
+    "Please log in to continue": "يرجى تسجيل الدخول للاستمرار."
   },
   "Header": {
     "All Courses": "الدورات",
