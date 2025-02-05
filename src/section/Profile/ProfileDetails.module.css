@@ -88,11 +88,11 @@
   line-height: 40px;
 }
 
-.memberDetails li strong {
+.memberDetails li span {
   font-family: "Inter";
   line-height: 40px;
   color: #ffffff;
-  margin-inline-start: 20px;
+  margin-inline-start: 10px;
 }
 
 .memberDetails .socialItems a img {
@@ -155,6 +155,10 @@
   color: black;
 }
 
+.btn {
+  margin-bottom: 20px;
+}
+
 @media only screen and (max-width: 768px) {
   .leftContentThumb {
     max-width: 200px !important;
@@ -164,6 +168,14 @@
 
   .rightContent {
     padding: 0 5px 0 5px;
+  }
+
+  .leftContent {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    flex-wrap: wrap;
+    margin-inline-start: 25px;
   }
 }
 
@@ -184,13 +196,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-
-  .leftContent {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-wrap: wrap;
   }
 }
 

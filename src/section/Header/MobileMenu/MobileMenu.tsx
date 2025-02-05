@@ -3,7 +3,6 @@ import { MouseEventHandler, useState } from "react";
 import { BsXLg } from "react-icons/bs";
 import styles from "./MobileMenu.module.css";
 import logo from "@/assets/images/brand/Logo/Without-BG/Logo-5.png";
-import data from "@/assets/data/menu/menuDataMobile";
 import Image from "next/image";
 import Link from "next/link";
 import { useWallet } from "@/auth/nearAuth";
@@ -11,6 +10,7 @@ import Swal from "sweetalert2";
 import { useAuth } from "@/context/authContext";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { useHeader } from "@/hooks/useHeader";
 
 const MobileMenu = ({
   mobileMenuhandle,
@@ -18,6 +18,7 @@ const MobileMenu = ({
   mobileMenuhandle: MouseEventHandler<HTMLButtonElement>;
 }) => {
   const [menuId, setMenuId] = useState<string>("");
+  const {mobileData} = useHeader(setMenuId);
   const { handleNearLogout } = useWallet();
   const { jwtToken } = useAuth();
   const router = useRouter();
@@ -61,29 +62,61 @@ const MobileMenu = ({
         </div>
         <div className={styles.gamfiMobileMenuList}>
           <ul>
-            {data?.map((menu, i) => (
+            {mobileData?.map((menu, i) => (
               <li
                 key={i}
-                className={`${
-                  menu.subMenus && menu.subMenus?.length > 0
-                    ? styles.hasSubMenu
-                    : ""
-                } ${menuId === menu.id ? styles.expandSubMenu : ""}`}
-                onClick={() => setMenuId(menu.id)}
+                className={`${menuId === menu.id ? styles.expandSubMenu : ""}`}
               >
-                {menu.action ? (
-                  <div className={styles.btnHeader} onClick={handleNearLogout}>
-                    {translate(menu.title)}
-                  </div>
-                ) : (
+                <div className={styles.btnHeader}>
+                  {menu.action ? (
+                    <div onClick={handleNearLogout}>
+                      {translate(menu.title)}
+                    </div>
+                  ) : (
+                    <div
+                      onClick={(e) =>
+                        handleMenuClick(e, menu.url, menu.isNeedAuth)
+                      }
+                    >
+                      {translate(menu.title)}
+                    </div>
+                  )}
                   <div
-                    className={styles.btnHeader}
-                    onClick={(e) =>
-                      handleMenuClick(e, menu.url, menu.isNeedAuth)
+                    onClick={() =>
+                      setMenuId((prevId) => (prevId === menu.id ? "" : menu.id))
                     }
                   >
-                    {translate(menu.title)}
+                    {menu.subMenus && menu.subMenus.length > 0
+                      ? menuId === menu.id
+                        ? "-"
+                        : "+"
+                      : ""}
                   </div>
+                </div>
+                {menu.subMenus && menu.subMenus.length > 0 && (
+                  <ul className={styles.subMenuList}>
+                    {menu.subMenus?.map((subMenu, i) => (
+                      <li key={i}>
+                        {subMenu.action ? (
+                          <div onClick={subMenu.onClick}>
+                            {translate(subMenu.title)}
+                          </div>
+                        ) : (
+                          <div
+                            onClick={(e) =>
+                              handleMenuClick(
+                                e,
+                                subMenu.url,
+                                subMenu.isNeedAuth
+                              )
+                            }
+                          >
+                            {translate(subMenu.title)}
+                          </div>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
                 )}
               </li>
             ))}

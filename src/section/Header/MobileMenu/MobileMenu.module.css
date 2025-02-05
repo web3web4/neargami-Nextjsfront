@@ -92,9 +92,10 @@
   top: 25px;
   width: 15px;
   height: 2px;
-  background: #090b1a;
+  background: #fdfdfd;
   content: "";
   transform: translateY(-50%);
+  z-index: 5555;
 }
 
 .hasSubMenu::after,
@@ -104,25 +105,26 @@
   top: 25px;
   width: 2px;
   height: 15px;
-  background: #090b1a;
+  background: #fdfdfd;
   content: "";
   transform: translateY(-50%);
+  z-index: 5555;
 }
 
 .hasSubMenu.expandSubMenu::after,
-.expandSubMenu_child::after {
+.expandSubMenuChild::after {
   opacity: 0;
   visibility: hidden;
 }
 
-.expandSubMenu .sub_menu_list {
+.expandSubMenu .subMenuList {
   display: block;
   opacity: 1;
   visibility: visible;
   transform: scaleY(1);
 }
 
-.expandSubMenu_child .sub_menu_child_list {
+.expandSubMenuChild .sub_menu_child_list {
   display: block;
 }
 
@@ -130,15 +132,19 @@
   border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
 
-.sub_menu_list {
+.subMenuList {
   display: none;
-  padding: 0 0 0 30px !important;
+  padding-inline-start: 30px !important;
   margin: 0;
   opacity: 0;
   visibility: hidden;
   transition: transform 0.3s ease-in-out;
   transform: scaleY(0);
   transform-origin: 0 0 0;
+}
+
+.subMenuList li {
+  margin-bottom: 10px;
 }
 
 .sub_menu_child_list {
@@ -156,6 +162,8 @@
   position: relative;
   padding: 10px 0;
   cursor: pointer;
+  display: flex;
+  justify-content: space-between;
 }
 
 .btnHeader:hover {
