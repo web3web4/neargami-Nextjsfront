@@ -25,7 +25,6 @@
   column-gap: 4px;
 }
 
-
 .gamfiMenuList li a svg {
   font-size: 18px;
 }
@@ -58,6 +57,11 @@
   position: relative;
   column-gap: 4px;
   display: inline-block;
+}
+
+[lang="ar"] .btnHeader {
+  font-size: 18px;
+  font-weight: 500;
 }
 
 .btnHeader:hover {

@@ -24,11 +24,17 @@ export const useHeader = (setMenuId: Dispatch<SetStateAction<string>>) => {
     {
       id: "1W2WV",
       title: "Players",
-      url: "/players",
+      url: "",
       isNeedAuth: false,
       subMenus: [
         {
-          id: "1W3WV",
+          id: "1W2WV2",
+          title: "Players",
+          url: "/players",
+          isNeedAuth: false,
+        },
+        {
+          id: "1W2WV1",
           title: "Leader Board",
           url: "/leader-board",
           isNeedAuth: false,

@@ -5,7 +5,6 @@ import styles from "./MobileMenu.module.css";
 import logo from "@/assets/images/brand/Logo/Without-BG/Logo-5.png";
 import Image from "next/image";
 import Link from "next/link";
-import { useWallet } from "@/auth/nearAuth";
 import { useTranslations } from "next-intl";
 import { useHeader } from "@/hooks/useHeader";
 
@@ -15,8 +14,7 @@ const MobileMenu = ({
   mobileMenuhandle: MouseEventHandler<HTMLButtonElement>;
 }) => {
   const [menuId, setMenuId] = useState<string>("");
-  const {mobileData, handleMenuClick} = useHeader(setMenuId);
-  const { handleNearLogout } = useWallet();
+  const { mobileData, handleMenuClick } = useHeader(setMenuId);
   const translate = useTranslations("Header");
 
   return (
@@ -47,8 +45,23 @@ const MobileMenu = ({
               >
                 <div className={styles.btnHeader}>
                   {menu.action ? (
-                    <div onClick={handleNearLogout}>
-                      {translate(menu.title)}
+                    <div onClick={menu.onClick}>{translate(menu.title)}</div>
+                  ) : menu.subMenus && menu.subMenus.length > 0 ? (
+                    <div className={styles.btnHasChild}
+                      onClick={() =>
+                        setMenuId((prevId) =>
+                          prevId === menu.id ? "" : menu.id
+                        )
+                      }
+                    >
+                      <div>{translate(menu.title)}</div>
+                      <div>
+                        {menu.subMenus && menu.subMenus.length > 0
+                          ? menuId === menu.id
+                            ? "-"
+                            : "+"
+                          : ""}
+                      </div>
                     </div>
                   ) : (
                     <div
@@ -59,17 +72,6 @@ const MobileMenu = ({
                       {translate(menu.title)}
                     </div>
                   )}
-                  <div
-                    onClick={() =>
-                      setMenuId((prevId) => (prevId === menu.id ? "" : menu.id))
-                    }
-                  >
-                    {menu.subMenus && menu.subMenus.length > 0
-                      ? menuId === menu.id
-                        ? "-"
-                        : "+"
-                      : ""}
-                  </div>
                 </div>
                 {menu.subMenus && menu.subMenus.length > 0 && (
                   <ul className={styles.subMenuList}>
