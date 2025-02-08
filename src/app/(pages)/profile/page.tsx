@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import Header from "@/section/Header/v2/Header";
 import PageHeader from "@/components/pageHeader/PageHeader";
 import ProfileDetails from "@/section/Profile/ProfileDetails";
@@ -16,13 +15,14 @@ export default async function ProfilePage() {
   const data:UserProfileData = await getUserProfile();
 
   return (
-    <Fragment>
-        <Header />
-        <PageHeader
+    <>
+      <Header />
+      <PageHeader
           currentPage={"Profile"}
           pageTitle={"Profile Details"}
-        />
-        <ProfileDetails playerId={null} data={data}  />
-    </Fragment>
+      />
+      <ProfileDetails playerId={null} data={data}  />
+    </>
+
   );
 }

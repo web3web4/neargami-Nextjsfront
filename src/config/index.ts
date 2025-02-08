@@ -1,4 +1,5 @@
 import {
+  IconBook,
   //IconComponents,
   IconDashboard,
   IconHome,
@@ -44,7 +45,9 @@ export const navLinks: NavItem[] = [
     ],
   },
   */
-  { label: "Keywords Search", icon: IconSearch, link: "/dashboard/keywords" },
+  { label: "Keywords Search", icon: IconSearch, link: "/dashboard/keywords-search" },
+  { label: "Manage Courses", icon: IconBook, link: "/dashboard/manage-courses" },
+
 
   { label: "Go To Front", icon: IconHome, link: "/" },
 ];

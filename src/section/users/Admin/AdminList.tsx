@@ -1,6 +1,7 @@
 "use client";
 import { SimpleTable } from "@/components/Table/SimpleTable";
 import { UserProfileResponse } from "@/interfaces/api";
+import { MRT_ColumnDef } from "mantine-react-table";
 
 interface AdminLists {
       data: UserProfileResponse,
@@ -18,7 +19,7 @@ export default function AdminList({data} : AdminLists)  {
       const handleView = (rowIndex: number) => {
             console.log(`view row at index: ${rowIndex}`);
       };
-      const columns = [
+      const columns : MRT_ColumnDef<any>[] = [
             { accessorKey: "id", header: "ID" },
             { accessorKey: "username", header: "User Name" },
             { accessorKey: "firstname", header: "First Name" },
