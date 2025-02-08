@@ -48,7 +48,7 @@ export const columns: MRT_ColumnDef<any>[] = [
   {
     accessorKey: "publish_status",
     header: "Status",
-    Cell: ({ cell }: { cell: MRT_Cell }) => {
+    Cell: ({ cell }: { cell: MRT_Cell<any> }) => {
       const status = cell.getValue<string>();
       const statusColors: Record<string, string> = {
         DRAFT: "orange",
