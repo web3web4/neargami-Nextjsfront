@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Paper, Space, Title } from "@mantine/core";
-import { MantineReactTable } from "mantine-react-table";
+import { MantineReactTable, MRT_ColumnDef, MRT_Row } from "mantine-react-table";
 
 type TableAction = {
   label: string;
@@ -10,16 +10,22 @@ type TableAction = {
 };
 
 type SimpleTableProps = {
-  columns: { accessorKey: string; header: string }[]; 
+  columns: { accessorKey: string; header: string }[] | MRT_ColumnDef<any>[]; 
   data: any;
-  title:string;
-  enableRowAction:boolean;
-  actions?: TableAction[];
-
-
+  title: string;
+  enableRowAction: boolean;
+  actions?: TableAction[];  
+  getActions?: (row: MRT_Row<any>) => TableAction[]; 
 };
 
-export const SimpleTable = ({ columns, data , title , enableRowAction ,  actions = []}: SimpleTableProps) => {
+export const SimpleTable = ({
+  columns,
+  data,
+  title,
+  enableRowAction,
+  actions = [],
+  getActions,  
+}: SimpleTableProps) => {
   return (
     <Paper withBorder radius="md" p="md">
       <Title order={5}>{title}</Title>
@@ -30,20 +36,24 @@ export const SimpleTable = ({ columns, data , title , enableRowAction ,  actions
         enableRowActions={enableRowAction}
         mantinePaperProps={{ shadow: "0", withBorder: false }}
         enableClickToCopy={true}
-        renderRowActionMenuItems={({ row }) => (
-          <div style={{ display: "flex", gap: "8px" }}>
-            {actions.map((action, index) => (
-              <Button
-                key={index}
-                size="xs"
-                color={action.color || "blue"} 
-                onClick={() => action.onClick(row.index)}
-              >
-                {action.label}
-              </Button>
-            ))}
-          </div>
-        )}
+        renderRowActionMenuItems={({ row }) => {
+          const rowActions = [...actions, ...(getActions ? getActions(row) : [])];
+
+          return (
+            <div style={{ display: "flex", gap: "8px" }}>
+              {rowActions.map((action, index) => (
+                <Button
+                  key={index}
+                  size="xs"
+                  color={action.color || "blue"}
+                  onClick={() => action.onClick(row.index)}
+                >
+                  {action.label}
+                </Button>
+              ))}
+            </div>
+          );
+        }}
       />
     </Paper>
   );

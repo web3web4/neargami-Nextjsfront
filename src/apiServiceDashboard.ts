@@ -1,4 +1,4 @@
-import { ApiResponse, KeywordsSearch, UserProfileData, UserProfileResponse } from "./interfaces/api";
+import { ApiResponse, CoursesResponse, KeywordsSearch, UserProfileData, UserProfileResponse } from "./interfaces/api";
 import { authFetch, isTokenValidServer } from "./utils/authFetch";
 import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
@@ -156,4 +156,23 @@ export const keyWordsSearch = async (): Promise<KeywordsSearch[]> => {
   return handleResponse(response, "keywords");
 });
 
+};
+
+/**
+ * this function for get all courses
+ * @returns data from backend
+ */
+
+export const getAllCourses = async (): Promise<CoursesResponse[]> => {
+  const response = await authFetch<ApiResponse<CoursesResponse[]>>(
+    `${API_BASE_URL}/courses/status/ALL`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  console.log("Response from getAllCourses:", response);
+  return handleResponse(response, "findAll");
 };
