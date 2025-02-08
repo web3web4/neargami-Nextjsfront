@@ -144,9 +144,9 @@
     "Update": "Update"
   },
   "CourseDifficulty": {
-    "Beginner": "Newbie (Beginner)",
-    "Normal": "Learner (Normal)",
-    "Advanced": "Pro (Advanced)",
+    "Beginner": "Beginner",
+    "Normal": "Normal",
+    "Advanced": "Advanced",
     "Legend": "Legend",
     "Master": "Master",
     "Hacker": "Hacker"
