@@ -4,7 +4,7 @@ import styles from "./MenuLinks.module.css";
 import Link from "next/link";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 
 export default function MenuLinks() {
   const [menuId, setMenuId] = useState<string>("");
@@ -21,23 +21,23 @@ export default function MenuLinks() {
                 {translate(menu.title)}
               </div>
             ) : (
-              <>
-                <div
+              <Fragment>
+                {menu.subMenus && menu.subMenus?.length > 0 ? (
+                  <div
                   className={styles.btnHeader}
-                  onClick={(e) => handleMenuClick(e, menu.url, menu.isNeedAuth)}
+                  onClick={() => setMenuId((prevId) => (prevId === menu.id ? "" : menu.id))}
                 >
                   {translate(menu.title)}{" "}
+                  <MdOutlineKeyboardArrowDown />
+
                 </div>
-                {menu.subMenus && menu.subMenus?.length > 0 && (
-                  <span
-                    onClick={() =>
-                      setMenuId((prevId) => (prevId === menu.id ? "" : menu.id))
-                    }
-                  >
-                    <MdOutlineKeyboardArrowDown />
-                  </span>
-                )}
-              </>
+                ) : <div
+                className={styles.btnHeader}
+                onClick={(e) => handleMenuClick(e, menu.url, menu.isNeedAuth)}
+              >
+                {translate(menu.title)}{" "}
+              </div>}
+              </Fragment>
             )}
 
             {menu.subMenus && menu.subMenus?.length > 0 && (
