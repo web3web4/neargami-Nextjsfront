@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import Header from "@/section/Header/v2/Header";
 import PageHeader from "@/components/pageHeader/PageHeader";
 import PlayersList from "@/section/Players/PlayersList/PlayerList";
@@ -18,10 +17,10 @@ export default async function PlayersPage({ searchParams }: Props) {
 
 
   return (
-    <Fragment>
+      <>
         <Header />
         <PageHeader currentPage="Players" pageTitle="NearGami Players" />
         <PlayersList data={data} currentPage={page} />
-    </Fragment>
+      </>
   );
 }

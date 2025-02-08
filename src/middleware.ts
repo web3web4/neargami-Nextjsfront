@@ -26,6 +26,7 @@ export async function middleware(request: NextRequest) {
     if (isDashboardRoute && !userResponse.isAdmin) {
       return NextResponse.redirect(new URL('/', request.url));
     }
+  
   } catch (error) {
     console.error('Error in middleware:', error);
     return NextResponse.redirect(new URL('/', request.url));

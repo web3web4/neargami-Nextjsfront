@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import Header from "@/section/Header/v2/Header";
 import PageHeader from "@/components/pageHeader/PageHeader";
 import ProfileDetails from "@/section/Profile/ProfileDetails";
@@ -23,10 +22,11 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
   const courses: CoursesResponse[] = await getProfileCourses(playerId);
 
   return (
-    <Fragment>
-      <Header />
-      <PageHeader currentPage={"Player"} pageTitle={"Player Details"} />
-      <ProfileDetails playerId={playerId} data={data} courses={courses} />
-    </Fragment>
+      <>
+        <Header />
+        <PageHeader currentPage={"Player"} pageTitle={"Player Details"} />
+        <ProfileDetails playerId={playerId} data={data} courses={courses} />
+      </>
+
   );
 }
