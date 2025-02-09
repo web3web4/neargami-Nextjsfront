@@ -63,7 +63,8 @@
     "The Username Field Is Required Please Enter Your Username": "يجب إدخال اسم المستخدم.",
     "The username must be at least 4 characters long": "يجب أن يكون اسم المستخدم على الأقل 4 أحرف",
     "There was an error created": "حدث خطأ أثناء إنشاء الدورة.",
-    "Please log in to continue": "يرجى تسجيل الدخول للاستمرار."
+    "Please log in to continue": "يرجى تسجيل الدخول للاستمرار.",
+    "Please Login To Read Full Lesson": "يرجى تسجيل الدخول لقراءة الدرس كاملا."
   },
   "Header": {
     "All Courses": "الدورات",
