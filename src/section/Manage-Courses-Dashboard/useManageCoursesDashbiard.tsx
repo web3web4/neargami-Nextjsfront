@@ -1,48 +1,113 @@
-import { MRT_ColumnDef, MRT_Cell, MRT_Row  } from "mantine-react-table";
-//import Image from "next/image";
-//import photoDefault from "@/assets/images/no-Course.png";
+import { deleteCourse, updateCourseStatus } from "@/apiServiceDashboard";
+import { CoursesResponse } from "@/interfaces/api";
+import { MRT_ColumnDef, MRT_Cell } from "mantine-react-table";
+import Swal from "sweetalert2";
 
-
-
-// functions for actions
-export const handleEdit = (rowIndex: number) => {
-  console.log(`Edit row at index: ${rowIndex}`);
+export const handleView = (rowIndex: number, data: CoursesResponse[]) => {
+  const course = data[rowIndex];
+  if (course) {
+    const url = `/course-details/${course.slug}`;
+    window.open(url, "_blank");
+  } else {
+    console.error("Course data not found!");
+  }
 };
 
-export const handleDelete = (rowIndex: number) => {
-  console.log(`Delete row at index: ${rowIndex}`);
+export const handleDelete = async (
+  rowIndex: number,
+  data: CoursesResponse[],
+  setData: React.Dispatch<React.SetStateAction<CoursesResponse[]>>
+) => {
+  const courseId = data[rowIndex]?.id;
+  if (!courseId) return Swal.fire({ icon: "warning", title: "Error", text: "Course ID not found!" });
+
+  const confirmDelete = await Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#3085d6",
+    confirmButtonText: "Yes, delete it!",
+  });
+
+  if (!confirmDelete.isConfirmed) return;
+
+  try {
+    const response = await deleteCourse(courseId);
+    if (response.status === 200) {
+      Swal.fire({ icon: "success", title: "Deleted", text: "Course deleted successfully!" });
+      setData((prevData) => prevData.filter((course) => course.id !== courseId));
+    } else {
+      Swal.fire({ icon: "warning", title: "Failed", text: `Error: ${response.status}` });
+    }
+  } catch (error) {
+    Swal.fire({ icon: "error", title: "Request Failed", text: `Something went wrong! ${error}` });
+  }
 };
 
-export const handleView = (rowIndex: number) => {
-  console.log(`View row at index: ${rowIndex}`);
+export const handleApprove = async (
+  rowIndex: number,
+  data: CoursesResponse[],
+  setData: React.Dispatch<React.SetStateAction<CoursesResponse[]>>
+) => {
+  const courseId = data[rowIndex]?.id;
+  if (!courseId) return Swal.fire({ icon: "warning", title: "Error", text: "Course ID not found!" });
+
+  const confirmApprove = await Swal.fire({
+    title: "Are you sure?",
+    text: "This will approve the course!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#28a745",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, approve it!",
+  });
+
+  if (!confirmApprove.isConfirmed) return;
+
+  try {
+    const response = await updateCourseStatus({ publish_status: "APPROVED" }, courseId);
+    if (response?.id === courseId) {
+      Swal.fire({ icon: "success", title: "Approved", text: "Course approved successfully!" });
+      setData((prevData) =>
+        prevData.map((course) => (course.id === courseId ? { ...course, publish_status: "APPROVED" } : course))
+      );
+    } else {
+      Swal.fire({ icon: "warning", title: "Failed", text: "Could not approve course." });
+    }
+  } catch (error) {
+    Swal.fire({ icon: "error", title: "Request Failed", text: `Something went wrong! ${error}` });
+  }
 };
 
-export const handleApprove = (rowIndex: number) => {
-  console.log(`Approve row at index: ${rowIndex}`);
+export const handleReject = async (
+  rowIndex: number,
+  data: CoursesResponse[],
+  setData: React.Dispatch<React.SetStateAction<CoursesResponse[]>>
+) => {
+  const courseId = data[rowIndex]?.id;
+  if (!courseId) return Swal.fire({ icon: "warning", title: "Error", text: "Course ID not found!" });
+
+  try {
+    const response = await updateCourseStatus({ publish_status: "REJECTED" }, courseId);
+    if (response?.id === courseId) {
+      Swal.fire({ icon: "success", title: "Rejected", text: "Course rejected successfully!" });
+      setData((prevData) =>
+        prevData.map((course) => (course.id === courseId ? { ...course, publish_status: "REJECTED" } : course))
+      );
+    } else {
+      Swal.fire({ icon: "warning", title: "Failed", text: "Could not reject course." });
+    }
+  } catch (error) {
+    Swal.fire({ icon: "error", title: "Request Failed", text: `Something went wrong! ${error}` });
+  }
 };
 
-export const handleReject = (rowIndex: number) => {
-  console.log(`Reject row at index: ${rowIndex}`);
-};
-
-// this for columns table
+// Columns definition
 export const columns: MRT_ColumnDef<any>[] = [
   { accessorKey: "id", header: "ID" },
   { accessorKey: "slug", header: "Slug" },
-  /*
-  {
-    accessorKey: "logo",
-    header: "Image",
-    Cell: ({ cell }: { cell: MRT_Cell }) => {
-      const logo = cell.getValue<string>() || photoDefault.src;
-      return (
-        <div style={{ position: "relative", width: 50, height: 50 }}>
-          <Image src={logo} alt="Course Logo" layout="fill" objectFit="cover" />
-        </div>
-      );
-    },
-  },
-  */
   { accessorKey: "name", header: "Name" },
   { accessorKey: "difficulty", header: "Difficulty" },
   {
@@ -73,38 +138,3 @@ export const columns: MRT_ColumnDef<any>[] = [
   },
   { accessorKey: "teacher.id", header: "Teacher ID" },
 ];
-
-// this action for table with conditional buttons
-export const getActions = (row: MRT_Row<any>) => {
-  const status = row.original.publish_status; 
-
-  const baseActions = [
-    { label: "Edit", color: "blue", onClick: () => handleEdit(row.index) },
-    { label: "Delete", color: "orange", onClick: () => handleDelete(row.index) },
-    { label: "View", color: "black", onClick: () => handleView(row.index) },
-  ];
-
-  if (status === "DRAFT") {
-    baseActions.push({
-      label: "Approve",
-      color: "green",
-      onClick: () => handleApprove(row.index),
-    });
-    baseActions.push({
-      label: "Reject",
-      color: "red",
-      onClick: () => handleReject(row.index),
-    });
-  } else if (status === "REJECTED") {
-    baseActions.push({
-      label: "Approve",
-      color: "green",
-      onClick: () => handleApprove(row.index),
-    });
-  }
-
-  return baseActions;
-};
-  
-
-  
