@@ -17,7 +17,7 @@ export default function Keywords({ data }: KeywordList) {
         {
             accessorKey: "query",
             header: "Query",
-            Cell: ({ cell }: { cell: MRT_Cell<string[]> }) => {
+            Cell: ({ cell }: { cell: MRT_Cell<any> }) => {
                 const queries: string[] = cell.getValue<string[]>(); 
                 return (
                     <>
