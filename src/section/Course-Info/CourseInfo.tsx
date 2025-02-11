@@ -205,7 +205,7 @@ export default function CourseInfo({
                   <Button
                     variant="mint"
                     size="lg"
-                    href={`/show-lesson/${data?.id}`}
+                    href={`/show-lesson/${data?.id}/${data?.slug}`}
                   >
                     {translate("Edit Lessons")}
                   </Button>

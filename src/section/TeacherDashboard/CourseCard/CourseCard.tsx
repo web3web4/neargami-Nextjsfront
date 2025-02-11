@@ -23,7 +23,7 @@ const CourseCard = ({
   return (
     <div className={styles.courseCard}>
       <div className={styles.courseInfo}>
-        <Link href={`/show-lesson/${id}`}>
+        <Link href={`/show-lesson/${id}/${slug}`}>
           <Image
             src={logo || photoDefault}
             width={500}
@@ -33,7 +33,7 @@ const CourseCard = ({
         </Link>
         <div className={styles.courseAuthor}>
           <h4 className="mb-10">
-            <a href={`/show-lesson/${id}`}>{name}</a>
+            <a href={`/show-lesson/${id}/${slug}`}>{name}</a>
           </h4>
           <div>{title}</div>
         </div>

@@ -12,7 +12,7 @@ const Header = () => {
             <Logo />
             <div className={styles.gamfiMenuRightSect}>
               <MenuLinks />
-              <MenuButtons />
+              <MenuButtons isShowMenu={true}/>
             </div>
           </div>
         </div>

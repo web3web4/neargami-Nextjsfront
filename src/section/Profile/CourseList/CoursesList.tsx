@@ -48,7 +48,7 @@ const CoursesList = (props: CoursesResponse) => {
             </div>
           </div>
           <div className={styles.userLogo}>
-            <Link href={`/profile/${props.teacher!.id}`}>
+            <Link href={`/profile/${props.teacher!.username}/${props.teacher!.id}`}>
               <Image
                 src={props.teacher!.image || userDefault}
                 width={70}

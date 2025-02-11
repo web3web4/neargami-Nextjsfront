@@ -6,9 +6,7 @@ import { CoursesResponse } from "@/interfaces/api";
 import Swal from "sweetalert2";
 import { useTranslations } from "next-intl";
 
-export const useCourseInfo = (
-  data: CoursesResponse | null
-) => {
+export const useCourseInfo = (data: CoursesResponse | null) => {
   const router = useRouter();
   const translate = useTranslations("messages");
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -21,7 +19,6 @@ export const useCourseInfo = (
     description: "",
     logo: "",
     language: CourseLanguage.English,
-    slug:""
   });
 
   const handleSelectChange = (selectedOption: any) => {
@@ -62,7 +59,6 @@ export const useCourseInfo = (
         logo: data!.logo,
         tag: data!.tag,
         language: data!.language,
-        slug:data!.slug
       });
       setImage(data!.logo);
     }
@@ -77,10 +73,12 @@ export const useCourseInfo = (
       Swal.fire({
         icon: "warning",
         title: translate("Required Field"),
-        text: translate("The Tags field is required Please enter all related tags"),
+        text: translate(
+          "The Tags field is required Please enter all related tags"
+        ),
       });
       return;
-    }
+    } 
     try {
       const create = await createCourse(formInput);
       Swal.fire({
@@ -88,7 +86,7 @@ export const useCourseInfo = (
         title: translate("Success"),
         text: translate("The course has been created successfully!"),
       });
-      router.push(`/show-lesson/${create.id}`);
+      router.push(`/show-lesson/${create.id}/${create.slug}`);
     } catch (error) {
       const msgError =
         error instanceof Error &&
@@ -112,12 +110,13 @@ export const useCourseInfo = (
       Swal.fire({
         icon: "warning",
         title: translate("Required Field"),
-        text: translate("The Tags field is required Please enter all related tags"),
+        text: translate(
+          "The Tags field is required Please enter all related tags"
+        ),
       });
       return;
     }
     try {
-      console.log(formInput);
       const update = await updateCourse(formInput, data!.id!.toString());
       if (update) {
         Swal.fire({
