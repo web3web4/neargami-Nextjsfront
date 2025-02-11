@@ -1,9 +1,12 @@
-import { ApiResponse, CoursesResponse, KeywordsSearch, UserProfileData, UserProfileResponse } from "./interfaces/api";
+"use server";
+
+import { ApiResponse, CourseData, CoursesResponse, KeywordsSearch, LogsServer, UserProfileData, UserProfileResponse } from "./interfaces/api";
 import { authFetch, isTokenValidServer } from "./utils/authFetch";
 import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+const PASS_FOR_ADMIN = process.env.NEXT_PUBLIC_PASS_FOR_ADMIN;
 
 
 /**
@@ -75,7 +78,7 @@ const handleResponse = <T>(
  * @param expectedMessage  this optional
  * @returns responce object without arg data
  */
-/*
+
 const handleResponseWithoutData = (
     response: any,
     expectedMessage?: string
@@ -93,14 +96,14 @@ const handleResponseWithoutData = (
     return response;
   };
 
-*/
+
 /**
  * this function for get admins
  * @param userId This parameter for user id.
  * @method isTokenValid To verify the current session
  * @returns data from backend
  */
-export const getUserAdmin = async (): Promise<UserProfileResponse> => {
+export const getUserAdmin = async (): Promise<UserProfileResponse[]> => {
     return validateTokenAndProceed(async () => {
         const response = await authFetch<ApiResponse<UserProfileResponse>>(
             `${API_BASE_URL}/users/admin`,
@@ -134,6 +137,32 @@ export const getAllCustomers = async (): Promise<UserProfileData[]> => {
   const allUsers = handleResponse<UserProfileData[]>(response, "findAll");
 
   return allUsers.filter(user => !user.isAdmin);
+};
+
+
+/**
+ * this function for bloack user from website
+ * @param userId this parameter for user id.
+ * @method isTokenValid To verify the current session
+ * @returns data from backend
+ */
+export const bloackUser = async (
+  userId: string,
+): Promise<UserProfileData> => {
+  return validateTokenAndProceed(async () => {
+    const response = await authFetch<ApiResponse<UserProfileData>>(
+      `${API_BASE_URL}/auth/block`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify( {id : userId} ),
+      }
+    );
+
+    return handleResponse(response, "block");
+  });
 };
 
 /**
@@ -175,4 +204,137 @@ export const getAllCourses = async (): Promise<CoursesResponse[]> => {
   );
   console.log("Response from getAllCourses:", response);
   return handleResponse(response, "findAll");
+};
+
+/**
+ * this function make admin
+*/
+
+export const makeAdmin = async (userId:string): Promise<UserProfileResponse> => {
+  return validateTokenAndProceed(async () => {
+      const response = await authFetch<ApiResponse<UserProfileResponse>>(
+          `${API_BASE_URL}/users/addAdmin/${userId}`,
+          {
+          method: "PUT",
+          headers: {
+              "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ pass:PASS_FOR_ADMIN }),
+          }
+      );
+
+      return handleResponseWithoutData(response);
+  });
+};
+
+/**
+ * this function for delete user
+ * @param userId 
+ * @returns 
+ */
+export const deleteUser = async (userId:string): Promise<UserProfileResponse> => {
+  return validateTokenAndProceed(async () => {
+      const response = await authFetch<ApiResponse<UserProfileResponse>>(
+          `${API_BASE_URL}/users/${userId}`,
+          {
+          method: "DELETE",
+          headers: {
+              "Content-Type": "application/json",
+          },
+          }
+      );
+
+      return handleResponseWithoutData(response);
+  });
+};
+
+
+/**
+ * this function Cancel Admin
+*/
+
+export const cancelAdmin = async (userId:string): Promise<UserProfileResponse> => {
+  return validateTokenAndProceed(async () => {
+      const response = await authFetch<ApiResponse<UserProfileResponse>>(
+          `${API_BASE_URL}/users/removeAdmin/${userId}`,
+          {
+          method: "PUT",
+          headers: {
+              "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ pass:PASS_FOR_ADMIN }),
+          }
+      );
+
+      return handleResponseWithoutData(response);
+  });
+};
+
+/**
+ * this function for status updated Course from Admin
+ * @param courseStatus This parameter holds the data that will be transferred to the back end.
+ * @param courseId this parameter for course id.
+ * @method isTokenValid To verify the current session
+ * @returns data from backend
+ */
+export const updateCourseStatus = async (
+  courseStatus: CourseData,
+  courseId: number
+): Promise<CoursesResponse> => {
+  return validateTokenAndProceed(async () => {
+    const response = await authFetch<ApiResponse<CoursesResponse>>(
+      `${API_BASE_URL}/courses/status/${courseId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(courseStatus),
+      }
+    );
+
+    return handleResponse(response, "status updated");
+  });
+};
+
+/**
+ * this function for delete user
+ * @param userId 
+ * @returns 
+ */
+export const deleteCourse = async (courseId:number | string): Promise<CoursesResponse> => {
+  return validateTokenAndProceed(async () => {
+      const response = await authFetch<ApiResponse<CoursesResponse>>(
+          `${API_BASE_URL}/courses/${courseId}`,
+          {
+          method: "DELETE",
+          headers: {
+              "Content-Type": "application/json",
+          },
+          }
+      );
+
+      return handleResponseWithoutData(response);
+  });
+};
+
+/**
+ * this function for delete user
+ * @param userId 
+ * @returns 
+ */
+export const logServer = async (): Promise<LogsServer[]> => {
+  return validateTokenAndProceed(async () => {
+      const response = await authFetch<ApiResponse<LogsServer[]>>(
+          `${API_BASE_URL}/logs`,
+          {
+          method: "GET",
+          headers: {
+              "Content-Type": "application/json",
+          },
+          }
+      );
+
+      return handleResponse(response, "foundAll");
+    });
 };

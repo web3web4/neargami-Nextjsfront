@@ -178,4 +178,16 @@ export interface KeywordsSearch {
   query:string[],
   keyword:string,
   timestamp:string,
+  [key: string]: any;
+}
+
+export interface LogsServer {
+  id: number,
+  level: string,
+  message: string,
+  timestamp: string,
+  stack: null | string,
+  context: null | string,
+  userId: null | string,
+  [key: string]: any;
 }

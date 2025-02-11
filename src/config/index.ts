@@ -3,6 +3,7 @@ import {
   //IconComponents,
   IconDashboard,
   IconHome,
+  IconReport,
   IconSearch,
   //IconLock,
 	IconUser,
@@ -47,6 +48,8 @@ export const navLinks: NavItem[] = [
   */
   { label: "Keywords Search", icon: IconSearch, link: "/dashboard/keywords-search" },
   { label: "Manage Courses", icon: IconBook, link: "/dashboard/manage-courses" },
+  { label: "Logs Server", icon: IconReport, link: "/dashboard/logs" },
+
 
 
   { label: "Go To Front", icon: IconHome, link: "/" },
