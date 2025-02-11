@@ -184,7 +184,7 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
           router.push("/wizard");
         } else {
           setButtonText("Connected");
-          router.push("/");
+          router.refresh();
         }
 
         modal.hide();

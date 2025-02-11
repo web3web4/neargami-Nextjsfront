@@ -7,7 +7,7 @@ export default function Menu() {
   return (
     <div className={styles.gamfiMenuRightSect}>
       <MenuLinks />
-      <MenuButtons />
+      <MenuButtons isShowMenu={true}/>
     </div>
   );
 }

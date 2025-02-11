@@ -107,7 +107,7 @@ const CourseHeader = ({
             />
           </div>
           <div className={styles.userLogo}>
-            <Link href={`/profile/${data.lectures[0]?.course?.teacher.id}`}>
+            <Link href={`/profile/${data.lectures[0]?.course?.teacher.username}/${data.lectures[0]?.course?.teacher.id}`}>
               <Image
                 src={data.lectures[0]?.course?.teacher.image || userDefault}
                 width={70}

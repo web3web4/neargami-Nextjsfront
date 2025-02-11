@@ -14,7 +14,7 @@ import NGCToken from "@/section/Header/NGCToken/NGCToken";
 import MobileMenu from "@/section/Header/MobileMenu/MobileMenu";
 import { useTranslations } from "next-intl";
 
-export default function MenuButtons() {
+export default function MenuButtons({ isShowMenu }: { isShowMenu: boolean }) {
   const translate = useTranslations("Header");
   const [buttonText, setButtonText] = useState<string>("Connect");
   const [isMobileMenu, setMobileMenu] = useState<boolean>(false);
@@ -27,9 +27,12 @@ export default function MenuButtons() {
 
   return (
     <div className={styles.gamfiMenuBtns}>
-      <button className={styles.menuBtn} onClick={() => handleMobileMenu()}>
-        <MdNotes />
-      </button>
+      {isShowMenu && (
+        <button className={styles.menuBtn} onClick={() => handleMobileMenu()}>
+          <MdNotes />
+        </button>
+      )}
+
       {jwtToken ? (
         <>
           <Link href="/profile">

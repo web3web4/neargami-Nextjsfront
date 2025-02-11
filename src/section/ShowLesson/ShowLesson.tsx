@@ -6,9 +6,11 @@ import { useTranslations } from "next-intl";
 
 export default function ShowLesson({
   courseId,
+  courseSlug,
   data,
 }: {
   courseId: string;
+  courseSlug: string;
   data: LessonResponse;
 }) {
   const translate = useTranslations("ShowLesson");
@@ -24,7 +26,7 @@ export default function ShowLesson({
           <Button size="md" variant="mint" href={`/lesson/${courseId}/add`}>
             {translate("Add a Lesson")}
           </Button>
-          <Button size="md" variant="mint" href={`/course-info/${courseId}`}>
+          <Button size="md" variant="mint" href={`/course-info/${courseSlug}`}>
             {translate("Back to Edit Course")}
           </Button>
         </div>

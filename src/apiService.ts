@@ -894,7 +894,7 @@ export const uploadFile = async (
     formData.append("file", fileUpload);
     return validateTokenAndProceed(async () => {
       const response = await authFetch<ApiResponse<UploadFileResponse>>(
-        `${API_BASE_URL}/upload`,
+        `${API_BASE_URL}/upload/buffer`,
         {
           method: "POST",
           body: formData,

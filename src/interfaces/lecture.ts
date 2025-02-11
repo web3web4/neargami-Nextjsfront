@@ -28,6 +28,7 @@ export interface Course {
 export interface Teacher {
   id: string;
   image: string;
+  username?: string;
 }
 
 export interface Question {

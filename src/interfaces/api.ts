@@ -104,10 +104,11 @@ export interface UserProfileResponse {
     tag: string;
     difficulty: string;
     isAdmin?: boolean; 
-    slug: string;
+    slug?: string;
     teacher?: {
       id: number;
       image: string;
+      username?: string;
     };
     [key: string]: any;
   }

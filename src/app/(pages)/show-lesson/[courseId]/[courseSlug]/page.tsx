@@ -6,21 +6,21 @@ import { getAllLesson } from "@/apiService";
 import { generateShowLessonMetadata } from "@/utils/generateMetadata";
 
 export async function generateMetadata({params}: {params: any}) {
-  const { courseId } = await params;
+  const { courseId, courseSlug } = await params;
   const data = await getAllLesson(courseId);
 
-  return generateShowLessonMetadata(data, courseId);
+  return generateShowLessonMetadata(data, courseId, courseSlug);
 }
 
 export default async function ShowLessonPage({ params }: { params: any }) {
-  const { courseId } = await params;
+  const { courseId, courseSlug } = await params;
   const data = await getAllLesson(courseId);
 
   return (
     <Fragment>
       <Header />
       <PageHeader currentPage="Add Course Info" pageTitle="Course Lessons" />
-      <ShowLesson courseId={courseId} data={data} />
+      <ShowLesson courseId={courseId} courseSlug={courseSlug} data={data} />
     </Fragment>
   );
 }

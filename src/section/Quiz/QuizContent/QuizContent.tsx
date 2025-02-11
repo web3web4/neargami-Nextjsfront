@@ -24,8 +24,8 @@ export default function QuizContent({
 
   if (!jwtToken) {
     description =
-      description.split(" ").slice(0, 120).join(" ") +
-      (description.split(" ").length >= 120 ? "..." : "");
+      description.split(" ").slice(0, 150).join(" ") +
+      (description.split(" ").length >= 150 ? "..." : "");
 
     warningMessage = translate("Please Login To Read Full Lesson");
   }

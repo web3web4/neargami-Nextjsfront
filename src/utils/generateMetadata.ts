@@ -253,14 +253,15 @@ export const generateQuizMetadata = (
 // For Show Lesson Page
 export const generateShowLessonMetadata = (
   data: LessonResponse,
-  courseId: string
+  courseId: string,
+  courseSlug: string
 ) => {
   return returnMetadata(
     data && data?.lectures?.length > 0
       ? data?.lectures[0]?.course?.name
       : defaultTitle,
     defaultDescription,
-    `/show-lesson/${courseId}`,
+    `/show-lesson/${courseId}/${courseSlug}`,
     {
       url: data?.lectures[0]?.course?.logo,
       width: 600,
