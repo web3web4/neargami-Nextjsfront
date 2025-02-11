@@ -1,7 +1,7 @@
 "use client";
 import { SimpleTable } from "@/components/Table/SimpleTable";
 import { UserProfileResponse } from "@/interfaces/api";
-import { handleDelete, handleView, handleCancelAdmin } from "./useAdmin";
+import {  handleView, handleCancelAdmin } from "./useAdmin";
 import { MRT_ColumnDef } from "mantine-react-table";
 import { useState } from "react";
 
@@ -20,7 +20,7 @@ export default function AdminList({ data }: AdminLists) {
   ];
 
   const actions = [
-    { label: "Delete", color: "red", onClick: (rowIndex: number) => handleDelete(rowIndex, userData, setData) },
+    //{ label: "Delete", color: "red", onClick: (rowIndex: number) => handleDelete(rowIndex, userData, setData) },
     { label: "View", color: "green", onClick: (rowIndex: number) => handleView(rowIndex, userData) },
     { label: "Cancel Admin", color: "black", onClick: (rowIndex: number) => handleCancelAdmin(rowIndex, userData, setData) }
   ];

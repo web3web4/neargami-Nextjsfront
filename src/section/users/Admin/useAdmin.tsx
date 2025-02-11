@@ -1,6 +1,6 @@
 import Swal from "sweetalert2";
 import { UserProfileResponse } from "@/interfaces/api";
-import { cancelAdmin, deleteUser } from "@/apiServiceDashboard";
+import { cancelAdmin } from "@/apiServiceDashboard";
 
 
 
@@ -66,7 +66,7 @@ export const handleCancelAdmin = async (
 };
 
 
-
+/*
 export const handleDelete = async (
   rowIndex: number,
   data: UserProfileResponse[],
@@ -123,7 +123,7 @@ export const handleDelete = async (
     });
   }
 };
-
+*/
 
 
 export const handleView = (rowIndex: number, data: UserProfileResponse[]) => {

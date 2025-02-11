@@ -1,4 +1,4 @@
-import { deleteCourse, updateCourseStatus } from "@/apiServiceDashboard";
+import { updateCourseStatus } from "@/apiServiceDashboard";
 import { CoursesResponse } from "@/interfaces/api";
 import { MRT_ColumnDef, MRT_Cell } from "mantine-react-table";
 import Swal from "sweetalert2";
@@ -13,6 +13,7 @@ export const handleView = (rowIndex: number, data: CoursesResponse[]) => {
   }
 };
 
+/*
 export const handleDelete = async (
   rowIndex: number,
   data: CoursesResponse[],
@@ -45,6 +46,7 @@ export const handleDelete = async (
     Swal.fire({ icon: "error", title: "Request Failed", text: `Something went wrong! ${error}` });
   }
 };
+*/
 
 export const handleApprove = async (
   rowIndex: number,

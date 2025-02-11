@@ -1,6 +1,6 @@
 "use server";
 
-import { ApiResponse, CourseData, CoursesResponse, KeywordsSearch, UserProfileData, UserProfileResponse } from "./interfaces/api";
+import { ApiResponse, CourseData, CoursesResponse, KeywordsSearch, LogsServer, UserProfileData, UserProfileResponse } from "./interfaces/api";
 import { authFetch, isTokenValidServer } from "./utils/authFetch";
 import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
@@ -137,6 +137,32 @@ export const getAllCustomers = async (): Promise<UserProfileData[]> => {
   const allUsers = handleResponse<UserProfileData[]>(response, "findAll");
 
   return allUsers.filter(user => !user.isAdmin);
+};
+
+
+/**
+ * this function for bloack user from website
+ * @param userId this parameter for user id.
+ * @method isTokenValid To verify the current session
+ * @returns data from backend
+ */
+export const bloackUser = async (
+  userId: string,
+): Promise<UserProfileData> => {
+  return validateTokenAndProceed(async () => {
+    const response = await authFetch<ApiResponse<UserProfileData>>(
+      `${API_BASE_URL}/auth/block`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify( {id : userId} ),
+      }
+    );
+
+    return handleResponse(response, "block");
+  });
 };
 
 /**
@@ -290,4 +316,25 @@ export const deleteCourse = async (courseId:number | string): Promise<CoursesRes
 
       return handleResponseWithoutData(response);
   });
+};
+
+/**
+ * this function for delete user
+ * @param userId 
+ * @returns 
+ */
+export const logServer = async (): Promise<LogsServer[]> => {
+  return validateTokenAndProceed(async () => {
+      const response = await authFetch<ApiResponse<LogsServer[]>>(
+          `${API_BASE_URL}/logs`,
+          {
+          method: "GET",
+          headers: {
+              "Content-Type": "application/json",
+          },
+          }
+      );
+
+      return handleResponse(response, "foundAll");
+    });
 };

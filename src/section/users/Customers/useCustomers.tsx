@@ -1,14 +1,8 @@
-import { deleteUser, makeAdmin } from "@/apiServiceDashboard";
+import { bloackUser, makeAdmin } from "@/apiServiceDashboard";
 import { UserProfileData } from "@/interfaces/api";
 import Swal from "sweetalert2";
 
 /*
-export const handleEdit = (rowIndex: number) => {
-    console.log(`Edit row at index: ${rowIndex}`);
-};
-*/
-
-
 export const handleDelete = async (rowIndex: number, data: UserProfileData[]) => {
     const userId = data[rowIndex]?.id;
 
@@ -60,7 +54,7 @@ export const handleDelete = async (rowIndex: number, data: UserProfileData[]) =>
     }
 };
 
-
+*/
 
 export const handleView = (rowIndex: number, data: UserProfileData[]) => {
     const user = data[rowIndex]; 
@@ -73,8 +67,50 @@ export const handleView = (rowIndex: number, data: UserProfileData[]) => {
 };
 
 
-export const handleBloack = (rowIndex: number) => {
-    console.log(`view row at index: ${rowIndex}`);
+export const handleBloack = async (rowIndex: number , data : UserProfileData[] , setData: React.Dispatch<React.SetStateAction<UserProfileData[]>>) => {
+    const userId = data[rowIndex]?.id;
+    
+    if (!userId) {
+        console.error("User ID not found!");
+        Swal.fire({
+            icon: "warning",
+            title: "Error",
+            text: "User ID not found!",
+        });
+        return;
+    }
+
+    try {
+        const response = await bloackUser(userId);
+
+        if (response?.id === userId) {
+            Swal.fire({
+                icon: "success",
+                title: "Bloack User",
+                text: "User status updated and Bloacked",
+            });
+
+            setData((prevData) =>
+                prevData.map((user) =>
+                    user.id === userId ? { ...user, blocked: true } : user
+                )
+            );
+
+        } else {
+            Swal.fire({
+                icon: "warning",
+                title: "Failed!",
+                text: `Error: ${response.status} - ${response.statusText}`,
+            });
+        }
+    } catch (error) {
+        console.error("Error bloack:", error);
+        Swal.fire({
+            icon: "error",
+            title: "Request Failed",
+            text: "Something went wrong while processing your request!",
+        });
+    }
 };
 
 export const handleAdmin = async (rowIndex: number, data: UserProfileData[], setData: React.Dispatch<React.SetStateAction<UserProfileData[]>>) => {

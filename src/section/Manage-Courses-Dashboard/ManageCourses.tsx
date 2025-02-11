@@ -5,7 +5,7 @@ import { CoursesResponse } from "@/interfaces/api";
 import {
   columns,
   handleApprove,
-  handleDelete,
+  //handleDelete,
   handleReject,
   handleView,
 } from "./useManageCoursesDashbiard";
@@ -24,11 +24,13 @@ export default function ManageCourses({ data }: CourseList) {
     const status = row.original.publish_status;
 
     const baseActions = [
+      /*
       {
         label: "Delete",
         color: "orange",
         onClick: (rowIndex: number) => handleDelete(rowIndex, courseData, setCourseData),
       },
+      */
       { label: "View", color: "black", onClick: (rowIndex: number) => handleView(rowIndex, courseData) },
     ];
 
