@@ -33,7 +33,7 @@ export default function CoursesList({courses}: CourseList) {
   
     if (courses && courses.length > 0) {
       courses.forEach((course) => {
-        fetchPlayers(course.slug);
+        fetchPlayers(course.slug!);
       });
     }
   }, [courses]);
