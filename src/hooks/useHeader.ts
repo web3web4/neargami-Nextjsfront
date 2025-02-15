@@ -12,7 +12,6 @@ export const useHeader = (setMenuId: Dispatch<SetStateAction<string>>) => {
   const { handleNearLogout } = useWallet();
   const translate = useTranslations("messages");
   const { jwtToken } = useAuth();
-  const router = useRouter();
 
   const data: MenuItem[] = [
     {
@@ -47,13 +46,23 @@ export const useHeader = (setMenuId: Dispatch<SetStateAction<string>>) => {
       url: "/teacher-dashboard",
       isNeedAuth: true,
     },
-    {
-      id: "1W5WV",
-      title: "Disconnect",
-      url: "",
-      action: true,
-      onClick: () => handleNearLogout(),
-    },
+  ];
+
+  //Check If Connect And Disconnect 
+  if(jwtToken){
+    data.push(
+      {
+        id: "1W5WV",
+        title: "Disconnect",
+        url: "",
+        action: true,
+        onClick: () => handleNearLogout(),
+      },
+    )
+  }
+
+  //Add Language To Header
+  data.push(
     {
       id: "1W7WV",
       title: "Language",
@@ -77,7 +86,7 @@ export const useHeader = (setMenuId: Dispatch<SetStateAction<string>>) => {
         },
       ],
     },
-  ];
+  )
 
   const mobileData: MenuItem[] = [
     {
@@ -108,7 +117,7 @@ export const useHeader = (setMenuId: Dispatch<SetStateAction<string>>) => {
         text: translate("Please log in to continue"),
       });
     } else {
-      router.push(url);
+      route.push(url);
     }
   };
 

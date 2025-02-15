@@ -1,7 +1,6 @@
 "use client";
 import connectIcon from "@/assets/images/icons/connect.png";
-//import personIcon from "@/assets/images/icons/person.png";
-import userDefault from "@/assets/images/no-User.png";
+import personIcon from "@/assets/images/icons/person.png";
 import ngcIcons from "@/assets/images/brand/Logo/Without-BG/Logo-3-Size/32.png";
 import Button from "@/components/button/Button";
 import Image from "next/image";
@@ -46,13 +45,13 @@ export default function MenuButtons({ isShowMenu }: { isShowMenu: boolean }) {
           <Link href="/profile">
             <div className={styles.profileBtn}>
             <Image
-                  src={userProfile?.image || userDefault.src}
+                  src={userProfile?.image || personIcon.src}
                   alt="player-image"
                   width={45}
                   height={45}
                   loading={'lazy'}
                   className={styles.playerImage}
-                  onError={() => (userDefault.src)}
+                  onError={() => (personIcon.src)}
                 />
             </div>
           </Link>
