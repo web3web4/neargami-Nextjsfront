@@ -51,7 +51,7 @@ export default function DashboardShell({ children }: Props) {
       <AppShell.Main bg={bg}>{children}</AppShell.Main>
       <AppShell.Footer>
         <Text w="full" size="sm" c="gray">
-          CopyRight © 2023 Jotyy
+          CopyRight © 2025 NearGami
         </Text>
       </AppShell.Footer>
     </AppShell>

@@ -6,6 +6,8 @@ import { IAuthContextType } from "../interfaces/auth";
 import Swal from "sweetalert2";
 import {jwtDecode} from "jwt-decode";
 import { getSelector } from "../auth/nearAuth";
+import { UserProfileData } from "@/interfaces/api";
+import { getUserProfile } from "@/apiService";
 
 const AuthContext = createContext<IAuthContextType | undefined>(undefined);
 
@@ -17,6 +19,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     (getCookie("jwtToken") as string) || null
   );
   
+  const [userProfile, setUserProfile] = useState<UserProfileData>();
 
   const setAuthData = (key: string, value: any) => {
     if (key === "nearSignature") {
@@ -77,6 +80,25 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 */
 
 useEffect(() => {
+  if (!jwtToken) return;  
+
+  const fetchUserProfile = async () => {
+    try {
+      const response = await getUserProfile();  
+      if (response) {
+        setUserProfile(response);  
+      }
+    } catch (error) {
+      console.error('Error fetching user profile:', error);
+    }
+  };
+
+  fetchUserProfile();  
+
+}, [jwtToken]);
+
+
+useEffect(() => {
   const validateToken = async () => {
     if (!jwtToken) {
       Swal.fire({
@@ -125,7 +147,7 @@ useEffect(() => {
 
   return (
     <AuthContext.Provider
-      value={{ nearSignature, jwtToken, setAuthData }}
+      value={{ nearSignature, jwtToken, userProfile , setAuthData }}
     >
       {children}
     </AuthContext.Provider>

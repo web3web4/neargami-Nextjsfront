@@ -4,7 +4,7 @@ import styles from "./MenuLinks.module.css";
 import Link from "next/link";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { useTranslations } from "next-intl";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 
 export default function MenuLinks() {
   const [menuId, setMenuId] = useState<string>("");
@@ -21,7 +21,7 @@ export default function MenuLinks() {
                 {translate(menu.title)}
               </div>
             ) : (
-              <Fragment>
+              <>
                 {menu.subMenus && menu.subMenus?.length > 0 ? (
                   <div
                   className={styles.btnHeader}
@@ -37,7 +37,7 @@ export default function MenuLinks() {
               >
                 {translate(menu.title)}{" "}
               </div>}
-              </Fragment>
+              </>
             )}
 
             {menu.subMenus && menu.subMenus?.length > 0 && (
