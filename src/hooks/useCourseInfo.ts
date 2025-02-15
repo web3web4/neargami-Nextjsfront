@@ -18,6 +18,7 @@ export const useCourseInfo = (data: CoursesResponse | null) => {
     difficulty: CourseDifficulty.Beginner,
     description: "",
     logo: "",
+    slug:"",
     language: CourseLanguage.English,
   });
 
@@ -58,6 +59,7 @@ export const useCourseInfo = (data: CoursesResponse | null) => {
         description: data!.description,
         logo: data!.logo,
         tag: data!.tag,
+        slug:data!.slug,
         language: data!.language,
       });
       setImage(data!.logo);

@@ -104,7 +104,7 @@ export interface UserProfileResponse {
     tag: string;
     difficulty: string;
     isAdmin?: boolean; 
-    slug?: string;
+    slug: string;
     teacher?: {
       id: number;
       image: string;
@@ -164,6 +164,7 @@ export interface UserProfileResponse {
       user_id?: string | null,
       course_id?: number,
       user: {
+          username: any;
           id: string,
           slug:string,
           firstname: string |null,

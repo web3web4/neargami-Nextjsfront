@@ -4,6 +4,7 @@ import "mantine-react-table/styles.css";
 import {
   DirectionProvider,
   MantineProvider,
+  ColorSchemeScript,
 } from "@mantine/core";
 import { ModalsProvider } from "@mantine/modals";
 import { Notifications } from "@mantine/notifications";
@@ -44,6 +45,7 @@ export default function RootLayout({ children }: Props) {
   return (
     <html lang="en-US">
       <head>
+      <ColorSchemeScript />
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no"
@@ -56,7 +58,7 @@ export default function RootLayout({ children }: Props) {
       <body className={inter.className}>
 
         <DirectionProvider>
-          <MantineProvider theme={theme}>
+          <MantineProvider theme={theme} defaultColorScheme="dark">
             <ModalsProvider>
               {children} 
               <Analytics />
