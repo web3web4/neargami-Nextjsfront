@@ -8,40 +8,60 @@ import userDefault from "@/assets/images/no-User.png";
 import Link from "next/link";
 import Image from "next/image";
 import CardHover from "@/components/cardHover/CardHover";
-import { CoursesResponse, DataPopup } from "@/interfaces/api";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import PlayerListPopup from "@/components/PlayerListPopup/PlayerListPopup";
 import { useTranslations } from "next-intl";
-
+import { fetchEndPlayers, fetchStartPlayers } from "@/apiService";
+import { CoursesResponse, DataPopup } from "@/interfaces/api";
 interface CourseCardProps {
   props: CoursesResponse;
-  popupEndUser: DataPopup[];
-  popupStartUser: DataPopup[];
 }
 
 const CourseCard = ({
   props,
-  popupEndUser,
-  popupStartUser,
 }: CourseCardProps) => {
   const [showStartPopup, setShowStartPopup] = useState<boolean>(false);
   const [showEndPopup, setShowEndPopup] = useState<boolean>(false);
-    const transDifficulty = useTranslations("CourseDifficulty");
+  const transDifficulty = useTranslations("CourseDifficulty");
+  const [popupEndUser, setPopupEndUser] = useState<DataPopup[]>([]);
+  const [popupStartUser, setPopupStartUser] = useState<DataPopup[]>([]);
   
+
+  const handleOpenStartPopup = async () => {
+    try {
+      const startUsers = await fetchStartPlayers(props.slug);
+      setPopupStartUser(startUsers);
+      setShowStartPopup(true);
+    } catch (error) {
+      console.error("Error fetching start players:", error);
+    }
+  };
+
+  const handleOpenEndPopup = async () => {
+    try {
+      const endUsers = await fetchEndPlayers(props.slug);
+      setPopupEndUser(endUsers);
+      setShowEndPopup(true);
+    } catch (error) {
+      console.error("Error fetching end players:", error);
+    }
+  };
+
   return (
-    <Fragment>
+    <>
       <PlayerListPopup
-        open={showStartPopup}
-        onClose={() => setShowStartPopup(false)}
-        title="Students Attending the course"
-        fetchPlayers={popupStartUser}
-      />
-      <PlayerListPopup
-        open={showEndPopup}
-        onClose={() => setShowEndPopup(false)}
-        title="Students Who Completed the Course"
-        fetchPlayers={popupEndUser}
-      />
+          open={showStartPopup}
+          onClose={() => setShowStartPopup(false)}
+          title="Students Attending the course"
+          fetchPlayers={popupStartUser}
+        />
+
+        <PlayerListPopup
+          open={showEndPopup}
+          onClose={() => setShowEndPopup(false)}
+          title="Students Who Completed the Course"
+          fetchPlayers={popupEndUser}
+        />
       <div className={styles.courseCard}>
         <Link href={`/course-details/${props.slug}`}>
           <div className={styles.courseInfo}>
@@ -93,14 +113,14 @@ const CourseCard = ({
         </div>
         <div className={styles.studentCount}>
           <div
-            onClick={() => setShowStartPopup(true)}
+            onClick={handleOpenStartPopup}
             style={{ cursor: "pointer" }}
           >
             <Image src={viewsIcon} height={25} width={25} alt="" />
             {props.counts?._count?.start_time || 0}
           </div>
           <div
-            onClick={() => setShowEndPopup(true)}
+            onClick={handleOpenEndPopup}
             style={{ cursor: "pointer" }}
           >
             <Image src={studentIcon} height={25} width={25} alt="" />
@@ -109,7 +129,7 @@ const CourseCard = ({
         </div>
         <CardHover styles={styles} />
       </div>
-    </Fragment>
+    </>
   );
 };
 
