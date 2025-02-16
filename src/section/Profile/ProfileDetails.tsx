@@ -19,12 +19,12 @@ import CoursesList from "./CourseList/CoursesList";
 import { useTranslations } from "next-intl";
 
 interface ProfileDetailsProps {
-  playerId: string | null;
+  username: string | null;
   data: UserProfileData;
   courses?: CoursesResponse[];
 }
 
-const ProfileDetails = ({ playerId, data, courses }: ProfileDetailsProps) => {
+const ProfileDetails = ({ username, data, courses }: ProfileDetailsProps) => {
   const [filterCourses, setFilterCourses] = useState<CoursesResponse[]>([]);
   const translate = useTranslations("Profile");
   const {
@@ -35,7 +35,7 @@ const ProfileDetails = ({ playerId, data, courses }: ProfileDetailsProps) => {
     formatAddress,
     handleCopy,
     handleClaims,
-  } = useProfileDetails(playerId);
+  } = useProfileDetails(username);
 
   useEffect(() => {
     if (courses) {
@@ -97,7 +97,7 @@ const ProfileDetails = ({ playerId, data, courses }: ProfileDetailsProps) => {
                     />
                   </span>
                 </li>
-                {!playerId && (
+                {!username && (
                   <>
                     <li style={{ position: "relative" }}>
                       <strong>{translate("Tokens In Your Wallet")}</strong>{" "}
@@ -191,7 +191,7 @@ const ProfileDetails = ({ playerId, data, courses }: ProfileDetailsProps) => {
                 </li>
               </ul>
               <div className={styles.btn}>
-                {!playerId && (
+                {!username && (
                   <>
                   <div className="mt-2 mb-3"> 
                   <Button
