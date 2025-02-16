@@ -27,7 +27,21 @@ export interface UserProfileData {
     username?: string,
     [key: string]: any;
   }
+
+  export interface PlayersData {
+      users: UserProfileData[];
+      meta: {
+        isFirstPage?: boolean,
+        isLastPage?: boolean,
+        currentPage?: number,
+        previousPage?: null,
+        nextPage?: null,
+        pageCount: number,
+        totalCount?: number
+    }
+  }
   
+
 export interface CourseData  {
     id?:number;
     name?:string;
