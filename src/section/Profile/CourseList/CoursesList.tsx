@@ -13,7 +13,7 @@ import { CoursesResponse } from "@/interfaces/api";
 const CoursesList = (props: CoursesResponse) => {
   return (
     <div className={styles.courseCard}>
-      <Link href={`/course-details/${props.id}`}>
+      <Link href={`/course-details/${props.slug}`}>
         <div className={styles.courseInfo}>
           <div>
             <Image src={ngcIcons} width={23} alt="" /> {props.total_score} NGC

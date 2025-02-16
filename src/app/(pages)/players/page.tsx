@@ -1,7 +1,7 @@
 import Header from "@/section/Header/v2/Header";
 import PageHeader from "@/components/pageHeader/PageHeader";
 import PlayersList from "@/section/Players/PlayersList/PlayerList";
-import { UserProfileData } from "@/interfaces/api";
+import { PlayersData } from "@/interfaces/api";
 import { getAllPlayers } from "@/apiService";
 import { generatePlayersMetadata } from "@/utils/generateMetadata";
 
@@ -13,7 +13,7 @@ interface Props {
 export default async function PlayersPage({ searchParams }: Props) {
   const page = parseInt((await searchParams).page  as string) || 1; 
 
-  const data:UserProfileData[] = await getAllPlayers(page);
+  const data:PlayersData = await getAllPlayers(page);
 
 
   return (

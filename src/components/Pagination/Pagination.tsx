@@ -5,9 +5,10 @@ import styles from "./Pagination.module.css";
 
 interface PaginationProps {
   currentPage: number;
+  pageCount:number;
 }
 
-const Pagination = ({ currentPage }: PaginationProps) => {
+const Pagination = ({ currentPage , pageCount }: PaginationProps) => {
   const router = useRouter();
 
   const handlePageChange = (page: number) => {
@@ -15,7 +16,7 @@ const Pagination = ({ currentPage }: PaginationProps) => {
   };
 
   const renderPageNumbers = () => {
-    const totalPages = 6; 
+    const totalPages = pageCount; 
     const pageNumbers = [];
 
     for (let i = 1; i <= totalPages; i++) {
