@@ -16,6 +16,7 @@ import {
   NgcResponse,
   UploadFileResponse,
   DataPopup,
+  PlayersData,
 } from "@/interfaces/api";
 import { cookies } from "next/headers";
 import { dataUrlToBlob } from "./utils/dataUrlToBlob";
@@ -793,8 +794,8 @@ export const searchOnCourses = async (
  * this function for get all palyers
  * @returns data from backend
  */
-export const getAllPlayers = async (page: any): Promise<UserProfileData[]> => {
-  const response = await authFetch<ApiResponse<UserProfileResponse[]>>(
+export const getAllPlayers = async (page: any): Promise<PlayersData> => {
+  const response = await authFetch<ApiResponse<PlayersData>>(
     `${API_BASE_URL}/users?page=${page}`,
     {
       method: "GET",
