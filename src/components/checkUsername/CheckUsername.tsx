@@ -16,7 +16,8 @@ export default function CheckUsername({
   const translate = useTranslations("CheckUsername");
   const { isAvailable, isChecking } = useCheckUsername(
     username,
-    onAvailabilityChange
+    onAvailabilityChange,
+    intiUsername
   );
 
   return (
