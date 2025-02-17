@@ -180,12 +180,11 @@ export const generateLeaderboardMetadata = () => {
 export const generateProfileMetadata = (
   data: UserProfileData,
   username: string | null,
-  playerId: string | null,
 ) => {
   return returnMetadata(
-    `${data.firstname} ${data.lastname} | NearGami`,
+    `${data.username} | NearGami`,
     "View and manage your profile on NearGami. Track your progress, achievements, and points as you learn and play!",
-    `${playerId !== null ? `/profile/${username}/${playerId}` : "/profile"}`,
+    `${username !== null ? `/profile/${username}` : "/profile"}`,
     {
       url: data.image,
       width: 600,

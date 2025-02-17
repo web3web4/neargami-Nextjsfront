@@ -129,7 +129,7 @@ export const handleDelete = async (
 export const handleView = (rowIndex: number, data: UserProfileResponse[]) => {
   const user = data[rowIndex];
   if (user) {
-    const url = `/profile/${user.username}/${user.id}`;
+    const url = `/profile/${user.username}`;
     window.open(url, "_blank");
   } else {
     console.error("User data not found!");

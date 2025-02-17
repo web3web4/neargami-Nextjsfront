@@ -8,7 +8,7 @@ import { generateProfileMetadata } from "@/utils/generateMetadata";
 export async function generateMetadata() {
   const data: UserProfileData = await getUserProfile();
 
-  return generateProfileMetadata(data, null, null);
+  return generateProfileMetadata(data, null);
 }
 
 export default async function ProfilePage() {
@@ -21,7 +21,7 @@ export default async function ProfilePage() {
           currentPage={"Profile"}
           pageTitle={"Profile Details"}
       />
-      <ProfileDetails playerId={null} data={data}  />
+      <ProfileDetails username={null} data={data}  />
     </>
 
   );

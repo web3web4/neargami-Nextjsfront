@@ -1,6 +1,5 @@
 "use client";
 import { updateUserProfile, uploadFile } from "@/apiService";
-import { useLoading } from "@/context/LoadingContext";
 import { UserProfileData, UserProfileResponse } from "@/interfaces/api";
 import { useTranslations } from "next-intl";
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
@@ -14,7 +13,6 @@ interface CountryData {
 
 export const useEditProfile = (data: UserProfileResponse) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const { setIsLoading } = useLoading();
   const [image, setImage] = useState<string | null>(null);
   const [isUsernameAvailable, setIsUsernameAvailable] = useState<
     boolean | null
@@ -130,22 +128,11 @@ export const useEditProfile = (data: UserProfileResponse) => {
   };
 
   useEffect(() => {
-    const getUser = async () => {
-      setIsLoading(true);
-      try {
-        const response = data;
-        console.log("datat responce", response);
-        setFormInput(response);
-        console.log("data frominput", formInput);
-        setIsLoading(false);
-        setInitUsername(data.username!);
-      } catch (error) {
-        console.error("Error fetching get user:", error);
-        setIsLoading(false);
-      }
-    };
-
-    getUser();
+    const response = data;
+    console.log("datat responce", response);
+    setFormInput(response);
+    console.log("data frominput", formInput);
+    setInitUsername(data.username!);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

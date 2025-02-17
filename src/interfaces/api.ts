@@ -24,6 +24,7 @@ export interface UserProfileData {
     image?: string,
     game?: any,
     isAdmin?: boolean,
+    username?: string,
     [key: string]: any;
   }
 

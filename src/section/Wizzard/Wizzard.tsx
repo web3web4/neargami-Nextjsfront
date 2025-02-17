@@ -65,7 +65,7 @@ const Wizard = () => {
                     />
                   </div>
                   <CheckUsername
-                    username={formInput.username}
+                    username={formInput.username!}
                     onAvailabilityChange={setIsUsernameAvailable}
                   />
                   <div>

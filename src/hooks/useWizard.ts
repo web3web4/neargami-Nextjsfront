@@ -63,7 +63,7 @@ export const useWizard = () => {
       });
       return;
     }
-    if (formInput.username.trim() === "") {
+    if (formInput.username!.trim() === "") {
       Swal.fire({
         icon: "error",
         title: translate("Error"),
@@ -71,7 +71,7 @@ export const useWizard = () => {
       });
       return;
     }
-    if (formInput.username.length < 4) {
+    if (formInput.username!.length < 4) {
       Swal.fire({
         icon: "error",
         title: translate("Error"),
