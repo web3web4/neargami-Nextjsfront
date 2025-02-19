@@ -106,6 +106,27 @@ export const handleReject = async (
   }
 };
 
+
+export const handelStatusHistory = (
+  rowIndex: number,
+  data: CoursesResponse[],
+  setPopupStatusHistory: React.Dispatch<React.SetStateAction<CoursesResponse[]>>,
+  setShowStartPopup: React.Dispatch<React.SetStateAction<boolean>>
+) => {
+  const course = data[rowIndex];
+  if (!course) {
+    console.error("Course not found!");
+    return;
+  }
+
+  const statusHistory = course.CourseStatusLog || []; 
+
+  setPopupStatusHistory(statusHistory); 
+  setShowStartPopup(true);
+};
+
+
+
 // Columns definition
 export const columns: MRT_ColumnDef<any>[] = [
   { accessorKey: "id", header: "ID" },

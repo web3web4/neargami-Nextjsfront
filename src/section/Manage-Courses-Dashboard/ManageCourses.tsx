@@ -1,9 +1,13 @@
 "use client";
 
 import { SimpleTable } from "@/components/Table/SimpleTable";
-import { CoursesResponse } from "@/interfaces/api";
+import {
+   CoursesResponse,
+   //DataPopup 
+  } from "@/interfaces/api";
 import {
   columns,
+  handelStatusHistory,
   handleApprove,
   //handleDelete,
   handleReject,
@@ -11,6 +15,7 @@ import {
 } from "./useManageCoursesDashbiard";
 import { MRT_Row } from "mantine-react-table";
 import { useState } from "react";
+import PlayerListPopup from "@/components/PlayerListPopup/PlayerListPopup";
 
 interface CourseList {
   data: CoursesResponse[];
@@ -18,6 +23,8 @@ interface CourseList {
 
 export default function ManageCourses({ data }: CourseList) {
   const [courseData, setCourseData] = useState<CoursesResponse[]>(data);
+  const [showStartPopup, setShowStartPopup] = useState<boolean>(false);
+  const [popupStatusHistory, setPopupStatusHistory] = useState<CoursesResponse[]>(data);
 
   // Actions for table rows
   const getActions = (row: MRT_Row<any>) => {
@@ -32,6 +39,7 @@ export default function ManageCourses({ data }: CourseList) {
       },
       */
       { label: "View", color: "black", onClick: (rowIndex: number) => handleView(rowIndex, courseData) },
+      { label: "Status History", color: "yellow", onClick: (rowIndex: number) => handelStatusHistory(rowIndex, courseData, setPopupStatusHistory, setShowStartPopup) },
     ];
 
     if (status === "DRAFT") {
@@ -58,6 +66,15 @@ export default function ManageCourses({ data }: CourseList) {
 
   return (
     <>
+    
+      <PlayerListPopup
+        open={showStartPopup}
+        onClose={() => setShowStartPopup(false)}
+        title="Status History"
+        fetchSatusHistory={popupStatusHistory} 
+        fetchPlayers={null}      
+      />
+      
       <SimpleTable
         columns={columns}
         data={courseData}
