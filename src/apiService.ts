@@ -234,6 +234,29 @@ export const getProfileCourses = async (
 };
 
 /**
+ * this function for get all Course
+ * @method isTokenValid To verify the current session
+ * @returns data from backend
+ */
+export const getProfileCoursesByUsername = async (
+  username: string
+): Promise<CoursesResponse[]> => {
+  if (!username) throw new Error("username is missing");
+
+  const response = await authFetch<ApiResponse<CoursesResponse[]>>(
+    `${API_BASE_URL}/courses/teacher/username/${username}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  return handleResponse(response, "findAll");
+};
+
+/**
  * this function for get all Course by status for Admin
  * @method isTokenValid To verify the current session
  * @returns data from backend
@@ -849,33 +872,6 @@ export const claimsNgcs = async (ngcs: number): Promise<any> => {
     );
 
     return handleResponse(response, "found");
-  });
-};
-
-/**
- * this function check if user role admin or not , and Connect to the appropriate endpoint, and get course.
- */
-export const fetchCoursesForTeacherDashboard = async (): Promise<
-  CoursesResponse[]
-> => {
-  return validateTokenAndProceed(async () => {
-    const user = await getUserProfile();
-    let response;
-    try {
-      if (user && user.isAdmin) {
-        response = await getAllCourseByStatus();
-      } else {
-        response = await getAllCoursesForTeacher();
-      }
-      response = response.map((item) => ({
-        ...item,
-        isAdmin: user.isAdmin,
-      }));
-      return response;
-    } catch (error) {
-      console.error("Error fetching courses", error);
-      throw new Error("Error fetching courses for teacher dashboard");
-    }
   });
 };
 
