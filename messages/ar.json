@@ -58,7 +58,7 @@
     "There was an error update QA": "حدث خطأ أثناء تحديث السؤال.",
     "There Was An Error When Check Answers": "حدث خطأ أثناء التحقق من الإجابات",
     "Congratulations!": "تهانينا!",
-    "You have successfully completed this lesson Proceed to the next lesson to continue your progress": "لقد أكملت هذا الدرس بنجاح. أدفع إلى الدرس التالي للمتابعة من تقدمك.",
+    "You have successfully completed this lesson Proceed to the next lesson to continue your progress": "لقد أكملت هذا الدرس بنجاح. انتقل للدرس التالي للمحافظة على تقدمك.",
     "Please accept the terms and conditions before proceeding": "يرجى الموافقة على الشروط والأحكام قبل الإستمرار.",
     "The Username Field Is Required Please Enter Your Username": "يجب إدخال اسم المستخدم.",
     "The username must be at least 4 characters long": "يجب أن يكون اسم المستخدم على الأقل 4 أحرف",
@@ -231,7 +231,8 @@
     "Linkedin": "لينكدان",
     "Linkedin profile link": "رابط الملف الشخصي في لينكدان",
     "Save Changes": "حفظ التغييرات",
-    "WebSiteLanguage": "لغة الموقع"
+    "WebSiteLanguage": "لغة الموقع",
+    "Receive Email For The Latest Updates": "استلام بريد الكتروني لمعرفة أخر التحديثات"
   },
   "Wizard": {
     "Terms and conditions": "الشروط والاحكام",
@@ -249,7 +250,8 @@
     "Next": "التالي",
     "Prev": "السابق",
     "Complate To Profile": "اكمل للملف الشخصي",
-    "Back To Home": "العودة للصفحة الرئيسية"
+    "Back To Home": "العودة للصفحة الرئيسية",
+    "Would you like to receive notifications to stay updated with the latest updates": "هل ترغب في تلقي الإشعارات للبقاء على اطلاع بآخر التحديثات؟"
   },
   "LegalDisclaimer": {
     "By using our service you automatically agree to our": "باستخدام خدمتنا فإنك توافق تلقائيا على",

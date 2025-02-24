@@ -5,7 +5,7 @@ import { checkUsernameIsAvailable } from "@/apiService";
 export function useCheckUsername(
   username: string,
   onAvailabilityChange: (isAvailable: boolean | null) => void,
-  intiUsername: string = ""
+  initUsername: string = ""
 ) {
   const [isAvailable, setIsAvailable] = useState<boolean | null>(null);
   const [isChecking, setIsChecking] = useState<boolean | null>(null);
@@ -29,7 +29,9 @@ export function useCheckUsername(
   );
 
   useEffect(() => {
-    if (username.trim() !== "" && intiUsername !== username) {
+    if (initUsername === username) {
+      onAvailabilityChange(true);
+    } else if (username.trim() !== "") {
       checkUsername(username);
     } else {
       setIsAvailable(null);

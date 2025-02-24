@@ -230,7 +230,8 @@
     "Linkedin": "Linkedin",
     "Linkedin profile link": "Linkedin profile link",
     "Save Changes": "Save Changes",
-    "WebSiteLanguage": "Site Language"
+    "WebSiteLanguage": "Site Language",
+    "Receive Email For The Latest Updates": "Receive Email For The Latest Updates"
   },
   "Wizard": {
     "Terms and conditions": "Terms and conditions",
@@ -248,7 +249,8 @@
     "Next": "Next",
     "Prev": "Prev",
     "Complate To Profile": "Complate To Profile",
-    "Back To Home": "Back To Home"
+    "Back To Home": "Back To Home",
+    "Would you like to receive notifications to stay updated with the latest updates": "Would you like to receive notifications to stay updated with the latest updates?"
   },
   "LegalDisclaimer": {
     "By using our service you automatically agree to our": "By using our service you automatically agree to our",

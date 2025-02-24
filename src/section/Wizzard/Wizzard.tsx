@@ -104,7 +104,20 @@ const Wizard = () => {
                       value={formInput.country}
                     />
                   </div>
-                  <div>
+                  <div className={styles.checkBoxContainer}>
+                    <input
+                      type="checkbox"
+                      name="sendMail"
+                      id="sendMail"
+                      checked={formInput.sendMail}
+                      onChange={handleInputChange}
+                      className={styles.checkbox}
+                    />
+                    <label className={styles.label}>
+                      {translate("Would you like to receive notifications to stay updated with the latest updates")}
+                    </label>
+                  </div>
+                  <div  className={styles.checkBoxContainer}>
                     <input
                       type="checkbox"
                       name="accept"
@@ -125,7 +138,7 @@ const Wizard = () => {
                 </div>
               )}
               {step === 2 && (
-                <div className={styles.formDiv}>
+                <div className={styles.formDivStep2}>
                   <div className={styles.stepTitle}>{translate("Summary")}</div>
                   <div className={styles.subTitle} data-number="1">
                     {translate("Personal Details")}

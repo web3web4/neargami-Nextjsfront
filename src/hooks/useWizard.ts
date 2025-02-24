@@ -24,6 +24,7 @@ export const useWizard = () => {
     email: "",
     country: "",
     username: "",
+    sendMail: ""
   });
 
   useEffect(() => {
@@ -39,14 +40,14 @@ export const useWizard = () => {
         ...prevInput,
         country: selectedCountry.label,
       }));
-    }
+    } 
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.target;
+    const { id, checked, type, value } = e.target;
     setFormInput((prevInput) => ({
       ...prevInput,
-      [id]: value,
+      [id]: type === "checkbox" ? checked : value,
     }));
   };
 

@@ -30,6 +30,7 @@ export const useEditProfile = (data: UserProfileResponse) => {
     twitter: "",
     linkedin: "",
     image: "",
+    sendMail: false
   });
 
   const handleCountryChange = (selectedCountry: SingleValue<CountryData>) => {
@@ -42,10 +43,10 @@ export const useEditProfile = (data: UserProfileResponse) => {
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.target;
+    const { id, checked, type, value } = e.target;
     setFormInput((prevInput) => ({
       ...prevInput,
-      [id]: value,
+      [id]: type === "checkbox" ? checked : value,
     }));
   };
 
@@ -106,8 +107,9 @@ export const useEditProfile = (data: UserProfileResponse) => {
       twitter: formInput.twitter,
       linkedin: formInput.linkedin,
       image: formInput.image,
+      sendMail: formInput.sendMail,
     };
-
+   
     try {
       const updatedUser = await updateUserProfile(filteredFormInput);
       if (updatedUser) {
@@ -128,13 +130,21 @@ export const useEditProfile = (data: UserProfileResponse) => {
   };
 
   useEffect(() => {
-    const response = data;
-    console.log("datat responce", response);
-    setFormInput(response);
-    console.log("data frominput", formInput);
+    setFormInput({
+      username: data.username,
+      firstname: data.firstname,
+      lastname: data.lastname,
+      email: data.email,
+      country: data.country,
+      discord: data.discord,
+      facebook: data.facebook,
+      twitter: data.twitter,
+      linkedin: data.linkedin,
+      image: data.image,
+      sendMail: data.flags.email_notification,
+    });
     setInitUsername(data.username!);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [data]);
 
   return {
     initUsername,
