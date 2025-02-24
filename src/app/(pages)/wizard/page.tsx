@@ -5,9 +5,6 @@ export const metadata = generateWizardMetadata();
 
 export default function Wizzard() {
   return (
-    <>
     <Wizard />
-    </>
-        
   );
 }

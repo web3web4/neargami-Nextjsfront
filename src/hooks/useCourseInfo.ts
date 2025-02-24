@@ -18,7 +18,7 @@ export const useCourseInfo = (data: CoursesResponse | null) => {
     difficulty: CourseDifficulty.Beginner,
     description: "",
     logo: "",
-    slug:"",
+    slug: "",
     language: CourseLanguage.English,
   });
 
@@ -59,7 +59,7 @@ export const useCourseInfo = (data: CoursesResponse | null) => {
         description: data!.description,
         logo: data!.logo,
         tag: data!.tag,
-        slug:data!.slug,
+        slug: data!.slug,
         language: data!.language,
       });
       setImage(data!.logo);
@@ -80,9 +80,11 @@ export const useCourseInfo = (data: CoursesResponse | null) => {
         ),
       });
       return;
-    } 
+    }
     try {
-      const create = await createCourse(formInput);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { slug, ...courseData } = formInput;
+      const create = await createCourse(courseData);
       Swal.fire({
         icon: "success",
         title: translate("Success"),
@@ -119,7 +121,9 @@ export const useCourseInfo = (data: CoursesResponse | null) => {
       return;
     }
     try {
-      const update = await updateCourse(formInput, data!.id!.toString());
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { slug, ...courseData } = formInput;
+      const update = await updateCourse(courseData, data!.id!.toString());
       if (update) {
         Swal.fire({
           icon: "success",

@@ -209,6 +209,19 @@ const EditProfileDetails = ({ data }: EditProfile) => {
                     onChange={handleInputChange}
                   />
                 </div>
+                <div className={styles.checkBoxContainer}>
+                    <input
+                      type="checkbox"
+                      name="sendMail"
+                      id="sendMail"
+                      checked={formInput.sendMail}
+                      onChange={handleInputChange}
+                      className={styles.checkbox}
+                    />
+                    <label className={styles.label}>
+                      {translate("Receive Email For The Latest Updates")}
+                    </label>
+                  </div>
               </div>
             </div>
           </div>
