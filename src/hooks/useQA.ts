@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import { QAResponse } from "@/interfaces/api";
 import { useTranslations } from "next-intl";
+import { HandleMessageError } from "@/utils/functions";
 
 export const useQA = (courseId: string, lessonId: string, qaId: string, data: QAResponse | null ) => {
   const route = useRouter();
@@ -54,8 +55,7 @@ export const useQA = (courseId: string, lessonId: string, qaId: string, data: QA
         route.push(`/lesson/${courseId}/${lessonId}`);
       }
     } catch (error) {
-      const msgError = error instanceof Error && typeof (error.cause as any).message === "string" ?
-      (error.cause as any).message : error;
+      const msgError = HandleMessageError(error);
       Swal.fire({
         icon: "error",
         title: translate("Error"),
@@ -86,7 +86,7 @@ export const useQA = (courseId: string, lessonId: string, qaId: string, data: QA
     //extract question_id from array options (answer)
     const optionsWithoutId = formInput.options.map(
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      ({ question_id, ...rest }) => rest
+      ({ question_id, created_at, updated_at, ...rest }) => rest
     );
     
     //Prepare the sent data without index 0,1,2....etc from array options (answer)
@@ -94,6 +94,7 @@ export const useQA = (courseId: string, lessonId: string, qaId: string, data: QA
       description: formInput.description,
       options: optionsWithoutId,
     };
+    
     try {
       const update = await updateQA(updatedFormInput, courseId, lessonId, qaId);
       if (update) {

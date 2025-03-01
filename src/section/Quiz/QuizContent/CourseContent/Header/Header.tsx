@@ -9,7 +9,7 @@ const Header = () => {
       <div className="container">
         <div className={styles.logo}>
           <Link href="/">
-            <Image src={logo} alt="gamfi nft logo" />
+            <Image src={logo} width={100} height={20} alt="gamfi nft logo" />
           </Link>
         </div>
       </div>

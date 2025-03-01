@@ -68,8 +68,6 @@ const handleResponse = <T>(
   response: ApiResponse<T>,
   expectedMessage: string
 ): T => {
-  console.log("Response:", response);
-
   if (
     response.message !== expectedMessage &&
     !response.message.includes(expectedMessage)
@@ -754,11 +752,6 @@ export const createStartInCourse = async (courseId: string): Promise<void> => {
       }
     );
 
-    if (response.status === 409) {
-      console.warn("Conflict: User already started this course.");
-      return;
-    }
-
     return handleResponse(response, "created");
   });
 };
@@ -836,7 +829,6 @@ export const getAllPlayers = async (page: any): Promise<PlayersData> => {
  * @returns data from backend
  */
 export const getCurrentNgcs = async (): Promise<NgcResponse> => {
-  console.log("Inside getCurrentNgcs");
   return validateTokenAndProceed(async () => {
     const response = await authFetch<ApiResponse<NgcResponse>>(
       `${API_BASE_URL}/users/ngcs`,
@@ -847,8 +839,7 @@ export const getCurrentNgcs = async (): Promise<NgcResponse> => {
         },
       }
     );
-    //return response;
-    //console.warn('respo', response);
+
     return handleResponse(response, "found");
   });
 };
@@ -906,9 +897,9 @@ export const uploadFile = async (
  * this function for get all palyers Attending the course in popup header
  * @returns data from backend
  */
-export const fetchStartPlayers = async (courseSlug:string): Promise<
-  DataPopup[]
-> => {
+export const fetchStartPlayers = async (
+  courseSlug: string
+): Promise<DataPopup[]> => {
   const response = await authFetch<ApiResponse<DataPopup[]>>(
     `${API_BASE_URL}/user-courses/${courseSlug}`,
     {
@@ -926,9 +917,9 @@ export const fetchStartPlayers = async (courseSlug:string): Promise<
  * this function for get all palyers Completed the Course in popup header
  * @returns data from backend
  */
-export const fetchEndPlayers = async (courseSlug:string): Promise<
-  DataPopup[]
-> => {
+export const fetchEndPlayers = async (
+  courseSlug: string
+): Promise<DataPopup[]> => {
   const response = await authFetch<ApiResponse<DataPopup[]>>(
     `${API_BASE_URL}/user-courses/${courseSlug}?finished=true`,
     {
@@ -994,4 +985,3 @@ export const updateUserFlags = async (
     }
   );
 };
-

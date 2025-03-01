@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import { UserProfileData } from "@/interfaces/api";
 import { useAuth } from "@/context/authContext";
 import { useTranslations } from "next-intl";
+import { HandleMessageError } from "@/utils/functions";
 
 export const useProfileDetails = (username: string | null) => {
   const [data, setData] = useState<UserProfileData>({});
@@ -141,10 +142,11 @@ export const useProfileDetails = (username: string | null) => {
       try {
         await claimsNgcs(ngcs.data);
       } catch (error: any) {
+        const msgError = HandleMessageError(error);
         Swal.fire({
           icon: "error",
           title: "Error",
-          text: error.message,
+          text: msgError,
         });
       }
       Swal.fire({

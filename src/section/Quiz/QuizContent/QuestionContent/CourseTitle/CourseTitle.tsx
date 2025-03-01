@@ -21,10 +21,11 @@ export default function CourseTitle({ courseLogo, lessonNumber, points }: Course
           </div>
           <div className={styles.titleRight}>
             <Image
-              src={courseLogo || photoDefault}
+              src={courseLogo ?? photoDefault}
               width={35}
               height={30}
               alt="course logo"
+              style={{ width: "auto", height: "auto" }}
             />
             <div className={styles.lessonNumber}>
               <div>{translate("Lesson")}</div>

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { CoursesResponse } from "@/interfaces/api";
 import Swal from "sweetalert2";
 import { useTranslations } from "next-intl";
+import { HandleMessageError } from "@/utils/functions";
 
 export const useCourseInfo = (data: CoursesResponse | null) => {
   const router = useRouter();
@@ -92,12 +93,7 @@ export const useCourseInfo = (data: CoursesResponse | null) => {
       });
       router.push(`/show-lesson/${create.id}/${create.slug}`);
     } catch (error) {
-      const msgError =
-        error instanceof Error &&
-        error.cause &&
-        typeof (error.cause as any).message === "string"
-          ? (error.cause as any).message
-          : error;
+      const msgError = HandleMessageError(error);
       Swal.fire({
         icon: "error",
         title: "Error",
@@ -132,12 +128,7 @@ export const useCourseInfo = (data: CoursesResponse | null) => {
         });
       }
     } catch (error) {
-      const msgError =
-        error instanceof Error &&
-        error.cause &&
-        typeof (error.cause as any).message === "string"
-          ? (error.cause as any).message
-          : error;
+      const msgError = HandleMessageError(error);
       Swal.fire({
         icon: "error",
         title: "Error",
