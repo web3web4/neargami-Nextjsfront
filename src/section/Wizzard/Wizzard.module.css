@@ -32,6 +32,7 @@
   justify-content: center;
   align-items: center;
   background-color: white !important;
+  height: fit-content;
 }
 
 .WizardContent .Content {

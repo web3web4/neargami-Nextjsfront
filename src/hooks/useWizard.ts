@@ -101,8 +101,7 @@ export const useWizard = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      const responce = await updateUserProfile(formInput); // Ensure updateUserProfile is typed correctly elsewhere
-      console.log("User updated successfully", responce);
+      await updateUserProfile(formInput); // Ensure updateUserProfile is typed correctly elsewhere
     } catch (error) {
       console.error("Error updating user profile:", error);
       Swal.fire({
