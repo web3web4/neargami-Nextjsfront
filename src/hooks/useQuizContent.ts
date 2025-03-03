@@ -9,7 +9,6 @@ import {
 } from "@/apiService";
 import { CheckAnswerResponse, QAResponse } from "@/interfaces/api";
 import { useTranslations } from "next-intl";
-import { checkErrorStatus, HandleMessageError } from "@/utils/functions";
 
 export const useQuizContent = (
   courseId: string,
@@ -28,9 +27,13 @@ export const useQuizContent = (
   useEffect(() => {
     const createStartCourse = async () => {
       try {
-        await createStartInCourse(courseId);
+        const response = await createStartInCourse(courseId);
+
+        if ("error" in response) {
+          throw response;
+        }
       } catch (error: any) {
-        if (checkErrorStatus(error) !== 409) {
+        if (error.status !== 409) {
           console.error("Error in createStartCourse:", error);
         }
       }
@@ -38,9 +41,13 @@ export const useQuizContent = (
 
     const createStartUserLecture = async () => {
       try {
-        await createStartUserLectureInCourse(courseId, lectureId);
+        const response = await createStartUserLectureInCourse(courseId, lectureId);
+
+        if ("error" in response) {
+          throw response;
+        }
       } catch (error: any) {
-        if (checkErrorStatus(error) !== 409) {
+        if (error.status !== 409) {
           console.error("Error in createStartUserLecture:", error);
         }
       }
@@ -98,6 +105,11 @@ export const useQuizContent = (
         qustionId,
         selectedAnswers
       );
+
+      if ("error" in answers) {
+        throw answers;
+      }
+
       if (!answers) {
         Swal.fire({
           icon: "error",
@@ -119,11 +131,10 @@ export const useQuizContent = (
       const audio = new Audio(audioFile);
       audio.play();
     } catch (error: any) {
-      const errorMessage = HandleMessageError(error);
       Swal.fire({
         icon: "error",
         title: translate("Error"),
-        text: `Error on check answers, ${errorMessage}`,
+        text: `Error on check answers, ${error.message}`,
       });
     }
   };

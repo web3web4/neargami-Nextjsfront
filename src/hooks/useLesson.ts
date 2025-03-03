@@ -41,6 +41,11 @@ export const useLesson = (courseId: string, lessonId: string, data: LessonRespon
       lessonData.order = Number(lessonData.order);
       try {
         const create = await createLesson(lessonData, courseId);
+
+        if ("error" in create) {
+          throw create;
+        }
+
           setLessonId(create.id);
           setShowQA(true);
           Swal.fire({
@@ -52,8 +57,8 @@ export const useLesson = (courseId: string, lessonId: string, data: LessonRespon
             top: 0,
             behavior: "smooth", 
           });
-      } catch (error) {
-        console.error("Error in creating Lesson:", error);
+        } catch (error: any) {
+        console.error("Error in creating Lesson:", error.message);
         Swal.fire({
           icon: "error",
           title: translate("Error"),
@@ -79,14 +84,19 @@ export const useLesson = (courseId: string, lessonId: string, data: LessonRespon
       const { qaList, ...lessonData } = formInput;
       lessonData.order = Number(lessonData.order);
       try {
-        await updateLesson(lessonData, courseId, lessonId);
+        const update = await updateLesson(lessonData, courseId, lessonId);
+
+        if ("error" in update) {
+          throw update;
+        }
+
         Swal.fire({
           icon: "success",
           title: translate("Success"),
           text: translate("The lesson has been updated successfully!"),
         });
-      } catch (error) {
-        console.error("Error in update Lesson:", error);
+      } catch (error: any) {
+        console.error("Error in update Lesson:", error.message);
         Swal.fire({
           icon: "error",
           title: translate("Error"),

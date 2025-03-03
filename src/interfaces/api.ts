@@ -148,7 +148,8 @@ export interface UserProfileResponse {
       description: string,
       is_correct: boolean,
       question_id: number
-  }[]
+  }[],
+  [key: string]: any;
   }
 
  export interface NgcResponse {
@@ -170,6 +171,7 @@ export interface UserProfileResponse {
     height: number,
     width: number,
     thumbnailUrl: string,
+    [key: string]: any;
   }
 
   export interface DataPopup {

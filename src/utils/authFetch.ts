@@ -10,10 +10,7 @@ import { cookies } from "next/headers";
  * @param options Fetch options
  * @returns {Promise<any>} Response JSON
  */
-export const authFetch = async <T>(
-  url: string,
-  options: RequestInit = {}
-): Promise<T> => {
+export const authFetch = async <T>(url: string, options: RequestInit = {}): Promise<T | { error: true; status: number; message: string }> => {
   const cookieStore = cookies();
   const jwtToken = (await cookieStore).get("jwtToken")?.value;
   const headers = {
@@ -33,19 +30,25 @@ export const authFetch = async <T>(
           errorDetails.message || "An error occurred."
         )}`;
       }
-      throw new Error(
-        JSON.stringify({
-          status: response.status,
-          message: errorDetails.message,
-        })
-      );
+      
+      return {
+        error: true,
+        status: response.status,
+        message: errorDetails.message || "An error occurred.",
+      };
     }
+
     const jsonResponse = await response.json();
     return jsonResponse as T;
-  } catch (error: any) {
-    throw error;
+  } catch {
+    return {
+      error: true,
+      status: 500,
+      message: "Failed to connect to server.",
+    };
   }
 };
+
 
 /**
  * this for api without jwtToken

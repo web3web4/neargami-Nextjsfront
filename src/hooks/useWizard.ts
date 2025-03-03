@@ -101,9 +101,14 @@ export const useWizard = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      await updateUserProfile(formInput); // Ensure updateUserProfile is typed correctly elsewhere
-    } catch (error) {
-      console.error("Error updating user profile:", error);
+      const updateUser = await updateUserProfile(formInput); // Ensure updateUserProfile is typed correctly elsewhere
+
+      if ("error" in updateUser) {
+        throw updateUser;
+      }
+
+    } catch (error: any) {
+      console.error("Error updating user profile:", error.message);
       Swal.fire({
         icon: "error",
         title: translate("Error"),

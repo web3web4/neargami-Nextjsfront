@@ -54,12 +54,17 @@ export const useEditProfile = (data: UserProfileResponse) => {
     try {
       setImage(img);
       const url = await uploadFile(img);
+
+      if ("error" in url) {
+        throw url;
+      }
+
       setFormInput((prevInput: any) => ({
         ...prevInput,
         image: url,
       }));
-    } catch (error) {
-      console.error("Error uploading image:", error);
+    } catch (error: any) {
+      console.error("Error uploading image:", error.message);
     }
   };
 
@@ -112,6 +117,11 @@ export const useEditProfile = (data: UserProfileResponse) => {
    
     try {
       const updatedUser = await updateUserProfile(filteredFormInput);
+
+      if ("error" in updatedUser) {
+        throw updatedUser;
+      }
+
       if (updatedUser) {
         Swal.fire({
           icon: "success",
@@ -119,8 +129,8 @@ export const useEditProfile = (data: UserProfileResponse) => {
           text: translate("Profile updated successfully!"),
         });
       }
-    } catch (error) {
-      console.error("Error updating user profile:", error);
+    } catch (error: any) {
+      console.error("Error updating user profile:", error.message);
       Swal.fire({
         icon: "error",
         title: translate("Error"),

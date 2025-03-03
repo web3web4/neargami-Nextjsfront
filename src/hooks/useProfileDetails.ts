@@ -7,7 +7,6 @@ import Swal from "sweetalert2";
 import { UserProfileData } from "@/interfaces/api";
 import { useAuth } from "@/context/authContext";
 import { useTranslations } from "next-intl";
-import { HandleMessageError } from "@/utils/functions";
 
 export const useProfileDetails = (username: string | null) => {
   const [data, setData] = useState<UserProfileData>({});
@@ -122,12 +121,16 @@ export const useProfileDetails = (username: string | null) => {
       setIsLoading(true);
       try {
         const response = await getUserProfileByUsername(username);
+
+        if ("error" in response) {
+          throw response;
+        }
         setData(response);
         const balanceOfUser = await getBalance();
         setBalance(balanceOfUser);
-        setIsLoading(false);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
+        setIsLoading(false);  
+      } catch (error: any) {
+        console.error("Error fetching user data:", error.message);
         setIsLoading(false);
       }
     };
@@ -140,13 +143,17 @@ export const useProfileDetails = (username: string | null) => {
     const ngcs = await getCurrentNgcs();
     if (ngcs.data !== 0) {
       try {
-        await claimsNgcs(ngcs.data);
+        const response = await claimsNgcs(ngcs.data);
+
+        if ("error" in response) {
+          throw response;
+        }
+        
       } catch (error: any) {
-        const msgError = HandleMessageError(error);
         Swal.fire({
           icon: "error",
           title: "Error",
-          text: msgError,
+          text: error.message,
         });
       }
       Swal.fire({
