@@ -72,7 +72,7 @@ export const generateCourseDetailsMetadata = (
     data.lectures[0].course.description || defaultDescription,
     `/course-details/${courseSlug}`,
     {
-      url: data.lectures[0].course.logo || defaultCourseLogo,
+      url: data.lectures[0].course.logo || defaultCourseLogo.src,
       width: 600,
       height: 600,
       alt: "Course Logo",
@@ -179,7 +179,7 @@ export const generateLeaderboardMetadata = () => {
 // For Profile Page
 export const generateProfileMetadata = (
   data: UserProfileData,
-  username: string | null,
+  username: string | null
 ) => {
   return returnMetadata(
     `${data.username} | NearGami`,
