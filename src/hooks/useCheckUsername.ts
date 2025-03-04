@@ -13,6 +13,13 @@ export function useCheckUsername(
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const checkUsername = useCallback(
     debounce(async (username: string) => {
+      if (!username.trim()) {
+        setIsAvailable(null);
+        setIsChecking(null);
+        onAvailabilityChange(null);
+        return;
+      }
+
       setIsChecking(true);
       try {
         const available = await checkUsernameIsAvailable(username);
@@ -31,12 +38,8 @@ export function useCheckUsername(
   useEffect(() => {
     if (initUsername === username) {
       onAvailabilityChange(true);
-    } else if (username.trim() !== "") {
-      checkUsername(username);
     } else {
-      setIsAvailable(null);
-      setIsChecking(null);
-      onAvailabilityChange(null);
+      checkUsername(username);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [username]);

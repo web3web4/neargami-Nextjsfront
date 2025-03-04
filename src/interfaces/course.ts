@@ -50,5 +50,6 @@ export interface CoursesHome {
           start_time : string,
           end_time: string
         }
-      }
+      },
+      [key: string]: any;
     }

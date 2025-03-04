@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { CoursesResponse } from "@/interfaces/api";
 import Swal from "sweetalert2";
 import { useTranslations } from "next-intl";
-import { HandleMessageError } from "@/utils/functions";
 
 export const useCourseInfo = (data: CoursesResponse | null) => {
   const router = useRouter();
@@ -86,18 +85,22 @@ export const useCourseInfo = (data: CoursesResponse | null) => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { slug, ...courseData } = formInput;
       const create = await createCourse(courseData);
+
+      if ("error" in create) {
+        throw create;
+      }
+
       Swal.fire({
         icon: "success",
         title: translate("Success"),
         text: translate("The course has been created successfully!"),
       });
       router.push(`/show-lesson/${create.id}/${create.slug}`);
-    } catch (error) {
-      const msgError = HandleMessageError(error);
+    } catch (error: any) {
       Swal.fire({
         icon: "error",
         title: "Error",
-        html: `There was an error creating the course: <b>${msgError}</b>`,
+        html: `There was an error creating the course: <b>${error.message}</b>`,
       });
     }
   };
@@ -120,6 +123,11 @@ export const useCourseInfo = (data: CoursesResponse | null) => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { slug, ...courseData } = formInput;
       const update = await updateCourse(courseData, data!.id!.toString());
+
+      if ("error" in update) {
+        throw update;
+      }
+
       if (update) {
         Swal.fire({
           icon: "success",
@@ -127,12 +135,11 @@ export const useCourseInfo = (data: CoursesResponse | null) => {
           text: translate("The course has been updated successfully!"),
         });
       }
-    } catch (error) {
-      const msgError = HandleMessageError(error);
+    } catch (error: any) {
       Swal.fire({
         icon: "error",
         title: "Error",
-        html: `There was an error updating the course: <b>${msgError}</b>`,
+        html: `There was an error updating the course: <b>${error.message}</b>`,
       });
     }
   };

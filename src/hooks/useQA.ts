@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import { QAResponse } from "@/interfaces/api";
 import { useTranslations } from "next-intl";
-import { HandleMessageError } from "@/utils/functions";
 
 export const useQA = (courseId: string, lessonId: string, qaId: string, data: QAResponse | null ) => {
   const route = useRouter();
@@ -46,6 +45,11 @@ export const useQA = (courseId: string, lessonId: string, qaId: string, data: QA
 
     try {
       const create = await createQA(updatedFormInput, courseId, lessonId);
+
+      if ("error" in create) {
+        throw create;
+      }
+
       if (create) {
         Swal.fire({
           icon: "success",
@@ -54,12 +58,11 @@ export const useQA = (courseId: string, lessonId: string, qaId: string, data: QA
         });
         route.push(`/lesson/${courseId}/${lessonId}`);
       }
-    } catch (error) {
-      const msgError = HandleMessageError(error);
+    } catch (error: any) {
       Swal.fire({
         icon: "error",
         title: translate("Error"),
-        text: `${translate("There was an error created QA")}.${msgError}`,
+        text: `${translate("There was an error created QA")}.${error.message}`,
       });
     }
   };
@@ -97,6 +100,11 @@ export const useQA = (courseId: string, lessonId: string, qaId: string, data: QA
     
     try {
       const update = await updateQA(updatedFormInput, courseId, lessonId, qaId);
+
+      if ("error" in update) {
+        throw update;
+      }
+
       if (update) {
         Swal.fire({
           icon: "success",
@@ -104,8 +112,8 @@ export const useQA = (courseId: string, lessonId: string, qaId: string, data: QA
           text: translate("QA Updated successfully!"),
         });
       }
-    } catch (error) {
-      console.error("Error updating QA:", error);
+    } catch (error: any) {
+      console.error("Error updating QA:", error.message);
       Swal.fire({
         icon: "error",
         title: translate("Error"),

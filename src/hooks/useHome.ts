@@ -22,6 +22,11 @@ export const useHome = () => {
     const courseSlug = process.env.NEXT_PUBLIC_INTRODUCTORY_COURSE;
     try {
       const response = await getCourseBySlug(courseSlug!);
+
+      if ("error" in response) {
+        throw response;
+      }
+
       Swal.fire({
         html: `
               <div style="text-align: center;">
@@ -55,8 +60,8 @@ export const useHome = () => {
       });
       updateUserFlags("first_request_approved_courses", true);
       deleteCookie("firstShowingOfHome");
-    } catch (error) {
-      console.error("Error fetching course intro data:", error);
+    } catch (error: any) {
+      console.error("Error fetching course intro data:", error.message);
     }
   };
 
@@ -64,12 +69,17 @@ export const useHome = () => {
     const fetchCourses = async () => {
       try {
         const response = await getCoursesInProgress();
+
+        if ("error" in response[0]) {
+          throw response[0];
+        }
+
         if (response) {
           const coursesData = response;
           setCourses(coursesData);
         }
-      } catch (error) {
-        console.error("Error fetching courses In Progress data:", error);
+      } catch (error: any) {
+        console.error("Error fetching courses In Progress data:", error.message);
       }
     };
 

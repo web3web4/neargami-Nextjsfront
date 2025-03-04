@@ -18,7 +18,7 @@ export default async function HomePage() {
       <Header />
       <Banner />
       <CoursesInProgress />
-      <CoursesList courses={courses}  />
+      <CoursesList initCourses={courses}  />
       <Footer />
     </Fragment>
   );

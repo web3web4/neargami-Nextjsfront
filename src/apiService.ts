@@ -68,6 +68,11 @@ const handleResponse = <T>(
   response: ApiResponse<T>,
   expectedMessage: string
 ): T => {
+  
+  if ("error" in response) {
+    return response as T;
+  }
+
   if (
     response.message !== expectedMessage &&
     !response.message.includes(expectedMessage)
@@ -740,9 +745,9 @@ export const updateFinishLectureInCourse = async (
  * @method isTokenValid To verify the current session
  * @param courseId this parameter for course id.
  */
-export const createStartInCourse = async (courseId: string): Promise<void> => {
+export const createStartInCourse = async (courseId: string): Promise<any> => {
   return validateTokenAndProceed(async () => {
-    const response = await authFetch<ApiResponse<void>>(
+    const response = await authFetch<ApiResponse<any>>(
       `${API_BASE_URL}/user-courses/start/${courseId}`,
       {
         method: "POST",
@@ -888,6 +893,11 @@ export const uploadFile = async (
           body: formData,
         }
       );
+
+      if ("error" in response) {
+        return response;
+      }
+
       return response.data?.url;
     });
   });
