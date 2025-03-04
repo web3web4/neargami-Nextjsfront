@@ -1,6 +1,6 @@
 import { updateCourseStatus } from "@/apiServiceDashboard";
 import { CoursesResponse } from "@/interfaces/api";
-import { MRT_ColumnDef, MRT_Cell } from "mantine-react-table";
+import { MRT_ColumnDef, MRT_Cell, MRT_Row } from "mantine-react-table";
 import Swal from "sweetalert2";
 
 export const handleView = (rowIndex: number, data: CoursesResponse[]) => {
@@ -159,5 +159,34 @@ export const columns: MRT_ColumnDef<any>[] = [
       );
     },
   },
+  {
+    accessorKey: "parent_version_id",
+    header: "Is Version",
+    Cell: ({ row }: { row: MRT_Row<any> }) => {
+      const id = row.original.id;
+      const parentVersionId = row.original.parent_version_id;
+
+      if (id !== parentVersionId) {
+        return (
+          <span
+            style={{
+              backgroundColor: "#d2691e",
+              color: "white",
+              padding: "4px 8px",
+              borderRadius: "4px",
+              fontWeight: "bold",
+            }}
+          >
+            Yes
+          </span>
+        );
+      }
+
+      return null; 
+    },
+  },
   { accessorKey: "teacher.id", header: "Teacher ID" },
+  { accessorKey: "teacher.username", header: "Teacher User Name" },
+  { accessorKey: "created_at", header: "created at" },
+
 ];
