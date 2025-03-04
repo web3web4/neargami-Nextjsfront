@@ -124,7 +124,9 @@
     "Reject": "Reject",
     "Edit": "Edit",
     "Approve": "Approve",
-    "Submit": "Submit"
+    "Submit": "Submit",
+    "New Version": "New Version"
+
   },
   "CourseInfo": {
     "Course Name": "Course Name",

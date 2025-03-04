@@ -128,6 +128,37 @@ export interface UserProfileResponse {
     [key: string]: any;
   }
 
+  export interface CoursesVersionResponse {
+    id: number,
+    parent_version_id:number,
+    version:number,
+    name:string,
+    title: string,
+    slug: string,
+    description: string,
+    video_path: null,
+    course_id: number,
+    pre_note: string  ,
+    next_note: string, 
+    order: number,
+    picture: null,
+    created_at: string,
+    updated_at: string,
+    status: string,
+    whats_new:string,
+    questions:string[],
+    lecture:string[],
+    teacher:{
+      id:string,
+      firstname:string,
+      lastname:string,
+      username:string,
+      country:string,
+      isAdmin:boolean
+    },
+    [key: string]: any;
+  }
+
   export interface LessonResponse {
     lectures: Lecture[];
     counts: CourseCount[];

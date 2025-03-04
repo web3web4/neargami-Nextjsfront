@@ -16,7 +16,31 @@
     text-align: left;
   }
   
-  
+  .versionCourses {
+    display: inline-flex;
+    gap: 25px;
+    align-items: flex-start; 
+    flex-wrap: wrap;
+  }
+
+  .detailsDiv {
+    padding: 10px;
+    background: #f0f0f0;
+    border-radius: 5px;
+    margin-top: -10px;
+    transition: all 0.3s ease-in-out;
+    display: block;
+    width: 100%;
+    color: black;
+    margin-bottom: 10px;
+  }
+
+
+  .versionwhats{
+    background-color: rgb(11, 163, 112);
+    padding: 5px;
+    cursor: pointer;
+  }
   .popupContainer .playerList {
     display: grid;
     grid-template-columns: repeat(2, 1fr); 
