@@ -5,8 +5,10 @@ import CustomPopup from "@/components/customPopup/CustomPopup";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { CoursesResponse, DataPopup } from "@/interfaces/api";
+import { CoursesResponse, CoursesVersionResponse, DataPopup } from "@/interfaces/api";
 import userDefault from "@/assets/images/no-User.png";
+import Button from "../button/Button";
+import { submitWhatsNewVersionCourse } from "@/apiServiceDashboard";
 
 interface PlayerListPopupProps {
   open: boolean;
@@ -14,14 +16,39 @@ interface PlayerListPopupProps {
   title: string;
   fetchPlayers: DataPopup[] | null ;
   fetchSatusHistory?: CoursesResponse[] ;
+  fetchVersionCourseHistory? : CoursesVersionResponse[] ;
   description?:string;
+  courseId?: string | number;
 }
 
-const PlayerListPopup: React.FC<PlayerListPopupProps> = ({ open, onClose, title, fetchPlayers , description , fetchSatusHistory}) => {
+const PlayerListPopup: React.FC<PlayerListPopupProps> = ({ open, onClose, title, fetchPlayers , description , fetchSatusHistory , fetchVersionCourseHistory , courseId}) => {
   const [players, setPlayers] = useState<DataPopup[] | null >([]);
   const [statusHistoryCourse , setStatusHistoryCourse] = useState<CoursesResponse[] | undefined>([]);
+  const [versionCourses , setversionCourses] = useState<CoursesVersionResponse[] | undefined>([]);
+
   const [desc, setDescription] = useState<string>();
   const [loading, setLoading] = useState<boolean>(true);
+  const [showTextArea, setShowTextArea] = useState(false);
+  const [text, setText] = useState("");
+const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const toggleDiv = (i: number) => {
+    setOpenIndex(openIndex === i ? null : i);
+  };
+
+
+  const handleSubmit = async () => {
+    try {
+      const response = await submitWhatsNewVersionCourse(text , courseId)
+      if (response.parent_version_id === courseId) {
+        setShowTextArea(false);
+      } else {
+        console.error("Failed to send data");
+      }
+    } catch (error) {
+      console.error("Error sending data:", error);
+    }
+  };
 
   useEffect(() => {
     if (open) {
@@ -29,9 +56,10 @@ const PlayerListPopup: React.FC<PlayerListPopupProps> = ({ open, onClose, title,
       setPlayers(fetchPlayers);
       setDescription(description);
       setStatusHistoryCourse(fetchSatusHistory);
+      setversionCourses(fetchVersionCourseHistory);
       setLoading(false);
     }
-  }, [open, fetchPlayers , description , fetchSatusHistory]);
+  }, [open, fetchPlayers , description , fetchSatusHistory , fetchVersionCourseHistory]);
 
   return (
     <CustomPopup open={open} closed={onClose}>
@@ -55,6 +83,45 @@ const PlayerListPopup: React.FC<PlayerListPopupProps> = ({ open, onClose, title,
                   ))}
                 </div>
               );
+
+              case !!versionCourses:
+                return (
+                  <div className={styles.statusHistory}>
+                    <p>Number of Versions :  {versionCourses.length}</p>
+                  {versionCourses.map((prop, index) => (
+                    <div key={index} className={styles.versionCourses} >
+                        <p> Date of Creation: {new Date(prop.created_at).toISOString().split("T")[0]}</p> 
+                        <p className={styles.versionwhats} onClick={() => toggleDiv(index)}>Whats New?</p>
+                        {openIndex === index && (
+                          <div className={styles.detailsDiv}>
+                            <p>{prop.whats_new}</p>
+                          </div>
+                        )}
+                    </div>
+                  ))}
+                    {!showTextArea ? (
+                      <Button
+                        size="sm"
+                        variant="blue"
+                        onClick={() => setShowTextArea(true)} 
+                      >
+                      Whats New
+                      </Button>
+                    ) : (
+                      <div>
+                        <textarea
+                          value={text}
+                          onChange={(e) => setText(e.target.value)} 
+                          rows={4}
+                          cols={50}
+                        />
+                        <Button size="sm" variant="mint" onClick={handleSubmit}>
+                          Submit
+                        </Button>
+                      </div>
+                    )}
+                  </div>
+                );
   
             case !!players && players.length > 0:
               return (

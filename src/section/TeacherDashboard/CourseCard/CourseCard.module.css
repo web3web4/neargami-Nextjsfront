@@ -17,6 +17,12 @@
   content: "";
 }
 
+.courseversion{
+  background-color: #d2691e;
+  font-size: 14px;
+  padding: 5px;
+}
+
 .courseCard .courseInfo {
   margin-bottom: 10px;
 }

@@ -1,6 +1,6 @@
 "use server";
 
-import { ApiResponse, CourseData, CoursesResponse, KeywordsSearch, LogsServer, UserProfileData, UserProfileResponse } from "./interfaces/api";
+import { ApiResponse, CourseData, CoursesResponse, CoursesVersionResponse, KeywordsSearch, LogsServer, UserProfileData, UserProfileResponse } from "./interfaces/api";
 import { authFetch, isTokenValidServer } from "./utils/authFetch";
 import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
@@ -320,8 +320,7 @@ export const deleteCourse = async (courseId:number | string): Promise<CoursesRes
 
 /**
  * this function for delete user
- * @param userId 
- * @returns 
+ * @returns data from backen include all logs from frontend
  */
 export const logServer = async (): Promise<LogsServer[]> => {
   return validateTokenAndProceed(async () => {
@@ -336,5 +335,45 @@ export const logServer = async (): Promise<LogsServer[]> => {
       );
 
       return handleResponse(response, "foundAll");
+    });
+};
+
+
+export const getCourseVersion = async (id?:number): Promise<CoursesVersionResponse[]> => {
+  return validateTokenAndProceed(async () => {
+      const response = await authFetch<ApiResponse<CoursesVersionResponse[]>>(
+          `${API_BASE_URL}/courses/versions/${id}`,
+          {
+          method: "GET",
+          headers: {
+              "Content-Type": "application/json",
+          },
+          }
+      );
+
+      return handleResponse(response, "All course versions retrieved successfully");
+    });
+};
+
+/**
+ * this function for submit what's new in new version couse
+ * @param courseId this couse id
+ * @param text this text for what's new 
+ * @returns 
+ */
+export const submitWhatsNewVersionCourse = async (text:string , courseId?:string | number): Promise<CoursesResponse> => {
+  return validateTokenAndProceed(async () => {
+      const response = await authFetch<ApiResponse<CoursesResponse>>(
+          `${API_BASE_URL}/courses/newversion/withwhatsnew/${courseId}`,
+          {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json",
+          },
+          body: JSON.stringify({whats_new : text}),
+          }
+      );
+
+      return handleResponse(response, "A new version created");
     });
 };
