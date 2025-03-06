@@ -1,0 +1,193 @@
+.courseLessonStyleWrapper {
+  padding: 100px 0 120px 0;
+  background: var(--primary-background-color);
+  position: relative;
+}
+
+.courseLessonStyleWrapper::before {
+  position: absolute;
+  left: 0%;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  content: "";
+}
+
+.lessonRow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  position: relative;
+  row-gap: 30px;
+}
+
+.lessonItem {
+  position: relative;
+  overflow: hidden;
+  width: 60vw;
+}
+
+.lessonItem::before {
+  position: absolute;
+  top: -27px;
+  width: 50px;
+  height: 100px;
+  background: var(--primary-background-color);
+  content: "";
+  z-index: 1;
+  transform: rotate(215deg);
+  left: -27px;
+}
+
+.lessonItem::after {
+  position: absolute;
+  top: -27px;
+  width: 47px;
+  height: 75px;
+  background: #5d5d69;
+  content: "";
+  z-index: 2;
+  transform: rotate(215deg);
+  left: -27px;
+}
+
+[dir="rtl"] .lessonItem::before {
+  position: absolute;
+  top: -27px;
+  width: 50px;
+  height: 100px;
+  background: var(--primary-background-color);
+  content: "";
+  z-index: 1;
+  transform: rotate(150deg);
+  right: -27px;
+}
+
+[dir="rtl"] .lessonItem::after {
+  position: absolute;
+  top: -27px;
+  width: 47px;
+  height: 75px;
+  background: #5d5d69;
+  content: "";
+  z-index: 2;
+  transform: rotate(150deg);
+  right: -27px;
+}
+
+.lessonItem.shapeActive::after {
+  background: var(--green-color);
+}
+
+.lessonItemInner {
+  position: relative;
+  padding: 35px 39px 26px 39px;
+  background: var(--card-background-color);
+  overflow: hidden;
+}
+
+.lessonItemInner::before {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background: url("../../../assets/images/bg/roadmap_strip_shape.svg") no-repeat;
+  width: 100%;
+  height: 5px;
+  content: "";
+}
+
+.lessonTitle {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.lessonName {
+  font-size: 20px;
+  color: white;
+}
+
+.lessonSmallTitle {
+  color: #bbbbc1;
+}
+
+.lessonCheckList {
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+}
+
+.lessonCheckList li img {
+  margin-right: 20px;
+}
+
+.active {
+  color: var(--green-color);
+}
+
+.arrowDown {
+  width: 0;
+  height: 0;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-top: 60px solid #2d2c47;
+}
+
+.arrowContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .lessonRow {
+    row-gap: 30px;
+  }
+
+  .lessonRow::before {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .lessonRow {
+    column-gap: 30px;
+    row-gap: 30px;
+  }
+
+  .lessonRow::before {
+    display: none;
+  }
+
+  .lessonItem {
+    width: 90%;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .lessonRow {
+    flex-direction: row;
+    row-gap: 30px;
+  }
+
+  .lessonItem {
+    width: 100%;
+    margin: 0 !important;
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .lessonCheckList li {
+    font-size: 12px;
+  }
+
+  .lessonCheckList li img {
+    margin-right: 10px;
+  }
+}

@@ -1,0 +1,24 @@
+import type { NextConfig } from "next";
+import createNextIntlPlugin from 'next-intl/plugin';
+ 
+const withNextIntl = createNextIntlPlugin();
+const nextConfig: NextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'gamify-near.s3.ap-south-1.amazonaws.com',
+        port: '',
+        pathname: '/**',
+      },    
+      {
+        protocol: 'https',
+        hostname: 'ik.imagekit.io',
+        port: '',
+        pathname: '/**',
+      },
+    ],
+  },
+};
+
+export default withNextIntl(nextConfig);

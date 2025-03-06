@@ -1,0 +1,88 @@
+.teacherDashboardWrapper {
+  background: var(--primary-background-color);
+  padding-top: 70px;
+  padding-bottom: 105px;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.tabsRow {
+  row-gap: 30px;
+  transition: all 0.4s;
+}
+
+.tabBtnWrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.noCourses {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.noCoursesText {
+  font-weight: 800;
+  font-size: 24px;
+  color: var(--secondary-color);
+}
+
+.topSection {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  column-gap: 20px;
+  row-gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.searchDiv {
+  position: relative;
+}
+
+.searchDiv input,
+.searchDiv button {
+  background: transparent;
+}
+
+.searchDiv input {
+  width: 320px;
+  padding: 15px 50px 15px 20px;
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--secondary-color);
+}
+
+.searchDiv input:focus {
+  outline: none;
+}
+
+.searchDiv button {
+  height: 100%;
+  width: 50px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 50%;
+  right: 0;
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.7);
+  transform: translate(0, -50%);
+  border: none;
+}
+
+
+@media only screen and (max-width: 767px) {
+  .teacherDashboardWrapper {
+    padding-top: 70px;
+  }
+ 
+  .tabBtnWrapper {
+    width: 100%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+}

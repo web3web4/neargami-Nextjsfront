@@ -1,0 +1,43 @@
+.contentLeft {
+  height: calc(100vh - 90px);
+  padding: 50px;
+  overflow-y: auto; /* Enable vertical scrolling */
+  position: relative;
+}
+
+.truncatedText {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 30%,
+    rgba(0, 0, 0, 0)
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 30%,
+    rgba(0, 0, 0, 0)
+  );
+}
+
+.warningMessage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 25px;
+  margin-top: 50px;
+  padding: 10px;
+  cursor: default;
+}
+
+.warningMessage a {
+  margin-inline-end: 75px;
+}
+
+@media only screen and (max-width: 480px) {
+  .warningMessage a {
+    margin-inline-end: 0px;
+  }
+}

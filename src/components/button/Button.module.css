@@ -1,0 +1,156 @@
+.btnWrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 17px;
+  font-family: "Russo One", sans-serif;
+  font-size: 16px;
+  text-transform: uppercase;
+  transition: all 0.4s ease-in-out;
+  box-sizing: border-box;
+  width: 120px;
+  height: 40px;
+  border: none;
+  background: var(--blue-color);
+  overflow: hidden;
+  z-index: 1;
+  color: #ffffff;
+}
+
+.hoverShapeWrapper {
+  position: absolute;
+  height: 100%;
+  width: auto;
+  left: 30%;
+  top: 0;
+  z-index: -1;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease-in-out;
+}
+
+.btnHoverShape {
+  display: block;
+  height: 124%;
+  width: 5px;
+  opacity: 0;
+  margin: 0 0 0 -10px;
+  background: rgba(0, 0, 0, 0.1);
+  transform: rotate(22deg);
+  transition: all 0.4s;
+}
+
+.btnWrapper:hover .hoverShapeWrapper {
+  left: 50%;
+}
+
+.btnWrapper:hover .btnHoverShape {
+  opacity: 1;
+  margin: 0 5px !important;
+}
+
+/* Start variant */
+.mint {
+  background: var(--green-color);
+  color: var(--primary-background-color);
+}
+
+.outline {
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+.dark {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.blue {
+  background: var(--blue-color);
+  color: var(--blue-color);
+}
+
+.white {
+  background: #ffffff;
+  color: var(--primary-background-color);
+}
+/* End variant */
+
+/* Sizes */
+.sm {
+  width: 130px;
+  height: 40px;
+}
+
+.md {
+  width: 200px;
+  height: 60px;
+}
+
+.lg {
+  width: 270px;
+  height: 60px;
+}
+
+.xl {
+  width: 370px;
+  height: 60px;
+}
+
+.xxl {
+  width: 570px;
+  height: 60px;
+}
+
+.cust {
+  width: 200px;
+  height: 45px;
+}
+
+/* Responsive adjustments */
+@media only screen and (max-width: 768px) {
+  .sm {
+    width: 150px;
+    height: 40px;
+  }
+
+  .md {
+    width: 150px;
+    height: 50px;
+  }
+
+  .lg {
+    width: 150px;
+    height: 50px;
+  }
+
+  .xl {
+    width: 150px;
+    height: 50px;
+  }
+
+  .cust {
+    width: 150px;
+    height: 50px;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .xl {
+    width: 200px;
+  }
+
+  .xxl {
+    width: 200px;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .xl {
+    width: 150px;
+    height: 50px;
+  }
+}

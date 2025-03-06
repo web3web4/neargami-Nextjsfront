@@ -1,0 +1,182 @@
+.gamfiMobileMenu {
+  position: fixed;
+  inset-inline-end: 0;
+  top: 0;
+  z-index: 999;
+  width: 100%;
+  transition: 0.4s;
+  opacity: 1;
+  display: block;
+}
+
+.gamfiMobileMenu::before {
+  position: absolute;
+  inset-inline-end: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(10px);
+  background: rgba(4, 12, 18, 0.9);
+  content: "";
+  z-index: -1;
+}
+
+.gamfiMobileMenuContent {
+  background: var(--primary-background-color);
+  height: 100vh;
+  width: 400px;
+  padding: 50px;
+  margin-inline-end: auto;
+  animation: 0.7s ease-in-out;
+}
+
+.mobileMenuLogo {
+  width: 100%;
+  position: relative;
+}
+
+.mobileMenuCloseBtn {
+  position: absolute;
+  inset-inline-end: 0px;
+  top: 50%;
+  background: none;
+  border: none;
+  outline: none;
+  transform: translateY(-50%);
+}
+
+.mobileMenuCloseBtn svg {
+  color: var(--secondary-color);
+  font-size: 24px;
+}
+
+.gamfiMobileMenuList {
+  margin-top: 50px;
+}
+
+.gamfiMobileMenuList ul {
+  margin: 0;
+  padding: 0;
+}
+
+.gamfiMobileMenuList li {
+  display: block;
+  position: relative;
+  overflow: hidden;
+}
+
+.gamfiMobileMenuList li a {
+  position: relative;
+  display: block;
+  font-family: "Russo One", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 30px;
+  padding: 10px 0;
+  text-align: left;
+  text-transform: uppercase;
+  color: var(--secondary-color);
+  width: 100%;
+  transition: all 0.4s;
+}
+
+.gamfiMobileMenuList li a:hover {
+  color: var(--green-color);
+}
+
+.hasSubMenu::before,
+.sub_hasSubMenu::before {
+  position: absolute;
+  inset-inline-end: 20px;
+  top: 25px;
+  width: 15px;
+  height: 2px;
+  background: #fdfdfd;
+  content: "";
+  transform: translateY(-50%);
+  z-index: 5555;
+}
+
+.hasSubMenu::after,
+.sub_hasSubMenu::after {
+  position: absolute;
+  inset-inline-end: 26px;
+  top: 25px;
+  width: 2px;
+  height: 15px;
+  background: #fdfdfd;
+  content: "";
+  transform: translateY(-50%);
+  z-index: 5555;
+}
+
+.hasSubMenu.expandSubMenu::after,
+.expandSubMenuChild::after {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.expandSubMenu .subMenuList {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  transform: scaleY(1);
+}
+
+.expandSubMenuChild .sub_menu_child_list {
+  display: block;
+}
+
+.gamfiMobileMenuList li + li a {
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.subMenuList {
+  display: none;
+  padding-inline-start: 30px !important;
+  margin: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: transform 0.3s ease-in-out;
+  transform: scaleY(0);
+  transform-origin: 0 0 0;
+}
+
+.subMenuList li {
+  margin-bottom: 10px;
+}
+
+.sub_menu_child_list {
+  display: none;
+  padding-left: 30px !important;
+}
+
+.btnHeader {
+  font-family: "Russo One", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  color: #ffffff;
+  position: relative;
+  padding: 10px 0;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+}
+
+.btnHeader:hover {
+  color: var(--green-color);
+}
+
+.btnHasChild {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+@media (max-width: 480px) {
+  .gamfiMobileMenuContent {
+    width: 100%;
+  }
+}

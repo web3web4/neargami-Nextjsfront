@@ -1,0 +1,12 @@
+.CoursesInProgressStyleWrapper {
+  position: relative;
+  padding-bottom: 80px;
+  background: var(--primary-background-color);
+  margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 991px) {
+  .CoursesInProgressStyleWrapper {
+    padding-bottom: 45px;
+  }
+}

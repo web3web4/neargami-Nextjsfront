@@ -1,0 +1,321 @@
+:root {
+  --primary-background-color: #1a1a2f;
+  --card-background-color: #282841;
+  --secondary-color: #f7f7ff;
+  --green-color: #00ec97;
+  --secondary-green-color: #01c780;
+  --blue-color: #66aff1;
+  --gray-color: #395565;
+}
+
+::-moz-selection {
+  background: #2d65f8;
+  text-shadow: none;
+  color: #ffffff;
+}
+
+::selection {
+  background: #2d65f8;
+  text-shadow: none;
+  color: #ffffff;
+}
+
+/* -----------------------------------/
+  01. Gamfi General CSS
+-------------------------------------*/
+html,
+body {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7) !important;
+  font-family: "Inter", sans-serif !important;
+  line-height: 1.6 !important;
+  font-weight: 500 !important;
+  background-color: var(--primary-background-color) !important;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+p {
+  margin: 0 0 26px;
+  line-height: 1.8 !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Russo One", sans-serif;
+  color: #ffffff;
+  line-height: 1.35 !important;
+  font-weight: 400;
+  margin: 0 0 26px;
+}
+
+h1 {
+  font-size: 50px;
+}
+
+h2 {
+  font-size: 36px;
+}
+
+h3 {
+  font-size: 30px;
+}
+
+h4 {
+  font-size: 22px;
+}
+
+h5 {
+  font-size: 16px;
+}
+
+h6 {
+  font-size: 14px;
+}
+
+a {
+  color: #ffffff;
+  transition: all 0.3s ease;
+  text-decoration: none !important;
+  outline: none;
+}
+
+a:active,
+a:hover {
+  text-decoration: none !important;
+  outline: 0 none;
+  color: var(--green-color);
+}
+
+ul {
+  list-style: outside none none;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none;
+  text-decoration: none;
+  box-shadow: none;
+}
+
+button {
+  border: none;
+}
+
+/* css grid */
+
+.grid {
+  display: grid;
+}
+
+.grid-cols-7 {
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.col-start-2 {
+  grid-column-start: 2;
+}
+
+.col-start-3 {
+  grid-column-start: 3;
+}
+
+.col-start-4 {
+  grid-column-start: 4;
+}
+
+.col-start-5 {
+  grid-column-start: 5;
+}
+
+.col-start-6 {
+  grid-column-start: 6;
+}
+
+.col-start-7 {
+  grid-column-start: 7;
+}
+/* start react tabs */
+.react-tabs__tab-list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  top: -105px;
+  left: 0;
+  width: 100%;
+  height: auto;
+  background: #222231;
+  margin-bottom: 42px !important;
+}
+
+.tab_btn_wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.item_sorting_list button,
+.react-tabs__tab button {
+  color: rgba(255, 255, 255, 0.7);
+  background: transparent;
+  font-family: "Russo One", sans-serif;
+  position: relative;
+  text-transform: uppercase;
+  padding: 18px 28px;
+  transition: all 0.4s;
+}
+
+.item_sorting_list button:hover,
+.react-tabs__tab button:hover {
+  color: #ffffff;
+}
+
+.react-tabs__tab {
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+}
+
+.react-tabs__tab::before {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background: var(--green-color);
+  content: "";
+  transition: 0.4s ease-in-out;
+}
+
+.react-tabs__tab.react-tabs__tab--selected::before {
+  width: 100%;
+}
+/* end react tabs */
+.hlebv.modal_overlay {
+  z-index: 10;
+}
+
+.cardHoverWrapper {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.hoverShape {
+  position: absolute;
+  transition: all 0.4s;
+}
+
+.hoverShape1 {
+  top: 0;
+  left: 0;
+  background: linear-gradient(
+    to bottom,
+    #f82552 -100%,
+    rgba(21, 22, 37, 0) 64%
+  );
+  width: 5px;
+  height: 200px;
+}
+
+.hoverShape2 {
+  top: 0;
+  left: 5px;
+  background: linear-gradient(to right, #f82552 -100%, rgba(21, 22, 37, 0) 64%);
+  width: 200px;
+  height: 5px;
+}
+
+.hoverShape3 {
+  bottom: 0;
+  right: 0;
+  width: 5px;
+  height: 200px;
+  background: linear-gradient(
+    to top,
+    var(--green-color) -100%,
+    rgba(21, 22, 37, 0) 64%
+  );
+}
+
+.hoverShape4 {
+  bottom: 0;
+  right: 5px;
+  width: 200px;
+  height: 5px;
+  background: linear-gradient(
+    to left,
+    var(--green-color) -100%,
+    rgba(21, 22, 37, 0) 64%
+  );
+}
+
+.cardHoverWrapperHovered {
+  opacity: 1;
+  visibility: visible;
+}
+
+.slickDots li button {
+  width: 11px;
+  height: 9px;
+  transform: skew(20deg);
+  background-color: rgba(255, 255, 255, 0.2);
+  display: inline-block;
+  margin: 0px 5.5px;
+  transition: 0.3s;
+}
+
+.slick-dots li button:before {
+  font-size: 15px;
+  line-height: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 11px !important;
+  height: 9px !important;
+  background-color: white !important;
+  content: "" !important;
+  text-align: center;
+  opacity: 0.25;
+  margin-top: 20px;
+  transform: skew(20deg);
+}
+
+.slickList {
+  margin: 0 -30px;
+  padding: 0 30px;
+}
+
+[dir="rtl"] .nws-slider::before {
+  inset-inline-start: 15px;
+}
+
+[dir="rtl"] .nws-switch {
+  margin-inline-start: 12px;
+}
+
+@media only screen and (min-width: 1200px) {
+  .container {
+    max-width: 1200px !important;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  body {
+    font-size: 15px;
+  }
+}

@@ -1,0 +1,9 @@
+.showLessonStyleWrapper {
+  background: var(--primary-background-color);
+  padding-top: 70px;
+  padding-bottom: 140px;
+}
+
+.showLessonStyleWrapper p {
+  margin-bottom: 26px;
+}

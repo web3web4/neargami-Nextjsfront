@@ -1,0 +1,24 @@
+.quizContent {
+  display: flex;
+}
+
+.section1 {
+  flex: 1;
+}
+
+.section2 {
+  width: 350px;
+}
+
+@media only screen and (max-width: 700px) {
+  .quizContent {
+    flex-direction: column;
+  }
+
+  .section1 {
+    width: 100vw;
+  }
+  .section2 {
+    width: 100vw;
+  }
+}

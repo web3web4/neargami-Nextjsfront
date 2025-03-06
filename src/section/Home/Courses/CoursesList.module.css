@@ -1,0 +1,91 @@
+.courseWrapper {
+  background: var(--primary-background-color);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.coursesItemWrapper .courseInfo {
+  flex-direction: column;
+  row-gap: 15px;
+}
+
+.breadcrumbForm {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  column-gap: 20px;
+  row-gap: 20px;
+  padding-top: 50px;
+  flex-wrap: wrap;
+}
+
+.searchDiv {
+  position: relative;
+}
+
+.searchDiv input,
+.searchDiv button {
+  background: transparent;
+}
+
+.searchDiv input {
+  width: 360px;
+  padding: 11px 50px 11px 20px;
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--secondary-color);
+}
+
+.searchDiv input:focus {
+  outline: none;
+}
+
+.searchDiv button {
+  height: 100%;
+  width: 50px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 50%;
+  right: 0;
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.7);
+  transform: translate(0, -50%);
+  border: none;
+}
+
+.btn {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 17px;
+  font-family: "Russo One", sans-serif;
+  font-size: 16px;
+  text-transform: uppercase;
+  transition: all 0.4s ease-in-out;
+  box-sizing: border-box;
+  width: 170px;
+  height: 50px;
+  border: 2px solid #393941;
+  background: transparent;
+  z-index: 1;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  .breadcrumbForm .searchDiv {
+    width: 100% !important;
+  }
+
+  .breadcrumbForm .searchDiv input {
+    width: 100% !important;
+  }
+
+  .btn {
+    width: 47% !important;
+    padding: 10px 0;
+  }
+}
