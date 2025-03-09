@@ -5,6 +5,7 @@ import {
   UserProfileData,
 } from "@/interfaces/api";
 import defaultCourseLogo from "@/assets/images/no-Course.png";
+import defaultUserImage from "@/assets/images/no-User.png";
 import logoImage from "@/assets/images/brand/Logo/With-BG/Dark/Logo-3-Size/512.png";
 
 // default Title And Description, For If Page Not Have A Title Or Description
@@ -186,7 +187,7 @@ export const generateProfileMetadata = (
     "View and manage your profile on NearGami. Track your progress, achievements, and points as you learn and play!",
     `${username !== null ? `/profile/${username}` : "/profile"}`,
     {
-      url: data.image,
+      url: data.image || defaultUserImage.src,
       width: 600,
       height: 600,
       alt: "Neargami Logo",
