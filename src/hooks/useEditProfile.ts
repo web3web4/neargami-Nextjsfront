@@ -2,7 +2,7 @@
 import { updateUserProfile, uploadFile } from "@/apiService";
 import { UserProfileData, UserProfileResponse } from "@/interfaces/api";
 import { useTranslations } from "next-intl";
-import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { SingleValue } from "react-select";
 import Swal from "sweetalert2";
 
@@ -72,8 +72,7 @@ export const useEditProfile = (data: UserProfileResponse) => {
     fileInputRef.current?.click();
   };
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     if (formInput.username!.trim() === "") {
       Swal.fire({
         icon: "error",
