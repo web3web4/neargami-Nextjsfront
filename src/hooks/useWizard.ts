@@ -3,7 +3,7 @@ import { UserProfileData } from "@/interfaces/api";
 import { deleteCookie, getCookie, setCookie } from "cookies-next";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { SingleValue } from "react-select";
 import Swal from "sweetalert2";
 
@@ -98,8 +98,7 @@ export const useWizard = () => {
   /**
    * This function updates the user's profile.
    */
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     try {
       const updateUser = await updateUserProfile(formInput); // Ensure updateUserProfile is typed correctly elsewhere
 
@@ -117,13 +116,13 @@ export const useWizard = () => {
     }
   };
 
-  const handleComplateToProfile = async (e: FormEvent) => {
-    await handleSubmit(e);
+  const handleComplateToProfile = async () => {
+    await handleSubmit();
     router.push("/profile"); // Using direct navigation instead of Link
   };
 
-  const handleBackToHome = async (e: FormEvent) => {
-    await handleSubmit(e);
+  const handleBackToHome = async () => {
+    await handleSubmit();
     router.push("/"); // Using direct navigation instead of Link
   };
 

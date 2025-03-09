@@ -33,8 +33,7 @@ export const useLesson = (courseId: string, lessonId: string, data: LessonRespon
      * send data lesson to backend and create
      */
   
-    const handleSubmit = async (e: any) => {
-      e.preventDefault();
+    const handleSubmit = async () => {
       //Extract qList from data to be sent
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { qaList, ...lessonData } = formInput;
@@ -78,8 +77,7 @@ export const useLesson = (courseId: string, lessonId: string, data: LessonRespon
     /**
      * update date lesson
      */
-    const handleUpdate = async (e: any) => {
-      e.preventDefault();
+    const handleUpdate = async () => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { qaList, ...lessonData } = formInput;
       lessonData.order = Number(lessonData.order);
