@@ -1,18 +1,18 @@
 import { ReactNode } from "react";
 
 export interface LinkStyleProps {
-    isCenter?: boolean,
-    variant?: "mint" | "outline" | "dark" | "white" | "blue",
-    hovered?: boolean,
-    size?: "sm" | "md" | "lg" | "xl" | "xxl" | "cust",
-  }
+  isCenter?: boolean;
+  variant?: "mint" | "outline" | "dark" | "white" | "blue";
+  hovered?: boolean;
+  size?: "xs" | "sm" | "md" | "lg" | "xl" | "xxl" | "cust";
+}
 
 export interface ButtonProps extends LinkStyleProps {
-    children: ReactNode,
-    href?: string,
-    className?: string,
-    style?: React.CSSProperties,
-    onClick?: (event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => void,
-  }
-
-
+  children: ReactNode;
+  href?: string;
+  className?: string;
+  style?: React.CSSProperties;
+  onClick?: (
+    event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>
+  ) => void;
+}

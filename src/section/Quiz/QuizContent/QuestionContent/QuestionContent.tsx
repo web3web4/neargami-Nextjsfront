@@ -8,6 +8,7 @@ import unCorrectIcon from "@/assets/images/icons/unCorrect.png";
 import Image from "next/image";
 import { QAResponse } from "@/interfaces/api";
 import { useTranslations } from "next-intl";
+import Button from "@/components/button/Button";
 
 interface QuizContentProps {
   courseId: string;
@@ -31,8 +32,8 @@ export default function QuestionContent({
     handleCheckAnswers,
     handleNextQuestion,
   } = useQuizContent(courseId, lectureId, data);
-    const translate = useTranslations('Quiz');
-  
+  const translate = useTranslations("Quiz");
+
   return (
     <div className={styles.contentRight}>
       {/* Start Title */}
@@ -116,9 +117,13 @@ export default function QuestionContent({
       {/* Start Check Button */}
       {isCorrect === null && (
         <div className={styles.checkBtnContainer}>
-          <button className={styles.checkBtn} onClick={handleCheckAnswers}>
-          {translate("Check")}
-          </button>
+          <Button
+            className={styles.checkBtn}
+            size="xs"
+            onClick={handleCheckAnswers}
+          >
+            {translate("Check")}
+          </Button>
         </div>
       )}
 
