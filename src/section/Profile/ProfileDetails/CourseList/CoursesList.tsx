@@ -20,8 +20,8 @@ const CoursesList = (props: CoursesResponse) => {
           </div>
           <Image
             src={props.logo || photoDefault}
-            width={400}
-            height={400}
+            width={500}
+            height={500}
             alt={`${props.name} logo`}
             loading="lazy"
           />
