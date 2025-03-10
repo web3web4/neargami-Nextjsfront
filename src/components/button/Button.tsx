@@ -11,6 +11,7 @@ const Button = ({
   variant,
   size,
   style,
+  showLoading = true,
   ...props
 }: ButtonProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -38,7 +39,11 @@ const Button = ({
         ${size ? styles[size] : styles.sm} 
         ${className || ""}`}
       >
-        {isLoading ? <span className={styles.loader}></span> : children}
+        {showLoading && isLoading ? (
+          <span className={styles.loader}></span>
+        ) : (
+          children
+        )}
 
         <div className={styles.hoverShapeWrapper}>
           <span

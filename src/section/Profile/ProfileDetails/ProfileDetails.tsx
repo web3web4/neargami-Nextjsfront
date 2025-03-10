@@ -13,10 +13,9 @@ import pointIcon from "@/assets/images/icons/point-info.png";
 import LoadingWrapper from "@/components/loading/loadingWrapper/LoadingWrapper";
 import Image from "next/image";
 import styles from "./ProfileDetails.module.css";
-import { UserProfileData, CoursesResponse } from "@/interfaces/api";
-import { useEffect, useState } from "react";
-import CoursesList from "./CourseList/CoursesList";
+import { CoursesResponse, UserProfileData } from "@/interfaces/api";
 import { useTranslations } from "next-intl";
+import Tabs from "./Tabs/Tabs";
 
 interface ProfileDetailsProps {
   username: string | null;
@@ -25,7 +24,6 @@ interface ProfileDetailsProps {
 }
 
 const ProfileDetails = ({ username, data, courses }: ProfileDetailsProps) => {
-  const [filterCourses, setFilterCourses] = useState<CoursesResponse[]>([]);
   const translate = useTranslations("Profile");
   const {
     balance,
@@ -36,17 +34,6 @@ const ProfileDetails = ({ username, data, courses }: ProfileDetailsProps) => {
     handleCopy,
     handleClaims,
   } = useProfileDetails(username);
-
-  useEffect(() => {
-    if (courses) {
-      const approvedCourses = courses.filter(
-        (course) => course.publish_status === "APPROVED"
-      );
-      setFilterCourses(approvedCourses);
-    } else {
-      setFilterCourses([]);
-    }
-  }, [courses]);
 
   return (
     <div className={styles.ProfileDetailsStyleWrapper}>
@@ -108,7 +95,9 @@ const ProfileDetails = ({ username, data, courses }: ProfileDetailsProps) => {
                           width={20}
                           alt="Info Icon"
                           data-tooltip-id="my-tooltip"
-                          data-tooltip-content={translate("TokensInYourWalletToolTip")}
+                          data-tooltip-content={translate(
+                            "TokensInYourWalletToolTip"
+                          )}
                           className={styles.infoIcon}
                         />
                       </span>
@@ -122,7 +111,9 @@ const ProfileDetails = ({ username, data, courses }: ProfileDetailsProps) => {
                           width={20}
                           alt="Info Icon"
                           data-tooltip-id="my-tooltip"
-                          data-tooltip-content={translate("ClaimedTokenTooltip")}
+                          data-tooltip-content={translate(
+                            "ClaimedTokenTooltip"
+                          )}
                           className={styles.infoIcon}
                         />
                       </span>
@@ -193,21 +184,13 @@ const ProfileDetails = ({ username, data, courses }: ProfileDetailsProps) => {
               <div className={styles.btn}>
                 {!username && (
                   <>
-                  <div className="mt-2 mb-3"> 
-                  <Button
-                      href="/edit-profile"
-                      variant="mint"
-                      size="md"
-                    >
-                      {translate("Edit Profile")}
-                    </Button>
-                  </div>
                     <div className="mt-2 mb-3">
-                      <Button
-                        variant="blue"
-                        size="md"
-                        onClick={handleClaims}
-                      >
+                      <Button href="/edit-profile" variant="mint" size="md">
+                        {translate("Edit Profile")}
+                      </Button>
+                    </div>
+                    <div className="mt-2 mb-3">
+                      <Button variant="blue" size="md" onClick={handleClaims}>
                         {translate("Claim Coins")}
                       </Button>
                     </div>
@@ -254,8 +237,8 @@ const ProfileDetails = ({ username, data, courses }: ProfileDetailsProps) => {
                           <Image src={logo} alt="Loading Logo" />
                         </div>
                         <div className={styles.loadingText}>
-                          {translate("Loading")}{Math.round(progress * 100)}
-                          %
+                          {translate("Loading")}
+                          {Math.round(progress * 100)}%
                         </div>
                       </div>
                     )}
@@ -283,28 +266,11 @@ const ProfileDetails = ({ username, data, courses }: ProfileDetailsProps) => {
             </div>
           </div>
         </div>
-
-        {courses && (
-          <>
-            <h2 className={styles.rightContentTitle}>
-              {translate("Courses Offered")}
-            </h2>
-            <div className="row">
-              {filterCourses && filterCourses.length > 0 ? (
-                filterCourses.map((filteredCourse, i) => (
-                  <div key={i} className="col-lg-4 col-md-6">
-                    <CoursesList {...filteredCourse} />
-                  </div>
-                ))
-              ) : (
-                <div className="col-12 text-center">
-                  <p className={styles.sectionCourses}>
-                    {translate("There are no courses published yet")}
-                  </p>
-                </div>
-              )}
-            </div>
-          </>
+        {username && (
+          <Tabs
+            offeredCourses={courses}
+            finishedCourses={data.completedCourses}
+          />
         )}
       </div>
     </div>
