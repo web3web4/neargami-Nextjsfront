@@ -30,7 +30,7 @@ export const useEditProfile = (data: UserProfileResponse) => {
     twitter: "",
     linkedin: "",
     image: "",
-    sendMail: false
+    sendMail: false,
   });
 
   const handleCountryChange = (selectedCountry: SingleValue<CountryData>) => {
@@ -54,11 +54,6 @@ export const useEditProfile = (data: UserProfileResponse) => {
     try {
       setImage(img);
       const url = await uploadFile(img);
-
-      if ("error" in url) {
-        throw url;
-      }
-
       setFormInput((prevInput: any) => ({
         ...prevInput,
         image: url,
@@ -113,7 +108,7 @@ export const useEditProfile = (data: UserProfileResponse) => {
       image: formInput.image,
       sendMail: formInput.sendMail,
     };
-   
+
     try {
       const updatedUser = await updateUserProfile(filteredFormInput);
 

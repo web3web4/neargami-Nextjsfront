@@ -1,5 +1,4 @@
 .container {
-  width: 100%;
   margin-top: 50px;
 }
 
@@ -9,6 +8,7 @@
   border-radius: 12px;
   padding: 5px;
   margin-bottom: 10px;
+  width: 100%;
 }
 
 .tabButton {
