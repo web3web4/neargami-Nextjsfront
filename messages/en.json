@@ -126,7 +126,6 @@
     "Approve": "Approve",
     "Submit": "Submit",
     "New Version": "New Version"
-
   },
   "CourseInfo": {
     "Course Name": "Course Name",
@@ -210,6 +209,7 @@
     "Loading": "Loading... ",
     "Courses Offered": "Courses Offered",
     "There are no courses published yet": "There are no courses published yet.",
+    "There are no courses finished yet": "There are no courses finished yet.",
     "Upload Photo": "Upload Photo",
     "OR": "OR",
     "Select Avatar": "Select Avatar",
@@ -233,7 +233,9 @@
     "Linkedin profile link": "Linkedin profile link",
     "Save Changes": "Save Changes",
     "WebSiteLanguage": "Site Language",
-    "Receive Email For The Latest Updates": "Receive Email For The Latest Updates"
+    "Receive Email For The Latest Updates": "Receive Email For The Latest Updates",
+    "finishedCourses": "Finished Courses",
+    "offeredCourses": "Offered courses "
   },
   "Wizard": {
     "Terms and conditions": "Terms and conditions",

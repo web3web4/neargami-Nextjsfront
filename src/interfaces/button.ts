@@ -12,6 +12,7 @@ export interface ButtonProps extends LinkStyleProps {
   href?: string;
   className?: string;
   style?: React.CSSProperties;
+  showLoading?: boolean;
   onClick?: (
     event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>
   ) => void;

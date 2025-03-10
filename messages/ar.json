@@ -210,6 +210,7 @@
     "Loading": "جاري التحميل.... ",
     "Courses Offered": "الدورات المقدمة",
     "There are no courses published yet": "لا يوجد دورات حتى الان.",
+    "There are no courses finished yet": "لا يوجد دورات انتهت بعد.",
     "Upload Photo": "رفع صورة",
     "OR": "او",
     "Select Avatar": "اختر صورة رمزية",
@@ -233,7 +234,9 @@
     "Linkedin profile link": "رابط الملف الشخصي في لينكدان",
     "Save Changes": "حفظ التغييرات",
     "WebSiteLanguage": "لغة الموقع",
-    "Receive Email For The Latest Updates": "استلام بريد الكتروني لمعرفة أخر التحديثات"
+    "Receive Email For The Latest Updates": "استلام بريد الكتروني لمعرفة أخر التحديثات",
+    "finishedCourses": "الدورات المكتملة",
+    "offeredCourses": "الدورات المقدمة"
   },
   "Wizard": {
     "Terms and conditions": "الشروط والاحكام",

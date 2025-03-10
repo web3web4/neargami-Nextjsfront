@@ -1,7 +1,10 @@
 import Header from "@/section/Header/v2/Header";
 import PageHeader from "@/components/pageHeader/PageHeader";
-import ProfileDetails from "@/section/Profile/ProfileDetails";
-import { getProfileCoursesByUsername, getUserProfileByUsername } from "@/apiService";
+import ProfileDetails from "@/section/Profile/ProfileDetails/ProfileDetails";
+import {
+  getProfileCoursesByUsername,
+  getUserProfileByUsername,
+} from "@/apiService";
 import { CoursesResponse, UserProfileData } from "@/interfaces/api";
 import { generateProfileMetadata } from "@/utils/generateMetadata";
 

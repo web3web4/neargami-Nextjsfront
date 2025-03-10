@@ -60,6 +60,7 @@ export default function MenuButtons({ isShowMenu }: { isShowMenu: boolean }) {
         <Button
           href="# "
           variant="white"
+          showLoading={false}
           onClick={() => handleNearLogin(setButtonText)}
         >
           <Image src={connectIcon} alt="icon" />

@@ -182,9 +182,16 @@ export const generateProfileMetadata = (
   data: UserProfileData,
   username: string | null
 ) => {
+  const coursesCompleted =
+    data.completedCourses && data.completedCourses.length > 0
+      ? ` They have completed the following courses: ${data.completedCourses
+          .map((course) => course.name)
+          .join(", ")}.`
+      : "";
+
   return returnMetadata(
     `${data.username} | NearGami`,
-    "View and manage your profile on NearGami. Track your progress, achievements, and points as you learn and play!",
+    `View and manage your profile on NearGami. Track your progress, achievements, and points as you learn and play! ${data.username} has earned ${data.top_points} points.${coursesCompleted}`,
     `${username !== null ? `/profile/${username}` : "/profile"}`,
     {
       url: data.image || defaultUserImage.src,
