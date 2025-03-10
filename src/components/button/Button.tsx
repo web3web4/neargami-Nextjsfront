@@ -20,8 +20,8 @@ const Button = ({
     callback: any,
     event: React.MouseEvent<HTMLAnchorElement>
   ) => {
-    event.preventDefault();
     if (!callback) return;
+    event.preventDefault();
     setIsLoading(true);
     await callback();
     setIsLoading(false);

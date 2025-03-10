@@ -7,7 +7,7 @@ import {
 import defaultCourseLogo from "@/assets/images/no-Course.png";
 import defaultUserImage from "@/assets/images/no-User.png";
 import logoImage from "@/assets/images/brand/Logo/With-BG/Dark/Logo-3-Size/512.png";
-import { extractTextFromHTML } from "./functions";
+import { stripHtmlTags } from "./functions";
 
 // default Title And Description, For If Page Not Have A Title Or Description
 const defaultTitle = "NearGami | Play to learn & learn to earn";
@@ -71,7 +71,7 @@ export const generateCourseDetailsMetadata = (
 ) => {
   return returnMetadata(
     data.lectures[0].course.name || defaultTitle,
-    extractTextFromHTML(data.lectures[0].course.description) ||
+    stripHtmlTags(data.lectures[0].course.description) ||
       defaultDescription,
     `/course-details/${courseSlug}`,
     {
@@ -89,7 +89,7 @@ export const generateCourseInfoMetadata = (
 ) => {
   return returnMetadata(
     (data && data.name) || defaultTitle,
-    (data && extractTextFromHTML(data.description)) || defaultDescription,
+    (data && stripHtmlTags(data.description)) || defaultDescription,
     `/course-info/${courseSlug}`,
     {
       url: (data && data.logo) || defaultCourseLogo.src,
@@ -108,7 +108,7 @@ export const generateLessonMetadata = (
 ) => {
   return returnMetadata(
     data !== null ? data.title : "Add Lesson | NearGami",
-    data !== null ? extractTextFromHTML(data.description) : defaultDescription,
+    data !== null ? stripHtmlTags(data.description) : defaultDescription,
     `/lesson/${courseId}/${lessonId}`,
     {
       url: data != null ? data.course.logo : defaultCourseLogo.src,
@@ -237,7 +237,7 @@ export const generateQAMetadata = (
 ) => {
   return returnMetadata(
     `${data ? "Edit QA" : "Add QA"} | NearGami`,
-    `${data ? extractTextFromHTML(data.description) : defaultDescription}`,
+    `${data ? stripHtmlTags(data.description) : defaultDescription}`,
     `qestion-answer/${courseId}/${lessonId}/${qaId}`,
     {
       url: logoImage.src,
@@ -257,7 +257,7 @@ export const generateQuizMetadata = (
 ) => {
   return returnMetadata(
     `Quiz | ${data[0]?.lecture.title}`,
-    extractTextFromHTML(data[0]?.lecture.description),
+    stripHtmlTags(data[0]?.lecture.description),
     `/quiz/${courseId}/${lecturId}/${lectureSlug}`,
     {
       url: data[0]?.lecture.course.logo,
