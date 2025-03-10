@@ -7,6 +7,7 @@ import {
 import defaultCourseLogo from "@/assets/images/no-Course.png";
 import defaultUserImage from "@/assets/images/no-User.png";
 import logoImage from "@/assets/images/brand/Logo/With-BG/Dark/Logo-3-Size/512.png";
+import { extractTextFromHTML } from "./functions";
 
 // default Title And Description, For If Page Not Have A Title Or Description
 const defaultTitle = "NearGami | Play to learn & learn to earn";
@@ -70,7 +71,8 @@ export const generateCourseDetailsMetadata = (
 ) => {
   return returnMetadata(
     data.lectures[0].course.name || defaultTitle,
-    data.lectures[0].course.description || defaultDescription,
+    extractTextFromHTML(data.lectures[0].course.description) ||
+      defaultDescription,
     `/course-details/${courseSlug}`,
     {
       url: data.lectures[0].course.logo || defaultCourseLogo.src,
@@ -87,7 +89,7 @@ export const generateCourseInfoMetadata = (
 ) => {
   return returnMetadata(
     (data && data.name) || defaultTitle,
-    (data && data.description) || defaultDescription,
+    (data && extractTextFromHTML(data.description)) || defaultDescription,
     `/course-info/${courseSlug}`,
     {
       url: (data && data.logo) || defaultCourseLogo.src,
@@ -106,7 +108,7 @@ export const generateLessonMetadata = (
 ) => {
   return returnMetadata(
     data !== null ? data.title : "Add Lesson | NearGami",
-    data !== null ? data.description : defaultDescription,
+    data !== null ? extractTextFromHTML(data.description) : defaultDescription,
     `/lesson/${courseId}/${lessonId}`,
     {
       url: data != null ? data.course.logo : defaultCourseLogo.src,
@@ -189,9 +191,18 @@ export const generateProfileMetadata = (
           .join(", ")}.`
       : "";
 
+  const displayName =
+    data.firstName && data.lastName
+      ? `${data.firstName} ${data.lastName}`
+      : data.firstName
+      ? data.firstName
+      : data.lastName
+      ? data.lastName
+      : data.username;
+
   return returnMetadata(
     `${data.username} | NearGami`,
-    `View and manage your profile on NearGami. Track your progress, achievements, and points as you learn and play! ${data.username} has earned ${data.top_points} points.${coursesCompleted}`,
+    `Track your progress, achievements, and points on NearGami! ${displayName} has earned ${data.top_points} points.${coursesCompleted}`,
     `${username !== null ? `/profile/${username}` : "/profile"}`,
     {
       url: data.image || defaultUserImage.src,
@@ -226,7 +237,7 @@ export const generateQAMetadata = (
 ) => {
   return returnMetadata(
     `${data ? "Edit QA" : "Add QA"} | NearGami`,
-    `${data ? data.description : defaultDescription}`,
+    `${data ? extractTextFromHTML(data.description) : defaultDescription}`,
     `qestion-answer/${courseId}/${lessonId}/${qaId}`,
     {
       url: logoImage.src,
@@ -246,7 +257,7 @@ export const generateQuizMetadata = (
 ) => {
   return returnMetadata(
     `Quiz | ${data[0]?.lecture.title}`,
-    data[0]?.lecture.description,
+    extractTextFromHTML(data[0]?.lecture.description),
     `/quiz/${courseId}/${lecturId}/${lectureSlug}`,
     {
       url: data[0]?.lecture.course.logo,
