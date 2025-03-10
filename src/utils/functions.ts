@@ -1,7 +1,22 @@
-export const debounce = function (functionToDebounce: (...args: any[]) => void, delay: number) {
-    let timeout: NodeJS.Timeout;
-    return function (...args: any[]) {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => functionToDebounce(...args), delay);
-    };
+export const debounce = function (
+  functionToDebounce: (...args: any[]) => void,
+  delay: number
+) {
+  let timeout: NodeJS.Timeout;
+  return function (...args: any[]) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => functionToDebounce(...args), delay);
   };
+};
+
+export const extractTextFromHTML = (htmlString: string) => {
+  // For Server
+  if (typeof window === "undefined") {
+    return htmlString.replace(/<\/?[^>]+(>|$)/g, ""); 
+  }
+
+  // For Client
+  const tempDiv = document.createElement("div");
+  tempDiv.innerHTML = htmlString;
+  return tempDiv.textContent || tempDiv.innerText || "";
+};
