@@ -10,13 +10,11 @@ export const debounce = function (
 };
 
 export const extractTextFromHTML = (htmlString: string) => {
-  // For Server
-  if (typeof window === "undefined") {
-    return htmlString.replace(/<\/?[^>]+(>|$)/g, ""); 
-  }
-
-  // For Client
   const tempDiv = document.createElement("div");
   tempDiv.innerHTML = htmlString;
   return tempDiv.textContent || tempDiv.innerText || "";
+};
+
+export const stripHtmlTags = (html: string) => {
+  return html.replace(/<[^>]*>?/gm, '');
 };
