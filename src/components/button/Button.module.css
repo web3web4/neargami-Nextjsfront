@@ -51,6 +51,12 @@
   margin: 0 5px !important;
 }
 
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 /* Start variant */
 .mint {
   background: var(--green-color);

@@ -1,22 +1,19 @@
 "use client";
-import { useLoading } from "@/context/LoadingContext";
 import { useEffect, useRef, useState } from "react";
 import { getBalance } from "@/lib/nearContractToken";
-import {claimsNgcs, getCurrentNgcs, getUserProfileByUsername} from "@/apiService";
+import {claimsNgcs, getCurrentNgcs } from "@/apiService";
 import Swal from "sweetalert2";
-import { UserProfileData } from "@/interfaces/api";
 import { useAuth } from "@/context/authContext";
 import { useTranslations } from "next-intl";
+import { UserProfileData } from "@/interfaces/api";
 
-export const useProfileDetails = (username: string | null) => {
-  const [data, setData] = useState<UserProfileData>({});
+export const useProfileDetails = (username: string | null, data: UserProfileData) => {
   const [balance, setBalance] = useState<string | null>("0");
   const [loading, setLoading] = useState<boolean>(true);
   const [progress, setProgress] = useState<number>(0);
   const [error, setError] = useState<string | null>(null); // Error state for handling loading errors
   const unityInstanceRef = useRef<null | { Quit: () => Promise<void> }>(null); // Ref to store the Unity instance
   const unityLoaderScriptRef = useRef<null | HTMLScriptElement>(null); // Ref to store the loader script
-  const { setIsLoading } = useLoading();
   const { userProfile, jwtToken } = useAuth();
   const [isCopied, setIsCopied] = useState<boolean>(false);
   const translate = useTranslations("messages");
@@ -118,26 +115,17 @@ export const useProfileDetails = (username: string | null) => {
 
   useEffect(() => {
     const getUser = async () => {
-      setIsLoading(true);
       try {
-        const response = await getUserProfileByUsername(username);
-
-        if ("error" in response) {
-          throw response;
-        }
-        setData(response);
         const balanceOfUser = await getBalance();
         setBalance(balanceOfUser);
-        setIsLoading(false);  
       } catch (error: any) {
         console.error("Error fetching user data:", error.message);
-        setIsLoading(false);
       }
     };
 
     getUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [username, setIsLoading]);
+  }, [username]);
 
   const handleClaims = async () => {
     const ngcs = await getCurrentNgcs();
