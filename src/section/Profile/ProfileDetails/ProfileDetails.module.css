@@ -159,6 +159,17 @@
   margin-bottom: 20px;
 }
 
+.btnCopy {
+  padding: 0 10px !important;
+  cursor: pointer;
+  border: none;
+  background-color: var(--green-color);
+  color: Black;
+  border-radius: 5px;
+  font-family: "Russo One";
+  margin-inline-start: 3px;
+}
+
 @media only screen and (max-width: 768px) {
   .leftContentThumb {
     max-width: 200px !important;

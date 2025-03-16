@@ -27,11 +27,14 @@ const ProfileDetails = ({ username, data, courses }: ProfileDetailsProps) => {
   const translate = useTranslations("Profile");
   const {
     balance,
-    isCopied,
+    isCopiedAddress,
+    isCopiedProfileLink,
     loading,
     progress,
     formatAddress,
-    handleCopy,
+    formatProfileLink,
+    handleCopyAddress,
+    handleCopyProfileLink,
     handleClaims,
   } = useProfileDetails(username, data);
 
@@ -141,20 +144,30 @@ const ProfileDetails = ({ username, data, courses }: ProfileDetailsProps) => {
                   </span>
                   {data.address && (
                     <button
-                      onClick={handleCopy}
-                      style={{
-                        padding: "5px 10px",
-                        cursor: "pointer",
-                        border: "none",
-                        backgroundColor: "#00ec97",
-                        color: "Black",
-                        borderRadius: "5px",
-                        fontFamily: "Russo One",
-                      }}
+                      onClick={handleCopyAddress}
+                      className={styles.btnCopy}
                     >
-                      {isCopied ? "Copied!" : "Copy"}
+                      {isCopiedAddress
+                        ? translate("Copied")
+                        : translate("Copy")}
                     </button>
                   )}
+                </li>
+                <li>
+                  <strong>{translate("Profile Link")}</strong>{" "}
+                  <span>
+                    {formatProfileLink(
+                      `${process.env.NEXT_PUBLIC_DOMIN_NAME}/profile/${data.username}`
+                    )}
+                  </span>
+                  <button
+                    onClick={handleCopyProfileLink}
+                    className={styles.btnCopy}
+                  >
+                    {isCopiedProfileLink
+                      ? translate("Copied")
+                      : translate("Copy")}
+                  </button>
                 </li>
                 <Tooltip
                   id="my-tooltip"
@@ -185,12 +198,22 @@ const ProfileDetails = ({ username, data, courses }: ProfileDetailsProps) => {
                 {!username && (
                   <>
                     <div className="mt-2 mb-3">
-                      <Button href="/edit-profile" variant="mint" size="md" disabled={loading}>
+                      <Button
+                        href="/edit-profile"
+                        variant="mint"
+                        size="md"
+                        disabled={loading}
+                      >
                         {translate("Edit Profile")}
                       </Button>
                     </div>
                     <div className="mt-2 mb-3">
-                      <Button variant="blue" size="md" onClick={handleClaims} disabled={loading}>
+                      <Button
+                        variant="blue"
+                        size="md"
+                        onClick={handleClaims}
+                        disabled={loading}
+                      >
                         {translate("Claim Coins")}
                       </Button>
                     </div>

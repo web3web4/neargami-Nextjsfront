@@ -26,10 +26,11 @@ const returnMetadata = (
     alt: string;
   }
 ) => {
+  const urlFinal = `${process.env.NEXT_PUBLIC_DOMIN_NAME}${url}`;
   const openGraph = {
     title,
     description,
-    url,
+    urlFinal,
     type: "website",
     images: [image],
   };
