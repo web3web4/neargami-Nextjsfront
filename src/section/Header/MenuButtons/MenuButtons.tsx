@@ -19,7 +19,7 @@ export default function MenuButtons({ isShowMenu }: { isShowMenu: boolean }) {
   const [buttonText, setButtonText] = useState<string>("Connect");
   const [isMobileMenu, setMobileMenu] = useState<boolean>(false);
   const { handleNearLogin } = useWallet();
-  const { userProfile , jwtToken } = useAuth();
+  const { userProfile, jwtToken } = useAuth();
 
   const handleMobileMenu = () => {
     setMobileMenu(!isMobileMenu);
@@ -44,15 +44,15 @@ export default function MenuButtons({ isShowMenu }: { isShowMenu: boolean }) {
           {/* <Image src={notificationIcon} width={35} alt="" /> */}
           <Link href="/profile">
             <div className={styles.profileBtn}>
-            <Image
-                  src={userProfile?.image || personIcon.src}
-                  alt="player-image"
-                  width={45}
-                  height={45}
-                  loading={'lazy'}
-                  className={styles.playerImage}
-                  onError={() => (personIcon.src)}
-                />
+              <Image
+                src={userProfile?.image || personIcon.src}
+                alt="player-image"
+                width={45}
+                height={45}
+                loading={"lazy"}
+                className={styles.playerImage}
+                onError={() => personIcon.src}
+              />
             </div>
           </Link>
         </>
@@ -60,7 +60,6 @@ export default function MenuButtons({ isShowMenu }: { isShowMenu: boolean }) {
         <Button
           href="# "
           variant="white"
-          showLoading={false}
           onClick={() => handleNearLogin(setButtonText)}
         >
           <Image src={connectIcon} alt="icon" />
