@@ -61,14 +61,14 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
        * Step 1: Setting up Wallet Selector and showing the modal
        */
       const selector = await getSelector();
-
+  
       const modal = setupModal(selector, {
         contractId: "",
       });
       modal.show();
       appendPrivacyPolicyText();
       console.log("Connecting...");
-
+  
       /**
        * Step 2: Wait for wallet selection and retrieve wallet details
        */
@@ -77,7 +77,7 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
         console.log("Modal closed, re-opening...");
         modal.show();
       });
-
+  
       const wallet = await retryUntilSuccess(
         async () => await selector.wallet(),
         () => stopWaitingForWallet,
@@ -92,12 +92,12 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
         });
         return;
       }
-
+  
       setButtonText("Processing");
-
+  
       const accounts = await wallet.getAccounts();
       const accountId = accounts[0]?.accountId;
-
+  
       // Step 2.1: Verify if the account is registered on NEAR Network
       const networkId = selector.options.network.networkId;
       const keysRegisteredOnChain = await getAccountKeys(
@@ -118,87 +118,97 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
           <br /> \
           Hint: you may use <b>Meteor Wallet</b> to get an account easily on testnet.`,
         });
-
+  
         throw new Error(
           "You cannot use an account before registering it on the NEAR Network"
         );
       }
-
+  
       if (!accountId) throw new Error("No account found in wallet");
-
+  
       /**
        * Step 3: Save initial state to cookies for the user
        */
-
       setAuthData("nearSignature", accountId);
-
+  
       /**
-       * Step 4: Get challenge data from backend and sign the message
+       * Step 4: Show SweetAlert for signing the message
        */
-      const challengeData = await getChallengeData(accountId);
-      const signResponse = await wallet.signMessage({
-        message: challengeData.message,
-        nonce: Buffer.from(challengeData.challange, "base64"),
-        recipient: accountId,
-      });
-
-      /**
-       * Step 5: Send the signed data to backend and receive the token
-       */
-      const verifyResponse = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/signup`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            accountId,
-            publicKey: signResponse.publicKey,
-            challenge: challengeData.challange,
+      Swal.fire({
+        title: 'Signature Message',
+        text: 'Please sign the message to complete the registration process. These steps are for verifying account ownership and are part of our data security measures. Thank you.',
+        icon: 'info',
+        showCancelButton: false,
+        confirmButtonText: 'Signature Message',
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          // Proceed with signing the message
+          const challengeData = await getChallengeData(accountId);
+          const signResponse = await wallet.signMessage({
             message: challengeData.message,
-            signature: signResponse.signature,
-          }),
+            nonce: Buffer.from(challengeData.challange, "base64"),
+            recipient: accountId,
+          });
+  
+          /**
+           * Step 5: Send the signed data to backend and receive the token
+           */
+          const verifyResponse = await fetch(
+            `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/signup`,
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                accountId,
+                publicKey: signResponse.publicKey,
+                challenge: challengeData.challange,
+                message: challengeData.message,
+                signature: signResponse.signature,
+              }),
+            }
+          );
+  
+          if (verifyResponse.status === 201) {
+            const verifyData = await verifyResponse.json();
+            Swal.fire({
+              icon: "success",
+              title: "Success",
+              text: "Login successful!",
+            });
+  
+            const jwtToken = verifyData.data.authenticate.token;
+            setAuthData("jwtToken", jwtToken);
+  
+            // This Flag For Show Course Intro, When First Show Home Page After Connect
+            if (verifyData.data.signUpUserData.flags.first_request_approved_courses == false) {
+              setCookie("firstShowingOfHome", false);
+            }
+  
+            /**
+             * Step 6: Navigate user based on login state
+             */
+            if (verifyData.data.signUpUserData.flags.new_user == true) {
+              router.push("/wizard");
+            } else {
+              setButtonText("Connected");
+              router.refresh();
+            }
+  
+            modal.hide();
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Error",
+              text: "Login failed.",
+            });
+          }
         }
-      );
-
-      if (verifyResponse.status === 201) {
-        const verifyData = await verifyResponse.json();
-        Swal.fire({
-          icon: "success",
-          title: "Success",
-          text: "Login successful!",
-        });
-
-        const jwtToken = verifyData.data.authenticate.token;
-        setAuthData("jwtToken", jwtToken);
-
-        // This Flag For Show Course Intro, When First Show Home Page After Connect
-        // In Step 1 Add False Value, In Wizard Update To True And Show Course Intro After Exit To Home
-        if (verifyData.data.signUpUserData.flags.first_request_approved_courses == false) {
-          setCookie("firstShowingOfHome", false);
-        }
-
-        /**
-         * Step 6: Navigate user based on login state
-         */
-        if (verifyData.data.signUpUserData.flags.new_user == true) {
-          router.push("/wizard");
-        } else {
-          setButtonText("Connected");
-          router.refresh();
-        }
-
-        modal.hide();
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: "Login failed.",
-        });
-      }
+      });
     } catch (error: any) {
       console.error("Login error:", error.message);
     }
   };
+  
 
   const handleNearLogout = async () => {
     try {
