@@ -4,9 +4,11 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import { QAResponse } from "@/interfaces/api";
+import { useTranslations } from "next-intl";
 
 export const useQA = (courseId: string, lessonId: string, qaId: string, data: QAResponse | null ) => {
   const route = useRouter();
+  const translate = useTranslations("messages");
   const [formInput, setFormInput] = useState<QA>({
     description: "",
     options: [],
@@ -15,8 +17,7 @@ export const useQA = (courseId: string, lessonId: string, qaId: string, data: QA
   /**
    * send data to backend
    */
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
 
     const hasCorrectAnswer = formInput.options.some(
       (option) => option.is_correct === true
@@ -25,8 +26,8 @@ export const useQA = (courseId: string, lessonId: string, qaId: string, data: QA
     if (!hasCorrectAnswer) {
       Swal.fire({
         icon: "warning",
-        title: "Warning",
-        text: "Please select at least one correct answer before submitting.",
+        title: translate("Warning"),
+        text: translate("Please select at least one correct answer before submitting"),
       });
       return;
     }
@@ -43,21 +44,24 @@ export const useQA = (courseId: string, lessonId: string, qaId: string, data: QA
 
     try {
       const create = await createQA(updatedFormInput, courseId, lessonId);
+
+      if ("error" in create) {
+        throw create;
+      }
+
       if (create) {
         Swal.fire({
           icon: "success",
-          title: "Success",
-          text: "QA Created successfully!",
+          title: translate("Success"),
+          text: translate("QA Created successfully!"),
         });
         route.push(`/lesson/${courseId}/${lessonId}`);
       }
-    } catch (error) {
-      const msgError = error instanceof Error && typeof (error.cause as any).message === "string" ?
-      (error.cause as any).message : error;
+    } catch (error: any) {
       Swal.fire({
         icon: "error",
-        title: "Error",
-        text: `There was an error created QA.${msgError}`,
+        title: translate("Error"),
+        text: `${translate("There was an error created QA")}.${error.message}`,
       });
     }
   };
@@ -65,9 +69,7 @@ export const useQA = (courseId: string, lessonId: string, qaId: string, data: QA
   /**
    * update QA data and send backend
    */
-  const handleUpdate = async (e: any) => {
-    e.preventDefault();
-
+  const handleUpdate = async () => {
     const hasCorrectAnswer = formInput.options.some(
       (option) => option.is_correct === true
     );
@@ -75,8 +77,8 @@ export const useQA = (courseId: string, lessonId: string, qaId: string, data: QA
     if (!hasCorrectAnswer) {
       Swal.fire({
         icon: "warning",
-        title: "Warning",
-        text: "Please select at least one correct answer before submitting.",
+        title: translate("Warning"),
+        text: translate("Please select at least one correct answer before submitting"),
       });
       return;
     }
@@ -84,7 +86,7 @@ export const useQA = (courseId: string, lessonId: string, qaId: string, data: QA
     //extract question_id from array options (answer)
     const optionsWithoutId = formInput.options.map(
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      ({ question_id, ...rest }) => rest
+      ({ question_id, created_at, updated_at, ...rest }) => rest
     );
     
     //Prepare the sent data without index 0,1,2....etc from array options (answer)
@@ -92,21 +94,27 @@ export const useQA = (courseId: string, lessonId: string, qaId: string, data: QA
       description: formInput.description,
       options: optionsWithoutId,
     };
+    
     try {
       const update = await updateQA(updatedFormInput, courseId, lessonId, qaId);
+
+      if ("error" in update) {
+        throw update;
+      }
+
       if (update) {
         Swal.fire({
           icon: "success",
-          title: "Success",
-          text: "QA Updated successfully!",
+          title: translate("Success"),
+          text: translate("QA Updated successfully!"),
         });
       }
-    } catch (error) {
-      console.error("Error updating QA:", error);
+    } catch (error: any) {
+      console.error("Error updating QA:", error.message);
       Swal.fire({
         icon: "error",
-        title: "Error",
-        text: "There was an error update QA.",
+        title: translate("Error"),
+        text: translate("Warning"),
       });
     }
   };

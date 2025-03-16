@@ -38,7 +38,15 @@
 .courseCardRightSection {
   width: 25%;
   position: relative;
-  top: -40px;
+  top: -10px;
+}
+
+.courseCardRightSection h4 {
+  max-height: 120px;
+}
+
+.courseCardRightSection h6 {
+  max-height: 77px;
 }
 
 .courseLogoInner {
@@ -100,7 +108,7 @@
 
 .studentCount img {
   position: relative;
-  margin-right: 5px;
+  margin-inline-end: 5px;
   top: -5px;
 }
 
@@ -147,6 +155,16 @@
   .courseCardRightSection {
     width: 100%;
     margin-top: 50px;
+  }
+
+  .courseCardRightSection h4 {
+    height: 60px;
+    overflow: hidden;
+  }
+
+  .courseCardRightSection h6 {
+    height: 42px;
+    overflow: hidden;
   }
 }
 

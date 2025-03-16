@@ -31,6 +31,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: white !important;
+  height: fit-content;
 }
 
 .WizardContent .Content {
@@ -47,12 +49,25 @@
 }
 
 .checkbox + .label {
-  margin-left: 10px;
+  margin-inline-start: 10px;
   color: #212529;
 }
 
-.formDiv {
-  height: 50vh;
+.formDivStep2 {
+  height: 40vh;
+}
+
+.formDiv2 {
+  height: 60vh;
+}
+
+.checkBoxContainer {
+  display: flex;
+  align-items: baseline;
+}
+
+.checkBoxContainer:last-of-type {
+  margin-top: 0px !important;
 }
 
 .stepTitle {

@@ -3,11 +3,10 @@ import { MouseEventHandler, useState } from "react";
 import { BsXLg } from "react-icons/bs";
 import styles from "./MobileMenu.module.css";
 import logo from "@/assets/images/brand/Logo/Without-BG/Logo-5.png";
-import data from "@/assets/data/menu/menuDataMobile";
 import Image from "next/image";
 import Link from "next/link";
-import { Url } from "next/dist/shared/lib/router/router";
-import { useWallet } from "@/auth/nearAuth";
+import { useTranslations } from "next-intl";
+import { useHeader } from "@/hooks/useHeader";
 
 const MobileMenu = ({
   mobileMenuhandle,
@@ -15,7 +14,8 @@ const MobileMenu = ({
   mobileMenuhandle: MouseEventHandler<HTMLButtonElement>;
 }) => {
   const [menuId, setMenuId] = useState<string>("");
-  const { handleNearLogout } = useWallet();
+  const { mobileData, handleMenuClick } = useHeader(setMenuId);
+  const translate = useTranslations("Header");
 
   return (
     <div className={styles.gamfiMobileMenu}>
@@ -38,22 +38,65 @@ const MobileMenu = ({
         </div>
         <div className={styles.gamfiMobileMenuList}>
           <ul>
-            {data?.map((menu, i) => (
+            {mobileData?.map((menu, i) => (
               <li
                 key={i}
-                className={`${
-                  menu.subMenus && menu.subMenus?.length > 0
-                    ? styles.hasSubMenu
-                    : ""
-                } ${menuId === menu.id ? styles.expandSubMenu : ""}`}
-                onClick={() => setMenuId(menu.id)}
+                className={`${menuId === menu.id ? styles.expandSubMenu : ""}`}
               >
-                {menu.action ? (
-                  <div className={styles.btnHeader} onClick={handleNearLogout}>
-                    {menu.title}
-                  </div>
-                ) : (
-                  <Link href={menu.url as Url}>{menu.title}</Link>
+                <div className={styles.btnHeader}>
+                  {menu.action ? (
+                    <div onClick={menu.onClick}>{translate(menu.title)}</div>
+                  ) : menu.subMenus && menu.subMenus.length > 0 ? (
+                    <div className={styles.btnHasChild}
+                      onClick={() =>
+                        setMenuId((prevId) =>
+                          prevId === menu.id ? "" : menu.id
+                        )
+                      }
+                    >
+                      <div>{translate(menu.title)}</div>
+                      <div>
+                        {menu.subMenus && menu.subMenus.length > 0
+                          ? menuId === menu.id
+                            ? "-"
+                            : "+"
+                          : ""}
+                      </div>
+                    </div>
+                  ) : (
+                    <div
+                      onClick={(e) =>
+                        handleMenuClick(e, menu.url, menu.isNeedAuth)
+                      }
+                    >
+                      {translate(menu.title)}
+                    </div>
+                  )}
+                </div>
+                {menu.subMenus && menu.subMenus.length > 0 && (
+                  <ul className={styles.subMenuList}>
+                    {menu.subMenus?.map((subMenu, i) => (
+                      <li key={i}>
+                        {subMenu.action ? (
+                          <div onClick={subMenu.onClick}>
+                            {translate(subMenu.title)}
+                          </div>
+                        ) : (
+                          <div
+                            onClick={(e) =>
+                              handleMenuClick(
+                                e,
+                                subMenu.url,
+                                subMenu.isNeedAuth
+                              )
+                            }
+                          >
+                            {translate(subMenu.title)}
+                          </div>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
                 )}
               </li>
             ))}

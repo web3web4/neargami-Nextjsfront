@@ -9,10 +9,9 @@ import { setupMeteorWallet } from "@near-wallet-selector/meteor-wallet";
 import Swal from "sweetalert2";
 import { getAccountKeys, getChallengeData } from "./nearAuthVerfication";
 import { useAuth } from "../context/authContext";
-import { deleteCookie, getCookie } from "cookies-next";
-import {IWalletContextType} from "../interfaces/auth";
-import { useRouter } from 'next/navigation'
-
+import { deleteCookie, setCookie } from "cookies-next";
+import { IWalletContextType } from "../interfaces/auth";
+import { useRouter } from "next/navigation";
 
 const WalletContext = createContext<IWalletContextType | undefined>(undefined);
 
@@ -56,17 +55,15 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
   const { setAuthData } = useAuth();
   const router = useRouter();
 
-  const handleNearLogin = async (
-    setButtonText:any,
-  ) => {
+  const handleNearLogin = async (setButtonText: any) => {
     try {
       /**
        * Step 1: Setting up Wallet Selector and showing the modal
        */
       const selector = await getSelector();
 
-      const modal = setupModal(selector,{
-        contractId: ""
+      const modal = setupModal(selector, {
+        contractId: "",
       });
       modal.show();
       appendPrivacyPolicyText();
@@ -78,9 +75,8 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
       const stopWaitingForWallet = false;
       modal.on("onHide", () => {
         console.log("Modal closed, re-opening...");
-        modal.show(); 
+        modal.show();
       });
-      
 
       const wallet = await retryUntilSuccess(
         async () => await selector.wallet(),
@@ -96,7 +92,6 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
         });
         return;
       }
-      
 
       setButtonText("Processing");
 
@@ -105,10 +100,15 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
 
       // Step 2.1: Verify if the account is registered on NEAR Network
       const networkId = selector.options.network.networkId;
-      const keysRegisteredOnChain = await getAccountKeys({ accountId }, networkId);
+      const keysRegisteredOnChain = await getAccountKeys(
+        { accountId },
+        networkId
+      );
       if (keysRegisteredOnChain?.result?.keys?.length === 0) {
-        setButtonText('Connect');
-        selector.on('accountsChanged', () => { console.log('account changed'); });
+        setButtonText("Connect");
+        selector.on("accountsChanged", () => {
+          console.log("account changed");
+        });
         Swal.fire({
           icon: "error",
           title: "Error",
@@ -118,8 +118,10 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
           <br /> \
           Hint: you may use <b>Meteor Wallet</b> to get an account easily on testnet.`,
         });
-  
-        throw new Error("You cannot use an account before registering it on the NEAR Network");
+
+        throw new Error(
+          "You cannot use an account before registering it on the NEAR Network"
+        );
       }
 
       if (!accountId) throw new Error("No account found in wallet");
@@ -127,9 +129,8 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
       /**
        * Step 3: Save initial state to cookies for the user
        */
+
       setAuthData("nearSignature", accountId);
-      setAuthData("firstLogin", "true");
-      setAuthData("firstShowingOfHome", "true");
 
       /**
        * Step 4: Get challenge data from backend and sign the message
@@ -170,14 +171,20 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
         const jwtToken = verifyData.data.authenticate.token;
         setAuthData("jwtToken", jwtToken);
 
+        // This Flag For Show Course Intro, When First Show Home Page After Connect
+        // In Step 1 Add False Value, In Wizard Update To True And Show Course Intro After Exit To Home
+        if (verifyData.data.signUpUserData.flags.first_request_approved_courses == false) {
+          setCookie("firstShowingOfHome", false);
+        }
+
         /**
          * Step 6: Navigate user based on login state
          */
-        if (getCookie("firstLogin") === "true") {
+        if (verifyData.data.signUpUserData.flags.new_user == true) {
           router.push("/wizard");
         } else {
           setButtonText("Connected");
-          router.push("/");
+          router.refresh();
         }
 
         modal.hide();
@@ -188,7 +195,7 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
           text: "Login failed.",
         });
       }
-    } catch (error:any) {
+    } catch (error: any) {
       console.error("Login error:", error.message);
     }
   };
@@ -210,14 +217,12 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
        */
       setAuthData("nearSignature", null);
       deleteCookie("jwtToken");
-      setAuthData("firstLogin", false);
-      setAuthData("firstShowingOfHome", false);
 
       /**
        * Step 3: Redirect to homepage
        */
       window.location.replace("/");
-    } catch (error:any) {
+    } catch (error: any) {
       console.error("Logout error:", error.message);
     }
   };
@@ -231,7 +236,8 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
 
 export const useWallet = () => {
   const context = useContext(WalletContext);
-  if (!context) throw new Error("useWallet must be used within a WalletProvider");
+  if (!context)
+    throw new Error("useWallet must be used within a WalletProvider");
   return context;
 };
 
@@ -253,9 +259,9 @@ export async function retryUntilSuccess(
     try {
       console.log(`Attempting function execution: ${attempts + 1}`);
       return await fn();
-    } catch (error:any) {
+    } catch (error: any) {
       attempts++;
-      console.log(error.message)
+      console.log(error.message);
       if (attempts >= maxAttempts) {
         throw new Error("Max attempts reached.");
       }
@@ -263,6 +269,3 @@ export async function retryUntilSuccess(
     }
   }
 }
-
-  
-

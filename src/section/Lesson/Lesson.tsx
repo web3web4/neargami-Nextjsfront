@@ -6,6 +6,7 @@ import ListManager from "@/components/listManager/ListManager";
 import RichBoxQuill from "@/components/richBoxQuill/RichBoxQuill";
 import { LessonResponse } from "@/interfaces/api";
 import { useLesson } from "@/hooks/useLesson";
+import { useTranslations } from "next-intl";
 
 export default function Lesson({
   courseId,
@@ -25,6 +26,7 @@ export default function Lesson({
     handleInputChange,
     handleOnChangeDescription,
   } = useLesson(courseId, lessonId, data);
+  const translate = useTranslations("Lesson");
 
   return (
     <div className={styles.lessonWrapper}>
@@ -33,55 +35,55 @@ export default function Lesson({
           <form>
             <div className={styles.editLesson}>
               <div className={styles.leftContent}>
-                <h4 className="mb-3">Main Info</h4>
+                <h4 className="mb-3">{translate("Main Info")}</h4>
                 <div>
-                  <h6>Lesson Name</h6>
+                  <h6>{translate("Lesson Name")}</h6>
                   <input
                     type="text"
                     name="title"
-                    placeholder="Enter your lesson name"
+                    placeholder={translate("Enter your lesson name")}
                     value={formInput.title}
                     onChange={handleInputChange}
                   />
                 </div>
                 <div>
-                  <h6>Discription</h6>
+                  <h6>{translate("Discription")}</h6>
                   <div className={styles.discriptionQuill}>
                     <RichBoxQuill
-                      placeholder="Enter discription talking about this lesson"
+                      placeholder={translate("Enter discription talking about this lesson")}
                       value={formInput.description}
                       onChange={(val) => handleOnChangeDescription(val)}
                     />
                   </div>
                 </div>
                 <div>
-                  <h6>Pre Lesson Note</h6>
+                  <h6>{translate("Pre Lesson Note")}</h6>
                   <input
                     type="text"
                     name="pre_note"
-                    placeholder="Enter pre note"
+                    placeholder={translate("Enter pre note")}
                     value={formInput.pre_note}
                     onChange={handleInputChange}
                   />
                 </div>
 
                 <div>
-                  <h6>After Lesson Note</h6>
+                  <h6>{translate("After Lesson Note")}</h6>
                   <input
                     type="text"
                     name="next_note"
-                    placeholder="Enter next note"
+                    placeholder={translate("Enter next note")}
                     value={formInput.next_note}
                     onChange={handleInputChange}
                   />
                 </div>
 
                 <div>
-                  <h6>Lesson arrangement</h6>
+                  <h6>{translate("Lesson arrangement")}</h6>
                   <input
                     type="number"
                     name="order"
-                    placeholder="Lesson arrangement"
+                    placeholder={translate("Lesson arrangement")}
                     value={formInput.order}
                     onChange={handleInputChange}
                   />
@@ -93,14 +95,14 @@ export default function Lesson({
                     size="lg"
                     onClick={Number(lessonId) ? handleUpdate : handleSubmit}
                   >
-                    Save And Publish
+                    {translate("Save And Publish")}
                   </Button>
                 </div>
               </div>
 
               {showQA && (
                 <div className={styles.rightContent}>
-                  <h4 className="mb-3">Add Q/A</h4>
+                  <h4 className="mb-3">{translate("Add Q/A")}</h4>
                   <select
                     id="qa-type"
                     name="qa-type"
@@ -108,10 +110,10 @@ export default function Lesson({
                     onChange={handleSelectChange}
                   >
                     <option value="Choose Q/A Type" disabled>
-                      Choose Q/A Type
+                    {translate("Choose Q/A Type")}
                     </option>
-                    <option value="Multiple-choice questions">
-                      + Multiple-choice questions
+                    <option value={translate("Multiple-choice questions")}>
+                    {translate("Multiple-choice questions")}
                     </option>
                   </select>
                   <div>

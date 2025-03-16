@@ -7,6 +7,8 @@ import correctIcon from "@/assets/images/icons/correct.png";
 import unCorrectIcon from "@/assets/images/icons/unCorrect.png";
 import Image from "next/image";
 import { QAResponse } from "@/interfaces/api";
+import { useTranslations } from "next-intl";
+import Button from "@/components/button/Button";
 
 interface QuizContentProps {
   courseId: string;
@@ -30,6 +32,8 @@ export default function QuestionContent({
     handleCheckAnswers,
     handleNextQuestion,
   } = useQuizContent(courseId, lectureId, data);
+  const translate = useTranslations("Quiz");
+
   return (
     <div className={styles.contentRight}>
       {/* Start Title */}
@@ -41,7 +45,7 @@ export default function QuestionContent({
       {/* End Title */}
       {/* Start Progress */}
       <div className={styles.progreess}>
-        <h6>Progress</h6>
+        <h6>{translate("Progress")}</h6>
         <ProgressBar
           progress={`${
             (currentQuestionSequence / sortedQuestions.length) * 100
@@ -58,15 +62,15 @@ export default function QuestionContent({
           {isCorrect ? (
             <h4 style={{ color: "var(--green-color)", width: "100%" }}>
               <Image src={correctIcon} width={30} alt="" />
-              Correct
+              {translate("Correct Answer")}
             </h4>
           ) : (
             <div>
               <h5 style={{ color: "#ff4747", width: "100%" }}>
                 <Image src={unCorrectIcon} width={30} alt="" />
-                Incorrect Answer
+                {translate("Incorrect Answer")}
               </h5>
-              <h6>Correct Answers:</h6>
+              <h6>{translate("Correct Answers:")}</h6>
               <ul>
                 {answers?.correctAnswers
                   ?.filter((answer) => answer.is_correct)
@@ -113,9 +117,13 @@ export default function QuestionContent({
       {/* Start Check Button */}
       {isCorrect === null && (
         <div className={styles.checkBtnContainer}>
-          <button className={styles.checkBtn} onClick={handleCheckAnswers}>
-            Check
-          </button>
+          <Button
+            className={styles.checkBtn}
+            size="xs"
+            onClick={handleCheckAnswers}
+          >
+            {translate("Check")}
+          </Button>
         </div>
       )}
 
@@ -138,8 +146,8 @@ export default function QuestionContent({
         >
           <h4 style={{ marginBottom: "0px" }}>
             {currentQuestionSequence === sortedQuestions.length
-              ? "Finish Lesson"
-              : "Next Question"}
+              ? translate("Finish Lesson")
+              : translate("Next Question")}
           </h4>
         </button>
       </div>

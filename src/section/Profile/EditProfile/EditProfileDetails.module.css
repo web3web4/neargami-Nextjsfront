@@ -18,20 +18,20 @@
 
 .container {
   width: 100%;
-    padding-right: var(--bs-gutter-x, .75rem);
-    padding-left: var(--bs-gutter-x, .75rem);
-    margin-right: auto;
-    margin-left: auto;
+  padding-right: var(--bs-gutter-x, 0.75rem);
+  padding-left: var(--bs-gutter-x, 0.75rem);
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .row {
   --bs-gutter-x: 1.5rem;
-    --bs-gutter-y: 0;
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: calc(var(--bs-gutter-y)* -1);
-    margin-right: calc(var(--bs-gutter-x)* -.5);
-    margin-left: calc(var(--bs-gutter-x)* -.5);
+  --bs-gutter-y: 0;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: calc(var(--bs-gutter-y) * -1);
+  margin-right: calc(var(--bs-gutter-x) * -0.5);
+  margin-left: calc(var(--bs-gutter-x) * -0.5);
 }
 
 .leftContentButt {
@@ -101,7 +101,7 @@
 .formControl {
   display: block;
   width: 100%;
-  padding: .375rem .75rem;
+  padding: 0.375rem 0.75rem;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -110,49 +110,77 @@
   background-clip: padding-box;
   border: 1px solid #ced4da;
   appearance: none;
-  border-radius: .25rem;
-  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 .selector {
   margin-top: 5px;
+  margin-bottom: 15px !important;
 }
 
-.cssControl {
-  height: 48px;
-}
-
-.cssControlWide {
-  width: 90%;
-  background: #090b1a;
-  border: 2px solid rgba(255, 255, 255, 0.15);
-}
-
-.reactSelectPlaceholder {
-  margin-bottom: 10px;
-  margin-left: 10px;
-}
-
-.cssMenu {
-  width: 90%;
-}
-
-.img {
-  margin-right: 3px;
+.rightContentSection2 img {
+  margin-inline-end: 3px;
   position: relative;
   top: -5px;
 }
 
 .h6 {
-  margin-left: 10px;
+  margin-inline-start: 10px;
 }
 
 .btu {
-  margin-left: 300px;
+  margin-inline-start: 330px;
+  margin-top: 25px;
 }
 
-.btnFile {
-  color: red;
+.EditProfileDetailsStyleWrapper :global(.css-1iinogm-singleValue) {
+  margin-left: 10px;
+}
+
+.EditProfileDetailsStyleWrapper :global(.css-hlgwow input[type="text"]) {
+  height: 34px;
+}
+
+.EditProfileDetailsStyleWrapper :global(.css-5736gi-menu) {
+  width: 90%;
+}
+
+.EditProfileDetailsStyleWrapper :global(.css-qdv3v5-placeholder) {
+  margin-left: 10px;
+}
+
+.EditProfileDetailsStyleWrapper :global(.css-1u9des2-indicatorSeparator) {
+  height: 30px;
+  margin-top: 7px !important;
+}
+
+.separator {
+  width: 80%;
+  height: 2px;
+  background-color: rgba(255, 255, 255, 0.15);
+  margin: 25px auto;
+}
+
+.webSiteLanguage {
+  width: inherit;
+  margin-inline-start: 330px;
+  padding: 12px;
+}
+
+.checkBoxContainer {
+  margin-top: 40px;
+}
+
+.checkBoxContainer input{
+  width: 18px;
+  height: 18px;
+  position: relative;
+  top: 3px;
+}
+
+.checkBoxContainer label {
+  margin-inline-start: 10px;
 }
 
 @media only screen and (max-width: 999px) {
@@ -165,7 +193,11 @@
   }
 
   .btu {
-    margin-left: 0;
+    margin-inline-start: 0;
+  }
+
+  .webSiteLanguage {
+    margin-inline-start: 0px;
   }
 
   .leftContent {
@@ -179,6 +211,7 @@
     margin-bottom: 40px;
     margin-right: 50px;
   }
+
   .h4 {
     margin-top: 40px;
   }
@@ -188,23 +221,47 @@
   .rightContent {
     flex-direction: column;
   }
+
+  .rightContentSection2 {
+    margin-top: 15px;
+  }
+
+  .checkBoxContainer {
+    margin-top: 10px !important;
+  }
 }
 
 @media only screen and (max-width: 480px) {
   .input {
     width: 100%;
   }
+
   .leftContent {
     flex-direction: column;
     width: 100vw;
   }
+
   .leftContentThumb {
     margin-right: 0px;
   }
-  .cssControlWide {
+
+  .EditProfileDetailsStyleWrapper :global(.css-5736gi-menu) {
     width: 100%;
   }
-  .cssMenu {
+
+  .EditProfileDetailsStyleWrapper :global(.css-rrhtqz-control) {
     width: 100%;
+  }
+
+  .EditProfileDetailsStyleWrapper :global(.css-19nvztv-control) {
+    width: 100%;
+  }
+
+  .rightContent {
+    margin-top: 25px;
+  }
+
+  .rightContentSection2 {
+    margin-top: 15px;
   }
 }

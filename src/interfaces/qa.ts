@@ -7,5 +7,6 @@ export interface Options{
     id: number,
     description: string,
     is_correct: boolean,
-    question_id: number
+    question_id: number,
+    [key: string]: any
 }

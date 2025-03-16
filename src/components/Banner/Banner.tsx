@@ -1,8 +1,11 @@
 import Image from "next/image";
 import styles from "./Banner.module.css";
 import bannerIcon from "@/assets/images/brand/Logo/Without-BG/Logo-6.png";
+import { useTranslations } from "next-intl";
 
 const Banner = () => {
+  const translate = useTranslations("Banner");
+
   return (
     <div className={styles.bannerWrapper}>
       <div className="container">
@@ -16,14 +19,14 @@ const Banner = () => {
             loading="eager"
           />
           <h1 className={styles.bannerTitle}>
-            Gamified e-learning platform
+            {translate("Gamified e-learning platform")}
             <br />
           </h1>
           <div className={styles.description}>
-            focusing on NEAR and blockchain agnostic technologies
+            {translate("focusing on NEAR and blockchain agnostic technologies")}
           </div>
           <div className={styles.description}>
-            Play to learn & learn to earn
+            {translate("Play to learn & learn to earn")}
           </div>
         </div>
       </div>

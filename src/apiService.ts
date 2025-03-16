@@ -1,25 +1,39 @@
-'use server';
+"use server";
 
-import {authFetch, isTokenValidServer } from "./utils/authFetch";
+import { authFetch, isTokenValidServer } from "./utils/authFetch";
 import { jwtDecode } from "jwt-decode";
-import {UserProfileData , CourseData , ApiResponse ,UserProfileResponse , CoursesResponse , LessonData, LessonResponse, QAResponse, QAData, CheckAnswerResponse, NgcResponse, UploadFileResponse} from "@/interfaces/api";
+import {
+  UserProfileData,
+  CourseData,
+  ApiResponse,
+  UserProfileResponse,
+  CoursesResponse,
+  LessonData,
+  LessonResponse,
+  QAResponse,
+  QAData,
+  CheckAnswerResponse,
+  NgcResponse,
+  UploadFileResponse,
+  DataPopup,
+  PlayersData,
+} from "@/interfaces/api";
 import { cookies } from "next/headers";
 import { dataUrlToBlob } from "./utils/dataUrlToBlob";
 import { CourseInProgress } from "./interfaces/course";
 
-
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
- /**
+/**
  * this for extract user id from token by jwt-decode library
  * @returns userId from token
  */
-export const getUserIdFromToken = async(): Promise<string | null> => {
+export const getUserIdFromToken = async (): Promise<string | null> => {
   const cookieStore = cookies();
-  const jwtToken = (await cookieStore).get("jwtToken")?.value; 
-if (!jwtToken) {
+  const jwtToken = (await cookieStore).get("jwtToken")?.value;
+  if (!jwtToken) {
     console.error("Token is missing. User may not be logged in.");
-   return null;
+    return null;
   }
 
   try {
@@ -31,18 +45,17 @@ if (!jwtToken) {
   }
 };
 /**
- * 
- * @param callback 
- * @returns 
+ *
+ * @param callback
+ * @returns
  */
-const validateTokenAndProceed = async ( callback: () => Promise<any>) => {
+const validateTokenAndProceed = async (callback: () => Promise<any>) => {
   const isValid = await isTokenValidServer(true);
   if (!isValid) {
     return;
   }
   return callback();
 };
-
 
 /**
  * this methode work with responce Contains data and message
@@ -51,10 +64,19 @@ const validateTokenAndProceed = async ( callback: () => Promise<any>) => {
  * @returns response.data
  */
 
-const handleResponse = <T>(response: ApiResponse<T>, expectedMessage: string): T => {
-  console.log("Response:", response);
+const handleResponse = <T>(
+  response: ApiResponse<T>,
+  expectedMessage: string
+): T => {
   
-  if (response.message !== expectedMessage) {
+  if ("error" in response) {
+    return response as T;
+  }
+
+  if (
+    response.message !== expectedMessage &&
+    !response.message.includes(expectedMessage)
+  ) {
     throw new Error(`Unexpected server response: ${response.message}`);
   }
 
@@ -72,10 +94,13 @@ const handleResponse = <T>(response: ApiResponse<T>, expectedMessage: string): T
  * @returns responce object without arg data
  */
 
-const handleResponseWithoutData = (response: any, expectedMessage?: string): any => {
+const handleResponseWithoutData = (
+  response: any,
+  expectedMessage?: string
+): any => {
   console.log("Response2:", response);
 
-  if (expectedMessage && response.message !== expectedMessage){
+  if (expectedMessage && response.message !== expectedMessage) {
     throw new Error(`Unexpected server response: ${response.message}`);
   }
 
@@ -86,30 +111,33 @@ const handleResponseWithoutData = (response: any, expectedMessage?: string): any
   return response;
 };
 
-
 /**
  * this function for update profile and wizard
  * @param userData This parameter holds the data that will be transferred to the back end.
  * @method isTokenValid To verify the current session
  * @returns data from backend
  */
-export const updateUserProfile = async (userData: UserProfileData): Promise<UserProfileResponse> => {
+export const updateUserProfile = async (
+  userData: UserProfileData
+): Promise<UserProfileResponse> => {
   return validateTokenAndProceed(async () => {
     const userId = await getUserIdFromToken();
     if (!userId) throw new Error("User ID is missing");
 
-    const response = await authFetch<ApiResponse<UserProfileResponse>>(`${API_BASE_URL}/users/${userId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userData),
-    });
+    const response = await authFetch<ApiResponse<UserProfileResponse>>(
+      `${API_BASE_URL}/users/${userId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      }
+    );
 
     return handleResponseWithoutData(response);
   });
 };
-
 
 /**
  * this function for get profile By id
@@ -117,22 +145,49 @@ export const updateUserProfile = async (userData: UserProfileData): Promise<User
  * @method isTokenValid To verify the current session
  * @returns data from backend
  */
-export const getUserProfile = async (playerId?: string | null): Promise<UserProfileResponse> => {
-  return validateTokenAndProceed(async () => {
-    const userId = playerId || await getUserIdFromToken();
-    if (!userId) throw new Error("User ID is missing");
+export const getUserProfile = async (
+  playerId?: string | null
+): Promise<UserProfileResponse> => {
+  const userId = playerId || (await getUserIdFromToken());
+  if (!userId) throw new Error("User ID is missing");
 
-    const response = await authFetch<ApiResponse<UserProfileResponse>>(`${API_BASE_URL}/users/${userId}`, {
+  const response = await authFetch<ApiResponse<UserProfileResponse>>(
+    `${API_BASE_URL}/users/${userId}`,
+    {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
-    });
+    }
+  );
 
-    return handleResponse(response, "find one user");
-  });
+  return handleResponse(response, "find one user");
 };
 
+/**
+ * this function for get profile By id
+ * @param userId This parameter for user id.
+ * @method isTokenValid To verify the current session
+ * @returns data from backend
+ */
+export const getUserProfileByUsername = async (
+  username?: string | null
+): Promise<UserProfileResponse> => {
+  if (username) {
+    const response = await authFetch<ApiResponse<UserProfileResponse>>(
+      `${API_BASE_URL}/users/username/${username}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return handleResponse(response, "User fetched successfully");
+  } else {
+    return await getUserProfile(null);
+  }
+};
 
 /**
  * this function for get all Course
@@ -144,17 +199,65 @@ export const getAllCoursesForTeacher = async (): Promise<CoursesResponse[]> => {
     const userId = await getUserIdFromToken();
     if (!userId) throw new Error("User ID is missing");
 
-    const response = await authFetch<ApiResponse<CoursesResponse[]>>(`${API_BASE_URL}/courses/teacher/${userId}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await authFetch<ApiResponse<CoursesResponse[]>>(
+      `${API_BASE_URL}/courses/teacher/${userId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     return handleResponse(response, "findAll");
   });
 };
 
+/**
+ * this function for get all Course
+ * @method isTokenValid To verify the current session
+ * @returns data from backend
+ */
+export const getProfileCourses = async (
+  userId: string
+): Promise<CoursesResponse[]> => {
+  if (!userId) throw new Error("User ID is missing");
+
+  const response = await authFetch<ApiResponse<CoursesResponse[]>>(
+    `${API_BASE_URL}/courses/teacher/${userId}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  return handleResponse(response, "findAll");
+};
+
+/**
+ * this function for get all Course
+ * @method isTokenValid To verify the current session
+ * @returns data from backend
+ */
+export const getProfileCoursesByUsername = async (
+  username: string
+): Promise<CoursesResponse[]> => {
+  if (!username) throw new Error("username is missing");
+
+  const response = await authFetch<ApiResponse<CoursesResponse[]>>(
+    `${API_BASE_URL}/courses/teacher/username/${username}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  return handleResponse(response, "findAll");
+};
 
 /**
  * this function for get all Course by status for Admin
@@ -164,56 +267,8 @@ export const getAllCoursesForTeacher = async (): Promise<CoursesResponse[]> => {
 
 export const getAllCourseByStatus = async (): Promise<CoursesResponse[]> => {
   return validateTokenAndProceed(async () => {
-    const response = await authFetch<ApiResponse<CoursesResponse[]>>(`${API_BASE_URL}/courses/status/ALL`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    return handleResponse(response, "findAll");
-  });
-};
-
-
- /**
-  * this function for status updated Course from Admin
-  * @param courseData This parameter holds the data that will be transferred to the back end.
-  * @param courseId this parameter for course id.
-  * @method isTokenValid To verify the current session
-  * @returns data from backend
-  */
-  export const updateCourseStatus = async (
-    courseData: CourseData,
-    courseId: number
-  ): Promise<CoursesResponse> => {
-    return validateTokenAndProceed(async () => {
-      const response = await authFetch<ApiResponse<CoursesResponse>>(
-        `${API_BASE_URL}/courses/status/${courseId}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(courseData),
-        }
-      );
-
-      return handleResponse(response, "status updated");
-    });
-  };
-
-
-/**
- * this function for get Course By Id
- * @param courseId this parameter for course id.
- * @method isTokenValid To verify the current session
- * @returns data from backend
- */
-export const getCourseById = async (courseId: string): Promise<CoursesResponse> => {
-  return validateTokenAndProceed(async () => {
-    const response = await authFetch<ApiResponse<CoursesResponse>>(
-      `${API_BASE_URL}/courses/${courseId}`,
+    const response = await authFetch<ApiResponse<CoursesResponse[]>>(
+      `${API_BASE_URL}/courses/status/ALL`,
       {
         method: "GET",
         headers: {
@@ -222,10 +277,60 @@ export const getCourseById = async (courseId: string): Promise<CoursesResponse> 
       }
     );
 
-    return handleResponse(response, "findOne");
+    return handleResponse(response, "findAll");
   });
 };
 
+/**
+ * this function for status updated Course from Admin
+ * @param courseData This parameter holds the data that will be transferred to the back end.
+ * @param courseId this parameter for course id.
+ * @method isTokenValid To verify the current session
+ * @returns data from backend
+ */
+export const updateCourseStatus = async (
+  courseData: CourseData,
+  courseId: number
+): Promise<CoursesResponse> => {
+  return validateTokenAndProceed(async () => {
+    const response = await authFetch<ApiResponse<CoursesResponse>>(
+      `${API_BASE_URL}/courses/status/${courseId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(courseData),
+      }
+    );
+
+    return handleResponse(response, "status updated");
+  });
+};
+
+/**
+ * this function for get Course By Id
+ * @param courseId this parameter for course id.
+ * @method isTokenValid To verify the current session
+ * @returns data from backend
+ */
+export const getCourseBySlug = async (
+  courseSlug: string
+): Promise<CoursesResponse> => {
+  return validateTokenAndProceed(async () => {
+    const response = await authFetch<ApiResponse<CoursesResponse>>(
+      `${API_BASE_URL}/courses/${courseSlug}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    return handleResponse(response, "findAll");
+  });
+};
 
 /**
  * this function for create course
@@ -233,7 +338,9 @@ export const getCourseById = async (courseId: string): Promise<CoursesResponse> 
  * @method isTokenValid To verify the current session
  * @returns data from backend
  */
-export const createCourse = async (courseData: CourseData): Promise<CoursesResponse> => {
+export const createCourse = async (
+  courseData: CourseData
+): Promise<CoursesResponse> => {
   return validateTokenAndProceed(async () => {
     const response = await authFetch<ApiResponse<CoursesResponse>>(
       `${API_BASE_URL}/courses`,
@@ -249,7 +356,6 @@ export const createCourse = async (courseData: CourseData): Promise<CoursesRespo
     return handleResponse(response, "created");
   });
 };
-
 
 /**
  * this function for update course
@@ -278,7 +384,6 @@ export const updateCourse = async (
   });
 };
 
-
 /**
  * this function for create lesson
  * @param lessonData This parameter holds the data that will be transferred to the backend.
@@ -305,7 +410,6 @@ export const createLesson = async (
   });
 };
 
-
 /**
  * this function for update Lesson
  * @param lessonData This parameter holds the data that will be transferred to the backend.
@@ -315,9 +419,9 @@ export const createLesson = async (
  */
 
 export const updateLesson = async (
-   lessonData:LessonData,
-   courseId:string,
-   lessonId:string,
+  lessonData: LessonData,
+  courseId: string,
+  lessonId: string
 ): Promise<LessonResponse> => {
   return validateTokenAndProceed(async () => {
     const response = await authFetch<ApiResponse<LessonResponse>>(
@@ -342,19 +446,23 @@ export const updateLesson = async (
  * @returns data from backend
  */
 
-export const getAllLesson = async (courseId:string): Promise<LessonResponse> => {
+export const getAllLesson = async (
+  courseId: string
+): Promise<LessonResponse> => {
   return validateTokenAndProceed(async () => {
-    const response = await authFetch<ApiResponse<LessonResponse>>(`${API_BASE_URL}/course/${courseId}/lectures`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await authFetch<ApiResponse<LessonResponse>>(
+      `${API_BASE_URL}/course/${courseId}/lectures`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     return handleResponse(response, "findAll");
   });
 };
-
 
 /**
  * this function for get Lesson By Id
@@ -364,14 +472,20 @@ export const getAllLesson = async (courseId:string): Promise<LessonResponse> => 
  * @returns data from backend
  */
 
-export const getLessonById = async (courseId:string , lessonId:string): Promise<LessonResponse> => {
+export const getLessonById = async (
+  courseId: string,
+  lessonId: string
+): Promise<LessonResponse> => {
   return validateTokenAndProceed(async () => {
-    const response = await authFetch<ApiResponse<LessonResponse>>(`${API_BASE_URL}/course/${courseId}/lectures/${lessonId}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await authFetch<ApiResponse<LessonResponse>>(
+      `${API_BASE_URL}/course/${courseId}/lectures/${lessonId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     return handleResponse(response, "found");
   });
@@ -404,7 +518,6 @@ export const createQA = async (
   });
 };
 
-
 /**
  * this function for update QA
  * @param qaData This parameter holds the data that will be transferred to the backend.
@@ -412,28 +525,27 @@ export const createQA = async (
  * @method isTokenValid To verify the current session
  * @returns data from backend
  */
-  export const updateQA = async (
-    qaData: QAData,
-    courseId: string,
-    lessonId: string,
-    qaId: string
-  ): Promise<QAResponse> => {
-    return validateTokenAndProceed(async () => {
-      const response = await authFetch<ApiResponse<QAResponse>>(
-        `${API_BASE_URL}/course/${courseId}/lecture/${lessonId}/questions/${qaId}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(qaData),
-        }
-      );
+export const updateQA = async (
+  qaData: QAData,
+  courseId: string,
+  lessonId: string,
+  qaId: string
+): Promise<QAResponse> => {
+  return validateTokenAndProceed(async () => {
+    const response = await authFetch<ApiResponse<QAResponse>>(
+      `${API_BASE_URL}/course/${courseId}/lecture/${lessonId}/questions/${qaId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(qaData),
+      }
+    );
 
-      return handleResponse(response, "updated");
-    });
-  };
-
+    return handleResponse(response, "updated");
+  });
+};
 
 /**
  * this function for found QA by id
@@ -462,16 +574,15 @@ export const findQA = async (
   });
 };
 
-
- /**
-  * this function for update order lesson
-  * @param data This parameter holds the data that will be transferred to the backend.
-  * @param courseId this parameter for course id.
-  * @method isTokenValid To verify the current session
-  * @returns data from backend
-  */
+/**
+ * this function for update order lesson
+ * @param data This parameter holds the data that will be transferred to the backend.
+ * @param courseId this parameter for course id.
+ * @method isTokenValid To verify the current session
+ * @returns data from backend
+ */
 export const updateOrderLesson = async (
-  data: any, 
+  data: any,
   courseId: string
 ): Promise<any> => {
   return validateTokenAndProceed(async () => {
@@ -490,12 +601,12 @@ export const updateOrderLesson = async (
   });
 };
 
- /**
-  * this function for get Latest Course for user
-  * @method isTokenValid To verify the current session
-  * @returns data from backend
-  */
- export const getCoursesInProgress = async (): Promise<CourseInProgress[]> => {
+/**
+ * this function for get Latest Course for user
+ * @method isTokenValid To verify the current session
+ * @returns data from backend
+ */
+export const getCoursesInProgress = async (): Promise<CourseInProgress[]> => {
   return validateTokenAndProceed(async () => {
     const response = await authFetch<ApiResponse<CourseInProgress[]>>(
       `${API_BASE_URL}/user-courses`,
@@ -517,16 +628,17 @@ export const updateOrderLesson = async (
  */
 
 export const getAllCourses = async (): Promise<CoursesResponse[]> => {
-  
-    const response = await authFetch<ApiResponse<CoursesResponse[]>>(`${API_BASE_URL}/courses/status/APPROVED`, {
+  const response = await authFetch<ApiResponse<CoursesResponse[]>>(
+    `${API_BASE_URL}/courses/status/APPROVED`,
+    {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
-    });
-    console.log("Response from getAllCourses:", response);
-    return handleResponse(response, "findAll");
-     
+    }
+  );
+  console.log("Response from getAllCourses:", response);
+  return handleResponse(response, "findAll");
 };
 
 /**
@@ -535,19 +647,25 @@ export const getAllCourses = async (): Promise<CoursesResponse[]> => {
  * @param courseId this parameter for course id.
  * @returns data from backend
  */
-export const getAllLectureForCourse = async (courseId: string): Promise<LessonResponse> => {
-    const response = await authFetch<ApiResponse<LessonResponse>>(
-      `${API_BASE_URL}/course/${courseId}/lectures`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    return handleResponse(response, "findAll");
-};
+export const getAllLectureForCourse = async (
+  slug: string
+): Promise<LessonResponse> => {
+  const isValid = await isTokenValidServer(true);
+  let apiUrl;
+  if (!isValid) {
+    apiUrl = `${API_BASE_URL}/course/slug/${slug}/lectures`;
+  } else {
+    apiUrl = `${API_BASE_URL}/course/slugAuth/${slug}/lectures`;
+  }
 
+  const response = await authFetch<ApiResponse<LessonResponse>>(apiUrl, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return handleResponse(response, "findAll Lectures by course slug");
+};
 
 /**
  * this function for get all qustion
@@ -556,23 +674,20 @@ export const getAllLectureForCourse = async (courseId: string): Promise<LessonRe
  * @param lectureId this parameter for lecture id.
  * @returns data from backend
  */
-export const getAllQuestionsForLecture = async (
-  courseId: string,
-  lectureId: string
+export const getAllQuestionsForLectureBySlug = async (
+  lectureSlug: string
 ): Promise<QAResponse[]> => {
-  return validateTokenAndProceed(async () => {
-    const response = await authFetch<ApiResponse<QAResponse[]>>(
-      `${API_BASE_URL}/course/${courseId}/lecture/${lectureId}/questions`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+  const response = await authFetch<ApiResponse<QAResponse[]>>(
+    `${API_BASE_URL}/course/lecture/questions/slug/${lectureSlug}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
 
-    return handleResponse(response, "findAll");
-  });
+  return handleResponse(response, "find All Questions by lecture slug");
 };
 
 /**
@@ -587,7 +702,7 @@ export const createStartUserLectureInCourse = async (
 ): Promise<any> => {
   return validateTokenAndProceed(async () => {
     const response = await authFetch<ApiResponse<void>>(
-      `${API_BASE_URL}/user-lectures/course/${courseId}/start/${lectureId}`,
+      `${API_BASE_URL}/user-lectures/course/start/${lectureId}`,
       {
         method: "POST",
         headers: {
@@ -599,7 +714,6 @@ export const createStartUserLectureInCourse = async (
     return handleResponse(response, "created");
   });
 };
-
 
 /**
  * this function for create user lecture
@@ -626,15 +740,14 @@ export const updateFinishLectureInCourse = async (
   });
 };
 
-
 /**
  * this function for updated user lecture
  * @method isTokenValid To verify the current session
  * @param courseId this parameter for course id.
  */
-export const createStartInCourse = async (courseId: string): Promise<void> => {
+export const createStartInCourse = async (courseId: string): Promise<any> => {
   return validateTokenAndProceed(async () => {
-    const response = await authFetch<ApiResponse<void>>(
+    const response = await authFetch<ApiResponse<any>>(
       `${API_BASE_URL}/user-courses/start/${courseId}`,
       {
         method: "POST",
@@ -644,15 +757,9 @@ export const createStartInCourse = async (courseId: string): Promise<void> => {
       }
     );
 
-    if (response.status === 409) {
-      console.warn("Conflict: User already started this course.");
-      return;
-    }
-
     return handleResponse(response, "created");
   });
 };
-
 
 /**
  * this function for check answer
@@ -688,41 +795,38 @@ export const checkAnswer = async (
  * this function for search on courses
  * @param text this parameter for course id.
  */
-export const searchOnCourses = async (text: string): Promise<CoursesResponse[]> => {
-  return validateTokenAndProceed(async () => {
-    const response = await authFetch<ApiResponse<CoursesResponse[]>>(
-      `${API_BASE_URL}/courses/full-search/${text}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+export const searchOnCourses = async (
+  text: string
+): Promise<CoursesResponse[]> => {
+  const response = await authFetch<ApiResponse<CoursesResponse[]>>(
+    `${API_BASE_URL}/courses/full-search/${text}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
 
-    return handleResponse(response, "search successful");
-  });
+  return handleResponse(response, "findAll courses about");
 };
 
 /**
  * this function for get all palyers
  * @returns data from backend
  */
-export const getAllPlayers = async (): Promise<UserProfileData[]> => {
-  return validateTokenAndProceed(async () => {
-    const response = await authFetch<ApiResponse<UserProfileResponse[]>>(
-      `${API_BASE_URL}/users`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+export const getAllPlayers = async (page: any): Promise<PlayersData> => {
+  const response = await authFetch<ApiResponse<PlayersData>>(
+    `${API_BASE_URL}/users?page=${page}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
 
-    return handleResponse(response, "findAll");
-
-  });
+  return handleResponse(response, "findAll");
 };
 
 /**
@@ -730,7 +834,6 @@ export const getAllPlayers = async (): Promise<UserProfileData[]> => {
  * @returns data from backend
  */
 export const getCurrentNgcs = async (): Promise<NgcResponse> => {
-  console.log("Inside getCurrentNgcs");
   return validateTokenAndProceed(async () => {
     const response = await authFetch<ApiResponse<NgcResponse>>(
       `${API_BASE_URL}/users/ngcs`,
@@ -741,16 +844,15 @@ export const getCurrentNgcs = async (): Promise<NgcResponse> => {
         },
       }
     );
-    //return response;
-    //console.warn('respo', response);
+
     return handleResponse(response, "found");
-    
   });
 };
+
 /**
  * this function for claims ngcs Token
  * @method isTokenValid To verify the current session
- * @param courseId this parameter for course id.
+ * @param ngcs this parameter for current ngcs.
  */
 export const claimsNgcs = async (ngcs: number): Promise<any> => {
   return validateTokenAndProceed(async () => {
@@ -769,54 +871,127 @@ export const claimsNgcs = async (ngcs: number): Promise<any> => {
   });
 };
 
-  /**
-   * this function check if user role admin or not , and Connect to the appropriate endpoint, and get course.
-   */
-export const fetchCoursesForTeacherDashboard = async (): Promise<CoursesResponse[]> => {
-    return validateTokenAndProceed(async () => {
-
-    const user = await getUserProfile();
-    let response;
-      try {
-        if (user && user.isAdmin) {
-          response = await getAllCourseByStatus();
-        } else {
-          response = await getAllCoursesForTeacher();
-        }
-        response = response.map((item) => ({
-          ...item,
-          isAdmin: user.isAdmin,
-        }));
-        return response;
-      } catch (error) {
-        console.error("Error fetching courses", error);
-        throw new Error("Error fetching courses for teacher dashboard");
-      }
-  });
-};
-
 /**
  * this function for upload image to imagekit
  * @method isTokenValid To verify the current session
  * @returns data from backend
  */
 
-export const uploadFile = async (fileUpload: any): Promise<UploadFileResponse> => {
+export const uploadFile = async (
+  fileUpload: any
+): Promise<UploadFileResponse> => {
   return validateTokenAndProceed(async () => {
+    if (fileUpload?.name === undefined) fileUpload = dataUrlToBlob(fileUpload);
 
-  if (fileUpload?.name === undefined) fileUpload = dataUrlToBlob(fileUpload);
+    const formData = new FormData();
+    formData.append("file", fileUpload);
+    return validateTokenAndProceed(async () => {
+      const response = await authFetch<ApiResponse<UploadFileResponse>>(
+        `${API_BASE_URL}/upload/buffer`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
-  const formData = new FormData();
-  formData.append("file", fileUpload);
-  return validateTokenAndProceed(async () => {
-    const response = await authFetch<ApiResponse<UploadFileResponse>>(
-      `${API_BASE_URL}/upload`, 
-      {
-      method: "POST",
-      body: formData,
+      if ("error" in response) {
+        return response;
+      }
+
+      return response.data?.url;
+    });
+  });
+};
+
+/**
+ * this function for get all palyers Attending the course in popup header
+ * @returns data from backend
+ */
+export const fetchStartPlayers = async (
+  courseSlug: string
+): Promise<DataPopup[]> => {
+  const response = await authFetch<ApiResponse<DataPopup[]>>(
+    `${API_BASE_URL}/user-courses/${courseSlug}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
     }
   );
-    return response.data?.url;
+
+  return handleResponse(response, "findAll");
+};
+
+/**
+ * this function for get all palyers Completed the Course in popup header
+ * @returns data from backend
+ */
+export const fetchEndPlayers = async (
+  courseSlug: string
+): Promise<DataPopup[]> => {
+  const response = await authFetch<ApiResponse<DataPopup[]>>(
+    `${API_BASE_URL}/user-courses/${courseSlug}?finished=true`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  return handleResponse(response, "findAll");
+};
+
+/**
+ * this function for check username is available
+ * @method validateTokenAndProceed To verify the current session
+ * @param username this parameter for username.
+ */
+export const checkUsernameIsAvailable = async (
+  username: string
+): Promise<any> => {
+  return validateTokenAndProceed(async () => {
+    const response = await authFetch<any>(
+      `${API_BASE_URL}/users/checkUsername/${username}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (response.message !== "Username is available") {
+      throw new Error(`Unexpected server response: ${response.message}`);
+    }
+
+    return response.available;
   });
-});
+};
+
+/**
+ * this function for get profile By id
+ * @param key This parameter for flag key.
+ * @param value This parameter for flag value.
+ * @method isTokenValid To verify the current session
+ * @returns data from backend
+ */
+export const updateUserFlags = async (
+  key: string,
+  value: boolean
+): Promise<void> => {
+  const parameter = JSON.stringify({
+    key: key,
+    value: value,
+  });
+  await authFetch<ApiResponse<UserProfileResponse>>(
+    `${API_BASE_URL}/users/editFlag`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: parameter,
+    }
+  );
 };

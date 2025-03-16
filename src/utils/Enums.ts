@@ -25,4 +25,5 @@ export enum TeacherTabs {
     Draft = "DRAFT" ,
     Rejected = "REJECTED" ,
     Approved = "APPROVED" ,
+    NewVersion = "New Version",
 }

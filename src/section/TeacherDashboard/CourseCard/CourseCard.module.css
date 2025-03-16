@@ -4,6 +4,7 @@
   transition: all 0.4s;
   position: relative;
   z-index: 2;
+  overflow: hidden;
 }
 
 .courseCard::before {
@@ -14,6 +15,12 @@
   left: 0;
   bottom: 0;
   content: "";
+}
+
+.courseversion{
+  background-color: #d2691e;
+  font-size: 14px;
+  padding: 5px;
 }
 
 .courseCard .courseInfo {
@@ -53,10 +60,15 @@
   background: url("../../../assets/images/bg/shape-bg.png");
   background-position: center;
   background-repeat: no-repeat;
-  left: -30px;
+  inset-inline-start: -30px;
   top: 0;
   content: "";
   z-index: 111;
+}
+
+[dir="rtl"] .courseCard .courseContent .courseHeader::before {
+  transform: rotate(180deg);
+  transform: skew(-1);
 }
 
 .courseCard .courseContent .headingTitle h4 {

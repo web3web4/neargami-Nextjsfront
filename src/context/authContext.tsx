@@ -6,6 +6,8 @@ import { IAuthContextType } from "../interfaces/auth";
 import Swal from "sweetalert2";
 import {jwtDecode} from "jwt-decode";
 import { getSelector } from "../auth/nearAuth";
+import { UserProfileData } from "@/interfaces/api";
+import { getUserProfile } from "@/apiService";
 
 const AuthContext = createContext<IAuthContextType | undefined>(undefined);
 
@@ -13,27 +15,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [nearSignature, setNearSignature] = useState<string | null>(
     (getCookie("nearSignature") as string) || null
   );
-  const [firstLogin, setFirstLogin] = useState<boolean>(
-    getCookie("firstLogin") === "true"
-  );
-  const [firstShowingOfHome, setFirstShowingOfHome] = useState<boolean>(
-    getCookie("firstShowingOfHome") === "true"
-  );
   const [jwtToken, setJwtToken] = useState<string | null >(
     (getCookie("jwtToken") as string) || null
   );
   
+  const [userProfile, setUserProfile] = useState<UserProfileData>();
 
   const setAuthData = (key: string, value: any) => {
     if (key === "nearSignature") {
       setNearSignature(value);
       setCookie("nearSignature", value);
-    } else if (key === "firstLogin") {
-      setFirstLogin(value);
-      setCookie("firstLogin", value);
-    } else if (key === "firstShowingOfHome") {
-      setFirstShowingOfHome(value);
-      setCookie("firstShowingOfHome", value);
     } else if (key === "jwtToken") {
       setJwtToken(value);
       setCookie("jwtToken", value);
@@ -89,6 +80,25 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 */
 
 useEffect(() => {
+  if (!jwtToken) return;  
+
+  const fetchUserProfile = async () => {
+    try {
+      const response = await getUserProfile();  
+      if (response) {
+        setUserProfile(response);  
+      }
+    } catch (error) {
+      console.error('Error fetching user profile:', error);
+    }
+  };
+
+  fetchUserProfile();  
+
+}, [jwtToken]);
+
+
+useEffect(() => {
   const validateToken = async () => {
     if (!jwtToken) {
       Swal.fire({
@@ -137,7 +147,7 @@ useEffect(() => {
 
   return (
     <AuthContext.Provider
-      value={{ nearSignature, firstLogin, firstShowingOfHome, jwtToken, setAuthData }}
+      value={{ nearSignature, jwtToken, userProfile , setAuthData }}
     >
       {children}
     </AuthContext.Provider>

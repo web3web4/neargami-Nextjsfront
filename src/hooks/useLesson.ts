@@ -4,11 +4,13 @@ import { createLesson, updateLesson } from "@/apiService";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
+import { useTranslations } from "next-intl";
 
 export const useLesson = (courseId: string, lessonId: string, data: LessonResponse | null) => {
     const route = useRouter();
     const [showQA, setShowQA] = useState<boolean>(false);
     const [lessonid, setLessonId] = useState<number | null>(Number(lessonId));
+    const translate = useTranslations("messages");
     const [formInput, setFormInput] = useState<LessonData>({
         title: "",
         description: "",
@@ -31,31 +33,35 @@ export const useLesson = (courseId: string, lessonId: string, data: LessonRespon
      * send data lesson to backend and create
      */
   
-    const handleSubmit = async (e: any) => {
-      e.preventDefault();
+    const handleSubmit = async () => {
       //Extract qList from data to be sent
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { qaList, ...lessonData } = formInput;
       lessonData.order = Number(lessonData.order);
       try {
         const create = await createLesson(lessonData, courseId);
+
+        if ("error" in create) {
+          throw create;
+        }
+
           setLessonId(create.id);
           setShowQA(true);
           Swal.fire({
             icon: "success",
-            title: "Success",
-            text: "The lesson has been created successfully!  You can add questions to the lesson from the side section.",
+            title: translate("Success"),
+            text: translate("The lesson has been created successfully You can add questions to the lesson from the side section"),
           });
           window.scrollTo({
             top: 0,
             behavior: "smooth", 
           });
-      } catch (error) {
-        console.error("Error in creating Lesson:", error);
+        } catch (error: any) {
+        console.error("Error in creating Lesson:", error.message);
         Swal.fire({
           icon: "error",
-          title: "Error",
-          text: "There was an error creating the lesson.",
+          title: translate("Error"),
+          text: translate("There was an error creating the lesson"),
         });
       }
     };
@@ -71,24 +77,28 @@ export const useLesson = (courseId: string, lessonId: string, data: LessonRespon
     /**
      * update date lesson
      */
-    const handleUpdate = async (e: any) => {
-      e.preventDefault();
+    const handleUpdate = async () => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { qaList, ...lessonData } = formInput;
       lessonData.order = Number(lessonData.order);
       try {
-        await updateLesson(lessonData, courseId, lessonId);
+        const update = await updateLesson(lessonData, courseId, lessonId);
+
+        if ("error" in update) {
+          throw update;
+        }
+
         Swal.fire({
           icon: "success",
-          title: "Success",
-          text: "The lesson has been updated successfully!",
+          title: translate("Success"),
+          text: translate("The lesson has been updated successfully!"),
         });
-      } catch (error) {
-        console.error("Error in update Lesson:", error);
+      } catch (error: any) {
+        console.error("Error in update Lesson:", error.message);
         Swal.fire({
           icon: "error",
-          title: "Error",
-          text: "There was an error update the lesson.",
+          title: translate("Error"),
+          text: translate("There was an error update the lesson"),
         });
       }
     };

@@ -1,0 +1,119 @@
+.gamfiMenuBtns {
+  width: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  align-items: center;
+  max-width: 284px;
+  column-gap: 24px;
+}
+
+.gamfiMenuBtns button {
+  color: #ffffff;
+  text-transform: uppercase;
+  font-family: "Russo One", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.menuBtn {
+  display: none;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.menuBtn svg {
+  font-size: 40px;
+}
+
+.walletBtn {
+  color: var(--green-color);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 10px;
+  font-family: "Russo One", sans-serif;
+  font-size: 16px;
+  text-transform: uppercase;
+  transition: all 0.4s ease-in-out;
+  box-sizing: border-box;
+  border: 2px solid var(--secondary-color);
+  background: transparent;
+  z-index: 1;
+  width: 140px;
+  height: 50px;
+  cursor: pointer;
+}
+
+.walletBtn a {
+  color: #ffffff;
+  text-transform: capitalize;
+}
+
+.walletBtn svg {
+  font-size: 20px !important;
+}
+
+.profileBtn {
+  z-index: 1;
+  cursor: pointer;
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  filter: drop-shadow(0px 0px 6px rgba(255, 255, 255, 0.555));
+}
+
+@media (max-width: 991px) {
+  .gamfiMenuBtns {
+    justify-content: end;
+  }
+
+  .gamfiMenuBtns .menuBtn {
+    display: block;
+    z-index: 5;
+  }
+
+  .gamfiMenuBtns .profileBtn {
+    display: none;
+  }
+}
+
+@media (max-width: 667px) {
+  .gamfiMenuBtns .menuBtn svg {
+    font-size: 30px;
+  }
+}
+
+@media (max-width: 540px) {
+  .gamfiMenuBtns {
+    column-gap: 13px;
+  }
+
+  .gamfiMenuBtns .btnWrapper {
+    width: 140px;
+    height: 40px;
+    font-size: 14px;
+  }
+
+  .gamfiMenuBtns .btnWrapper img {
+    height: 15px;
+    width: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .gamfiMenuBtns .btnWrapper {
+    width: 130px;
+    height: 40px;
+    font-size: 14px;
+  }
+
+  .gamfiMenuBtns .btnWrapper img {
+    height: 15px;
+    width: 15px;
+  }
+}

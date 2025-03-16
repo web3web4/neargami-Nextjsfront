@@ -1,6 +1,6 @@
 .gamfiMobileMenu {
   position: fixed;
-  right: 0;
+  inset-inline-end: 0;
   top: 0;
   z-index: 999;
   width: 100%;
@@ -11,7 +11,7 @@
 
 .gamfiMobileMenu::before {
   position: absolute;
-  right: 0;
+  inset-inline-end: 0;
   top: 0;
   width: 100%;
   height: 100%;
@@ -26,7 +26,7 @@
   height: 100vh;
   width: 400px;
   padding: 50px;
-  margin-left: auto;
+  margin-inline-end: auto;
   animation: 0.7s ease-in-out;
 }
 
@@ -37,7 +37,7 @@
 
 .mobileMenuCloseBtn {
   position: absolute;
-  right: 0px;
+  inset-inline-end: 0px;
   top: 50%;
   background: none;
   border: none;
@@ -63,6 +63,7 @@
   display: block;
   position: relative;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .gamfiMobileMenuList li a {
@@ -88,41 +89,43 @@
 .hasSubMenu::before,
 .sub_hasSubMenu::before {
   position: absolute;
-  right: 20px;
+  inset-inline-end: 20px;
   top: 25px;
   width: 15px;
   height: 2px;
-  background: #090b1a;
+  background: #fdfdfd;
   content: "";
   transform: translateY(-50%);
+  z-index: 5555;
 }
 
 .hasSubMenu::after,
 .sub_hasSubMenu::after {
   position: absolute;
-  right: 26px;
+  inset-inline-end: 26px;
   top: 25px;
   width: 2px;
   height: 15px;
-  background: #090b1a;
+  background: #fdfdfd;
   content: "";
   transform: translateY(-50%);
+  z-index: 5555;
 }
 
 .hasSubMenu.expandSubMenu::after,
-.expandSubMenu_child::after {
+.expandSubMenuChild::after {
   opacity: 0;
   visibility: hidden;
 }
 
-.expandSubMenu .sub_menu_list {
+.expandSubMenu .subMenuList {
   display: block;
   opacity: 1;
   visibility: visible;
   transform: scaleY(1);
 }
 
-.expandSubMenu_child .sub_menu_child_list {
+.expandSubMenuChild .sub_menu_child_list {
   display: block;
 }
 
@@ -130,15 +133,19 @@
   border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
 
-.sub_menu_list {
+.subMenuList {
   display: none;
-  padding: 0 0 0 30px !important;
+  padding-inline-start: 30px !important;
   margin: 0;
   opacity: 0;
   visibility: hidden;
   transition: transform 0.3s ease-in-out;
   transform: scaleY(0);
   transform-origin: 0 0 0;
+}
+
+.subMenuList li {
+  margin-bottom: 10px;
 }
 
 .sub_menu_child_list {
@@ -156,12 +163,19 @@
   position: relative;
   padding: 10px 0;
   cursor: pointer;
+  display: flex;
+  justify-content: space-between;
 }
 
 .btnHeader:hover {
   color: var(--green-color);
 }
 
+.btnHasChild {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
 @media (max-width: 480px) {
   .gamfiMobileMenuContent {
     width: 100%;
