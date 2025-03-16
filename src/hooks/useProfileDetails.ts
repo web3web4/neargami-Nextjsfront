@@ -1,13 +1,16 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { getBalance } from "@/lib/nearContractToken";
-import {claimsNgcs, getCurrentNgcs } from "@/apiService";
+import { claimsNgcs, getCurrentNgcs } from "@/apiService";
 import Swal from "sweetalert2";
 import { useAuth } from "@/context/authContext";
 import { useTranslations } from "next-intl";
 import { UserProfileData } from "@/interfaces/api";
 
-export const useProfileDetails = (username: string | null, data: UserProfileData) => {
+export const useProfileDetails = (
+  username: string | null,
+  data: UserProfileData
+) => {
   const [balance, setBalance] = useState<string | null>("0");
   const [loading, setLoading] = useState<boolean>(true);
   const [progress, setProgress] = useState<number>(0);
@@ -15,7 +18,9 @@ export const useProfileDetails = (username: string | null, data: UserProfileData
   const unityInstanceRef = useRef<null | { Quit: () => Promise<void> }>(null); // Ref to store the Unity instance
   const unityLoaderScriptRef = useRef<null | HTMLScriptElement>(null); // Ref to store the loader script
   const { userProfile, jwtToken } = useAuth();
-  const [isCopied, setIsCopied] = useState<boolean>(false);
+  const [isCopiedAddress, setIsCopiedAddress] = useState<boolean>(false);
+  const [isCopiedProfileLink, setIsCopiedProfileLink] =
+    useState<boolean>(false);
   const translate = useTranslations("messages");
   console.log(balance);
   console.log(error);
@@ -136,7 +141,6 @@ export const useProfileDetails = (username: string | null, data: UserProfileData
         if ("error" in response) {
           throw response;
         }
-        
       } catch (error: any) {
         Swal.fire({
           icon: "error",
@@ -175,7 +179,27 @@ export const useProfileDetails = (username: string | null, data: UserProfileData
     return address;
   };
 
-  const handleCopy = () => {
+  const formatProfileLink = (address: string): string => {
+    if (!address) return "";
+    if (address.length > 15) {
+      return `${address.slice(0, 5)}.....${address.slice(-5)}`;
+    }
+    return address;
+  };
+
+  const handleCopyProfileLink = () => {
+    navigator.clipboard
+      .writeText(
+        `${process.env.NEXT_PUBLIC_DOMIN_NAME}/profile/${(data as any).username}`
+      )
+      .then(() => {
+        setIsCopiedProfileLink(true);
+        setTimeout(() => setIsCopiedProfileLink(false), 4000);
+      })
+      .catch((err) => console.error("Failed to copy!", err));
+  };
+
+  const handleCopyAddress = () => {
     if (!("address" in data)) {
       console.error("No address to copy.");
       return;
@@ -184,19 +208,22 @@ export const useProfileDetails = (username: string | null, data: UserProfileData
     navigator.clipboard
       .writeText((data as any).address)
       .then(() => {
-        setIsCopied(true);
-        setTimeout(() => setIsCopied(false), 4000);
+        setIsCopiedAddress(true);
+        setTimeout(() => setIsCopiedAddress(false), 4000);
       })
       .catch((err) => console.error("Failed to copy!", err));
   };
 
   return {
     balance,
-    isCopied,
+    isCopiedAddress,
     loading,
     progress,
+    isCopiedProfileLink,
     formatAddress,
-    handleCopy,
+    handleCopyAddress,
     handleClaims,
+    formatProfileLink,
+    handleCopyProfileLink,
   };
 };

@@ -236,7 +236,10 @@
     "WebSiteLanguage": "لغة الموقع",
     "Receive Email For The Latest Updates": "استلام بريد الكتروني لمعرفة أخر التحديثات",
     "finishedCourses": "الدورات المكتملة",
-    "offeredCourses": "الدورات المقدمة"
+    "offeredCourses": "الدورات المقدمة",
+    "Profile Link": "رابط الملف الشخصي:",
+    "Copied": "تم النسخ!",
+    "Copy": "نسخ"
   },
   "Wizard": {
     "Terms and conditions": "الشروط والاحكام",

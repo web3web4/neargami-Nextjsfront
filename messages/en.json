@@ -235,7 +235,10 @@
     "WebSiteLanguage": "Site Language",
     "Receive Email For The Latest Updates": "Receive Email For The Latest Updates",
     "finishedCourses": "Finished Courses",
-    "offeredCourses": "Offered courses "
+    "offeredCourses": "Offered courses ",
+    "Profile Link": "Profile Link:",
+    "Copied": "Copied!",
+    "Copy": "Copy"
   },
   "Wizard": {
     "Terms and conditions": "Terms and conditions",
