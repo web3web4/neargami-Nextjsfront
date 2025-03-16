@@ -308,6 +308,16 @@ button {
   margin-inline-start: 12px;
 }
 
+body.disabled a,
+body.disabled button,
+body.disabled [onclick],
+body.disabled [href],
+body.disabled [role="button"] {
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 @media only screen and (min-width: 1200px) {
   .container {
     max-width: 1200px !important;
