@@ -72,6 +72,7 @@ const handleResponse = <T>(
 };
 
 
+
 /**
  * this method work with responce without data ex:updateUserProfile
  * @param response from backend
@@ -134,9 +135,24 @@ export const getAllCustomers = async (): Promise<UserProfileData[]> => {
     }
   );
 
-  const allUsers = handleResponse<UserProfileData[]>(response, "findAll");
+  const data = handleResponse<unknown>(response, "findAll");
 
-  return allUsers.filter(user => !user.isAdmin);
+  const users = (data as { users?: UserProfileData[] })?.users;
+
+  if (!Array.isArray(users)) {
+    console.error("Expected 'users' to be an array but got:", users);
+    return [];
+  }
+
+  const customers: UserProfileData[] = [];
+  users.forEach(user => {
+    if (!user.isAdmin) {
+      customers.push(user);
+    }
+  });
+
+  return customers;
+
 };
 
 
