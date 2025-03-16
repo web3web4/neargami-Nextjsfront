@@ -1,11 +1,15 @@
 import { useCheckUsername } from "@/hooks/useCheckUsername";
 import styles from "./CheckUsername.module.css";
 import { useTranslations } from "next-intl";
+import { CheckUsernameDetailsType } from "@/interfaces/component";
+import { Dispatch, SetStateAction } from "react";
 
 interface CheckUsernameProps {
   username: string;
   intiUsername?: string;
-  onAvailabilityChange: (isAvailable: boolean | null) => void;
+  onAvailabilityChange: Dispatch<
+    SetStateAction<CheckUsernameDetailsType | null>
+  >;
 }
 
 export default function CheckUsername({
@@ -14,7 +18,7 @@ export default function CheckUsername({
   onAvailabilityChange,
 }: CheckUsernameProps) {
   const translate = useTranslations("CheckUsername");
-  const { isAvailable, isChecking } = useCheckUsername(
+  const { isAvailable, isChecking, isValid } = useCheckUsername(
     username,
     onAvailabilityChange,
     intiUsername
@@ -23,6 +27,11 @@ export default function CheckUsername({
   return (
     <div className={styles.checkUsernameWrapper}>
       <div className={styles.checkUsername}>
+        {isValid === false && (
+          <div className={styles.notAvailable}>
+            {username} {translate("Warning Message")}
+          </div>
+        )}
         {isChecking && (
           <div>
             <div className={styles.spinner} />
@@ -30,11 +39,14 @@ export default function CheckUsername({
           </div>
         )}
         {isAvailable !== null &&
+          isValid &&
           !isChecking &&
           username != "" &&
           intiUsername != username &&
           (isAvailable ? (
-            <div className={styles.available}>{username} {translate("Is Available")}</div>
+            <div className={styles.available}>
+              {username} {translate("Is Available")}
+            </div>
           ) : (
             <div className={styles.notAvailable}>
               {username} {translate("Is Already Exist")}

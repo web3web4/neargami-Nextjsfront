@@ -1,6 +1,7 @@
 "use client";
 import { updateUserProfile, uploadFile } from "@/apiService";
 import { UserProfileData, UserProfileResponse } from "@/interfaces/api";
+import { CheckUsernameDetailsType } from "@/interfaces/component";
 import { useTranslations } from "next-intl";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { SingleValue } from "react-select";
@@ -14,9 +15,7 @@ interface CountryData {
 export const useEditProfile = (data: UserProfileResponse) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [image, setImage] = useState<string | null>(null);
-  const [isUsernameAvailable, setIsUsernameAvailable] = useState<
-    boolean | null
-  >(null);
+  const [checkUsernameDetails, setCheckUsernameDetails] = useState<CheckUsernameDetailsType | null>(null);
   const [initUsername, setInitUsername] = useState<string>("");
   const translate = useTranslations("messages");
   const [formInput, setFormInput] = useState<UserProfileResponse>({
@@ -86,11 +85,20 @@ export const useEditProfile = (data: UserProfileResponse) => {
       });
       return;
     }
-    if (!isUsernameAvailable) {
+    if (!checkUsernameDetails?.isAvailable) {
       Swal.fire({
         icon: "error",
         title: translate("Error"),
         text: translate("Username Is Already Exist"),
+      });
+      return;
+    }
+
+    if(!checkUsernameDetails?.isValid){
+      Swal.fire({
+        icon: "warning",
+        title: translate("Warning"),
+        text: translate("Username must contain only English letters, numbers"),
       });
       return;
     }
@@ -160,6 +168,6 @@ export const useEditProfile = (data: UserProfileResponse) => {
     handleCroppedImage,
     handleButtonClick,
     handleSubmit,
-    setIsUsernameAvailable,
+    setCheckUsernameDetails,
   };
 };

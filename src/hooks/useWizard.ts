@@ -1,5 +1,6 @@
 import { updateUserProfile } from "@/apiService";
 import { UserProfileData } from "@/interfaces/api";
+import { CheckUsernameDetailsType } from "@/interfaces/component";
 import { deleteCookie, getCookie, setCookie } from "cookies-next";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
@@ -17,14 +18,15 @@ export const useWizard = () => {
   const translate = useTranslations("messages");
   const [isAccepted, setIsAccepted] = useState<boolean>(false);
   const [step, setStep] = useState<number>(1);
-  const [isUsernameAvailable, setIsUsernameAvailable] = useState<boolean | null>(null);
+  const [checkUsernameDetails, setCheckUsernameDetails] =
+    useState<CheckUsernameDetailsType | null>(null);
   const [formInput, setFormInput] = useState<UserProfileData>({
     firstname: "",
     lastname: "",
     email: "",
     country: "",
     username: "",
-    sendMail: ""
+    sendMail: "",
   });
 
   useEffect(() => {
@@ -40,7 +42,7 @@ export const useWizard = () => {
         ...prevInput,
         country: selectedCountry.label,
       }));
-    } 
+    }
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -60,18 +62,24 @@ export const useWizard = () => {
       Swal.fire({
         icon: "error",
         title: translate("Error"),
-        text: translate("Please accept the terms and conditions before proceeding"),
+        text: translate(
+          "Please accept the terms and conditions before proceeding"
+        ),
       });
       return;
     }
+
     if (formInput.username!.trim() === "") {
       Swal.fire({
         icon: "error",
         title: translate("Error"),
-        text: translate("The Username Field Is Required Please Enter Your Username"),
+        text: translate(
+          "The Username Field Is Required Please Enter Your Username"
+        ),
       });
       return;
     }
+
     if (formInput.username!.length < 4) {
       Swal.fire({
         icon: "error",
@@ -80,7 +88,8 @@ export const useWizard = () => {
       });
       return;
     }
-    if (!isUsernameAvailable) {
+
+    if (!checkUsernameDetails?.isAvailable) {
       Swal.fire({
         icon: "error",
         title: translate("Error"),
@@ -88,6 +97,16 @@ export const useWizard = () => {
       });
       return;
     }
+
+    if (!checkUsernameDetails?.isValid) {
+      Swal.fire({
+        icon: "warning",
+        title: translate("Warning"),
+        text: translate("Username must contain only English letters, numbers"),
+      });
+      return;
+    }
+
     if (step < 2) setStep(step + 1);
   };
 
@@ -105,7 +124,6 @@ export const useWizard = () => {
       if ("error" in updateUser) {
         throw updateUser;
       }
-
     } catch (error: any) {
       console.error("Error updating user profile:", error.message);
       Swal.fire({
@@ -177,6 +195,6 @@ By participating in our platform, users acknowledge these conditions and the fun
     handleCountryChange,
     handleCheckboxChange,
     handleComplateToProfile,
-    setIsUsernameAvailable,
+    setCheckUsernameDetails,
   };
 };
