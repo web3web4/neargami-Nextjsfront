@@ -33,7 +33,7 @@ const ProfileDetails = ({ username, data, courses }: ProfileDetailsProps) => {
     formatAddress,
     handleCopy,
     handleClaims,
-  } = useProfileDetails(username);
+  } = useProfileDetails(username, data);
 
   return (
     <div className={styles.ProfileDetailsStyleWrapper}>
@@ -185,12 +185,12 @@ const ProfileDetails = ({ username, data, courses }: ProfileDetailsProps) => {
                 {!username && (
                   <>
                     <div className="mt-2 mb-3">
-                      <Button href="/edit-profile" variant="mint" size="md">
+                      <Button href="/edit-profile" variant="mint" size="md" disabled={loading}>
                         {translate("Edit Profile")}
                       </Button>
                     </div>
                     <div className="mt-2 mb-3">
-                      <Button variant="blue" size="md" onClick={handleClaims}>
+                      <Button variant="blue" size="md" onClick={handleClaims} disabled={loading}>
                         {translate("Claim Coins")}
                       </Button>
                     </div>
