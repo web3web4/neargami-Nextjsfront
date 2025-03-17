@@ -95,14 +95,19 @@
   margin-inline-start: 10px;
 }
 
-.memberDetails .socialItems a img {
+.socialItems a img {
   height: 18px;
   width: 18px;
   margin-inline-start: 15px;
 }
 
-.memberDetails .socialItems a:hover {
+.socialItems .active:hover {
+  transform: scale(1.2);
+}
+
+.socialItems .notActive {
   opacity: 0.6;
+  cursor: default;
 }
 
 .imgNearLand {

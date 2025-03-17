@@ -110,16 +110,16 @@ import Link from "next/link";
     </div>
   </Link>
   <div className={styles.links}>
-    <a href={props.discord}>
+    <a href={props.discord} className={props.discord ? styles.active : styles.notActive}>
       <Image src={discordIcon} alt="icon" />
     </a>
-    <a href={props.twitter}>
+    <a href={props.twitter} className={props.twitter ? styles.active : styles.notActive}>
       <Image src={twitterIcon} alt="icon" />
     </a>
-    <a href={props.facebook}>
+    <a href={props.facebook} className={props.facebook ? styles.active : styles.notActive}>
       <Image src={fbIcon} alt="icon" />
     </a>
-    <a href={props.linkedin}>
+    <a href={props.linkedin} className={props.linkedin ? styles.active : styles.notActive}>
       <Image src={linkedIcon} alt="icon" />
     </a>
   </div>

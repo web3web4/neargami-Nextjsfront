@@ -76,6 +76,7 @@ export function useCheckUsername(
         isAvailable: true,
         isValid: true,
       }));
+      setIsValid(true);
     } else {
       checkUsername(username);
     }
