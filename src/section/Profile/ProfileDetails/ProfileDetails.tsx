@@ -180,16 +180,16 @@ const ProfileDetails = ({ username, data, courses }: ProfileDetailsProps) => {
                 />
                 <li className={styles.socialItems}>
                   <strong>{translate("Social")}</strong>
-                  <a href={data.discord}>
+                  <a href={data.discord} className={data.discord ? styles.active : styles.notActive}>
                     <Image src={discordIcon} alt="icon" />
                   </a>
-                  <a href={data.twitter}>
+                  <a href={data.twitter} className={data.twitter ? styles.active : styles.notActive}>
                     <Image src={twitterIcon} alt="icon" />
                   </a>
-                  <a href={data.facebook}>
+                  <a href={data.facebook} className={data.facebook ? styles.active : styles.notActive}>
                     <Image src={fbIcon} alt="icon" />
                   </a>
-                  <a href={data.linkedin}>
+                  <a href={data.linkedin} className={data.linkedin ? styles.active : styles.notActive}>
                     <Image src={linkedIcon} alt="icon" />
                   </a>
                 </li>
