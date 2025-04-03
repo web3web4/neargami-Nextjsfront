@@ -30,6 +30,8 @@ export const useProfileDetails = (
     window.IsGameReadOnly = () => !!username;
     window.GetToken = getTokenFromCookies;
     window.GetApiBaseUrl = getApiBaseUrl;
+    const body = document.body;
+    body.classList.add("disabled");
 
     const unityLoaderScript: HTMLScriptElement =
       document.createElement("script");
@@ -59,16 +61,19 @@ export const useProfileDetails = (
             console.log("Unity loaded");
             unityInstanceRef.current = unityInstance;
             setLoading(false);
+            body.classList.remove("disabled");
           })
           .catch((message: string | null) => {
             console.error("Unity failed to load:", message);
             setError(message);
             setLoading(false);
+            body.classList.remove("disabled");
           });
       } else {
         console.error("createUnityInstance is not defined");
         setError("Unity instance creation failed.");
         setLoading(false);
+        body.classList.remove("disabled");
       }
     };
 
@@ -76,6 +81,7 @@ export const useProfileDetails = (
       console.error("Failed to load Unity loader script.");
       setError("Failed to load Unity loader script.");
       setLoading(false);
+      body.classList.remove("disabled");
     };
 
     document.body.appendChild(unityLoaderScript);
@@ -190,7 +196,9 @@ export const useProfileDetails = (
   const handleCopyProfileLink = () => {
     navigator.clipboard
       .writeText(
-        `${process.env.NEXT_PUBLIC_DOMIN_NAME}/profile/${(data as any).username}`
+        `${process.env.NEXT_PUBLIC_DOMIN_NAME}/profile/${
+          (data as any).username
+        }`
       )
       .then(() => {
         setIsCopiedProfileLink(true);

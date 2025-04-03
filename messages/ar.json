@@ -28,7 +28,9 @@
   "CheckUsername": {
     "Checking": "يتم التحقق...",
     "Is Available": "متاح",
-    "Is Already Exist": "موجود بالفعل"
+    "Is Already Exist": "موجود بالفعل",
+    "Warning": "تحذير",
+    "Warning Message": "اسم المستخدم يجب أن يحتوي فقط على الأحرف الإنجليزية والأرقام"
   },
   "messages": {
     "Required Field": "حقل مطلوب",
@@ -64,7 +66,8 @@
     "The username must be at least 4 characters long": "يجب أن يكون اسم المستخدم على الأقل 4 أحرف",
     "There was an error created": "حدث خطأ أثناء إنشاء الدورة.",
     "Please log in to continue": "يرجى تسجيل الدخول للاستمرار.",
-    "Please Login To Read Full Lesson": "يرجى تسجيل الدخول لقراءة الدرس كاملا."
+    "Please Login To Read Full Lesson": "يرجى تسجيل الدخول لقراءة الدرس كاملا.",
+    "Username must contain only English letters, numbers": "اسم المستخدم يجب ان يحتوي على حروف انجليزية فقط وأرقام"
   },
   "Header": {
     "All Courses": "الدورات",

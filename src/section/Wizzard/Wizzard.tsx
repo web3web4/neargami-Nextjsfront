@@ -27,7 +27,7 @@ const Wizard = () => {
     handleCountryChange,
     handleCheckboxChange,
     handleComplateToProfile,
-    setIsUsernameAvailable,
+    setCheckUsernameDetails,
   } = useWizard();
 
   return (
@@ -66,7 +66,7 @@ const Wizard = () => {
                   </div>
                   <CheckUsername
                     username={formInput.username!}
-                    onAvailabilityChange={setIsUsernameAvailable}
+                    onAvailabilityChange={setCheckUsernameDetails}
                   />
                   <div>
                     <input

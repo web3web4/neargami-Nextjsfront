@@ -75,6 +75,15 @@
   margin-inline-start: 20px;
 }
 
+.links .active:hover {
+  transform: scale(1.2);
+}
+
+.links .notActive {
+  opacity: 0.6;
+  cursor: default;
+}
+
 @media only screen and (max-width: 480px) {
   .playerInfo {
     flex-direction: column;

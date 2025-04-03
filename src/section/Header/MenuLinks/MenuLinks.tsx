@@ -17,7 +17,7 @@ export default function MenuLinks() {
         {data?.map((menu, i) => (
           <li key={i}>
             {menu.action ? (
-              <div className={styles.btnHeader} onClick={menu.onClick}>
+              <div className={styles.btnHeader} onClick={menu.onClick} role="button">
                 {translate(menu.title)}
               </div>
             ) : (
@@ -26,6 +26,7 @@ export default function MenuLinks() {
                   <div
                   className={styles.btnHeader}
                   onClick={() => setMenuId((prevId) => (prevId === menu.id ? "" : menu.id))}
+                  role="button"
                 >
                   {translate(menu.title)}{" "}
                   <MdOutlineKeyboardArrowDown />
@@ -34,6 +35,7 @@ export default function MenuLinks() {
                 ) : <div
                 className={styles.btnHeader}
                 onClick={(e) => handleMenuClick(e, menu.url, menu.isNeedAuth)}
+                role="button"
               >
                 {translate(menu.title)}{" "}
               </div>}
@@ -48,7 +50,7 @@ export default function MenuLinks() {
                       {subMenu.action ? (
                         <a>
                           {" "}
-                          <div onClick={subMenu.onClick}>
+                          <div onClick={subMenu.onClick} role="button">
                             {translate(subMenu.title)}{" "}
                           </div>
                         </a>
