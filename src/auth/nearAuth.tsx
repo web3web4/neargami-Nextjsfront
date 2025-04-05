@@ -4,7 +4,7 @@ import React, { createContext, useContext, ReactNode } from "react";
 import { setupWalletSelector } from "@near-wallet-selector/core";
 import { setupModal } from "@near-wallet-selector/modal-ui";
 import "@near-wallet-selector/modal-ui/styles.css";
-import { setupNightly } from "@near-wallet-selector/nightly";
+//import { setupNightly } from "@near-wallet-selector/nightly";
 import { setupMeteorWallet } from "@near-wallet-selector/meteor-wallet";
 import Swal from "sweetalert2";
 import { getAccountKeys, getChallengeData } from "./nearAuthVerfication";
@@ -19,7 +19,7 @@ export const getSelector = async () => {
   const selector = await setupWalletSelector({
     network: "testnet",
     languageCode: "en",
-    modules: [setupMeteorWallet(), setupNightly()],
+    modules: [setupMeteorWallet()/*, setupNightly()*/],
   });
   return selector;
 };
@@ -217,7 +217,7 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
        */
       const selector = await setupWalletSelector({
         network: "testnet",
-        modules: [setupMeteorWallet(), setupNightly()],
+        modules: [setupMeteorWallet()/*, setupNightly()*/],
       });
       const wallet = await selector.wallet();
       await wallet.signOut();
