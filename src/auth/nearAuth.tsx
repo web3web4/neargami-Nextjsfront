@@ -55,14 +55,13 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
   const { setAuthData } = useAuth();
   const router = useRouter();
 
-  const handleNearLogin = async (setButtonText: any, setIsShowLoading: any) => {
+  const handleNearLogin = async (setButtonText: any) => {
     try {
       /**
        * Step 1: Setting up Wallet Selector and showing the modal
        */
-      setIsShowLoading(true);
       const selector = await getSelector();
-  
+      setButtonText(<div className="loader" />);
       const modal = setupModal(selector, {
         contractId: "",
       });
@@ -76,7 +75,7 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
       const stopWaitingForWallet = false;
       modal.on("onHide", () => {
         console.log("Modal closed, re-opening...");
-        setIsShowLoading(false);
+        setButtonText("Connect");
         modal.show();
       });
   
@@ -95,8 +94,7 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
         return;
       }
   
-      setButtonText("Processing");
-  
+      setButtonText(<div className="loader" />);
       const accounts = await wallet.getAccounts();
       const accountId = accounts[0]?.accountId;
   
@@ -192,7 +190,7 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
             if (verifyData.data.signUpUserData.flags.new_user == true) {
               router.push("/wizard");
             } else {
-              setButtonText("Connected");
+              // setButtonText("Connected");
               router.refresh();
             }
   

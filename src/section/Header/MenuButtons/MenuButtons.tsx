@@ -16,8 +16,7 @@ import { useTranslations } from "next-intl";
 
 export default function MenuButtons({ isShowMenu }: { isShowMenu: boolean }) {
   const translate = useTranslations("Header");
-  const [buttonText, setButtonText] = useState<string>("Connect");
-  const [isShowLoading, setIsShowLoading] = useState<boolean>(true);
+  const [buttonText, setButtonText] = useState<React.ReactNode>("Connect");
   const [isMobileMenu, setMobileMenu] = useState<boolean>(false);
   const { handleNearLogin } = useWallet();
   const { userProfile, jwtToken } = useAuth();
@@ -61,12 +60,12 @@ export default function MenuButtons({ isShowMenu }: { isShowMenu: boolean }) {
         <Button
           href="# "
           variant="white"
-          showLoading={isShowLoading}
-          onClick={() => handleNearLogin(setButtonText, setIsShowLoading)}
+          showLoading={false}
+          onClick={() => handleNearLogin(setButtonText)}
         >
           <Image src={connectIcon} alt="icon" />
-          {translate(buttonText)}
-        </Button>
+          {typeof buttonText === "string" ? translate(buttonText) : buttonText}
+          </Button>
       )}
       {isMobileMenu && <MobileMenu mobileMenuhandle={handleMobileMenu} />}
     </div>
