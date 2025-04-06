@@ -9,7 +9,7 @@ export interface IAuthContextType {
   }
 
 export interface IWalletContextType {
-    handleNearLogin: (setButtonText:any, setIsShowLoading: any) => Promise<void>;
+    handleNearLogin: (setButtonText:any) => Promise<void>;
     handleNearLogout: () => Promise<void>;
   }
 
