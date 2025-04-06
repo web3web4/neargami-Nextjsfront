@@ -55,11 +55,12 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
   const { setAuthData } = useAuth();
   const router = useRouter();
 
-  const handleNearLogin = async (setButtonText: any) => {
+  const handleNearLogin = async (setButtonText: any, setIsShowLoading: any) => {
     try {
       /**
        * Step 1: Setting up Wallet Selector and showing the modal
        */
+      setIsShowLoading(true);
       const selector = await getSelector();
   
       const modal = setupModal(selector, {
@@ -75,6 +76,7 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
       const stopWaitingForWallet = false;
       modal.on("onHide", () => {
         console.log("Modal closed, re-opening...");
+        setIsShowLoading(false);
         modal.show();
       });
   
