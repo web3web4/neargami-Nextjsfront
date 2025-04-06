@@ -100,7 +100,7 @@ export const handleBloack = async (rowIndex: number , data : UserProfileData[] ,
             Swal.fire({
                 icon: "warning",
                 title: "Failed!",
-                text: `Error: ${response.status} - ${response.statusText}`,
+                text: `Error: ${response.status} - ${response}`,
             });
         }
     } catch (error) {
