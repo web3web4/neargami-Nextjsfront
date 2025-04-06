@@ -342,5 +342,19 @@
     "If you have any questions about this Privacy Policy please contact us at official email address or reach to us at one of our social media accounts": "إذا كانت لديك أي أسئلة حول سياسة الخصوصية هذه، يرجى الاتصال بنا عبر البريد الإلكتروني الرسمي أو الوصول إلينا عبر إحدى حسابات وسائل التواصل الاجتماعي الخاصة بنا.",
     "For more information please review our": "لمزيد من المعلومات يرجى مراجعة ",
     "Legal Disclaimer": "إخلاء المسؤولية القانونية"
+  },
+  "Error": {
+    "Error": "خطأ",
+    "Something went wrong": "هناك شيئ ما خاطئ",
+    "Please try again later": "من فضلك أعد المحاولة لاحقاً",
+    "Go To Home": "العودة الى الرئيسية",
+    "The Request is Currently Unavailable":"الطلب الحالي غير متوفر",
+    "We are working on development":"نحن نعمل على تطويره"
+  },
+  "Auth":{
+    "Success":"تمت العملية بنجاح",
+    "Login successful":"تسجيل دخول ناجح",
+    "Signature Message":"توقيع الرسالة",
+    "Sign Message":"يرجى توقيع الرسالة لإكمال عملية التسجيل. هذه الخطوات للتحقق من ملكية الحساب، وهي جزء من إجراءاتنا الأمنية. شكرًا لك."
   }
 }

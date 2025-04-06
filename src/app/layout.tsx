@@ -44,16 +44,16 @@ export default async function RootLayout({
         />
       </head>
       <body className={`${inter.variable} ${russoOne.variable}`}>
+      <NextIntlClientProvider messages={messages}>
         <AuthProvider>
           <WalletProvider>
             <main>
-              <NextIntlClientProvider messages={messages}>
                 {children}
-              </NextIntlClientProvider>
             </main>
             <Analytics />
           </WalletProvider>
         </AuthProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

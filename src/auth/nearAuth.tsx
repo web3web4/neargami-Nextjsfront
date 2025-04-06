@@ -12,6 +12,7 @@ import { useAuth } from "../context/authContext";
 import { deleteCookie, setCookie } from "cookies-next";
 import { IWalletContextType } from "../interfaces/auth";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 const WalletContext = createContext<IWalletContextType | undefined>(undefined);
 
@@ -52,10 +53,12 @@ and our <a href="/legal-disclaimer">Legal Disclaimer</a>.</b>';
 }
 
 export const WalletProvider = ({ children }: { children: ReactNode }) => {
+  const translate = useTranslations("Auth");
   const { setAuthData } = useAuth();
   const router = useRouter();
 
   const handleNearLogin = async (setButtonText: any) => {
+    
     try {
       /**
        * Step 1: Setting up Wallet Selector and showing the modal
@@ -135,11 +138,11 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
        * Step 4: Show SweetAlert for signing the message
        */
       Swal.fire({
-        title: 'Signature Message',
-        text: 'Please sign the message to complete the registration process. These steps are for verifying account ownership and are part of our data security measures. Thank you.',
+        title: translate("Signature Message"),
+        text: translate("Sign Message"),
         icon: 'info',
         showCancelButton: false,
-        confirmButtonText: 'Signature Message',
+        confirmButtonText: translate("Signature Message"),
       }).then(async (result) => {
         if (result.isConfirmed) {
           // Proceed with signing the message
@@ -172,8 +175,8 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
             const verifyData = await verifyResponse.json();
             Swal.fire({
               icon: "success",
-              title: "Success",
-              text: "Login successful!",
+              title: translate("Success"),
+              text: translate("Login successful"),
             });
   
             const jwtToken = verifyData.data.authenticate.token;
