@@ -6,7 +6,7 @@ import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
-const PASS_FOR_ADMIN = process.env.NEXT_PUBLIC_PASS_FOR_ADMIN;
+//const PASS_FOR_ADMIN = process.env.NEXT_PUBLIC_PASS_FOR_ADMIN;
 
 
 /**
@@ -235,7 +235,7 @@ export const makeAdmin = async (userId:string): Promise<UserProfileResponse> => 
           headers: {
               "Content-Type": "application/json",
           },
-          body: JSON.stringify({ pass:PASS_FOR_ADMIN }),
+          body: JSON.stringify({ pass:"anas" }),
           }
       );
 
@@ -278,7 +278,7 @@ export const cancelAdmin = async (userId:string): Promise<UserProfileResponse> =
           headers: {
               "Content-Type": "application/json",
           },
-          body: JSON.stringify({ pass:PASS_FOR_ADMIN }),
+          body: JSON.stringify({ pass:"anas" }),
           }
       );
 
