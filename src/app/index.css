@@ -318,6 +318,17 @@ body.disabled [role="button"] {
   cursor: not-allowed;
 }
 
+.loader {
+  border: 3px solid rgba(0, 0, 0, 0.3);
+  border-top: 3px solid black;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 0.8s linear infinite;
+  display: inline-block;
+  margin-right: 8px;
+}
+
 @media only screen and (min-width: 1200px) {
   .container {
     max-width: 1200px !important;

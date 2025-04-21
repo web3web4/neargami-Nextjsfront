@@ -4,7 +4,7 @@ import React, { createContext, useContext, ReactNode } from "react";
 import { setupWalletSelector } from "@near-wallet-selector/core";
 import { setupModal } from "@near-wallet-selector/modal-ui";
 import "@near-wallet-selector/modal-ui/styles.css";
-import { setupNightly } from "@near-wallet-selector/nightly";
+//import { setupNightly } from "@near-wallet-selector/nightly";
 import { setupMeteorWallet } from "@near-wallet-selector/meteor-wallet";
 import Swal from "sweetalert2";
 import { getAccountKeys, getChallengeData } from "./nearAuthVerfication";
@@ -12,6 +12,7 @@ import { useAuth } from "../context/authContext";
 import { deleteCookie, setCookie } from "cookies-next";
 import { IWalletContextType } from "../interfaces/auth";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 const WalletContext = createContext<IWalletContextType | undefined>(undefined);
 
@@ -19,7 +20,7 @@ export const getSelector = async () => {
   const selector = await setupWalletSelector({
     network: "testnet",
     languageCode: "en",
-    modules: [setupMeteorWallet(), setupNightly()],
+    modules: [setupMeteorWallet()/*, setupNightly()*/],
   });
   return selector;
 };
@@ -52,16 +53,18 @@ and our <a href="/legal-disclaimer">Legal Disclaimer</a>.</b>';
 }
 
 export const WalletProvider = ({ children }: { children: ReactNode }) => {
+  const translate = useTranslations("Auth");
   const { setAuthData } = useAuth();
   const router = useRouter();
 
   const handleNearLogin = async (setButtonText: any) => {
+    
     try {
       /**
        * Step 1: Setting up Wallet Selector and showing the modal
        */
       const selector = await getSelector();
-  
+      setButtonText(<div className="loader" />);
       const modal = setupModal(selector, {
         contractId: "",
       });
@@ -75,6 +78,7 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
       const stopWaitingForWallet = false;
       modal.on("onHide", () => {
         console.log("Modal closed, re-opening...");
+        setButtonText("Connect");
         modal.show();
       });
   
@@ -93,8 +97,7 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
         return;
       }
   
-      setButtonText("Processing");
-  
+      setButtonText(<div className="loader" />);
       const accounts = await wallet.getAccounts();
       const accountId = accounts[0]?.accountId;
   
@@ -135,11 +138,11 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
        * Step 4: Show SweetAlert for signing the message
        */
       Swal.fire({
-        title: 'Signature Message',
-        text: 'Please sign the message to complete the registration process. These steps are for verifying account ownership and are part of our data security measures. Thank you.',
+        title: translate("Signature Message"),
+        text: translate("Sign Message"),
         icon: 'info',
         showCancelButton: false,
-        confirmButtonText: 'Signature Message',
+        confirmButtonText: translate("Signature Message"),
       }).then(async (result) => {
         if (result.isConfirmed) {
           // Proceed with signing the message
@@ -172,8 +175,8 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
             const verifyData = await verifyResponse.json();
             Swal.fire({
               icon: "success",
-              title: "Success",
-              text: "Login successful!",
+              title: translate("Success"),
+              text: translate("Login successful"),
             });
   
             const jwtToken = verifyData.data.authenticate.token;
@@ -190,7 +193,7 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
             if (verifyData.data.signUpUserData.flags.new_user == true) {
               router.push("/wizard");
             } else {
-              setButtonText("Connected");
+              // setButtonText("Connected");
               router.refresh();
             }
   
@@ -217,7 +220,7 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
        */
       const selector = await setupWalletSelector({
         network: "testnet",
-        modules: [setupMeteorWallet(), setupNightly()],
+        modules: [setupMeteorWallet()/*, setupNightly()*/],
       });
       const wallet = await selector.wallet();
       await wallet.signOut();

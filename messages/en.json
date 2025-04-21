@@ -341,5 +341,20 @@
     "If you have any questions about this Privacy Policy please contact us at official email address or reach to us at one of our social media accounts": "If you have any questions about this Privacy Policy, please contact us at official email address or reach out to us at one of our social media accounts.",
     "For more information please review our": "For more information, please review our ",
     "Legal Disclaimer": "Legal Disclaimer"
+  },
+  "Error": {
+    "Error": "Error",
+    "Something went wrong": "Something went wrong",
+    "Please try again later": "Please try again later",
+    "Go To Home": "Go To Home",
+    "The Request is Currently Unavailable":"The Request is Currently Unavailable.",
+    "We are working on development":"We are working on development."
+  },
+  "Auth":{
+    "Success":"Success",
+    "Login successful":"Login successful!",
+    "Signature Message":"Signature Message",
+    "Sign Message":"Please sign the message to complete the registration process. These steps are for verifying account ownership and are part of our data security measures. Thank you."
   }
+
 }
