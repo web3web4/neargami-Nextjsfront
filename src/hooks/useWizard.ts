@@ -26,7 +26,7 @@ export const useWizard = () => {
     email: "",
     country: "",
     username: "",
-    sendMail: "",
+    sendMail: false,
   });
 
   useEffect(() => {
