@@ -107,14 +107,6 @@ button {
     border: none;
 }
 
-pre {
-  background: #23241f;
-  font-family: monospace;
-  padding: 1em;
-  border-radius: 5px;
-  overflow-x: auto;
-}
-
 
 /* css grid */
 
