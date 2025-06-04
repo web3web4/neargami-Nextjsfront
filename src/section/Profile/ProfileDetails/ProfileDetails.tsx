@@ -26,7 +26,7 @@ interface ProfileDetailsProps {
 const ProfileDetails = ({ username, data, courses }: ProfileDetailsProps) => {
   const translate = useTranslations("Profile");
   const {
-    balance,
+    // balance,
     isCopiedAddress,
     isCopiedProfileLink,
     loading,
@@ -35,7 +35,7 @@ const ProfileDetails = ({ username, data, courses }: ProfileDetailsProps) => {
     formatProfileLink,
     handleCopyAddress,
     handleCopyProfileLink,
-    handleClaims,
+    // handleClaims,
   } = useProfileDetails(username, data);
 
   return (
@@ -87,7 +87,7 @@ const ProfileDetails = ({ username, data, courses }: ProfileDetailsProps) => {
                     />
                   </span>
                 </li>
-                {!username && (
+                {/* {!username && (
                   <>
                     <li style={{ position: "relative" }}>
                       <strong>{translate("Tokens In Your Wallet")}</strong>{" "}
@@ -122,7 +122,7 @@ const ProfileDetails = ({ username, data, courses }: ProfileDetailsProps) => {
                       </span>
                     </li>
                   </>
-                )}
+                )} */}
                 <li>
                   <strong>{translate("Player Country")}</strong>{" "}
                   <span>{data.country}</span>
@@ -207,7 +207,7 @@ const ProfileDetails = ({ username, data, courses }: ProfileDetailsProps) => {
                         {translate("Edit Profile")}
                       </Button>
                     </div>
-                    <div className="mt-2 mb-3">
+                    {/* <div className="mt-2 mb-3">
                       <Button
                         variant="blue"
                         size="md"
@@ -216,7 +216,7 @@ const ProfileDetails = ({ username, data, courses }: ProfileDetailsProps) => {
                       >
                         {translate("Claim Coins")}
                       </Button>
-                    </div>
+                    </div> */}
                   </>
                 )}
               </div>

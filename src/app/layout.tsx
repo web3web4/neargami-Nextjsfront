@@ -5,6 +5,7 @@ import { WalletProvider } from "@/auth/nearAuth";
 import { Analytics } from "@vercel/analytics/next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
+import CopyButtonInitializer from "@/components/CopyButton/CopyButtonInitializer";
 import "./index.css";
 
 export const metadata: Metadata = {
@@ -50,6 +51,7 @@ export default async function RootLayout({
             <main>
                 {children}
             </main>
+            <CopyButtonInitializer />
             <Analytics />
           </WalletProvider>
         </AuthProvider>

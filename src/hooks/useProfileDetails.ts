@@ -1,17 +1,17 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { getBalance } from "@/lib/nearContractToken";
-import { claimsNgcs, getCurrentNgcs } from "@/apiService";
-import Swal from "sweetalert2";
+// import { getBalance } from "@/lib/nearContractToken";
+// import { claimsNgcs, getCurrentNgcs } from "@/apiService";
+// import Swal from "sweetalert2";
 import { useAuth } from "@/context/authContext";
-import { useTranslations } from "next-intl";
+// import { useTranslations } from "next-intl";
 import { UserProfileData } from "@/interfaces/api";
 
 export const useProfileDetails = (
   username: string | null,
   data: UserProfileData
 ) => {
-  const [balance, setBalance] = useState<string | null>("0");
+  // const [balance, setBalance] = useState<string | null>("0");
   const [loading, setLoading] = useState<boolean>(true);
   const [progress, setProgress] = useState<number>(0);
   const [error, setError] = useState<string | null>(null); // Error state for handling loading errors
@@ -21,8 +21,8 @@ export const useProfileDetails = (
   const [isCopiedAddress, setIsCopiedAddress] = useState<boolean>(false);
   const [isCopiedProfileLink, setIsCopiedProfileLink] =
     useState<boolean>(false);
-  const translate = useTranslations("messages");
-  console.log(balance);
+  // const translate = useTranslations("messages");
+  
   console.log(error);
 
   useEffect(() => {
@@ -124,53 +124,53 @@ export const useProfileDetails = (
     return apiBaseUrl;
   };
 
-  useEffect(() => {
-    const getUser = async () => {
-      try {
-        const balanceOfUser = await getBalance();
-        setBalance(balanceOfUser);
-      } catch (error: any) {
-        console.error("Error fetching user data:", error.message);
-      }
-    };
+  // useEffect(() => {
+  //   const getUser = async () => {
+  //     try {
+  //       const balanceOfUser = await getBalance();
+  //       setBalance(balanceOfUser);
+  //     } catch (error: any) {
+  //       console.error("Error fetching user data:", error.message);
+  //     }
+  //   };
 
-    getUser();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [username]);
+  //   getUser();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [username]);
 
-  const handleClaims = async () => {
-    const ngcs = await getCurrentNgcs();
-    if (ngcs.data !== 0) {
-      try {
-        const response = await claimsNgcs(ngcs.data);
+  // const handleClaims = async () => {
+  //   const ngcs = await getCurrentNgcs();
+  //   if (ngcs.data !== 0) {
+  //     try {
+  //       const response = await claimsNgcs(ngcs.data);
 
-        if ("error" in response) {
-          throw response;
-        }
-      } catch (error: any) {
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: error.message,
-        });
-      }
-      Swal.fire({
-        icon: "success",
-        title: translate("Success"),
-        html: `${translate("Your claim has been registered successfully!")}.
-          <a href="/privacy-policy">${translate("Privacy Policy")}</a>
-          <a href="/legal-disclaimer">${translate("Legal Disclaimer")}</a>.`,
-      });
-    } else {
-      Swal.fire({
-        icon: "warning",
-        title: translate("Warning"),
-        html: `${translate(
-          "No points available to claim"
-        )}. <a href="/privacy-policy">${translate("Privacy Policy")}</a>.`,
-      });
-    }
-  };
+  //       if ("error" in response) {
+  //         throw response;
+  //       }
+  //     } catch (error: any) {
+  //       Swal.fire({
+  //         icon: "error",
+  //         title: "Error",
+  //         text: error.message,
+  //       });
+  //     }
+  //     Swal.fire({
+  //       icon: "success",
+  //       title: translate("Success"),
+  //       html: `${translate("Your claim has been registered successfully!")}.
+  //         <a href="/privacy-policy">${translate("Privacy Policy")}</a>
+  //         <a href="/legal-disclaimer">${translate("Legal Disclaimer")}</a>.`,
+  //     });
+  //   } else {
+  //     Swal.fire({
+  //       icon: "warning",
+  //       title: translate("Warning"),
+  //       html: `${translate(
+  //         "No points available to claim"
+  //       )}. <a href="/privacy-policy">${translate("Privacy Policy")}</a>.`,
+  //     });
+  //   }
+  // };
 
   const unityShowBanner = (msg: string, type: string) => {
     alert(`${type}: ${msg}`);
@@ -223,14 +223,14 @@ export const useProfileDetails = (
   };
 
   return {
-    balance,
+    // balance,
     isCopiedAddress,
     loading,
     progress,
     isCopiedProfileLink,
     formatAddress,
     handleCopyAddress,
-    handleClaims,
+    // handleClaims,
     formatProfileLink,
     handleCopyProfileLink,
   };
