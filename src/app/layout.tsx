@@ -48,7 +48,7 @@ export default async function RootLayout({
         <AuthProvider>
           <WalletProvider>
             <main>
-                {children}
+              {children}
             </main>
             <Analytics />
           </WalletProvider>
