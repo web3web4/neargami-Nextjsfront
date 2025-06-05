@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { inter, russoOne } from "@/utils/font";
 import { AuthProvider } from "../context/authContext";
 import { WalletProvider } from "@/auth/nearAuth";
+import { TelegramProvider } from "@/auth/telegramAuth";
 import { Analytics } from "@vercel/analytics/next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
@@ -53,6 +54,13 @@ export default async function RootLayout({
             </main>
             <CopyButtonInitializer />
             <Analytics />
+            <TelegramProvider>
+              <main>
+                  {children}
+              </main>
+              <CopyButtonInitializer />
+              <Analytics />
+            </TelegramProvider>
           </WalletProvider>
         </AuthProvider>
         </NextIntlClientProvider>
