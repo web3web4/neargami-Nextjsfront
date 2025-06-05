@@ -1,6 +1,5 @@
 "use client";
 
-import React, { Fragment } from "react";
 import Banner from "@/components/Banner/Banner";
 import Footer from "@/section/Footer/v1/Footer";
 import CoursesList from "@/section/Home/Courses/CoursesList";
@@ -16,13 +15,13 @@ interface HomePageWrapperProps {
 const HomePageWrapper: React.FC<HomePageWrapperProps> = ({ courses }) => {
   return (
     <ClientSpeedLinesProvider>
-      <Fragment>
+      <>
         <Header />
         <Banner />
         <CoursesInProgress />
         <CoursesList initCourses={courses} />
         <Footer />
-      </Fragment>
+      </>
     </ClientSpeedLinesProvider>
   );
 };
