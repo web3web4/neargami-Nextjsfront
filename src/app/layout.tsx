@@ -49,18 +49,13 @@ export default async function RootLayout({
       <NextIntlClientProvider messages={messages}>
         <AuthProvider>
           <WalletProvider>
+            <TelegramProvider>
             <main>
               {children}
             </main>
             <CopyButtonInitializer />
             <Analytics />
-            <TelegramProvider>
-              <main>
-                  {children}
-              </main>
-              <CopyButtonInitializer />
-              <Analytics />
-            </TelegramProvider>
+            </TelegramProvider>          
           </WalletProvider>
         </AuthProvider>
         </NextIntlClientProvider>
