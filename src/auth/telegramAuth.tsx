@@ -38,7 +38,14 @@ export const TelegramProvider = ({ children }: { children: ReactNode }) => {
   
   // Automatically authenticate when in Telegram WebApp environment
 useEffect(() => {
+  if (typeof window !== "undefined") {
+    console.log("window.Telegram:", window.Telegram);
+    if (window.Telegram) {
+      console.log("window.Telegram.WebApp:", window.Telegram.WebApp);
+    }
+  }
   if (typeof window !== "undefined" && window.Telegram && window.Telegram.WebApp) {
+    // ...existing logic
     window.Telegram.WebApp.ready();
     window.Telegram.WebApp.expand();
     if (!jwtToken) {
