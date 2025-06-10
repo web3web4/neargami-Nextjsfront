@@ -37,30 +37,22 @@ export const TelegramProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
   
   // Automatically authenticate when in Telegram WebApp environment
-useEffect(() => {
-  if (typeof window !== "undefined") {
-    console.log("window.Telegram:", window.Telegram);
-    if (window.Telegram) {
-      console.log("window.Telegram.WebApp:", window.Telegram.WebApp);
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.Telegram?.WebApp) {
+      console.log("Not in Telegram WebApp environment");
+      if (!jwtToken) {
+        handleTelegramLogin();
+      }
     }
-  }
-  if (typeof window !== "undefined" && window.Telegram && window.Telegram.WebApp) {
-    // ...existing logic
-    window.Telegram.WebApp.ready();
-    window.Telegram.WebApp.expand();
-    if (!jwtToken) {
-      handleTelegramLogin();
-    }
-  } else {
-    console.warn("Not running inside Telegram WebApp. Telegram login will not be triggered.");
-  }
-}, [jwtToken]);
+  }, [jwtToken]);
 
   const handleTelegramLogin = async () => {
     try {
       // Check if we're in a Telegram WebApp environment
       if (typeof window !== "undefined" && window.Telegram && window.Telegram.WebApp) {
         const webApp = window.Telegram.WebApp;
+        webApp.ready();
+        webApp.expand();
         
         // Get the initData from Telegram WebApp
         const initData = webApp.initData;
