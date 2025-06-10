@@ -37,20 +37,17 @@ export const TelegramProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
   
   // Automatically authenticate when in Telegram WebApp environment
-  useEffect(() => {
-    if (typeof window !== "undefined" && window.Telegram && window.Telegram.WebApp) {
-      // Tell Telegram that the Mini App is ready
-      window.Telegram.WebApp.ready();
-      
-      // Expand the Mini App to its maximum allowed height
-      window.Telegram.WebApp.expand();
-      
-      // Auto-authenticate if we don't have a token yet
-      if (!jwtToken) {
-        handleTelegramLogin();
-      }
+useEffect(() => {
+  if (typeof window !== "undefined" && window.Telegram && window.Telegram.WebApp) {
+    window.Telegram.WebApp.ready();
+    window.Telegram.WebApp.expand();
+    if (!jwtToken) {
+      handleTelegramLogin();
     }
-  }, [jwtToken]);
+  } else {
+    console.warn("Not running inside Telegram WebApp. Telegram login will not be triggered.");
+  }
+}, [jwtToken]);
 
   const handleTelegramLogin = async () => {
     try {
