@@ -74,7 +74,7 @@ export const TelegramProvider = ({ children }: { children: ReactNode }) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "x-telegram-init-data": initData
+            //"x-telegram-init-data": initData
           },
           body: JSON.stringify(parsedData)
         });
