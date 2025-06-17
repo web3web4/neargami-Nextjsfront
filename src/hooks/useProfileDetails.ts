@@ -26,6 +26,11 @@ export const useProfileDetails = (
   console.log(error);
 
   useEffect(() => {
+    const handlePopState = () => {
+      document.body.classList.remove("disabled");
+    };
+    window.addEventListener("popstate", handlePopState);
+
     window.GetUserID = () => username || userProfile!.username!;
     window.IsGameReadOnly = () => !!username;
     window.GetToken = getTokenFromCookies;
@@ -98,6 +103,8 @@ export const useProfileDetails = (
         document.body.removeChild(unityLoaderScriptRef.current);
         unityLoaderScriptRef.current = null;
       }
+      document.body.classList.remove("disabled");
+      window.removeEventListener("popstate", handlePopState);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [username, userProfile?.username]);
