@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import { inter, russoOne } from "@/utils/font";
 import { AuthProvider } from "../context/authContext";
 import { WalletProvider } from "@/auth/nearAuth";
+import { TelegramProvider } from "@/auth/telegramAuth";
 import { Analytics } from "@vercel/analytics/next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import CopyButtonInitializer from "@/components/CopyButton/CopyButtonInitializer";
 import "./index.css";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "NearGami",
@@ -45,14 +47,20 @@ export default async function RootLayout({
         />
       </head>
       <body className={`${inter.variable} ${russoOne.variable}`}>
+        <Script
+          src="https://telegram.org/js/telegram-web-app.js"
+          strategy="beforeInteractive"
+        />
       <NextIntlClientProvider messages={messages}>
         <AuthProvider>
           <WalletProvider>
+            <TelegramProvider>
             <main>
               {children}
             </main>
             <CopyButtonInitializer />
             <Analytics />
+            </TelegramProvider>          
           </WalletProvider>
         </AuthProvider>
         </NextIntlClientProvider>
