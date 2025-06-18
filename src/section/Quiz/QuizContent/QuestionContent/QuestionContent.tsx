@@ -26,6 +26,7 @@ export default function QuestionContent({
     sortedQuestions,
     isCorrect,
     answers,
+    currNGC,
     currentQuestion,
     selectedAnswers,
     handleAnswerChange,
@@ -40,7 +41,7 @@ export default function QuestionContent({
       <CourseTitle
         courseLogo={data[0]?.lecture.course.logo}
         lessonNumber={data[0]?.lecture.order}
-        points={10}
+        points={currNGC}
       />
       {/* End Title */}
       {/* Start Progress */}

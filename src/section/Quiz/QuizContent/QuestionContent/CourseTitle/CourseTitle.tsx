@@ -16,7 +16,7 @@ export default function CourseTitle({ courseLogo, lessonNumber, points }: Course
     <div>
       <div className={styles.title}>
         <div className={styles.titleContent}>
-          <div>
+          <div className={styles.ngcSection}>
             <Image src={ngcIcons} alt="" width={30} height={30} /> {points}
           </div>
           <div className={styles.titleRight}>
