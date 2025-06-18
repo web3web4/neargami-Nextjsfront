@@ -13,7 +13,6 @@ type PlayerData = {
 };
 
 const LeaderBoard = () => {
-  const translate = useTranslations("LeaderBoard");
   const [players, setPlayers] = useState<PlayerData[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
