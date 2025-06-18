@@ -1,6 +1,4 @@
 "use client";
-
-import { useTranslations } from "next-intl";
 import styles from "./LeaderBoard.module.css";
 import { useState, useEffect } from "react";
 
