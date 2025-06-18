@@ -20,7 +20,7 @@ export default function MenuButtons({ isShowMenu }: { isShowMenu: boolean }) {
   const [isMobileMenu, setMobileMenu] = useState<boolean>(false);
   const { handleNearLogin } = useWallet();
   const { userProfile, jwtToken } = useAuth();
-
+  
   const handleMobileMenu = () => {
     setMobileMenu(!isMobileMenu);
   };
@@ -65,7 +65,7 @@ export default function MenuButtons({ isShowMenu }: { isShowMenu: boolean }) {
         >
           <Image src={connectIcon} alt="icon" />
           {typeof buttonText === "string" ? translate(buttonText) : buttonText}
-          </Button>
+        </Button>
       )}
       {isMobileMenu && <MobileMenu mobileMenuhandle={handleMobileMenu} />}
     </div>

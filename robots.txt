@@ -1,2 +1,2 @@
 User-agent: *
-Sitemap: https://neargami.com/sitemap.xml
+Sitemap: https://www.neargami.com/sitemap.xml
