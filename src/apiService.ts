@@ -849,27 +849,27 @@ export const getCurrentNgcs = async (): Promise<NgcResponse> => {
   });
 };
 
-/**
- * this function for claims ngcs Token
- * @method isTokenValid To verify the current session
- * @param ngcs this parameter for current ngcs.
- */
-export const claimsNgcs = async (ngcs: number): Promise<any> => {
-  return validateTokenAndProceed(async () => {
-    const response = await authFetch<ApiResponse<any>>(
-      `${API_BASE_URL}/users/ngcs`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ ngcs }),
-      }
-    );
+// /**
+//  * this function for claims ngcs Token
+//  * @method isTokenValid To verify the current session
+//  * @param ngcs this parameter for current ngcs.
+//  */
+// export const claimsNgcs = async (ngcs: number): Promise<any> => {
+//   return validateTokenAndProceed(async () => {
+//     const response = await authFetch<ApiResponse<any>>(
+//       `${API_BASE_URL}/users/ngcs`,
+//       {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify({ ngcs }),
+//       }
+//     );
 
-    return handleResponse(response, "found");
-  });
-};
+//     return handleResponse(response, "found");
+//   });
+// };
 
 /**
  * this function for upload image to imagekit
