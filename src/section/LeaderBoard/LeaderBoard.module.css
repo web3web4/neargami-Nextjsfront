@@ -304,38 +304,199 @@
   color: var(--blue-color);
 }
 
+/* Tablet styles */
 @media (max-width: 768px) {
-  .tableHeader, .tableRow {
-    grid-template-columns: 60px 1.5fr 1fr 1fr;
+  .leaderboardContainer {
+    width: 95%;
+    padding: 1.5rem;
+    margin: 1rem auto;
   }
   
-  .leaderboardContainer {
-    padding: 1rem;
+  .leaderboardTable {
+    width: 100%;
   }
   
   .leaderboardHeader h2 {
     font-size: 2rem;
   }
+  
+  .leaderboardSubtitle {
+    font-size: 0.9rem;
+  }
+  
+  .tableHeader, .tableRow {
+    grid-template-columns: 50px 2fr 1.2fr 1fr;
+    padding: 0.75rem 0.5rem;
+  }
+  
+  .rankCell {
+    width: 35px;
+    height: 35px;
+    font-size: 1.1rem;
+    margin-right: 0.3rem;
+  }
+  
+  .playerName {
+    font-size: 0.95rem;
+  }
+  
+  .coinValue {
+    font-size: 0.95rem;
+  }
+  
+  .coinLabel {
+    font-size: 0.75rem;
+  }
+  
+  .coursesCell {
+    font-size: 0.95rem;
+  }
 }
 
+/* Mobile styles */
 @media (max-width: 576px) {
-  .tableHeader, .tableRow {
-    grid-template-columns: 60px 1.5fr 1fr 0.8fr;
+  .leaderboardContainer {
+    width: 98%;
+    padding: 1rem;
+    margin: 0.5rem auto;
+    border-radius: 8px;
+  }
+  
+  .leaderboardHeader {
+    margin-bottom: 1.5rem;
+  }
+  
+  .leaderboardHeader h2 {
+    font-size: 1.8rem;
+    margin-bottom: 0.3rem;
+  }
+  
+  .leaderboardSubtitle {
+    font-size: 0.85rem;
+  }
+  
+  .leaderboardTable {
+    width: 100%;
+    border-radius: 6px;
+  }
+  
+  .tableHeader {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.8rem;
+    grid-template-columns: 45px 2fr 1.3fr 1fr;
+  }
+  
+  .tableRow {
+    grid-template-columns: 45px 2fr 1.3fr 1fr;
+    padding: 0.6rem 0.5rem;
     font-size: 0.85rem;
   }
   
   .rankCell {
-    width: 32px;
-    height: 32px;
-    font-size: 1rem;
+    width: 30px;
+    height: 30px;
+    font-size: 0.9rem;
+    margin-right: 0.2rem;
+  }
+  
+  .playerCell {
+    padding: 0.3rem;
   }
   
   .playerName {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    line-height: 1.2;
+    word-break: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 120px;
   }
   
-  .coinValue, .coursesCell {
+  .coinsCell {
+    padding: 0.3rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+  
+  .coinValue {
+    font-size: 0.85rem;
+    margin-right: 0;
+  }
+  
+  .coinLabel {
+    font-size: 0.7rem;
+  }
+  
+  .coursesCell {
+    font-size: 0.85rem;
+    padding: 0.3rem;
+  }
+  
+  .tableBody {
+    max-height: 500px;
+  }
+  
+  /* Adjust top three styling for mobile */
+  .topThree .playerName {
     font-size: 0.9rem;
+    font-weight: 600;
+  }
+  
+  .topThree .coinValue {
+    font-size: 0.9rem;
+  }
+}
+
+/* Extra small mobile devices */
+@media (max-width: 480px) {
+  .leaderboardContainer {
+    width: 100%;
+    padding: 0.75rem;
+    margin: 0;
+    border-radius: 0;
+  }
+  
+  .leaderboardHeader h2 {
+    font-size: 1.6rem;
+  }
+  
+  .tableHeader, .tableRow {
+    grid-template-columns: 40px 1.8fr 1.2fr 0.8fr;
+    padding: 0.5rem 0.3rem;
+  }
+  
+  .rankCell {
+    width: 28px;
+    height: 28px;
+    font-size: 0.8rem;
+  }
+  
+  .playerName {
+    font-size: 0.8rem;
+    max-width: 100px;
+  }
+  
+  .coinValue {
+    font-size: 0.8rem;
+  }
+  
+  .coinLabel {
+    font-size: 0.65rem;
+  }
+  
+  .coursesCell {
+    font-size: 0.8rem;
+  }
+  
+  .tableHeader {
+    font-size: 0.75rem;
+  }
+  
+  /* Hide tree on very small screens */
+  .topPlayerTree {
+    display: none;
   }
 }
 
