@@ -97,7 +97,7 @@ const LeaderBoard = () => {
               </div>
               <div className={styles.playerCell}>
                 <div className={styles.playerInfo}>
-                  <div className={styles.playerName}>{player.username}</div>
+                  <div className={styles.playerName} title={player.username}>{player.username}</div>
                 </div>
               </div>
               <div className={styles.coinsCell}>
