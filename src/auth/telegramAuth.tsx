@@ -67,7 +67,7 @@ export const TelegramProvider = ({ children }: { children: ReactNode }) => {
         }
 
         // Parse the initData
-        const parsedData = parseTelegramInitData(initData);
+        //const parsedData = parseTelegramInitData(initData);
 
         // Send the initData directly to backend
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/telegram`, {
@@ -76,7 +76,7 @@ export const TelegramProvider = ({ children }: { children: ReactNode }) => {
             "Content-Type": "application/json",
             //"X-Telegram-Init-Data": initData
           },
-          body: JSON.stringify(parsedData)
+          body: JSON.stringify(initData)
         });
 
         if (response.status === 201) {
