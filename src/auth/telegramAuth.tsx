@@ -59,17 +59,16 @@ export const TelegramProvider = ({ children }: { children: ReactNode }) => {
         const webApp = window.Telegram.WebApp;
         
         // Get the initData from Telegram WebApp
-        const initDataTelegram = webApp.initData;
+        let initDataTelegram = webApp.initData;
         
         if (!initDataTelegram) {
           console.error("No Telegram initDataTelegram available");
           return;
         }
         // Remove the query_id parameter
-        const filteredInitData = initDataTelegram
-        .split('&')
-        .filter(param => !param.startsWith("query_id="))
-        .join('&');
+      if (initDataTelegram.startsWith("query_id=")) {
+        initDataTelegram = initDataTelegram.replace("query_id=", "");
+      }
 
         // Parse the initDataTelegram
         //const parsedData = parseTelegraminitDataTelegram(initDataTelegram);
@@ -81,7 +80,7 @@ export const TelegramProvider = ({ children }: { children: ReactNode }) => {
             "Content-Type": "application/json",
             //"X-Telegram-Init-Data": initDataTelegram
           },
-          body: JSON.stringify({initData : filteredInitData})
+          body: JSON.stringify({initData : initDataTelegram})
         });
 
         if (response.status === 201) {
