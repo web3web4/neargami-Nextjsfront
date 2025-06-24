@@ -59,17 +59,19 @@ export const TelegramProvider = ({ children }: { children: ReactNode }) => {
         const webApp = window.Telegram.WebApp;
         
         // Get the initData from Telegram WebApp
-        let initDataTelegram = webApp.initData;
+        const initDataTelegram = webApp.initData;
         
         if (!initDataTelegram) {
           console.error("No Telegram initDataTelegram available");
           return;
         }
+        /*
         // Remove the query_id parameter
-      if (initDataTelegram.startsWith("query_id=")) {
-        initDataTelegram = initDataTelegram.replace("query_id=", "");
-      }
-
+          if (initDataTelegram.startsWith("query_id=")) {
+            initDataTelegram = initDataTelegram.replace("query_id=", "");
+          }
+        */
+       
         // Parse the initDataTelegram
         //const parsedData = parseTelegraminitDataTelegram(initDataTelegram);
 
