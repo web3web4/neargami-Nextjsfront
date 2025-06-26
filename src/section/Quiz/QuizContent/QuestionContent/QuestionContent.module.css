@@ -79,6 +79,32 @@
   left: 0;
 }
 
+.spinnerContainer{
+  margin: 15.5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 50%;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #cccccccc;
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: translateY(-50%) rotate(360deg);
+  }
+}
+
 @media only screen and (max-width: 700px) {
   .contentLeft {
     padding: 20px 20px 0 20px;

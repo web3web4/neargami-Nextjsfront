@@ -29,6 +29,7 @@ export default function QuestionContent({
     currNGC,
     currentQuestion,
     selectedAnswers,
+    isLoading,
     handleAnswerChange,
     handleCheckAnswers,
     handleNextQuestion,
@@ -135,6 +136,7 @@ export default function QuestionContent({
           className={styles.nextBtn}
           onClick={handleNextQuestion}
           style={{
+            zIndex: 2,
             background:
               currentQuestionSequence === sortedQuestions.length
                 ? "var(--green-color)"
@@ -146,7 +148,8 @@ export default function QuestionContent({
           }}
         >
           <h4 style={{ marginBottom: "0px" }}>
-            {currentQuestionSequence === sortedQuestions.length
+            {isLoading? <div className={styles.spinnerContainer}><div className={styles.spinner}/></div>
+              : currentQuestionSequence === sortedQuestions.length
               ? translate("Finish Lesson")
               : translate("Next Question")}
           </h4>
