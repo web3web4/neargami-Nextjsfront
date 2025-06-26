@@ -12,6 +12,7 @@ export const useQuizContent = ( courseId: string, lectureId: string, data: QARes
   const [answers, setAnswers] = useState<CheckAnswerResponse>();
   const [currentQuestionSequence, setCurrentQuestionSequence] = useState<number>(1);
   const [currNGC, setCurrNGC] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const translate = useTranslations("messages");
 
   // Create User Course And Lecture
@@ -145,6 +146,7 @@ export const useQuizContent = ( courseId: string, lectureId: string, data: QARes
 
   const handleNextQuestion = async () => {
     if (currentQuestionSequence === sortedQuestions.length) {
+      setIsLoading(true);
       await updateFinishLectureInCourse(courseId, lectureId);
       Swal.fire({
         icon: "success",
@@ -153,6 +155,7 @@ export const useQuizContent = ( courseId: string, lectureId: string, data: QARes
           "You have successfully completed this lesson Proceed to the next lesson to continue your progress"
         ),
       });
+      setIsLoading(false);
       router.push(`/course-details/${data[0].lecture.course.slug}`);
     }
 
@@ -173,6 +176,7 @@ export const useQuizContent = ( courseId: string, lectureId: string, data: QARes
     currNGC,
     currentQuestion,
     selectedAnswers,
+    isLoading,
     handleAnswerChange,
     handleCheckAnswers,
     handleNextQuestion,
