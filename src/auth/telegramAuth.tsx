@@ -59,24 +59,30 @@ export const TelegramProvider = ({ children }: { children: ReactNode }) => {
         const webApp = window.Telegram.WebApp;
         
         // Get the initData from Telegram WebApp
-        const initData = webApp.initData;
+        const initDataTelegram = webApp.initData;
         
-        if (!initData) {
-          console.error("No Telegram initData available");
+        if (!initDataTelegram) {
+          console.error("No Telegram initDataTelegram available");
           return;
         }
+        /*
+        // Remove the query_id parameter
+          if (initDataTelegram.startsWith("query_id=")) {
+            initDataTelegram = initDataTelegram.replace("query_id=", "");
+          }
+        */
+       
+        // Parse the initDataTelegram
+        //const parsedData = parseTelegraminitDataTelegram(initDataTelegram);
 
-        // Parse the initData
-        const parsedData = parseTelegramInitData(initData);
-
-        // Send the initData directly to backend
+        // Send the initDataTelegram directly to backend
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/telegram`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            //"X-Telegram-Init-Data": initData
+            //"X-Telegram-Init-Data": initDataTelegram
           },
-          body: JSON.stringify(parsedData)
+          body: JSON.stringify({initData : initDataTelegram})
         });
 
         if (response.status === 201) {
