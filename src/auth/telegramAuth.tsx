@@ -85,10 +85,10 @@ export const TelegramProvider = ({ children }: { children: ReactNode }) => {
           body: JSON.stringify({initData : initDataTelegram})
         });
 
-        if (response.status === 201) {
+        if (response.status === 200) {
           const authData = await response.json();
           
-          const jwtToken = authData.data.token;
+          const jwtToken : string = authData.data.token.token;
           setAuthData("jwtToken", jwtToken);
           setAuthData("authMethod", "TELEGRAM");
 
