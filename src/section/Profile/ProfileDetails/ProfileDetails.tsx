@@ -225,6 +225,11 @@ const ProfileDetails = ({ username, data, courses }: ProfileDetailsProps) => {
             </div>
             <div className="col-md-8" style={{ marginTop: "-20px" }}>
               <div className={styles.rightContent}>
+                {loading && (
+                  <div className={styles.waitingNotice}>
+                    {translate("Waiting Notice")}
+                  </div>
+                )}
                 <h2 className={styles.rightContentTitle}>
                   {translate("Near Land")}
                 </h2>
@@ -257,12 +262,47 @@ const ProfileDetails = ({ username, data, courses }: ProfileDetailsProps) => {
 
                       {loading && (
                         <div className={styles.unityLoadingOverlay}>
-                          <div className={styles.loadingLogo}>
-                            <Image src={logo} alt="Loading Logo" />
-                          </div>
-                          <div className={styles.loadingText}>
-                            {translate("Loading")}
-                            {Math.round(progress * 100)}%
+                          <div className={styles.loadingContent}>
+                            <div className={styles.loadingLogo}>
+                              <Image src={logo} alt="Loading Logo" />
+                            </div>
+                            
+                            <div className={styles.progressRing}>
+                              <svg width="120" height="120">
+                                <circle
+                                  cx="60" cy="60" r="50"
+                                  stroke="rgba(255,255,255,0.2)"
+                                  strokeWidth="8" fill="none"
+                                />
+                                <circle
+                                  cx="60" cy="60" r="50"
+                                  stroke="#00ec97" strokeWidth="8" fill="none"
+                                  strokeDasharray={`${2 * Math.PI * 50}`}
+                                  strokeDashoffset={`${2 * Math.PI * 50 * (1 - progress)}`}
+                                  transform="rotate(-90 60 60)"
+                                  style={{ transition: 'stroke-dashoffset 0.3s ease' }}
+                                />
+                              </svg>
+                              <div className={styles.progressText}>
+                                {Math.round(progress * 100)}%
+                              </div>
+                            </div>
+                            
+                            <div className={styles.loadingMessage}>
+                              {progress < 0.3 ? translate("Initializing Near Land") :
+                               progress < 0.6 ? translate("Loading game assets") :
+                               progress < 0.9 ? translate("Preparing your city") :
+                               translate("Almost ready")}
+                            </div>
+                            
+                            <div className={styles.loadingTip}>
+                              💡 {[
+                                translate("LoadingTip1"),
+                                translate("LoadingTip2"),
+                                translate("LoadingTip3"),
+                                translate("LoadingTip4"),
+                              ][Math.floor(Date.now() / 3000) % 4]}
+                            </div>
                           </div>
                         </div>
                       )}
