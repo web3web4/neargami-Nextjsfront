@@ -211,6 +211,10 @@
     "Claim Coins": "طلب العملات",
     "Near Land": "Near Land",
     "Loading": "جاري التحميل.... ",
+    "LoadingTip1": "أتقن مفاهيم البلوك تشين أثناء بناء مدينتك الافتراضية",
+    "LoadingTip2": "استعد لمستقبل الويب 3 أثناء بناء مدينة أحلامك",
+    "LoadingTip3": "طور مهاراتك أثناء بناء مدينتك المثالية",
+    "LoadingTip4": "يمكنك كسب عملات NearGami من خلال إكمال الدورات.",
     "Courses Offered": "الدورات المقدمة",
     "There are no courses published yet": "لا يوجد دورات حتى الان.",
     "There are no courses finished yet": "لا يوجد دورات انتهت بعد.",
@@ -242,7 +246,12 @@
     "offeredCourses": "الدورات المقدمة",
     "Profile Link": "رابط الملف الشخصي:",
     "Copied": "تم النسخ!",
-    "Copy": "نسخ"
+    "Copy": "نسخ",
+    "Waiting Notice": "⏳ يرجى الانتظار حتى تنتهي اللعبة من التحميل قبل التفاعل",
+    "Initializing Near Land": "جارِ التهيئة...",
+    "Loading game assets": "جاري تحميل موارد اللعبة...",
+    "Preparing your city": "إعداد مدينتك...",
+    "Almost ready": "جاهز تقريبًا..."
   },
   "Wizard": {
     "Terms and conditions": "الشروط والاحكام",
