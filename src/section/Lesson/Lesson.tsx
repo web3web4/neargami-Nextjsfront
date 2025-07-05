@@ -51,7 +51,7 @@ export default function Lesson({
                   <div className={styles.discriptionQuill}>
                     <RichBoxQuill
                       placeholder={translate("Enter discription talking about this lesson")}
-                      value={formInput.description}
+                      value={formInput.description || ""}
                       onChange={(val) => handleOnChangeDescription(val)}
                     />
                   </div>
