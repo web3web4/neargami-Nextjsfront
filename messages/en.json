@@ -210,6 +210,10 @@
     "Claim Coins": "Claim Coins",
     "Near Land": "Near Land",
     "Loading": "Loading... ",
+    "LoadingTip1": "Master blockchain concepts while building your virtual city",
+    "LoadingTip2": "Prepare for the Web3 future while crafting your dream city",
+    "LoadingTip3": "Advance your skills while constructing your ideal city",
+    "LoadingTip4": "You can earn NearGami coins by completing courses.",
     "Courses Offered": "Courses Offered",
     "There are no courses published yet": "There are no courses published yet.",
     "There are no courses finished yet": "There are no courses finished yet.",
@@ -241,7 +245,12 @@
     "offeredCourses": "Offered courses ",
     "Profile Link": "Profile Link:",
     "Copied": "Copied!",
-    "Copy": "Copy"
+    "Copy": "Copy",
+    "Waiting Notice": "⏳ Please wait for the game to finish loading before interacting",
+    "Initializing Near Land": "Initializing Near Land...",
+    "Loading game assets": "Loading game assets...",
+    "Preparing your city": "Preparing your city...",
+    "Almost ready": "Almost ready..."
   },
   "Wizard": {
     "Terms and conditions": "Terms and conditions",

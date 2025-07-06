@@ -18,7 +18,7 @@ export default function CoursesList({initCourses}: CourseList) {
   const { handleSearch, filterCourses } = useHomeSearch(searchRef, initCourses);
 
   return (
-    <div className={styles.courseWrapper}>
+    <div id="courses-list" className={styles.courseWrapper}>
       <div className="container pb-5">
         <div>
           <div className={styles.breadcrumbForm}>

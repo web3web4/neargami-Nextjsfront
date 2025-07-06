@@ -13,6 +13,8 @@ export const useHeader = (setMenuId: Dispatch<SetStateAction<string>>) => {
   const translate = useTranslations("messages");
   const { jwtToken } = useAuth();
 
+  const { authMethod } = useAuth();
+
   const data: MenuItem[] = [
     {
       id: "1W1WV",
@@ -49,7 +51,7 @@ export const useHeader = (setMenuId: Dispatch<SetStateAction<string>>) => {
   ];
 
   //Check If Connect And Disconnect 
-  if(jwtToken){
+  if(jwtToken && authMethod === "NEAR"){
     data.push(
       {
         id: "1W5WV",

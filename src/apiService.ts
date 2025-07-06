@@ -668,7 +668,7 @@ export const getAllLectureForCourse = async (
 };
 
 /**
- * this function for get all qustion
+ * this function for get all question
  * @method isTokenValid To verify the current session
  * @param courseId this parameter for course id.
  * @param lectureId this parameter for lecture id.

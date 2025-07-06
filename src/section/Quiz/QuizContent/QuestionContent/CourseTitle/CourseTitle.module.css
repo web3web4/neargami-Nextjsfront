@@ -30,3 +30,9 @@
   margin-inline-end: 7px;
   border-radius: 3px;
 }
+
+.ngcSection{
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+}

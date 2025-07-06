@@ -26,6 +26,11 @@ export const useProfileDetails = (
   console.log(error);
 
   useEffect(() => {
+    const handlePopState = () => {
+      document.body.classList.remove("disabled");
+    };
+    window.addEventListener("popstate", handlePopState);
+
     window.GetUserID = () => username || userProfile!.username!;
     window.IsGameReadOnly = () => !!username;
     window.GetToken = getTokenFromCookies;
@@ -35,17 +40,17 @@ export const useProfileDetails = (
 
     const unityLoaderScript: HTMLScriptElement =
       document.createElement("script");
-    unityLoaderScript.src = "/citybuilder/Build/CityBuilder.loader.js";
+    unityLoaderScript.src = "/citybuilder/Build/City.loader.js";
 
     unityLoaderScript.onload = () => {
       if (typeof createUnityInstance !== "undefined") {
         createUnityInstance(
           document.querySelector("#unity-canvas"),
           {
-            dataUrl: "/citybuilder/Build/CityBuilder.data.unityweb",
+            dataUrl: "/citybuilder/Build/City.data.unityweb",
             frameworkUrl:
-              "/citybuilder/Build/CityBuilder.framework.js.unityweb",
-            codeUrl: "/citybuilder/Build/CityBuilder.wasm.unityweb",
+              "/citybuilder/Build/City.framework.js.unityweb",
+            codeUrl: "/citybuilder/Build/City.wasm.unityweb",
             streamingAssetsUrl: "/citybuilder/StreamingAssets",
             companyName: "Neargami",
             productName: "City",
@@ -98,6 +103,8 @@ export const useProfileDetails = (
         document.body.removeChild(unityLoaderScriptRef.current);
         unityLoaderScriptRef.current = null;
       }
+      document.body.classList.remove("disabled");
+      window.removeEventListener("popstate", handlePopState);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [username, userProfile?.username]);
