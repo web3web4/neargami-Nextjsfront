@@ -8,6 +8,7 @@ import { LessonResponse } from "@/interfaces/api";
 import { useLesson } from "@/hooks/useLesson";
 import { useTranslations } from "next-intl";
 
+
 export default function Lesson({
   courseId,
   lessonId,
@@ -27,6 +28,7 @@ export default function Lesson({
     handleOnChangeDescription,
   } = useLesson(courseId, lessonId, data);
   const translate = useTranslations("Lesson");
+
 
   return (
     <div className={styles.lessonWrapper}>
@@ -48,13 +50,17 @@ export default function Lesson({
                 </div>
                 <div>
                   <h6>{translate("Discription")}</h6>
+                  
+
                   <div className={styles.discriptionQuill}>
                     <RichBoxQuill
                       placeholder={translate("Enter discription talking about this lesson")}
-                      value={formInput.description || ""}
+                      value={formInput.description}
                       onChange={(val) => handleOnChangeDescription(val)}
                     />
                   </div>
+                  
+
                 </div>
                 <div>
                   <h6>{translate("Pre Lesson Note")}</h6>
