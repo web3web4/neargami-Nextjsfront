@@ -87,12 +87,13 @@ export const useHome = () => {
   }, [jwtToken]);
 
   useEffect(() => {
-    if (getCookie("firstShowingOfHome") === "true") {
+    if (getCookie("firstShowingOfHome") === "true" && jwtToken) {
       setTimeout(function () {
         GetIntroCourse();
       }, 3000);
     }
-  });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [jwtToken]);
 
   return { courses };
 };
