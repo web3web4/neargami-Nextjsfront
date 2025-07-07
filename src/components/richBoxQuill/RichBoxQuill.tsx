@@ -1,10 +1,13 @@
 "use client";
 import React, { useRef, useCallback, useState } from "react";
+//import "highlight.js/styles/github.css"; 
+//import hljs from "highlight.js"
 import ReactQuill from "react-quill-new";
 import Loading from "../loading/Loading";
 import "react-quill-new/dist/quill.snow.css";
 import "./RichBoxQuillStyle.css";
 import { uploadFile } from "@/apiService";
+;
 
 interface RichBoxQuillProps {
   placeholder: string;
@@ -54,7 +57,9 @@ export default function RichBoxQuill({
   }, []);
 
   const modules = {
+ 
     toolbar: {
+      
       container: [
         [{ header: [1, 2, 3, false] }],
         ["bold", "italic", "underline", "strike", "blockquote"],
@@ -70,7 +75,7 @@ export default function RichBoxQuill({
       ],
       handlers: {
         image: imageHandler,
-      },
+      },   
     },
   };
 
@@ -81,7 +86,7 @@ export default function RichBoxQuill({
         ref={quillRef}
         theme="snow"
         placeholder={placeholder}
-        value={value}
+        value={typeof value === "string" ? value : ""}
         onChange={onChange}
         modules={modules}
       />

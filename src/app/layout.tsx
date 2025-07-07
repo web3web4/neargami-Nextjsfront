@@ -6,7 +6,7 @@ import { TelegramProvider } from "@/auth/telegramAuth";
 import { Analytics } from "@vercel/analytics/next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
-import CopyButtonInitializer from "@/components/CopyButton/CopyButtonInitializer";
+//import CopyButtonInitializer from "@/components/CopyButton/CopyButtonInitializer";
 import "./index.css";
 import Script from "next/script";
 
@@ -58,7 +58,9 @@ export default async function RootLayout({
             <main>
               {children}
             </main>
+            {/*
             <CopyButtonInitializer />
+             */}
             <Analytics />
             </TelegramProvider>          
           </WalletProvider>

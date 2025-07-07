@@ -115,7 +115,7 @@ export const useLesson = (courseId: string, lessonId: string, data: LessonRespon
             });
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [data]);
 
     
  const handleInputChange = (e: any) => {
@@ -129,7 +129,7 @@ export const useLesson = (courseId: string, lessonId: string, data: LessonRespon
  const handleOnChangeDescription = (value: string) => {
   setFormInput((prevInput) => ({
     ...prevInput,
-    description: value,
+    description: value || "",
   }));
 };
 
