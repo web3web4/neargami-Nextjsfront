@@ -48,6 +48,28 @@ export const useHeader = (setMenuId: Dispatch<SetStateAction<string>>) => {
       url: "/teacher-dashboard",
       isNeedAuth: true,
     },
+
+    {
+      id: "1W8WV",
+      title: "Company",
+      url: "",
+      isNeedAuth: false,
+      subMenus: [
+        {
+          id: "1W8WV2",
+          title: "Contact",
+          url: "/contact",
+          isNeedAuth: false,
+        },
+        {
+          id: "1W8WV1",
+          title: "About",
+          url: "/about",
+          isNeedAuth: false,
+        },
+      ],
+    },
+
   ];
 
   //Check If Connect And Disconnect 

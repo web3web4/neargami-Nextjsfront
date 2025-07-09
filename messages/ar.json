@@ -83,7 +83,20 @@
     "Connected": "متصل",
     "Language": "اللغة",
     "English": "انجليزي",
-    "Arabic": "عربي"
+    "Arabic": "عربي",
+    "Sign In": "تسجيل الدخول",
+    "Sign Up": "إنشاء حساب",
+    "Sign Out": "تسجيل خروج",
+    "Sign In With NEAR": "تسجيل الدخول باستخدام near",
+    "Sign In With NEAR Tooltip": "تسجيل الدخول باستخدام near لاستفادة من خدماتنا.",
+    "Company": "عن الشركة",
+    "Legal": "القانوني",
+    "Legal Disclaimer": "إخلاء المسؤولية القانونية",
+    "User Privacy Policy": "سياسة الخصوصية للمستخدم",
+    "Privacy Policy": "سياسة الخصوصية",
+    "About": "من نحن",
+    "Contact": "تواصل معنا",
+    "Home": "الرئيسية"
   },
   "Banner": {
     "Gamified e-learning platform": "منصة تعليمية تفاعلية تعتمد على الألعاب",
@@ -461,6 +474,7 @@
     "Connect with us on LinkedIn for professional updates": "تواصل معنا على LinkedIn للحصول على التحديثات المهنية:",
     "Follow us on Facebook for community updates": "Follow us on Facebook for community updates:",
     "LinkedIn": "لينكد ان",
-    "Facebook": "فيسبوك"
+    "Facebook": "فيسبوك",
+    "Click Here": "اضغط هنا"
   }
 }

@@ -1,6 +1,6 @@
 
 import { useTranslations } from "next-intl";
-import { FaTelegram, FaLinkedin, FaFacebook, FaGlobe } from 'react-icons/fa';
+import { FaTelegram, FaLinkedin, FaGlobe } from 'react-icons/fa';
 import styles from "./Contact.module.css";
 
 const Contact = () => {
@@ -34,7 +34,7 @@ const Contact = () => {
                 {translate("Join our Telegram community for real-time discussions and support")}
                 <br />
                 <a href={process.env.NEXT_PUBLIC_TELEGRAM_URL} target="_blank" rel="noopener noreferrer">
-                Click Here
+                {translate("Click Here")}
                 </a>
               </p>
             </div>
@@ -45,21 +45,11 @@ const Contact = () => {
                 {translate("Connect with us on LinkedIn for professional updates")}
                 <br />
                 <a href={process.env.NEXT_PUBLIC_LINKEDIN_URL} target="_blank" rel="noopener noreferrer">
-                Click Here
+                {translate("Click Here")}
                 </a>
               </p>
             </div>
             
-            <div className={styles.socialItem}>
-              <h4><FaFacebook />  {translate("Facebook")}</h4>
-              <p>
-                {translate("Follow us on Facebook for community updates")}
-                <br />
-                <a href={process.env.NEXT_PUBLIC_FACEBOOK_URL} target="_blank" rel="noopener noreferrer">
-                Click Here
-                </a>
-              </p>
-            </div>
             
             <div className={styles.socialItem}>
               <h4><FaGlobe />  {translate("Website")}</h4>
@@ -67,7 +57,7 @@ const Contact = () => {
                 {translate("Visit our main website")}
                 <br />
                 <a href={process.env.NEXT_PUBLIC_WEBSITE_URL} target="_blank" rel="noopener noreferrer">
-                Click Here
+                {translate("Click Here")}
                 </a>
               </p>
             </div>

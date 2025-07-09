@@ -82,7 +82,14 @@
     "Connected": "Connected",
     "Language": "Language",
     "English": "English",
-    "Arabic": "Arabic"
+    "Arabic": "Arabic",
+    "Company": "Company",
+    "Terms & Conditions": "Terms & Conditions",
+    "Privacy Policy": "Privacy Policy",
+    "Legal Disclaimer": "Legal Disclaimer",
+    "User Privacy Policy": "User Privacy Policy",
+    "About": "About",
+    "Contact": "Contact"
   },
   "Banner": {
     "Gamified e-learning platform": "Gamified e-learning platform",
@@ -460,7 +467,8 @@
     "Connect with us on LinkedIn for professional updates": "Connect with us on LinkedIn for professional updates:",
     "Follow us on Facebook for community updates": "Follow us on Facebook for community updates:",
     "Facebook": "Facebook",
-    "LinkedIn": "LinkedIn"
+    "LinkedIn": "LinkedIn",
+    "Click Here": "Click Here"
   }
 
 }
