@@ -203,10 +203,10 @@
     "Enter your answer": "Enter your answer"
   },
   "Profile": {
-    "NearGami Coins": "NearGami Coins:",
+    "NearGami Point": "NearGami Point:",
     "Top Points": "Top Points:",
-    "NearGamiCoinsTooltip": "Your current balance of off-chain tokens ready for use within our website's online game environment.",
-    "TopPointsTooltip": "The cumulative number of coins you've earned since joining our service.",
+    "NearGamiCoinsTooltip": "Your current balance points ready for use within our website's online game environment.",
+    "TopPointsTooltip": "The cumulative number of point you've earned since joining our service.",
     "Tokens In Your Wallet": "Tokens In Your Wallet:",
     "TokensInYourWalletToolTip": "Tokens exist at your NEAR wallet on-chain.",
     "Claimed Token": "Claimed Token:",
@@ -222,7 +222,7 @@
     "LoadingTip1": "Master blockchain concepts while building your virtual city",
     "LoadingTip2": "Prepare for the Web3 future while crafting your dream city",
     "LoadingTip3": "Advance your skills while constructing your ideal city",
-    "LoadingTip4": "You can earn NearGami coins by completing courses.",
+    "LoadingTip4": "You can earn NearGami Point by completing courses.",
     "Courses Offered": "Courses Offered",
     "There are no courses published yet": "There are no courses published yet.",
     "There are no courses finished yet": "There are no courses finished yet.",

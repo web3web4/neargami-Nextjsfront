@@ -210,10 +210,10 @@
     "Enter your answer": "ادخل الإجابة"
   },
   "Profile": {
-    "NearGami Coins": "عملات NearGami:",
-    "NearGamiCoinsTooltip": "رصيدك الحالي من العملات خارج الشبكة جاهز للاستخدام في بيئة الألعاب عبر الإنترنت على موقعنا.",
+    "NearGami Point": "نقاط NearGami:",
+    "NearGamiCoinsTooltip": "رصيدك الحالي من النقاط جاهز للاستخدام في بيئة الألعاب عبر الإنترنت على موقعنا.",
     "Top Points": "مجموع النقاط:",
-    "TopPointsTooltip": "العدد التراكمي للعملات التي كسبتها منذ انضمامك إلى خدمتنا.",
+    "TopPointsTooltip": "العدد التراكمي للنقاط التي كسبتها منذ انضمامك إلى خدمتنا.",
     "Tokens In Your Wallet": "العملات في المحفظة:",
     "TokensInYourWalletToolTip": "العملات موجودة في محفظة NEAR الخاصة بك على الشبة.",
     "Claimed Token": "العملات المطلوبة:",
@@ -229,7 +229,7 @@
     "LoadingTip1": "أثناء بناء مدينتك الافتراضية اتقن مفاهيم blockchain",
     "LoadingTip2": "استعد لمستقبل الويب 3 أثناء بناء مدينة أحلامك",
     "LoadingTip3": "طور مهاراتك أثناء بناء مدينتك المثالية",
-    "LoadingTip4": "يمكنك كسب عملات NearGami من خلال إكمال الدورات.",
+    "LoadingTip4": "يمكنك كسب نقاط NearGami من خلال إكمال الدورات.",
     "Courses Offered": "الدورات المقدمة",
     "There are no courses published yet": "لا يوجد دورات حتى الان.",
     "There are no courses finished yet": "لا يوجد دورات انتهت بعد.",

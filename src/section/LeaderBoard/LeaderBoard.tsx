@@ -73,14 +73,14 @@ const LeaderBoard = () => {
       */}
       <div className={styles.leaderboardHeader}>
         <h2>{"Leaderboard"}</h2>
-        <p className={styles.leaderboardSubtitle}>{"Top players ranked by NGC coins"}</p>
+        <p className={styles.leaderboardSubtitle}>{"Top players ranked by NGC point"}</p>
       </div>
       
       <div className={styles.leaderboardTable}>
         <div className={styles.tableHeader}>
           <div className={styles.rankHeader}>#</div>
           <div className={styles.playerHeader}>Player</div>
-          <div className={styles.coinsHeader}>NGC Coins</div>
+          <div className={styles.coinsHeader}>NGC Point</div>
           <div className={styles.coursesHeader}>Top Points</div>
         </div>
         
