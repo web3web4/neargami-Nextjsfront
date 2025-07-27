@@ -25,7 +25,8 @@
     "User Privacy Policy": "User Privacy Policy",
     "Privacy Policy": "Privacy Policy",
     "About": "About",
-    "Contact": "Contact"
+    "Contact": "Contact",
+    "My Courses": "my Courses"
   },
   "CheckUsername": {
     "Checking": "Checking...",
@@ -71,10 +72,10 @@
     "Username must contain only English letters, numbers": "Username must contain only English letters, numbers."
   },
   "Header": {
-    "All Courses": "All Courses",
+    "Courses": "Courses",
     "Players": "Players",
     "Leader Board": "Leader Board",
-    "Teacher Dashboard": "Teacher Dashboard",
+    "Teach": "Teach",
     "Disconnect": "Disconnect",
     "Profile": "Profile",
     "Connect": "Connect",
@@ -89,14 +90,16 @@
     "Legal Disclaimer": "Legal Disclaimer",
     "User Privacy Policy": "User Privacy Policy",
     "About": "About",
-    "Contact": "Contact"
+    "Contact": "Contact",
+    "Explore": "Explore",
+    "my Courses": "my Courses"
   },
   "Banner": {
     "Gamified e-learning platform": "Gamified e-learning platform",
     "focusing on NEAR and blockchain agnostic technologies": "focusing on NEAR and blockchain agnostic technologies",
     "Play to learn & learn to earn": "Play to learn & learn to earn"
   },
-  "CoursesInProgress": {
+  "MyCourses": {
     "Courses In Progress": "Courses In Progress",
     "Course Progress": "Course Progress",
     "Total Prize": "Total Prize"

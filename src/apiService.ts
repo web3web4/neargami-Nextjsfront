@@ -20,7 +20,7 @@ import {
 } from "@/interfaces/api";
 import { cookies } from "next/headers";
 import { dataUrlToBlob } from "./utils/dataUrlToBlob";
-import { CourseInProgress } from "./interfaces/course";
+import { MyCourses } from "./interfaces/course";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -606,9 +606,9 @@ export const updateOrderLesson = async (
  * @method isTokenValid To verify the current session
  * @returns data from backend
  */
-export const getCoursesInProgress = async (): Promise<CourseInProgress[]> => {
+export const getMyCourses = async (): Promise<MyCourses[]> => {
   return validateTokenAndProceed(async () => {
-    const response = await authFetch<ApiResponse<CourseInProgress[]>>(
+    const response = await authFetch<ApiResponse<MyCourses[]>>(
       `${API_BASE_URL}/user-courses`,
       {
         method: "GET",

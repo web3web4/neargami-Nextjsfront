@@ -25,7 +25,8 @@
     "User Privacy Policy": "سياسة الخصوصية للمستخدم",
     "Privacy Policy": "سياسة الخصوصية",
     "About": "من نحن",
-    "Contact": "تواصل معنا"
+    "Contact": "تواصل معنا",
+    "My Courses": "دوراتي"
   },
   "CheckUsername": {
     "Checking": "يتم التحقق...",
@@ -72,10 +73,10 @@
     "Username must contain only English letters, numbers": "اسم المستخدم يجب ان يحتوي على حروف انجليزية فقط وأرقام"
   },
   "Header": {
-    "All Courses": "الدورات",
+    "Courses": "الدورات",
     "Players": "اللاعبين",
     "Leader Board": "المتصدرين",
-    "Teacher Dashboard": "لوحة تحكم المدرب",
+    "Teach": "لوحة المدرب",
     "Disconnect": "قطع الاتصال",
     "Profile": "الملف الشخصي",
     "Connect": "اتصال",
@@ -96,14 +97,16 @@
     "Privacy Policy": "سياسة الخصوصية",
     "About": "من نحن",
     "Contact": "تواصل معنا",
-    "Home": "الرئيسية"
+    "Home": "الرئيسية",
+    "Explore": "استكشاف",
+    "my Courses": "دوراتي"
   },
   "Banner": {
     "Gamified e-learning platform": "منصة تعليمية تفاعلية تعتمد على الألعاب",
     "focusing on NEAR and blockchain agnostic technologies": "تركز على تقنيات NEAR وتقنيات البلوكشين المستقلة",
     "Play to learn & learn to earn": "العب لتتعلم وتعلم لتربح"
   },
-  "CoursesInProgress": {
+  "MyCourses": {
     "Courses In Progress": "الدورات قيد التقدم",
     "Course Progress": "تقدم الدورة",
     "Total Prize": "الجائزة الإجمالية"

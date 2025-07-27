@@ -18,16 +18,28 @@ export const useHeader = (setMenuId: Dispatch<SetStateAction<string>>) => {
   const data: MenuItem[] = [
     {
       id: "1W1WV",
-      title: "All Courses",
+      title: "Courses",
       url: "/",
       isNeedAuth: false,
     },
     {
-      id: "1W2WV",
-      title: "Players",
+      id: "1W80WV",
+      title: "Explore",
       url: "",
       isNeedAuth: false,
       subMenus: [
+        {
+          id: "1W81WV2",
+          title: "my Courses",
+          url: "/my-course",
+          isNeedAuth: true,
+        },
+        {
+          id: "1W4WV",
+          title: "Teach",
+          url: "/teacher-dashboard",
+          isNeedAuth: true,
+        },
         {
           id: "1W2WV2",
           title: "Players",
@@ -42,13 +54,6 @@ export const useHeader = (setMenuId: Dispatch<SetStateAction<string>>) => {
         },
       ],
     },
-    {
-      id: "1W4WV",
-      title: "Teacher Dashboard",
-      url: "/teacher-dashboard",
-      isNeedAuth: true,
-    },
-
     {
       id: "1W8WV",
       title: "Company",
@@ -69,24 +74,6 @@ export const useHeader = (setMenuId: Dispatch<SetStateAction<string>>) => {
         },
       ],
     },
-
-  ];
-
-  //Check If Connect And Disconnect 
-  if(jwtToken && authMethod === "NEAR"){
-    data.push(
-      {
-        id: "1W5WV",
-        title: "Disconnect",
-        url: "",
-        action: true,
-        onClick: () => handleNearLogout(),
-      },
-    )
-  }
-
-  //Add Language To Header
-  data.push(
     {
       id: "1W7WV",
       title: "Language",
@@ -110,7 +97,20 @@ export const useHeader = (setMenuId: Dispatch<SetStateAction<string>>) => {
         },
       ],
     },
-  )
+  ];
+
+   //Check If Connect And Disconnect 
+   if(jwtToken && authMethod === "NEAR"){
+    data.push(
+      {
+        id: "1W5WV",
+        title: "Disconnect",
+        url: "",
+        action: true,
+        onClick: () => handleNearLogout(),
+      },
+    )
+  }
 
   const mobileData: MenuItem[] = [
     {

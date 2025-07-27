@@ -349,3 +349,18 @@ export const generateWizardMetadata = () => {
     }
   );
 };
+
+// For MyCourses Page
+export const generateMyCoursesMetadata = () => {
+  return returnMetadata(
+    "My Courses | NearGami",
+    "View and track your in-progress courses on NearGami. Continue learning from where you left off and stay on top of your educational journey.",
+    `/my-courses`,
+    {
+      url: logoImage.src,
+      width: 600,
+      height: 600,
+      alt: "My Courses on NearGami",
+    }
+  );
+};
