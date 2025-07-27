@@ -7,7 +7,7 @@ export default function Logo() {
   return (
     <div className={styles.gamfiMenuLeftSect}>
       <div className={styles.logo}>
-        <Link prefetch={true} href="/">
+        <Link href="/">
           <Image src={logo} alt="gamfi nft logo" />
         </Link>
       </div>

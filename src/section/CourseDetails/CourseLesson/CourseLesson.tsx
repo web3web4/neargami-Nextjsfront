@@ -32,7 +32,7 @@ const CourseLesson = ({ data }: { data: Lecture[] }) => {
                   : ""
               }`}
             >
-              <Link prefetch={true} href={`/quiz/${lecture.course.id}/${lecture.id}/${lecture.slug}`}>
+              <Link href={`/quiz/${lecture.course.id}/${lecture.id}/${lecture.slug}`}>
                 <div className={styles.lessonItemInner}>
                   <h4
                     className={`${styles.lessonTitle} ${
