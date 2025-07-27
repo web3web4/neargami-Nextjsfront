@@ -63,7 +63,7 @@ const CourseCard = ({
           fetchPlayers={popupEndUser}
         />
       <div className={styles.courseCard}>
-        <Link href={`/course-details/${props.slug}`}>
+        <Link prefetch={true} href={`/course-details/${props.slug}`}>
           <div className={styles.courseInfo}>
             <div>
               <Image src={ngcIcons} width={23} alt="" /> {props.total_score} NGC

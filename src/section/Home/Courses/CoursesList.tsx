@@ -7,12 +7,13 @@ import { FiSearch } from "react-icons/fi";
 import { useTranslations } from "next-intl";
 import { CoursesResponse } from "@/interfaces/api";
 import { useHomeSearch } from "@/hooks/useHomeSearch";
+import { useHome } from "@/hooks/useHome";
 
 interface CourseList {
   initCourses:CoursesResponse[],
 }
 export default function CoursesList({initCourses}: CourseList) {
-
+  useHome();
   const searchRef = useRef<HTMLInputElement>(null);
   const translate = useTranslations("Home");
   const { handleSearch, filterCourses } = useHomeSearch(searchRef, initCourses);

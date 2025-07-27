@@ -1,3 +1,11 @@
+.gamfiMenuList * {
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 .gamfiMenuList ul {
   margin-left: 0;
   display: flex;
@@ -51,7 +59,7 @@
   font-family: "Russo One", sans-serif;
   font-style: normal;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 0.9rem;
   line-height: 22px;
   color: #ffffff;
   position: relative;

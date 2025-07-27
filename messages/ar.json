@@ -25,7 +25,8 @@
     "User Privacy Policy": "سياسة الخصوصية للمستخدم",
     "Privacy Policy": "سياسة الخصوصية",
     "About": "من نحن",
-    "Contact": "تواصل معنا"
+    "Contact": "تواصل معنا",
+    "My Courses": "دوراتي"
   },
   "CheckUsername": {
     "Checking": "يتم التحقق...",
@@ -72,10 +73,10 @@
     "Username must contain only English letters, numbers": "اسم المستخدم يجب ان يحتوي على حروف انجليزية فقط وأرقام"
   },
   "Header": {
-    "All Courses": "الدورات",
+    "Courses": "الدورات",
     "Players": "اللاعبين",
     "Leader Board": "المتصدرين",
-    "Teacher Dashboard": "لوحة تحكم المدرب",
+    "Teach": "لوحة المدرب",
     "Disconnect": "قطع الاتصال",
     "Profile": "الملف الشخصي",
     "Connect": "اتصال",
@@ -96,14 +97,16 @@
     "Privacy Policy": "سياسة الخصوصية",
     "About": "من نحن",
     "Contact": "تواصل معنا",
-    "Home": "الرئيسية"
+    "Home": "الرئيسية",
+    "Explore": "استكشاف",
+    "my Courses": "دوراتي"
   },
   "Banner": {
     "Gamified e-learning platform": "منصة تعليمية تفاعلية تعتمد على الألعاب",
     "focusing on NEAR and blockchain agnostic technologies": "تركز على تقنيات NEAR وتقنيات البلوكشين المستقلة",
     "Play to learn & learn to earn": "العب لتتعلم وتعلم لتربح"
   },
-  "CoursesInProgress": {
+  "MyCourses": {
     "Courses In Progress": "الدورات قيد التقدم",
     "Course Progress": "تقدم الدورة",
     "Total Prize": "الجائزة الإجمالية"
@@ -210,10 +213,10 @@
     "Enter your answer": "ادخل الإجابة"
   },
   "Profile": {
-    "NearGami Coins": "عملات NearGami:",
-    "NearGamiCoinsTooltip": "رصيدك الحالي من العملات خارج الشبكة جاهز للاستخدام في بيئة الألعاب عبر الإنترنت على موقعنا.",
+    "NearGami Point": "نقاط NearGami:",
+    "NearGamiCoinsTooltip": "رصيدك الحالي من النقاط جاهز للاستخدام في بيئة الألعاب عبر الإنترنت على موقعنا.",
     "Top Points": "مجموع النقاط:",
-    "TopPointsTooltip": "العدد التراكمي للعملات التي كسبتها منذ انضمامك إلى خدمتنا.",
+    "TopPointsTooltip": "العدد التراكمي للنقاط التي كسبتها منذ انضمامك إلى خدمتنا.",
     "Tokens In Your Wallet": "العملات في المحفظة:",
     "TokensInYourWalletToolTip": "العملات موجودة في محفظة NEAR الخاصة بك على الشبة.",
     "Claimed Token": "العملات المطلوبة:",
@@ -229,7 +232,7 @@
     "LoadingTip1": "أثناء بناء مدينتك الافتراضية اتقن مفاهيم blockchain",
     "LoadingTip2": "استعد لمستقبل الويب 3 أثناء بناء مدينة أحلامك",
     "LoadingTip3": "طور مهاراتك أثناء بناء مدينتك المثالية",
-    "LoadingTip4": "يمكنك كسب عملات NearGami من خلال إكمال الدورات.",
+    "LoadingTip4": "يمكنك كسب نقاط NearGami من خلال إكمال الدورات.",
     "Courses Offered": "الدورات المقدمة",
     "There are no courses published yet": "لا يوجد دورات حتى الان.",
     "There are no courses finished yet": "لا يوجد دورات انتهت بعد.",

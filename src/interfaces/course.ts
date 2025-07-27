@@ -31,7 +31,7 @@ export interface CoursesHome {
     };
   }
 
-  export interface CourseInProgress{
+  export interface MyCourses {
       course_id: number,
       endedLecturesCount: number,
       totalPoints: number,

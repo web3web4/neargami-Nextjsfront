@@ -61,7 +61,7 @@ const ProfileDetails = ({ username, data, courses }: ProfileDetailsProps) => {
 
                 <ul className={styles.memberDetails}>
                   <li>
-                    <strong>{translate("NearGami Coins")}</strong>{" "}
+                    <strong>{translate("NearGami Point")}</strong>{" "}
                     <span>
                       {data.ngc}
                       <Image
