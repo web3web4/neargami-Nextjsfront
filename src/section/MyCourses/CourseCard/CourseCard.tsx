@@ -17,7 +17,7 @@ const CourseCard = ({ data }: { data: MyCourses[] }) => {
     <div className={`${styles.courseCardWrraper} container`}>
       <h2 className={styles.title}>{translate("Courses In Progress")}</h2>
         {data?.map((courseDetail, i) => (
-            <Link prefetch={true} key={i} href={`/course-details/${courseDetail.course.slug}`}>
+            <Link key={i} href={`/course-details/${courseDetail.course.slug}`}>
               <div className={styles.courseCardWrpapper}>
                 <div className={styles.courseContent}>
                   <div className={styles.coursrCardLeftSection}>
