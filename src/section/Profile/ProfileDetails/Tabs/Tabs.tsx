@@ -4,14 +4,18 @@ import styles from "./Tabs.module.css";
 import CoursesList from "../CourseList/CoursesList";
 import { CoursesResponse } from "@/interfaces/api";
 import { useTranslations } from "next-intl";
+import { MyCourses } from "@/interfaces/course";
 
 interface TabsProps {
-  offeredCourses?: CoursesResponse[];
+  tabTwoName: string;
   finishedCourses?: CoursesResponse[];
+  offeredCourses?: CoursesResponse[];
+  inProgressCourses?: MyCourses[];
 }
 
-const Tabs = ({ offeredCourses, finishedCourses }: TabsProps) => {
+const Tabs = ({ tabTwoName, finishedCourses, offeredCourses, inProgressCourses }: TabsProps) => {
   const [filterCourses, setFilterCourses] = useState<CoursesResponse[]>([]);
+  const [progressCourse, setProgressCourse] = useState<CoursesResponse[]>([]);
   const [currCourses, setCurrCourses] = useState<CoursesResponse[]>(finishedCourses ?? []);
   const [text, setText] = useState<string>("There are no courses finished yet");
   const [activeTab, setActiveTab] = useState<string>("finishedCourses");
@@ -22,11 +26,43 @@ const Tabs = ({ offeredCourses, finishedCourses }: TabsProps) => {
     if (currTab === "offeredCourses") {
       setCurrCourses(filterCourses ?? []);
       setText("There are no courses published yet");
+    } else if (currTab === "inProgressCourses"){
+      setCurrCourses(progressCourse ?? []);
+      setText("There are no courses published yet");
     } else {
       setCurrCourses(finishedCourses ?? []);
       setText("There are no courses finished yet");
     }
   };
+
+  useEffect(() => {
+    if(inProgressCourses){
+      const courses = inProgressCourses.map((curr) => {
+        return {
+          id: curr.course.id,
+          name: curr.course.name,
+          logo: curr.course.logo,
+          total_score: curr.course.total_score,
+          tag: curr.course.tag,
+          difficulty: curr.course.difficulty,
+          slug: curr.course.slug,
+          teacher: {
+            id: curr.course.teacher.id,
+            username: curr.course.teacher.username,
+            image: curr.course.teacher.image,
+          },
+          counts: {
+            _count: {
+              start_time: curr.counts._count.start_time,
+              end_time: curr.counts._count.end_time
+            }
+          }
+        }
+      })
+      setProgressCourse(courses);
+    } 
+    console.log(inProgressCourses)
+  }, [inProgressCourses]);
 
   useEffect(() => {
     if (offeredCourses) {
@@ -53,11 +89,11 @@ const Tabs = ({ offeredCourses, finishedCourses }: TabsProps) => {
 
         <button
           className={`${styles.tabButton} ${
-            activeTab === "offeredCourses" ? styles.active : ""
+            activeTab === tabTwoName ? styles.active : ""
           }`}
-          onClick={() => handleOnClick("offeredCourses")}
+          onClick={() => handleOnClick(tabTwoName)}
         >
-          {translate("offeredCourses")}
+          {translate(tabTwoName)}
         </button>
       </div>
       <div className="row">
