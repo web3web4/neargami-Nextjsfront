@@ -36,13 +36,16 @@ export interface CoursesHome {
       endedLecturesCount: number,
       totalPoints: number,
       course: {
+        id?: number
         name: string,
         title: string,
         logo: string,
         slug: string,
         lecture: any[],
+        [key: string]: any;
         teacher: {
-          image: string
+          image: string,
+          [key: string]: any;
         }
       },
       counts:{

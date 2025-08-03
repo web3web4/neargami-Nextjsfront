@@ -637,7 +637,6 @@ export const getAllCourses = async (): Promise<CoursesResponse[]> => {
       },
     }
   );
-  console.log("Response from getAllCourses:", response);
   return handleResponse(response, "findAll");
 };
 
