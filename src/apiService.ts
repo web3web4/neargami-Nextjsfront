@@ -994,3 +994,24 @@ export const updateUserFlags = async (
     }
   );
 };
+
+/**
+ * this function for get Latest Course for user
+ * @method isTokenValid To verify the current session
+ * @returns data from backend
+ */
+export const getInProgressCourses = async (): Promise<MyCourses[]> => {
+  return validateTokenAndProceed(async () => {
+    const response = await authFetch<ApiResponse<MyCourses[]>>(
+      `${API_BASE_URL}/user-courses/Without-complation`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    return handleResponse(response, "find All Courses");
+  });
+};
