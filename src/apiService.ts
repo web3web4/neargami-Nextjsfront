@@ -1015,3 +1015,22 @@ export const getInProgressCourses = async (): Promise<MyCourses[]> => {
     return handleResponse(response, "find All Courses");
   });
 };
+
+export const getSitemap = async (): Promise<string> => {
+
+    const res = await fetch(`${API_BASE_URL}/sitemap.xml`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/xml",
+      },
+      cache: "no-store",
+    });
+
+    if (!res.ok) {
+      throw new Error(`Failed to fetch sitemap: ${res.statusText}`);
+    }
+
+    return await res.text();
+
+};
+
