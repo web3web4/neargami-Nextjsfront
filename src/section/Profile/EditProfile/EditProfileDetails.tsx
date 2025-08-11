@@ -29,7 +29,7 @@ const EditProfileDetails = ({ data }: EditProfile) => {
     handleCroppedImage,
     handleButtonClick,
     handleSubmit,
-    setIsUsernameAvailable,
+    setCheckUsernameDetails,
   } = useEditProfile(data);
 
   return (
@@ -148,7 +148,7 @@ const EditProfileDetails = ({ data }: EditProfile) => {
                   <CheckUsername
                     username={formInput.username!}
                     intiUsername={initUsername}
-                    onAvailabilityChange={setIsUsernameAvailable}
+                    onAvailabilityChange={setCheckUsernameDetails}
                   />
                 </div>
               </div>

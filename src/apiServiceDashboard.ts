@@ -6,7 +6,7 @@ import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
-const PASS_FOR_ADMIN = process.env.NEXT_PUBLIC_PASS_FOR_ADMIN;
+const PASS_FOR_ADMIN = process.env.PASS_FOR_ADMIN;
 
 
 /**
@@ -72,6 +72,7 @@ const handleResponse = <T>(
 };
 
 
+
 /**
  * this method work with responce without data ex:updateUserProfile
  * @param response from backend
@@ -134,9 +135,24 @@ export const getAllCustomers = async (): Promise<UserProfileData[]> => {
     }
   );
 
-  const allUsers = handleResponse<UserProfileData[]>(response, "findAll");
+  const data = handleResponse<unknown>(response, "findAll");
 
-  return allUsers.filter(user => !user.isAdmin);
+  const users = (data as { users?: UserProfileData[] })?.users;
+
+  if (!Array.isArray(users)) {
+    console.error("Expected 'users' to be an array but got:", users);
+    return [];
+  }
+
+  const customers: UserProfileData[] = [];
+  users.forEach(user => {
+    if (!user.isAdmin) {
+      customers.push(user);
+    }
+  });
+
+  return customers;
+
 };
 
 
@@ -219,7 +235,7 @@ export const makeAdmin = async (userId:string): Promise<UserProfileResponse> => 
           headers: {
               "Content-Type": "application/json",
           },
-          body: JSON.stringify({ pass:PASS_FOR_ADMIN }),
+          body: JSON.stringify({ pass:PASS_FOR_ADMIN  }),
           }
       );
 
@@ -262,7 +278,7 @@ export const cancelAdmin = async (userId:string): Promise<UserProfileResponse> =
           headers: {
               "Content-Type": "application/json",
           },
-          body: JSON.stringify({ pass:PASS_FOR_ADMIN }),
+          body: JSON.stringify({ pass:PASS_FOR_ADMIN  }),
           }
       );
 

@@ -31,18 +31,21 @@ export interface CoursesHome {
     };
   }
 
-  export interface CourseInProgress{
+  export interface MyCourses {
       course_id: number,
       endedLecturesCount: number,
       totalPoints: number,
       course: {
+        id?: number
         name: string,
         title: string,
         logo: string,
         slug: string,
         lecture: any[],
+        [key: string]: any;
         teacher: {
-          image: string
+          image: string,
+          [key: string]: any;
         }
       },
       counts:{

@@ -1,47 +1,56 @@
 "use client";
-import { useLoading } from "@/context/LoadingContext";
 import { useEffect, useRef, useState } from "react";
-import { getBalance } from "@/lib/nearContractToken";
-import {claimsNgcs, getCurrentNgcs, getUserProfileByUsername} from "@/apiService";
-import Swal from "sweetalert2";
-import { UserProfileData } from "@/interfaces/api";
+// import { getBalance } from "@/lib/nearContractToken";
+// import { claimsNgcs, getCurrentNgcs } from "@/apiService";
+// import Swal from "sweetalert2";
 import { useAuth } from "@/context/authContext";
-import { useTranslations } from "next-intl";
+// import { useTranslations } from "next-intl";
+import { UserProfileData } from "@/interfaces/api";
 
-export const useProfileDetails = (username: string | null) => {
-  const [data, setData] = useState<UserProfileData>({});
-  const [balance, setBalance] = useState<string | null>("0");
+export const useProfileDetails = (
+  username: string | null,
+  data: UserProfileData
+) => {
+  // const [balance, setBalance] = useState<string | null>("0");
   const [loading, setLoading] = useState<boolean>(true);
   const [progress, setProgress] = useState<number>(0);
   const [error, setError] = useState<string | null>(null); // Error state for handling loading errors
   const unityInstanceRef = useRef<null | { Quit: () => Promise<void> }>(null); // Ref to store the Unity instance
   const unityLoaderScriptRef = useRef<null | HTMLScriptElement>(null); // Ref to store the loader script
-  const { setIsLoading } = useLoading();
   const { userProfile, jwtToken } = useAuth();
-  const [isCopied, setIsCopied] = useState<boolean>(false);
-  const translate = useTranslations("messages");
-  console.log(balance);
+  const [isCopiedAddress, setIsCopiedAddress] = useState<boolean>(false);
+  const [isCopiedProfileLink, setIsCopiedProfileLink] =
+    useState<boolean>(false);
+  // const translate = useTranslations("messages");
+  
   console.log(error);
 
   useEffect(() => {
+    const handlePopState = () => {
+      document.body.classList.remove("disabled");
+    };
+    window.addEventListener("popstate", handlePopState);
+
     window.GetUserID = () => username || userProfile!.username!;
     window.IsGameReadOnly = () => !!username;
     window.GetToken = getTokenFromCookies;
     window.GetApiBaseUrl = getApiBaseUrl;
+    const body = document.body;
+    body.classList.add("disabled");
 
     const unityLoaderScript: HTMLScriptElement =
       document.createElement("script");
-    unityLoaderScript.src = "/citybuilder/Build/CityBuilder.loader.js";
+    unityLoaderScript.src = "/citybuilder/Build/City.loader.js";
 
     unityLoaderScript.onload = () => {
       if (typeof createUnityInstance !== "undefined") {
         createUnityInstance(
           document.querySelector("#unity-canvas"),
           {
-            dataUrl: "/citybuilder/Build/CityBuilder.data.unityweb",
+            dataUrl: "/citybuilder/Build/City.data.unityweb",
             frameworkUrl:
-              "/citybuilder/Build/CityBuilder.framework.js.unityweb",
-            codeUrl: "/citybuilder/Build/CityBuilder.wasm.unityweb",
+              "/citybuilder/Build/City.framework.js.unityweb",
+            codeUrl: "/citybuilder/Build/City.wasm.unityweb",
             streamingAssetsUrl: "/citybuilder/StreamingAssets",
             companyName: "Neargami",
             productName: "City",
@@ -57,16 +66,19 @@ export const useProfileDetails = (username: string | null) => {
             console.log("Unity loaded");
             unityInstanceRef.current = unityInstance;
             setLoading(false);
+            body.classList.remove("disabled");
           })
           .catch((message: string | null) => {
             console.error("Unity failed to load:", message);
             setError(message);
             setLoading(false);
+            body.classList.remove("disabled");
           });
       } else {
         console.error("createUnityInstance is not defined");
         setError("Unity instance creation failed.");
         setLoading(false);
+        body.classList.remove("disabled");
       }
     };
 
@@ -74,6 +86,7 @@ export const useProfileDetails = (username: string | null) => {
       console.error("Failed to load Unity loader script.");
       setError("Failed to load Unity loader script.");
       setLoading(false);
+      body.classList.remove("disabled");
     };
 
     document.body.appendChild(unityLoaderScript);
@@ -90,6 +103,8 @@ export const useProfileDetails = (username: string | null) => {
         document.body.removeChild(unityLoaderScriptRef.current);
         unityLoaderScriptRef.current = null;
       }
+      document.body.classList.remove("disabled");
+      window.removeEventListener("popstate", handlePopState);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [username, userProfile?.username]);
@@ -116,63 +131,53 @@ export const useProfileDetails = (username: string | null) => {
     return apiBaseUrl;
   };
 
-  useEffect(() => {
-    const getUser = async () => {
-      setIsLoading(true);
-      try {
-        const response = await getUserProfileByUsername(username);
+  // useEffect(() => {
+  //   const getUser = async () => {
+  //     try {
+  //       const balanceOfUser = await getBalance();
+  //       setBalance(balanceOfUser);
+  //     } catch (error: any) {
+  //       console.error("Error fetching user data:", error.message);
+  //     }
+  //   };
 
-        if ("error" in response) {
-          throw response;
-        }
-        setData(response);
-        const balanceOfUser = await getBalance();
-        setBalance(balanceOfUser);
-        setIsLoading(false);  
-      } catch (error: any) {
-        console.error("Error fetching user data:", error.message);
-        setIsLoading(false);
-      }
-    };
+  //   getUser();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [username]);
 
-    getUser();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [username, setIsLoading]);
+  // const handleClaims = async () => {
+  //   const ngcs = await getCurrentNgcs();
+  //   if (ngcs.data !== 0) {
+  //     try {
+  //       const response = await claimsNgcs(ngcs.data);
 
-  const handleClaims = async () => {
-    const ngcs = await getCurrentNgcs();
-    if (ngcs.data !== 0) {
-      try {
-        const response = await claimsNgcs(ngcs.data);
-
-        if ("error" in response) {
-          throw response;
-        }
-        
-      } catch (error: any) {
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: error.message,
-        });
-      }
-      Swal.fire({
-        icon: "success",
-        title: translate("Success"),
-        html: `${translate("Your claim has been registered successfully!")}.
-          <a href="/privacy-policy">${translate("Privacy Policy")}</a>
-          <a href="/legal-disclaimer">${translate("Legal Disclaimer")}</a>.`,
-      });
-    } else {
-      Swal.fire({
-        icon: "warning",
-        title: translate("Warning"),
-        html: `${translate(
-          "No points available to claim"
-        )}. <a href="/privacy-policy">${translate("Privacy Policy")}</a>.`,
-      });
-    }
-  };
+  //       if ("error" in response) {
+  //         throw response;
+  //       }
+  //     } catch (error: any) {
+  //       Swal.fire({
+  //         icon: "error",
+  //         title: "Error",
+  //         text: error.message,
+  //       });
+  //     }
+  //     Swal.fire({
+  //       icon: "success",
+  //       title: translate("Success"),
+  //       html: `${translate("Your claim has been registered successfully!")}.
+  //         <a href="/privacy-policy">${translate("Privacy Policy")}</a>
+  //         <a href="/legal-disclaimer">${translate("Legal Disclaimer")}</a>.`,
+  //     });
+  //   } else {
+  //     Swal.fire({
+  //       icon: "warning",
+  //       title: translate("Warning"),
+  //       html: `${translate(
+  //         "No points available to claim"
+  //       )}. <a href="/privacy-policy">${translate("Privacy Policy")}</a>.`,
+  //     });
+  //   }
+  // };
 
   const unityShowBanner = (msg: string, type: string) => {
     alert(`${type}: ${msg}`);
@@ -187,7 +192,29 @@ export const useProfileDetails = (username: string | null) => {
     return address;
   };
 
-  const handleCopy = () => {
+  const formatProfileLink = (address: string): string => {
+    if (!address) return "";
+    if (address.length > 15) {
+      return `${address.slice(0, 5)}.....${address.slice(-5)}`;
+    }
+    return address;
+  };
+
+  const handleCopyProfileLink = () => {
+    navigator.clipboard
+      .writeText(
+        `${process.env.NEXT_PUBLIC_DOMIN_NAME}/profile/${
+          (data as any).username
+        }`
+      )
+      .then(() => {
+        setIsCopiedProfileLink(true);
+        setTimeout(() => setIsCopiedProfileLink(false), 4000);
+      })
+      .catch((err) => console.error("Failed to copy!", err));
+  };
+
+  const handleCopyAddress = () => {
     if (!("address" in data)) {
       console.error("No address to copy.");
       return;
@@ -196,19 +223,22 @@ export const useProfileDetails = (username: string | null) => {
     navigator.clipboard
       .writeText((data as any).address)
       .then(() => {
-        setIsCopied(true);
-        setTimeout(() => setIsCopied(false), 4000);
+        setIsCopiedAddress(true);
+        setTimeout(() => setIsCopiedAddress(false), 4000);
       })
       .catch((err) => console.error("Failed to copy!", err));
   };
 
   return {
-    balance,
-    isCopied,
+    // balance,
+    isCopiedAddress,
     loading,
     progress,
+    isCopiedProfileLink,
     formatAddress,
-    handleCopy,
-    handleClaims,
+    handleCopyAddress,
+    // handleClaims,
+    formatProfileLink,
+    handleCopyProfileLink,
   };
 };

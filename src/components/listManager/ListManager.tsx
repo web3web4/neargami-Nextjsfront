@@ -5,6 +5,7 @@ import Button from "../button/Button";
 import { moveUp, moveDown } from "./index";
 import styles from "./ListManager.module.css";
 import { useTranslations } from "next-intl";
+import { extractTextFromHTML } from "@/utils/functions";
 
 interface ListManagerProps {
   initialData: any;
@@ -23,12 +24,6 @@ const ListManager = ({
 }: ListManagerProps) => {
   const [data, setData] = useState(initialData);
   const translate = useTranslations("ListManager");
-
-  const extractTextFromHTML = (htmlString: string) => {
-    const tempDiv = document.createElement("div");
-    tempDiv.innerHTML = htmlString;
-    return tempDiv.textContent || tempDiv.innerText || "";
-  };
 
   useEffect(() => {
     const sortedData = [...initialData].sort(

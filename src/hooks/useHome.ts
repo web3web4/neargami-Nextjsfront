@@ -1,20 +1,17 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import {
   getCourseBySlug,
-  getCoursesInProgress,
   updateUserFlags,
 } from "@/apiService";
 import { deleteCookie, getCookie } from "cookies-next";
-import { CourseInProgress } from "@/interfaces/course";
 import { useAuth } from "@/context/authContext";
 import { useTranslations } from "next-intl";
 
 export const useHome = () => {
   const route = useRouter();
-  const [courses, setCourses] = useState<CourseInProgress[]>([]);
   const translate = useTranslations("messages");
   const { jwtToken } = useAuth();
 
@@ -66,33 +63,13 @@ export const useHome = () => {
   };
 
   useEffect(() => {
-    const fetchCourses = async () => {
-      try {
-        const response = await getCoursesInProgress();
-
-        if ("error" in response[0]) {
-          throw response[0];
-        }
-
-        if (response) {
-          const coursesData = response;
-          setCourses(coursesData);
-        }
-      } catch (error: any) {
-        console.error("Error fetching courses In Progress data:", error.message);
-      }
-    };
-
-    if (jwtToken) fetchCourses();
-  }, [jwtToken]);
-
-  useEffect(() => {
-    if (getCookie("firstShowingOfHome") === "true") {
+    if (getCookie("firstShowingOfHome") === "true" && jwtToken) {
       setTimeout(function () {
         GetIntroCourse();
       }, 3000);
     }
-  });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [jwtToken]);
 
-  return { courses };
+  return { };
 };

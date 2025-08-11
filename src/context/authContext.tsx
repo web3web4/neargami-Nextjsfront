@@ -9,6 +9,9 @@ import { getSelector } from "../auth/nearAuth";
 import { UserProfileData } from "@/interfaces/api";
 import { getUserProfile } from "@/apiService";
 
+// Authentication methods
+export type AuthMethod = "NEAR" | "TELEGRAM" | null;
+
 const AuthContext = createContext<IAuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
@@ -19,17 +22,27 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     (getCookie("jwtToken") as string) || null
   );
   
+  const [authMethod, setAuthMethod] = useState<AuthMethod>(
+    (getCookie("authMethod") as AuthMethod) || null
+  );
+  
   const [userProfile, setUserProfile] = useState<UserProfileData>();
 
   const setAuthData = (key: string, value: any) => {
     if (key === "nearSignature") {
       setNearSignature(value);
       setCookie("nearSignature", value);
+      if (value) {
+        setAuthMethod("NEAR");
+        setCookie("authMethod", "NEAR");
+      }
     } else if (key === "jwtToken") {
       setJwtToken(value);
       setCookie("jwtToken", value);
+    } else if (key === "authMethod") {
+      setAuthMethod(value);
+      setCookie("authMethod", value);
     }
-    
   };
 /*
  const isTokenValid = async (showMessage = true ): Promise<boolean> => {
@@ -121,12 +134,19 @@ useEffect(() => {
         });
         //deleteCookie("jwtToken");
         setJwtToken(null);
-
+        setAuthMethod(null);
       } 
       
-      else {
-        const selector = await getSelector();
-        await selector.wallet();
+      else if (authMethod === "NEAR") {
+        // Only validate NEAR wallet if that's the auth method
+        try {
+          const selector = await getSelector();
+          await selector.wallet();
+        } catch (error) {
+          console.error('NEAR wallet validation error:', error);
+          setJwtToken(null);
+          setAuthMethod(null);
+        }
       }
     } catch (error: any) {
       Swal.fire({
@@ -136,18 +156,19 @@ useEffect(() => {
       });
       console.error('error authContext',error);
       setJwtToken(null);
+      setAuthMethod(null);
     }
   };
 
   if (jwtToken !== null) {
     validateToken();
   }
-}, [jwtToken]);
+}, [jwtToken, authMethod]);
 
 
   return (
     <AuthContext.Provider
-      value={{ nearSignature, jwtToken, userProfile , setAuthData }}
+      value={{ nearSignature, jwtToken, userProfile, authMethod, setAuthData }}
     >
       {children}
     </AuthContext.Provider>

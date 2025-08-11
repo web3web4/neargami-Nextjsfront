@@ -17,8 +17,7 @@ export const useQA = (courseId: string, lessonId: string, qaId: string, data: QA
   /**
    * send data to backend
    */
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
 
     const hasCorrectAnswer = formInput.options.some(
       (option) => option.is_correct === true
@@ -70,9 +69,7 @@ export const useQA = (courseId: string, lessonId: string, qaId: string, data: QA
   /**
    * update QA data and send backend
    */
-  const handleUpdate = async (e: any) => {
-    e.preventDefault();
-
+  const handleUpdate = async () => {
     const hasCorrectAnswer = formInput.options.some(
       (option) => option.is_correct === true
     );

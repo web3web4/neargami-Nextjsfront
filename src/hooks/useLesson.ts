@@ -33,8 +33,7 @@ export const useLesson = (courseId: string, lessonId: string, data: LessonRespon
      * send data lesson to backend and create
      */
   
-    const handleSubmit = async (e: any) => {
-      e.preventDefault();
+    const handleSubmit = async () => {
       //Extract qList from data to be sent
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { qaList, ...lessonData } = formInput;
@@ -78,8 +77,7 @@ export const useLesson = (courseId: string, lessonId: string, data: LessonRespon
     /**
      * update date lesson
      */
-    const handleUpdate = async (e: any) => {
-      e.preventDefault();
+    const handleUpdate = async () => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { qaList, ...lessonData } = formInput;
       lessonData.order = Number(lessonData.order);
@@ -108,16 +106,16 @@ export const useLesson = (courseId: string, lessonId: string, data: LessonRespon
     useEffect(() => {
         if (data !== null) {
             setFormInput({
-              title: data.title,
-              description: data.description,
-              pre_note: data.pre_note,
-              next_note: data.next_note,
-              order: data.order,
-              qaList: data.question,
+              title: data.title || "",
+              description: data.description || "",
+              pre_note: data.pre_note || "",
+              next_note: data.next_note || "",
+              order: data.order || 0,
+              qaList: data.question || [],
             });
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [data]);
 
     
  const handleInputChange = (e: any) => {
@@ -131,7 +129,7 @@ export const useLesson = (courseId: string, lessonId: string, data: LessonRespon
  const handleOnChangeDescription = (value: string) => {
   setFormInput((prevInput) => ({
     ...prevInput,
-    description: value,
+    description: value || "",
   }));
 };
 

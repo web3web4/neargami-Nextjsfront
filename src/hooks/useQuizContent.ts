@@ -1,26 +1,18 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Swal from "sweetalert2";
-import {
-  createStartUserLectureInCourse,
-  updateFinishLectureInCourse,
-  checkAnswer,
-  createStartInCourse,
-} from "@/apiService";
+import { createStartUserLectureInCourse, updateFinishLectureInCourse, checkAnswer, createStartInCourse, getCurrentNgcs } from "@/apiService";
 import { CheckAnswerResponse, QAResponse } from "@/interfaces/api";
 import { useTranslations } from "next-intl";
+import Swal from "sweetalert2";
 
-export const useQuizContent = (
-  courseId: string,
-  lectureId: string,
-  data: QAResponse[]
-) => {
+export const useQuizContent = ( courseId: string, lectureId: string, data: QAResponse[]) => {
   const router = useRouter();
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [selectedAnswers, setSelectedAnswers] = useState<number[]>([]);
   const [answers, setAnswers] = useState<CheckAnswerResponse>();
-  const [currentQuestionSequence, setCurrentQuestionSequence] =
-    useState<number>(1);
+  const [currentQuestionSequence, setCurrentQuestionSequence] = useState<number>(1);
+  const [currNGC, setCurrNGC] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const translate = useTranslations("messages");
 
   // Create User Course And Lecture
@@ -60,6 +52,19 @@ export const useQuizContent = (
 
     initiateCourseAndLecture();
   }, [courseId, lectureId]);
+
+  useEffect(() => {
+    const fetchCurrentNgcs = async () => {
+      try {
+        const response = await getCurrentNgcs();
+        setCurrNGC(parseInt(response!.toString()));
+      } catch (error: any) {
+        console.error("Error in getCurrentNgcs:", error);
+      }
+    };
+
+    fetchCurrentNgcs();
+  },[]);
 
   // Sort Qustion According By sequence
   const sortedQuestions = data.sort((a, b) => a.sequence - b.sequence);
@@ -141,6 +146,7 @@ export const useQuizContent = (
 
   const handleNextQuestion = async () => {
     if (currentQuestionSequence === sortedQuestions.length) {
+      setIsLoading(true);
       await updateFinishLectureInCourse(courseId, lectureId);
       Swal.fire({
         icon: "success",
@@ -149,6 +155,7 @@ export const useQuizContent = (
           "You have successfully completed this lesson Proceed to the next lesson to continue your progress"
         ),
       });
+      setIsLoading(false);
       router.push(`/course-details/${data[0].lecture.course.slug}`);
     }
 
@@ -166,8 +173,10 @@ export const useQuizContent = (
     sortedQuestions,
     isCorrect,
     answers,
+    currNGC,
     currentQuestion,
     selectedAnswers,
+    isLoading,
     handleAnswerChange,
     handleCheckAnswers,
     handleNextQuestion,

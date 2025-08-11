@@ -1,8 +1,9 @@
 "use client";
 import { updateUserProfile, uploadFile } from "@/apiService";
 import { UserProfileData, UserProfileResponse } from "@/interfaces/api";
+import { CheckUsernameDetailsType } from "@/interfaces/component";
 import { useTranslations } from "next-intl";
-import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { SingleValue } from "react-select";
 import Swal from "sweetalert2";
 
@@ -14,9 +15,7 @@ interface CountryData {
 export const useEditProfile = (data: UserProfileResponse) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [image, setImage] = useState<string | null>(null);
-  const [isUsernameAvailable, setIsUsernameAvailable] = useState<
-    boolean | null
-  >(null);
+  const [checkUsernameDetails, setCheckUsernameDetails] = useState<CheckUsernameDetailsType | null>(null);
   const [initUsername, setInitUsername] = useState<string>("");
   const translate = useTranslations("messages");
   const [formInput, setFormInput] = useState<UserProfileResponse>({
@@ -30,7 +29,7 @@ export const useEditProfile = (data: UserProfileResponse) => {
     twitter: "",
     linkedin: "",
     image: "",
-    sendMail: false
+    sendMail: false,
   });
 
   const handleCountryChange = (selectedCountry: SingleValue<CountryData>) => {
@@ -54,11 +53,6 @@ export const useEditProfile = (data: UserProfileResponse) => {
     try {
       setImage(img);
       const url = await uploadFile(img);
-
-      if ("error" in url) {
-        throw url;
-      }
-
       setFormInput((prevInput: any) => ({
         ...prevInput,
         image: url,
@@ -72,8 +66,7 @@ export const useEditProfile = (data: UserProfileResponse) => {
     fileInputRef.current?.click();
   };
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     if (formInput.username!.trim() === "") {
       Swal.fire({
         icon: "error",
@@ -92,11 +85,20 @@ export const useEditProfile = (data: UserProfileResponse) => {
       });
       return;
     }
-    if (!isUsernameAvailable) {
+    if (!checkUsernameDetails?.isAvailable) {
       Swal.fire({
         icon: "error",
         title: translate("Error"),
         text: translate("Username Is Already Exist"),
+      });
+      return;
+    }
+
+    if(!checkUsernameDetails?.isValid){
+      Swal.fire({
+        icon: "warning",
+        title: translate("Warning"),
+        text: translate("Username must contain only English letters, numbers"),
       });
       return;
     }
@@ -114,7 +116,7 @@ export const useEditProfile = (data: UserProfileResponse) => {
       image: formInput.image,
       sendMail: formInput.sendMail,
     };
-   
+
     try {
       const updatedUser = await updateUserProfile(filteredFormInput);
 
@@ -166,6 +168,6 @@ export const useEditProfile = (data: UserProfileResponse) => {
     handleCroppedImage,
     handleButtonClick,
     handleSubmit,
-    setIsUsernameAvailable,
+    setCheckUsernameDetails,
   };
 };

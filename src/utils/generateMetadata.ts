@@ -5,7 +5,9 @@ import {
   UserProfileData,
 } from "@/interfaces/api";
 import defaultCourseLogo from "@/assets/images/no-Course.png";
+import defaultUserImage from "@/assets/images/no-User.png";
 import logoImage from "@/assets/images/brand/Logo/With-BG/Dark/Logo-3-Size/512.png";
+import { stripHtmlTags } from "./functions";
 
 // default Title And Description, For If Page Not Have A Title Or Description
 const defaultTitle = "NearGami | Play to learn & learn to earn";
@@ -24,10 +26,11 @@ const returnMetadata = (
     alt: string;
   }
 ) => {
+  const urlFinal = `${process.env.NEXT_PUBLIC_DOMIN_NAME}${url}`;
   const openGraph = {
     title,
     description,
-    url,
+    urlFinal,
     type: "website",
     images: [image],
   };
@@ -69,7 +72,8 @@ export const generateCourseDetailsMetadata = (
 ) => {
   return returnMetadata(
     data.lectures[0].course.name || defaultTitle,
-    data.lectures[0].course.description || defaultDescription,
+    stripHtmlTags(data.lectures[0].course.description) ||
+      defaultDescription,
     `/course-details/${courseSlug}`,
     {
       url: data.lectures[0].course.logo || defaultCourseLogo.src,
@@ -86,7 +90,7 @@ export const generateCourseInfoMetadata = (
 ) => {
   return returnMetadata(
     (data && data.name) || defaultTitle,
-    (data && data.description) || defaultDescription,
+    (data && stripHtmlTags(data.description)) || defaultDescription,
     `/course-info/${courseSlug}`,
     {
       url: (data && data.logo) || defaultCourseLogo.src,
@@ -105,7 +109,7 @@ export const generateLessonMetadata = (
 ) => {
   return returnMetadata(
     data !== null ? data.title : "Add Lesson | NearGami",
-    data !== null ? data.description : defaultDescription,
+    data !== null ? stripHtmlTags(data.description) : defaultDescription,
     `/lesson/${courseId}/${lessonId}`,
     {
       url: data != null ? data.course.logo : defaultCourseLogo.src,
@@ -161,6 +165,36 @@ export const generatePrivacyPolicyMetadata = () => {
   );
 };
 
+// For About Page
+export const generateAboutMetadata = () => {
+  return returnMetadata(
+    "About Us | NearGami",
+    "Learn about NearGami's mission to revolutionize Web3 education through gamified learning. Discover our platform features, vision, and commitment to making blockchain technology accessible to everyone.",
+    "/about",
+    {
+      url: logoImage.src,
+      width: 600,
+      height: 600,
+      alt: "About NearGami - Gamified Web3 Learning Platform",
+    }
+  );
+};
+
+// For Contact Page
+export const generateContactMetadata = () => {
+  return returnMetadata(
+    "Contact Us | NearGami",
+    "Get in touch with the NearGami team. Whether you have questions, need support, or want to provide feedback, we're here to help. Contact us today!",
+    "/contact",
+    {
+      url: logoImage.src,
+      width: 600,
+      height: 600,
+      alt: "Contact NearGami Support Team",
+    }
+  );
+};
+
 // For Leader board Page
 export const generateLeaderboardMetadata = () => {
   return returnMetadata(
@@ -181,12 +215,28 @@ export const generateProfileMetadata = (
   data: UserProfileData,
   username: string | null
 ) => {
+  const coursesCompleted =
+    data.completedCourses && data.completedCourses.length > 0
+      ? ` They have completed the following courses: ${data.completedCourses
+          .map((course) => course.name)
+          .join(", ")}.`
+      : "";
+
+  const displayName =
+    data.firstName && data.lastName
+      ? `${data.firstName} ${data.lastName}`
+      : data.firstName
+      ? data.firstName
+      : data.lastName
+      ? data.lastName
+      : data.username;
+
   return returnMetadata(
     `${data.username} | NearGami`,
-    "View and manage your profile on NearGami. Track your progress, achievements, and points as you learn and play!",
+    `Track your progress, achievements, and points on NearGami! ${displayName} has earned ${data.top_points} points.${coursesCompleted}`,
     `${username !== null ? `/profile/${username}` : "/profile"}`,
     {
-      url: data.image,
+      url: data.image || defaultUserImage.src,
       width: 600,
       height: 600,
       alt: "Neargami Logo",
@@ -218,7 +268,7 @@ export const generateQAMetadata = (
 ) => {
   return returnMetadata(
     `${data ? "Edit QA" : "Add QA"} | NearGami`,
-    `${data ? data.description : defaultDescription}`,
+    `${data ? stripHtmlTags(data.description) : defaultDescription}`,
     `qestion-answer/${courseId}/${lessonId}/${qaId}`,
     {
       url: logoImage.src,
@@ -238,7 +288,7 @@ export const generateQuizMetadata = (
 ) => {
   return returnMetadata(
     `Quiz | ${data[0]?.lecture.title}`,
-    data[0]?.lecture.description,
+    stripHtmlTags(data[0]?.lecture.description),
     `/quiz/${courseId}/${lecturId}/${lectureSlug}`,
     {
       url: data[0]?.lecture.course.logo,
@@ -296,6 +346,21 @@ export const generateWizardMetadata = () => {
       width: 1200,
       height: 630,
       alt: "NearGami Setup Wizard",
+    }
+  );
+};
+
+// For MyCourses Page
+export const generateMyCoursesMetadata = () => {
+  return returnMetadata(
+    "My Courses | NearGami",
+    "View and track your in-progress courses on NearGami. Continue learning from where you left off and stay on top of your educational journey.",
+    `/my-courses`,
+    {
+      url: logoImage.src,
+      width: 600,
+      height: 600,
+      alt: "My Courses on NearGami",
     }
   );
 };

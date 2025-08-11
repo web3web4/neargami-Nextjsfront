@@ -20,7 +20,7 @@ import {
 } from "@/interfaces/api";
 import { cookies } from "next/headers";
 import { dataUrlToBlob } from "./utils/dataUrlToBlob";
-import { CourseInProgress } from "./interfaces/course";
+import { MyCourses } from "./interfaces/course";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -606,9 +606,9 @@ export const updateOrderLesson = async (
  * @method isTokenValid To verify the current session
  * @returns data from backend
  */
-export const getCoursesInProgress = async (): Promise<CourseInProgress[]> => {
+export const getMyCourses = async (): Promise<MyCourses[]> => {
   return validateTokenAndProceed(async () => {
-    const response = await authFetch<ApiResponse<CourseInProgress[]>>(
+    const response = await authFetch<ApiResponse<MyCourses[]>>(
       `${API_BASE_URL}/user-courses`,
       {
         method: "GET",
@@ -637,7 +637,6 @@ export const getAllCourses = async (): Promise<CoursesResponse[]> => {
       },
     }
   );
-  console.log("Response from getAllCourses:", response);
   return handleResponse(response, "findAll");
 };
 
@@ -668,7 +667,7 @@ export const getAllLectureForCourse = async (
 };
 
 /**
- * this function for get all qustion
+ * this function for get all question
  * @method isTokenValid To verify the current session
  * @param courseId this parameter for course id.
  * @param lectureId this parameter for lecture id.
@@ -849,27 +848,27 @@ export const getCurrentNgcs = async (): Promise<NgcResponse> => {
   });
 };
 
-/**
- * this function for claims ngcs Token
- * @method isTokenValid To verify the current session
- * @param ngcs this parameter for current ngcs.
- */
-export const claimsNgcs = async (ngcs: number): Promise<any> => {
-  return validateTokenAndProceed(async () => {
-    const response = await authFetch<ApiResponse<any>>(
-      `${API_BASE_URL}/users/ngcs`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ ngcs }),
-      }
-    );
+// /**
+//  * this function for claims ngcs Token
+//  * @method isTokenValid To verify the current session
+//  * @param ngcs this parameter for current ngcs.
+//  */
+// export const claimsNgcs = async (ngcs: number): Promise<any> => {
+//   return validateTokenAndProceed(async () => {
+//     const response = await authFetch<ApiResponse<any>>(
+//       `${API_BASE_URL}/users/ngcs`,
+//       {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify({ ngcs }),
+//       }
+//     );
 
-    return handleResponse(response, "found");
-  });
-};
+//     return handleResponse(response, "found");
+//   });
+// };
 
 /**
  * this function for upload image to imagekit
@@ -995,3 +994,43 @@ export const updateUserFlags = async (
     }
   );
 };
+
+/**
+ * this function for get Latest Course for user
+ * @method isTokenValid To verify the current session
+ * @returns data from backend
+ */
+export const getInProgressCourses = async (): Promise<MyCourses[]> => {
+  return validateTokenAndProceed(async () => {
+    const response = await authFetch<ApiResponse<MyCourses[]>>(
+      `${API_BASE_URL}/user-courses/Without-complation`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    return handleResponse(response, "find All Courses");
+  });
+};
+
+export const getSitemap = async (): Promise<string> => {
+
+    const res = await fetch(`${API_BASE_URL}/sitemap.xml`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/xml",
+      },
+      cache: "no-store",
+    });
+
+    if (!res.ok) {
+      throw new Error(`Failed to fetch sitemap: ${res.statusText}`);
+    }
+
+    return await res.text();
+
+};
+

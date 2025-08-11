@@ -2,10 +2,13 @@ import type { Metadata } from "next";
 import { inter, russoOne } from "@/utils/font";
 import { AuthProvider } from "../context/authContext";
 import { WalletProvider } from "@/auth/nearAuth";
+import { TelegramProvider } from "@/auth/telegramAuth";
 import { Analytics } from "@vercel/analytics/next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
+//import CopyButtonInitializer from "@/components/CopyButton/CopyButtonInitializer";
 import "./index.css";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "NearGami",
@@ -42,18 +45,37 @@ export default async function RootLayout({
           type="text/css"
           href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
         />
+        <Script id="smartlook" strategy="afterInteractive">
+          {`
+            window.smartlook||(function(d) {
+              var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
+              var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+              c.charset='utf-8';c.src='https://web-sdk.smartlook.com/recorder.js';h.appendChild(c);
+            })(document);
+            smartlook('init', 'efbe7bef1cee090e8e8055ee2dbfd321a182463c', { region: 'eu' });
+          `}
+        </Script>
       </head>
       <body className={`${inter.variable} ${russoOne.variable}`}>
+        <Script
+          src="https://telegram.org/js/telegram-web-app.js"
+          strategy="beforeInteractive"
+        />
+      <NextIntlClientProvider messages={messages}>
         <AuthProvider>
           <WalletProvider>
+            <TelegramProvider>
             <main>
-              <NextIntlClientProvider messages={messages}>
-                {children}
-              </NextIntlClientProvider>
+              {children}
             </main>
+            {/*
+            <CopyButtonInitializer />
+             */}
             <Analytics />
+            </TelegramProvider>          
           </WalletProvider>
         </AuthProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

@@ -1,0 +1,208 @@
+.courseCardWrpapper {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 50px;
+  position: relative;
+  z-index: 9;
+  background: var(--card-background-color);
+  margin-bottom: 30px;
+}
+
+.courseCardWrpapper::before {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  background: url("../../../assets/images/bg/card-bg-shape-big.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  content: "";
+  opacity: 0.8;
+  z-index: -1;
+}
+
+.courseContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  margin: 100px 0 20px 0;
+  color: var(--green-color);
+}
+
+.courseCardRightSection {
+  width: 25%;
+  position: relative;
+  top: -10px;
+}
+
+.courseCardRightSection h4 {
+  max-height: 120px;
+}
+
+.courseCardRightSection h6 {
+  max-height: 77px;
+}
+
+.courseLogoInner {
+  margin-bottom: 45px;
+}
+
+.courseLogo {
+  margin-right: 25px;
+}
+
+.courseLogo img {
+  border-radius: 10px;
+  margin: 0 auto;
+}
+
+.courseEndLesson {
+  font-family: "Russo One", sans-serif;
+  margin-bottom: 10px;
+  color: #ffffff;
+  display: flex;
+}
+
+.teacherImage {
+  width: 24%;
+  display: flex;
+}
+
+.teacherImage img {
+  margin-top: 10px;
+  border-radius: 5px;
+  margin: 0 auto;
+}
+
+.teacherImage .allocation {
+  font-family: "Russo One", sans-serif;
+  color: #ffffff;
+  margin-top: 73px;
+}
+
+.courseCardRightSection .courseCardRightSection-amount {
+  color: #ffffff;
+  font-family: "Russo One", sans-serif;
+  text-align: right;
+  font-weight: 500;
+}
+
+.courseMoreDetails {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.studentCount {
+  display: flex;
+}
+
+.studentCount div {
+  display: flex;
+  margin-left: 20px;
+  color: white;
+}
+
+.studentCount img {
+  position: relative;
+  margin-inline-end: 5px;
+  top: -5px;
+}
+
+.progressInner {
+  width: 100%;
+}
+
+@media only screen and (max-width: 1199px) {
+  .courseCardWrpapper {
+    padding: 30px;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .courseCardWrpapper {
+    text-align: center;
+  }
+  .courseContent {
+    flex-direction: column;
+    align-items: center;
+  }
+  .coursrCardLeftSection {
+    width: 100%;
+  }
+
+  .coursrCardLeftSection .courseLogoInner {
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .coursrCardLeftSection .courseLogo {
+    margin: 0 0 10px;
+  }
+
+  .coursrCardLeftSection img {
+    border-radius: 10px;
+  }
+
+  .teacherImage {
+    width: 100%;
+  }
+
+  .courseCardRightSection {
+    width: 100%;
+    margin-top: 50px;
+  }
+
+  .courseCardRightSection h4 {
+    height: 60px;
+    overflow: hidden;
+  }
+
+  .courseCardRightSection h6 {
+    height: 42px;
+    overflow: hidden;
+  }
+}
+
+@media only screen and (max-width: 540px) {
+  .studentCount {
+    flex-direction: column;
+  }
+  .studentCount img {
+    position: relative;
+    top: 0px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .courseCardWrpapper {
+    padding: 0;
+  }
+  .courseCardWrpapper {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 20px;
+  }
+
+  .teacherImage {
+    margin-bottom: 20px;
+  }
+  .studentCount {
+    flex-direction: column;
+  }
+  .studentCount img {
+    position: relative;
+    top: 0px;
+  }
+  .courseLogoInner {
+    margin-top: 40px;
+  }
+}

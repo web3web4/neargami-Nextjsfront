@@ -1,9 +1,10 @@
 import { updateUserProfile } from "@/apiService";
 import { UserProfileData } from "@/interfaces/api";
+import { CheckUsernameDetailsType } from "@/interfaces/component";
 import { deleteCookie, getCookie, setCookie } from "cookies-next";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { SingleValue } from "react-select";
 import Swal from "sweetalert2";
 
@@ -17,14 +18,15 @@ export const useWizard = () => {
   const translate = useTranslations("messages");
   const [isAccepted, setIsAccepted] = useState<boolean>(false);
   const [step, setStep] = useState<number>(1);
-  const [isUsernameAvailable, setIsUsernameAvailable] = useState<boolean | null>(null);
+  const [checkUsernameDetails, setCheckUsernameDetails] =
+    useState<CheckUsernameDetailsType | null>(null);
   const [formInput, setFormInput] = useState<UserProfileData>({
     firstname: "",
     lastname: "",
     email: "",
     country: "",
     username: "",
-    sendMail: ""
+    sendMail: false,
   });
 
   useEffect(() => {
@@ -40,7 +42,7 @@ export const useWizard = () => {
         ...prevInput,
         country: selectedCountry.label,
       }));
-    } 
+    }
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -60,18 +62,24 @@ export const useWizard = () => {
       Swal.fire({
         icon: "error",
         title: translate("Error"),
-        text: translate("Please accept the terms and conditions before proceeding"),
+        text: translate(
+          "Please accept the terms and conditions before proceeding"
+        ),
       });
       return;
     }
+
     if (formInput.username!.trim() === "") {
       Swal.fire({
         icon: "error",
         title: translate("Error"),
-        text: translate("The Username Field Is Required Please Enter Your Username"),
+        text: translate(
+          "The Username Field Is Required Please Enter Your Username"
+        ),
       });
       return;
     }
+
     if (formInput.username!.length < 4) {
       Swal.fire({
         icon: "error",
@@ -80,7 +88,8 @@ export const useWizard = () => {
       });
       return;
     }
-    if (!isUsernameAvailable) {
+
+    if (!checkUsernameDetails?.isAvailable) {
       Swal.fire({
         icon: "error",
         title: translate("Error"),
@@ -88,6 +97,16 @@ export const useWizard = () => {
       });
       return;
     }
+
+    if (!checkUsernameDetails?.isValid) {
+      Swal.fire({
+        icon: "warning",
+        title: translate("Warning"),
+        text: translate("Username must contain only English letters, numbers"),
+      });
+      return;
+    }
+
     if (step < 2) setStep(step + 1);
   };
 
@@ -98,15 +117,13 @@ export const useWizard = () => {
   /**
    * This function updates the user's profile.
    */
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     try {
       const updateUser = await updateUserProfile(formInput); // Ensure updateUserProfile is typed correctly elsewhere
 
       if ("error" in updateUser) {
         throw updateUser;
       }
-
     } catch (error: any) {
       console.error("Error updating user profile:", error.message);
       Swal.fire({
@@ -117,13 +134,13 @@ export const useWizard = () => {
     }
   };
 
-  const handleComplateToProfile = async (e: FormEvent) => {
-    await handleSubmit(e);
+  const handleComplateToProfile = async () => {
+    await handleSubmit();
     router.push("/profile"); // Using direct navigation instead of Link
   };
 
-  const handleBackToHome = async (e: FormEvent) => {
-    await handleSubmit(e);
+  const handleBackToHome = async () => {
+    await handleSubmit();
     router.push("/"); // Using direct navigation instead of Link
   };
 
@@ -178,6 +195,6 @@ By participating in our platform, users acknowledge these conditions and the fun
     handleCountryChange,
     handleCheckboxChange,
     handleComplateToProfile,
-    setIsUsernameAvailable,
+    setCheckUsernameDetails,
   };
 };
