@@ -55,6 +55,7 @@ export default async function RootLayout({
             smartlook('init', 'efbe7bef1cee090e8e8055ee2dbfd321a182463c', { region: 'eu' });
           `}
         </Script>
+        <meta name="google-site-verification" content="xozfoCxWGXlbxrfH9PDygo-dADzhfjl_LnWpWU8UipQ" />
       </head>
       <body className={`${inter.variable} ${russoOne.variable}`}>
         <Script
