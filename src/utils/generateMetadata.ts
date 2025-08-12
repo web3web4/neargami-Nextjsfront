@@ -165,6 +165,36 @@ export const generatePrivacyPolicyMetadata = () => {
   );
 };
 
+// For About Page
+export const generateAboutMetadata = () => {
+  return returnMetadata(
+    "About Us | NearGami",
+    "Learn about NearGami's mission to revolutionize Web3 education through gamified learning. Discover our platform features, vision, and commitment to making blockchain technology accessible to everyone.",
+    "/about",
+    {
+      url: logoImage.src,
+      width: 600,
+      height: 600,
+      alt: "About NearGami - Gamified Web3 Learning Platform",
+    }
+  );
+};
+
+// For Contact Page
+export const generateContactMetadata = () => {
+  return returnMetadata(
+    "Contact Us | NearGami",
+    "Get in touch with the NearGami team. Whether you have questions, need support, or want to provide feedback, we're here to help. Contact us today!",
+    "/contact",
+    {
+      url: logoImage.src,
+      width: 600,
+      height: 600,
+      alt: "Contact NearGami Support Team",
+    }
+  );
+};
+
 // For Leader board Page
 export const generateLeaderboardMetadata = () => {
   return returnMetadata(
@@ -316,6 +346,21 @@ export const generateWizardMetadata = () => {
       width: 1200,
       height: 630,
       alt: "NearGami Setup Wizard",
+    }
+  );
+};
+
+// For MyCourses Page
+export const generateMyCoursesMetadata = () => {
+  return returnMetadata(
+    "My Courses | NearGami",
+    "View and track your in-progress courses on NearGami. Continue learning from where you left off and stay on top of your educational journey.",
+    `/my-courses`,
+    {
+      url: logoImage.src,
+      width: 600,
+      height: 600,
+      alt: "My Courses on NearGami",
     }
   );
 };

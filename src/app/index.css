@@ -164,21 +164,7 @@ button {
   align-items: center;
 }
 
-.ql-syntax {
-  background: #23241f;
-  font-family: monospace;
-  padding: 1em;
-  border-radius: 5px;
-  overflow-x: auto;
-}
 
-.ql-code-block-container{
-    background: #23241f;
-  font-family: monospace;
-  padding: 1em;
-  border-radius: 5px;
-  overflow-x: auto;
-}
 
 .copy-btn {
   position: absolute;

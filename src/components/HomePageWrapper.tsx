@@ -4,7 +4,6 @@ import Banner from "@/components/Banner/Banner";
 import Footer from "@/section/Footer/v1/Footer";
 import CoursesList from "@/section/Home/Courses/CoursesList";
 import Header from "@/section/Header/v1/Header";
-import CoursesInProgress from "@/section/Home/CoursesInProgress/CoursesInProgress";
 import { CoursesResponse } from "@/interfaces/api";
 import ClientSpeedLinesProvider from "@/components/SpeedLines/ClientSpeedLines";
 
@@ -18,7 +17,6 @@ const HomePageWrapper: React.FC<HomePageWrapperProps> = ({ courses }) => {
       <>
         <Header />
         <Banner />
-        <CoursesInProgress />
         <CoursesList initCourses={courses} />
         <Footer />
       </>

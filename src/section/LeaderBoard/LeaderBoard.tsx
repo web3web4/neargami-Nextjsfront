@@ -1,13 +1,15 @@
 "use client";
+import Link from "next/link";
 import styles from "./LeaderBoard.module.css";
 import { useState, useEffect } from "react";
 
 type PlayerData = {
   id: number;
-  username: string;
+  fullname: string;
   ngcCoins: number;
   topPoints: number;
   avatarUrl?: string;
+  username: string;
 };
 
 const LeaderBoard = () => {
@@ -29,10 +31,11 @@ const LeaderBoard = () => {
 
         const mapped: PlayerData[] = leaderboardArray.map((item: any, idx: number) => ({
           id: idx + 1,
-          username: `${item.firstname ?? ""} ${item.lastname ?? ""}`.trim() || "Unknown",
+          fullname: `${item.firstname ?? ""} ${item.lastname ?? ""}`.trim() || "Unknown",
           ngcCoins: item.ngc ?? 0,
           topPoints: item.top_points ?? 0,
           avatarUrl: item.image || undefined,
+          username: item.username
         }));
 
         // Sort by NGC coins (descending)
@@ -73,14 +76,14 @@ const LeaderBoard = () => {
       */}
       <div className={styles.leaderboardHeader}>
         <h2>{"Leaderboard"}</h2>
-        <p className={styles.leaderboardSubtitle}>{"Top players ranked by NGC coins"}</p>
+        <p className={styles.leaderboardSubtitle}>{"Top players ranked by NGC point"}</p>
       </div>
       
       <div className={styles.leaderboardTable}>
         <div className={styles.tableHeader}>
           <div className={styles.rankHeader}>#</div>
           <div className={styles.playerHeader}>Player</div>
-          <div className={styles.coinsHeader}>NGC Coins</div>
+          <div className={styles.coinsHeader}>NGC Point</div>
           <div className={styles.coursesHeader}>Top Points</div>
         </div>
         
@@ -91,23 +94,25 @@ const LeaderBoard = () => {
             </div>
           )}
           {players.map((player, index) => (
-            <div key={player.id} className={`${styles.tableRow} ${index < 3 ? styles.topThree : ''}`}>
-              <div className={`${styles.rankCell} ${getRankStyle(index)}`}>
-                {index + 1}
-              </div>
-              <div className={styles.playerCell}>
-                <div className={styles.playerInfo}>
-                  <div className={styles.playerName} title={player.username}>{player.username}</div>
+            <Link key={player.id} href={`/profile/${player.username}`}>
+              <div className={`${styles.tableRow} ${index < 3 ? styles.topThree : ''}`}>
+                <div className={`${styles.rankCell} ${getRankStyle(index)}`}>
+                  {index + 1}
+                </div>
+                <div className={styles.playerCell}>
+                  <div className={styles.playerInfo}>
+                    <div className={styles.playerName} title={player.fullname}>{player.fullname}</div>
+                  </div>
+                </div>
+                <div className={styles.coinsCell}>
+                  <span className={styles.coinValue}>{player.ngcCoins.toLocaleString()}</span>
+                  <span className={styles.coinLabel}>NGC</span>
+                </div>
+                <div className={styles.coursesCell}>
+                  {player.topPoints}
                 </div>
               </div>
-              <div className={styles.coinsCell}>
-                <span className={styles.coinValue}>{player.ngcCoins.toLocaleString()}</span>
-                <span className={styles.coinLabel}>NGC</span>
-              </div>
-              <div className={styles.coursesCell}>
-                {player.topPoints}
-              </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

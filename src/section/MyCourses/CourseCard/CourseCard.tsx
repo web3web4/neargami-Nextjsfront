@@ -1,38 +1,23 @@
-import { Slider, SliderItem } from "@/components/slider/Slider";
 import ProgressBar from "@/components/progressBar/v1/ProgressBar";
 import styles from "./CourseCard.module.css";
 import studentIcon from "@/assets/images/icons/student.svg";
 import viewsIcon from "@/assets/images/icons/view.svg";
 import photoDefault from "@/assets/images/no-Course.png";
 import userDefault from "@/assets/images/no-User.png";
-import { CourseInProgress } from "@/interfaces/course";
+import { MyCourses } from "@/interfaces/course";
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 
-const CourseCard = ({ data }: { data: CourseInProgress[] }) => {
-  const translate = useTranslations("CoursesInProgress");
-  const sliderSettings = {
-    dots: true,
-    arrows: false,
-    autoplay: true,
-    speed: 1500,
-    autoplaySpeed: 4000,
-    cssEase: "linear",
-    centerMode: true,
-    centerPadding: "0px",
-    infinite: data.length > 1,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-  };
+const CourseCard = ({ data }: { data: MyCourses[] }) => {
+  const translate = useTranslations("MyCourses");
+
 
   return (
     <div className={`${styles.courseCardWrraper} container`}>
       <h2 className={styles.title}>{translate("Courses In Progress")}</h2>
-      <Slider {...sliderSettings}>
         {data?.map((courseDetail, i) => (
-          <SliderItem key={i}>
-            <Link href={`/course-details/${courseDetail.course.slug}`}>
+            <Link key={i} href={`/course-details/${courseDetail.course.slug}`}>
               <div className={styles.courseCardWrpapper}>
                 <div className={styles.courseContent}>
                   <div className={styles.coursrCardLeftSection}>
@@ -45,12 +30,7 @@ const CourseCard = ({ data }: { data: CourseInProgress[] }) => {
                           alt="course logo"
                         />
                       </div>
-                    </div>
-                    <div className={styles.courseEndLesson}>
-                      {translate("Course Progress")}{" "}
-                      {courseDetail.endedLecturesCount}/
-                      {courseDetail?.course.lecture?.length}
-                    </div>
+                    </div>     
                   </div>
                   <div className={styles.teacherImage}>
                     <Image
@@ -66,6 +46,11 @@ const CourseCard = ({ data }: { data: CourseInProgress[] }) => {
                   </div>
                 </div>
                 <div className={styles.progressInner}>
+                  <div className={styles.courseEndLesson}>
+                      {translate("Course Progress")}{" "}
+                      {courseDetail.endedLecturesCount}/
+                      {courseDetail?.course.lecture?.length}
+                  </div>
                   <ProgressBar
                     progress={`${
                       (courseDetail.endedLecturesCount * 100) /
@@ -90,9 +75,7 @@ const CourseCard = ({ data }: { data: CourseInProgress[] }) => {
                 </div>
               </div>
             </Link>
-          </SliderItem>
         ))}
-      </Slider>
     </div>
   );
 };

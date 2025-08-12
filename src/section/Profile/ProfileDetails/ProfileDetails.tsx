@@ -16,14 +16,16 @@ import styles from "./ProfileDetails.module.css";
 import { CoursesResponse, UserProfileData } from "@/interfaces/api";
 import { useTranslations } from "next-intl";
 import Tabs from "./Tabs/Tabs";
+import { MyCourses } from "@/interfaces/course";
 
 interface ProfileDetailsProps {
   username: string | null;
   data: UserProfileData;
   courses?: CoursesResponse[];
+  myCourses?: MyCourses[]
 }
 
-const ProfileDetails = ({ username, data, courses }: ProfileDetailsProps) => {
+const ProfileDetails = ({ username, data, courses, myCourses }: ProfileDetailsProps) => {
   const translate = useTranslations("Profile");
   const {
     // balance,
@@ -61,7 +63,7 @@ const ProfileDetails = ({ username, data, courses }: ProfileDetailsProps) => {
 
                 <ul className={styles.memberDetails}>
                   <li>
-                    <strong>{translate("NearGami Coins")}</strong>{" "}
+                    <strong>{translate("NearGami Point")}</strong>{" "}
                     <span>
                       {data.ngc}
                       <Image
@@ -330,10 +332,17 @@ const ProfileDetails = ({ username, data, courses }: ProfileDetailsProps) => {
               </div>
             </div>
           </div>
-          {username && (
+          {username ? (
             <Tabs
+              tabTwoName="offeredCourses"
               offeredCourses={courses}
               finishedCourses={data.completedCourses}
+            />
+          ) : (
+            <Tabs
+              tabTwoName="inProgressCourses"
+              inProgressCourses={myCourses}
+              finishedCourses={data?.completedCourses}
             />
           )}
         </div>
