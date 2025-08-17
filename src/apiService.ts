@@ -1016,6 +1016,26 @@ export const getInProgressCourses = async (): Promise<MyCourses[]> => {
   });
 };
 
+export const getSitemap = async (): Promise<string> => {
+
+    const res = await fetch(`${API_BASE_URL}/sitemap.xml`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/xml",
+      },
+      cache: "no-store",
+    });
+
+    if (!res.ok) {
+      throw new Error(`Failed to fetch sitemap: ${res.statusText}`);
+    }
+
+    return await res.text();
+
+};
+
+
+
 /**
  * this function for set course to draft status
  * @param courseId this parameter for course id.

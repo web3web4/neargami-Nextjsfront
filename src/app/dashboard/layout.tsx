@@ -14,18 +14,25 @@ import { theme } from "@/styles/theme";
 
 
 export const metadata = {
-  metadataBase: new URL("https://mantine-admin.vercel.app/"),
+  metadataBase: new URL("https://www.neargami.com/"),
   title: { default: "NearGami" },
-  description: "",
+  robots: {
+    index: false,  
+    follow: false,
+  },
+  description: "Play to learn & learn to earn",
   keywords: [
-    "Next.js",
-    "Mantine",
-    "Admin",
-    "Template",
-    "Admin Template",
-    "Admin Dashboard",
-    "Admin Panel",
-    "Admin UI",
+    "NearGami",
+    "Play to learn",
+    "Learn to earn",
+    "Gamification",
+    "E-learning",
+    "Education",
+    "Learning",
+    "Gamification",
+    "E-learning",
+    "Education",
+    "Learning",
   ],
   authors: [
     {
