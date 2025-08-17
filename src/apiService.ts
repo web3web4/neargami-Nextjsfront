@@ -1034,8 +1034,6 @@ export const getSitemap = async (): Promise<string> => {
 
 };
 
-
-
 /**
  * this function for set course to draft status
  * @param courseId this parameter for course id.
