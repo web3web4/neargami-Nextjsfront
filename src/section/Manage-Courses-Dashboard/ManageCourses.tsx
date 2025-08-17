@@ -11,6 +11,7 @@ import {
   handleApprove,
   //handleDelete,
   handleReject,
+  handleUnPublish,
   handleView,
 } from "./useManageCoursesDashbiard";
 import { MRT_Row } from "mantine-react-table";
@@ -59,6 +60,12 @@ export default function ManageCourses({ data }: CourseList) {
         color: "green",
         onClick: (rowIndex: number) => handleApprove(rowIndex, courseData, setCourseData),
       });
+    } else if (status === "APPROVED"){
+      baseActions.push({
+        label: "UnPublish",
+        color: "red", 
+        onClick: (rowIndex: number) => handleUnPublish(rowIndex, courseData, setCourseData),
+      })
     }
 
     return baseActions;

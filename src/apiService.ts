@@ -1034,3 +1034,22 @@ export const getSitemap = async (): Promise<string> => {
 
 };
 
+/**
+ * this function for set course to draft status
+ * @param courseId this parameter for course id.
+ * @method isTokenValid To verify the current session
+ * @returns data from backend
+ */
+export const setCourseToDraftStatus = async ( courseId: string ): Promise<any> => {
+  return validateTokenAndProceed(async () => {
+       await authFetch<ApiResponse<any>>(
+      `${API_BASE_URL}/courses/draft/${courseId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  });
+};
