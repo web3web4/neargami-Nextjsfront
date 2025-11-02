@@ -12,6 +12,7 @@ import {
   //handleDelete,
   handleReject,
   handleUnPublish,
+  handleUnPublishAllVersions,
   handleView,
 } from "./useManageCoursesDashbiard";
 import { MRT_Row } from "mantine-react-table";
@@ -65,6 +66,11 @@ export default function ManageCourses({ data }: CourseList) {
         label: "UnPublish",
         color: "red", 
         onClick: (rowIndex: number) => handleUnPublish(rowIndex, courseData, setCourseData),
+      });
+      baseActions.push({
+        label: "UnPublish All Versions",
+        color: "blue", 
+        onClick: (rowIndex: number) => handleUnPublishAllVersions(rowIndex, courseData, setCourseData),
       })
     }
 
