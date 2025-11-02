@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getSitemap } from "../../apiService";
+import { getSitemap } from "@/apiService";
 
 
 export async function GET() {

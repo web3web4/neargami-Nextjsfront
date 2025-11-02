@@ -7,10 +7,10 @@ import "@near-wallet-selector/modal-ui/styles.css";
 //import { setupNightly } from "@near-wallet-selector/nightly";
 import { setupMeteorWallet } from "@near-wallet-selector/meteor-wallet";
 import Swal from "sweetalert2";
-import { getAccountKeys, getChallengeData } from "./nearAuthVerfication";
-import { useAuth } from "../context/authContext";
+import { getAccountKeys, getChallengeData } from "@/auth/nearAuthVerfication";
+import { useAuth } from "@/context/authContext";
 import { deleteCookie, setCookie } from "cookies-next";
-import { IWalletContextType } from "../interfaces/auth";
+import { IWalletContextType } from "@/interfaces/auth";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 

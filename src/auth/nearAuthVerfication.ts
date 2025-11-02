@@ -1,6 +1,6 @@
-import { IAccountKeysResponse } from "../interfaces/auth";
-import { IGetAccountKeysParams } from "../interfaces/auth";
-import { IGetChallengeDataResponse } from "../interfaces/auth";
+import { IAccountKeysResponse } from "@/interfaces/auth";
+import { IGetAccountKeysParams } from "@/interfaces/auth";
+import { IGetChallengeDataResponse } from "@/interfaces/auth";
 
 
 export async function getAccountKeys(

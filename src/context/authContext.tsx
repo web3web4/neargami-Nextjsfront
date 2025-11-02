@@ -2,10 +2,10 @@
 
 import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import { setCookie, getCookie/*, deleteCookie */} from "cookies-next";
-import { IAuthContextType } from "../interfaces/auth";
+import { IAuthContextType } from "@/interfaces/auth";
 import Swal from "sweetalert2";
 import {jwtDecode} from "jwt-decode";
-import { getSelector } from "../auth/nearAuth";
+import { getSelector } from "@/auth/nearAuth";
 import { UserProfileData } from "@/interfaces/api";
 import { getUserProfile } from "@/apiService";
 

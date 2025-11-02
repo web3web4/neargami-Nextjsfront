@@ -4,9 +4,9 @@ import { ActionIcon, Box, Drawer, Stack, TextInput } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { IconSearch, IconSettings } from "@tabler/icons-react";
 import classes from "./AdminHeader.module.css";
-import { DirectionSwitcher } from "../DirectionSwitcher/DirectionSwitcher";
-import { Logo } from "../Logo/Logo";
-import { ThemeSwitcher } from "../ThemeSwitcher/ThemeSwitcher";
+import { DirectionSwitcher } from "@/components/DirectionSwitcher/DirectionSwitcher";
+import { Logo } from "@/components/Logo/Logo";
+import { ThemeSwitcher } from "@/components/ThemeSwitcher/ThemeSwitcher";
 
 interface Props {
   burger?: React.ReactNode;

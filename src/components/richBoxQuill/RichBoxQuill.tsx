@@ -3,7 +3,7 @@ import React, { useRef, useCallback, useState } from "react";
 //import "highlight.js/styles/github.css"; 
 //import hljs from "highlight.js"
 import ReactQuill from "react-quill-new";
-import Loading from "../loading/Loading";
+import Loading from "@/components/loading/Loading";
 import "react-quill-new/dist/quill.snow.css";
 import "./RichBoxQuillStyle.css";
 import { uploadFile } from "@/apiService";

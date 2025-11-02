@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { createCourse, updateCourse, uploadFile } from "@/apiService";
-import { CourseDifficulty, CourseLanguage } from "../utils/Enums";
+import { CourseDifficulty, CourseLanguage } from "@/utils/Enums";
 import { useRouter } from "next/navigation";
 import { CoursesResponse } from "@/interfaces/api";
 import Swal from "sweetalert2";

@@ -7,7 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { CoursesResponse, CoursesVersionResponse, DataPopup } from "@/interfaces/api";
 import userDefault from "@/assets/images/no-User.png";
-import Button from "../button/Button";
+import Button from "@/components/button/Button";
 import { submitWhatsNewVersionCourse } from "@/apiServiceDashboard";
 
 interface PlayerListPopupProps {

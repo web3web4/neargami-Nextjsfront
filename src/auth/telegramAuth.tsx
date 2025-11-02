@@ -1,8 +1,8 @@
 "use client";
 
 import React, { createContext, useContext, ReactNode, useEffect } from "react";
-import { useAuth } from "../context/authContext";
-import { ITelegramContextType, ITelegramUser, ITelegramParsedData } from "../interfaces/auth";
+import { useAuth } from "@/context/authContext";
+import { ITelegramContextType, ITelegramUser, ITelegramParsedData } from "@/interfaces/auth";
 import { setCookie, deleteCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 
@@ -159,4 +159,4 @@ declare global {
       };
     };
   }
-} 
+}

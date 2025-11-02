@@ -1,6 +1,6 @@
-import { getSelector } from "../auth/nearAuth";
+import { getSelector } from "@/auth/nearAuth";
 import { connect, Contract } from "near-api-js";
-import { ITokenContract } from "../interfaces/contracts";
+import { ITokenContract } from "@/interfaces/contracts";
 
 const selector = await getSelector();
 

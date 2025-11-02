@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { inter, russoOne } from "@/utils/font";
-import { AuthProvider } from "../context/authContext";
+import { AuthProvider } from "@/context/authContext";
 import { WalletProvider } from "@/auth/nearAuth";
 import { TelegramProvider } from "@/auth/telegramAuth";
 import { Analytics } from "@vercel/analytics/next";
