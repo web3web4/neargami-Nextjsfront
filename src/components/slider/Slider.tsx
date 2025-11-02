@@ -1,8 +1,8 @@
 "use client";
 import React, { ReactNode } from "react";
-import SlickSlider from "react-slick";
+import SlickSlider, { Settings } from "react-slick";
 
-interface SliderProps {
+interface SliderProps extends Settings {
   children: ReactNode;
   className?: string;
 }
@@ -12,10 +12,13 @@ const Slider = ({ children, className, ...props }: SliderProps) => {
     AllClasses.push(className);
   }
 
+  // Type assertion to fix react-slick TypeScript compatibility issue
+  const SlickComponent = SlickSlider as any;
+
   return (
-    <SlickSlider className={AllClasses.join(" ")} {...props}>
+    <SlickComponent className={AllClasses.join(" ")} {...props}>
       {children}
-    </SlickSlider>
+    </SlickComponent>
   );
 };
 
@@ -25,7 +28,7 @@ const SliderItem = ({ children, className }: SliderProps) => {
     AllClasses.push(className);
   }
 
-  return <div className={AllClasses.join(className)}>{children}</div>;
+  return <div className={AllClasses.join(" ")}>{children}</div>;
 };
 
 export { Slider, SliderItem };

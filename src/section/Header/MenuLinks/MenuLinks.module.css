@@ -111,6 +111,18 @@
   text-align: left;
 }
 
+.btnSubMenu {
+  position: relative;
+  display: block;
+  background: #222231;
+  font-size: 16px;
+  font-family: "Russo One", sans-serif;
+  color: hsla(0, 0%, 100%, 0.7) !important;
+  padding: 15px 24px;
+  transition: 0.4s;
+  text-align: left;
+}
+
 .subMenuList li a svg {
   position: absolute;
   inset-inline-end: 10px;
@@ -120,6 +132,10 @@
 }
 
 .subMenuList li:hover a {
+  color: var(--green-color) !important;
+}
+
+.btnSubMenu:hover {
   color: var(--green-color) !important;
 }
 
