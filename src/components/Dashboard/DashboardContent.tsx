@@ -6,8 +6,8 @@ import { OverviewCard } from "./OverviewCard";
 import { ProfileCard } from "./ProfileCard";
 import { TransactionCard } from "./TransactionCard";
 import { WelcomeCard } from "./WelcomeCard";
-import { StatsGroup } from "../StatsGroup";
-import { mockData } from "../StatsGroup/mock";
+import { StatsGroup } from "@/components/StatsGroup";
+import { mockData } from "@/components/StatsGroup/mock";
 
 export function DashboardContent() {
   return (

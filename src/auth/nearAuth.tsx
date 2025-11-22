@@ -6,21 +6,33 @@ import { setupModal } from "@near-wallet-selector/modal-ui";
 import "@near-wallet-selector/modal-ui/styles.css";
 //import { setupNightly } from "@near-wallet-selector/nightly";
 import { setupMeteorWallet } from "@near-wallet-selector/meteor-wallet";
+import { setupEthereumWallets } from "@near-wallet-selector/ethereum-wallets";
 import Swal from "sweetalert2";
-import { getAccountKeys, getChallengeData } from "./nearAuthVerfication";
-import { useAuth } from "../context/authContext";
+import { getAccountKeys, getChallengeData } from "@/auth/nearAuthVerfication";
+import { useAuth } from "@/context/authContext";
 import { deleteCookie, setCookie } from "cookies-next";
-import { IWalletContextType } from "../interfaces/auth";
+import { IWalletContextType } from "@/interfaces/auth";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { wagmiAdapter, web3Modal } from "@/auth/appkit";
+import { getAccount, signMessage } from "@wagmi/core";
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+const CHAIN_ID = process.env.NEXT_PUBLIC_CHAIN_ID;
 const WalletContext = createContext<IWalletContextType | undefined>(undefined);
 
 export const getSelector = async () => {
   const selector = await setupWalletSelector({
     network: "testnet",
     languageCode: "en",
-    modules: [setupMeteorWallet()/*, setupNightly()*/],
+    modules: [
+      setupMeteorWallet(),
+      setupEthereumWallets({
+        wagmiConfig: wagmiAdapter.wagmiConfig as any,
+        web3Modal: web3Modal as any,
+        chainId: Number(CHAIN_ID),
+      }),
+    ],
   });
   return selector;
 };
@@ -57,34 +69,29 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
   const { setAuthData } = useAuth();
   const router = useRouter();
 
-  const handleNearLogin = async (setButtonText: any) => {
-    
+  const handleNearOrEvmLogin = async (
+    setButtonText: (n: React.ReactNode) => void
+  ) => {
     try {
-      /**
-       * Step 1: Setting up Wallet Selector and showing the modal
-       */
+      // 1) Open Selector modal (NEAR + EVM)
       const selector = await getSelector();
       setButtonText(<div className="loader" />);
-      const modal = setupModal(selector, {
-        contractId: "",
-      });
+      const modal = setupModal(selector, { contractId: "" });
       modal.show();
       appendPrivacyPolicyText();
-      console.log("Connecting...");
-  
-      /**
-       * Step 2: Wait for wallet selection and retrieve wallet details
-       */
-      const stopWaitingForWallet = false;
+
+      const stop = false;
       modal.on("onHide", () => {
-        console.log("Modal closed, re-opening...");
-        setButtonText("Connect");
-        modal.show();
+        if (!stop) {
+          setButtonText("Connect");
+          modal.show();
+        }
       });
-  
+
+      // 2) Wait for user to pick a wallet
       const wallet = await retryUntilSuccess(
         async () => await selector.wallet(),
-        () => stopWaitingForWallet,
+        () => stop,
         1000,
         500
       );
@@ -92,85 +99,81 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
         Swal.fire({
           icon: "error",
           title: "Wallet selection failed",
-          text: "Please try selecting your wallet again.",
+          text: "Please try again.",
         });
         return;
       }
-  
+
       setButtonText(<div className="loader" />);
       const accounts = await wallet.getAccounts();
-      const accountId = accounts[0]?.accountId;
-  
-      // Step 2.1: Verify if the account is registered on NEAR Network
-      const networkId = selector.options.network.networkId;
-      const keysRegisteredOnChain = await getAccountKeys(
-        { accountId },
-        networkId
-      );
-      if (keysRegisteredOnChain?.result?.keys?.length === 0) {
-        setButtonText("Connect");
-        selector.on("accountsChanged", () => {
-          console.log("account changed");
-        });
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          html: `The account on your wallet <b>${wallet.metadata?.name}</b> is not registered.
-          <br /> \
-          But you cannot use an account before registering it on the NEAR Network.\
-          <br /> \
-          Hint: you may use <b>Meteor Wallet</b> to get an account easily on testnet.`,
-        });
-  
-        throw new Error(
-          "You cannot use an account before registering it on the NEAR Network"
+      const accountId = accounts[0]?.accountId; // For NEAR it is accountId, for EVM module this can be 0x-address
+      console.log("accountId=====", accountId);
+      if (!accountId) throw new Error("No account found");
+
+      // Distinguish NEAR vs EVM by wallet.id
+      const isEvm = wallet.id === "ethereum-wallets";
+
+      if (!isEvm) {
+        // ---------- NEAR FLOW ----------
+        // Step 2.1: verify account has access keys on-chain
+        const networkId = selector.options.network.networkId;
+        const keysRegisteredOnChain = await getAccountKeys(
+          { accountId },
+          networkId
         );
-      }
-  
-      if (!accountId) throw new Error("No account found in wallet");
-  
-      /**
-       * Step 3: Save initial state to cookies for the user
-       */
-      setAuthData("nearSignature", accountId);
-  
-      /**
-       * Step 4: Show SweetAlert for signing the message
-       */
-      Swal.fire({
-        title: translate("Signature Message"),
-        text: translate("Sign Message"),
-        icon: 'info',
-        showCancelButton: false,
-        confirmButtonText: translate("Signature Message"),
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          // Proceed with signing the message
+        if (keysRegisteredOnChain?.result?.keys?.length === 0) {
+          setButtonText("Connect");
+          selector.on("accountsChanged", () => {});
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            html: `The account on your wallet <b>${wallet.metadata?.name}</b> is not registered.
+            <br /> \
+            But you cannot use an account before registering it on the NEAR Network.\
+            <br /> \
+            Hint: you may use <b>Meteor Wallet</b> to get an account easily on testnet.`,
+          });
+          throw new Error("NEAR account not registered on-chain");
+        }
+
+        if (!accountId) throw new Error("No account found in wallet");
+        /**
+         * Step 3: Save initial state to cookies for the user
+         */
+        setAuthData("nearSignature", accountId);
+        /**
+         * Step 4: Show SweetAlert for signing the message
+         */
+        Swal.fire({
+          title: translate("Signature Message"),
+          text: translate("Sign Message"),
+          icon: "info",
+          showCancelButton: false,
+          confirmButtonText: translate("Signature Message"),
+        }).then(async (r) => {
+          if (!r.isConfirmed) return;
+
           const challengeData = await getChallengeData(accountId);
           const signResponse = await wallet.signMessage({
             message: challengeData.message,
             nonce: Buffer.from(challengeData.challange, "base64"),
             recipient: accountId,
           });
-  
           /**
            * Step 5: Send the signed data to backend and receive the token
            */
-          const verifyResponse = await fetch(
-            `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/signup`,
-            {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                accountId,
-                publicKey: signResponse.publicKey,
-                challenge: challengeData.challange,
-                message: challengeData.message,
-                signature: signResponse.signature,
-              }),
-            }
-          );
-  
+          const verifyResponse = await fetch(`${API_BASE_URL}/auth/signup`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              accountId,
+              publicKey: signResponse.publicKey,
+              challenge: challengeData.challange,
+              message: challengeData.message,
+              signature: signResponse.signature,
+            }),
+          });
+
           if (verifyResponse.status === 201) {
             const verifyData = await verifyResponse.json();
             Swal.fire({
@@ -178,40 +181,102 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
               title: translate("Success"),
               text: translate("Login successful"),
             });
-  
             const jwtToken = verifyData.data.authenticate.token;
             setAuthData("jwtToken", jwtToken);
-  
+
             // This Flag For Show Course Intro, When First Show Home Page After Connect
-            if (verifyData.data.signUpUserData.flags.first_request_approved_courses == false) {
+            if (
+              verifyData.data.signUpUserData.flags
+                .first_request_approved_courses == false
+            ) {
               setCookie("firstShowingOfHome", false);
             }
-  
             /**
              * Step 6: Navigate user based on login state
              */
-            if (verifyData.data.signUpUserData.flags.new_user == true) {
+            if (verifyData.data.signUpUserData.flags.new_user === true) {
               router.push("/wizard");
             } else {
-              // setButtonText("Connected");
               router.refresh();
             }
-  
             modal.hide();
           } else {
-            Swal.fire({
-              icon: "error",
-              title: "Error",
-              text: "Login failed.",
-            });
+            Swal.fire({ icon: "error", title: "Error", text: "Login failed." });
           }
+        });
+      } else {
+        // ---------- EVM FLOW (SIWE) ----------
+
+        const account = getAccount(wagmiAdapter.wagmiConfig);
+
+        // 1) Ask server for SIWE message
+        const prepare = await getChallengeData(accountId);
+        console.log("prepare=========: ", prepare);
+
+        const evmAddress = account.address;
+        console.log("evmAddress=========: ", evmAddress);
+
+        // 3) Sign SIWE message using wagmi
+        const signature = await signMessage(wagmiAdapter.wagmiConfig, {
+          message: prepare.message,
+        });
+        console.log("signature=========:", signature);
+
+        // 3) Verify on server
+        const verify = await fetch(`${API_BASE_URL}/auth/ethersignup`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            accountId,
+            publicKey: evmAddress,
+            challenge: prepare.challange,
+            message: prepare.message,
+            signature: signature,
+          }),
+        });
+        console.log("verify.ok:", verify.ok);
+        if (verify.ok) {
+          const res = await verify.json();
+          const data = res.data;
+          console.log("data:", data);
+
+          Swal.fire({
+            icon: "success",
+            title: translate("Success"),
+            text: translate("Login successful"),
+          });
+          const jwtToken = data.authenticate.token;
+
+          console.log("jwtToken:", jwtToken);
+          setAuthData("nearSignature", accountId);
+          setAuthData("jwtToken", jwtToken);
+          // This Flag For Show Course Intro, When First Show Home Page After Connect
+          if (
+            data.signUpUserData.flags.first_request_approved_courses == false
+          ) {
+            setCookie("firstShowingOfHome", false);
+          }
+          /**
+           * Step 6: Navigate user based on login state
+           */
+          if (data.signUpUserData.flags.new_user === true) {
+            router.push("/wizard");
+          } else {
+            router.refresh();
+          }
+          modal.hide();
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "EVM login failed.",
+          });
         }
-      });
-    } catch (error: any) {
-      console.error("Login error:", error.message);
+      }
+    } catch (e: any) {
+      console.error("Login error:", e?.message || e);
     }
   };
-  
 
   const handleNearLogout = async () => {
     try {
@@ -220,7 +285,7 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
        */
       const selector = await setupWalletSelector({
         network: "testnet",
-        modules: [setupMeteorWallet()/*, setupNightly()*/],
+        modules: [setupMeteorWallet() /*, setupNightly()*/],
       });
       const wallet = await selector.wallet();
       await wallet.signOut();
@@ -241,7 +306,7 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <WalletContext.Provider value={{ handleNearLogin, handleNearLogout }}>
+    <WalletContext.Provider value={{ handleNearOrEvmLogin, handleNearLogout }}>
       {children}
     </WalletContext.Provider>
   );

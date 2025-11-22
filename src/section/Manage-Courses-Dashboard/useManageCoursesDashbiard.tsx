@@ -1,4 +1,4 @@
-import { setCourseToDraftStatus } from "@/apiService";
+import { setCourseToDraftStatus, setCourseToDraftStatusForAllVersions } from "@/apiService";
 import { updateCourseStatus } from "@/apiServiceDashboard";
 import { CoursesResponse } from "@/interfaces/api";
 import { MRT_ColumnDef, MRT_Cell, MRT_Row } from "mantine-react-table";
@@ -117,6 +117,25 @@ export const handleUnPublish = async (
 
   try {
       await setCourseToDraftStatus(courseId.toString());
+      Swal.fire({ icon: "success", title: "UnPublish", text: "Course UnPublish successfully!" });
+      setData((prevData) =>
+        prevData.map((course) => (course.id === courseId ? { ...course, publish_status: "DRAFT" } : course))
+      );
+  } catch (error) {
+    Swal.fire({ icon: "error", title: "UnPublish Failed", text: `Something went wrong! ${error}` });
+  }
+};
+
+export const handleUnPublishAllVersions = async (
+  rowIndex: number,
+  data: CoursesResponse[],
+  setData: React.Dispatch<React.SetStateAction<CoursesResponse[]>>
+) => {
+  const courseId = data[rowIndex]?.id;
+  if (!courseId) return Swal.fire({ icon: "warning", title: "Error", text: "Course ID not found!" });
+
+  try {
+      await setCourseToDraftStatusForAllVersions(courseId.toString());
       Swal.fire({ icon: "success", title: "UnPublish", text: "Course UnPublish successfully!" });
       setData((prevData) =>
         prevData.map((course) => (course.id === courseId ? { ...course, publish_status: "DRAFT" } : course))

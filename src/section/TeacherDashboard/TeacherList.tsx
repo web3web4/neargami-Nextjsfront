@@ -5,7 +5,7 @@ import CourseCard from "./CourseCard/CourseCard";
 import Button from "@/components/button/Button";
 import { FiSearch } from "react-icons/fi";
 import { ChangeEvent, useEffect, useState } from "react";
-import { TeacherTabs } from "../../utils/Enums";
+import { TeacherTabs } from "@/utils/Enums";
 import { CoursesResponse } from "@/interfaces/api";
 import { useTranslations } from "next-intl";
 

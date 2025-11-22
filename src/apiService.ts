@@ -1053,3 +1053,24 @@ export const setCourseToDraftStatus = async ( courseId: string ): Promise<any> =
     );
   });
 };
+
+/**
+ * this function for set course to draft status For All Versions
+ * @param courseId this parameter for course id.
+ * @method isTokenValid To verify the current session
+ * @returns data from backend
+ */
+export const setCourseToDraftStatusForAllVersions = async ( courseId: string ): Promise<any> => {
+  return validateTokenAndProceed(async () => {
+       await authFetch<ApiResponse<any>>(
+      `${API_BASE_URL}/courses/changeStatus/all/${courseId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ publish_status: "DRAFT" })
+      }
+    );
+  });
+};

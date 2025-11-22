@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Rearrange from "@/components/rearrange/Rearrange";
-import Button from "../button/Button";
+import Button from "@/components/button/Button";
 import { moveUp, moveDown } from "./index";
 import styles from "./ListManager.module.css";
 import { useTranslations } from "next-intl";

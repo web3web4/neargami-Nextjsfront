@@ -18,7 +18,7 @@ export default function MenuButtons({ isShowMenu }: { isShowMenu: boolean }) {
   const translate = useTranslations("Header");
   const [buttonText, setButtonText] = useState<React.ReactNode>("Connect");
   const [isMobileMenu, setMobileMenu] = useState<boolean>(false);
-  const { handleNearLogin } = useWallet();
+  const { handleNearOrEvmLogin } = useWallet();
   const { userProfile, jwtToken } = useAuth();
   
   const handleMobileMenu = () => {
@@ -61,7 +61,7 @@ export default function MenuButtons({ isShowMenu }: { isShowMenu: boolean }) {
           href="# "
           variant="white"
           showLoading={false}
-          onClick={() => handleNearLogin(setButtonText)}
+          onClick={() => handleNearOrEvmLogin(setButtonText)}
         >
           <Image src={connectIcon} alt="icon" />
           {typeof buttonText === "string" ? translate(buttonText) : buttonText}

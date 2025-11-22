@@ -1,6 +1,6 @@
-import { getSelector } from "../auth/nearAuth";
+import { getSelector } from "@/auth/nearAuth";
 import { connect, Contract } from "near-api-js";
-import { IRatingContract } from "../interfaces/contracts";
+import { IRatingContract } from "@/interfaces/contracts";
 // import { Wallet } from "@near-wallet-selector/core";
 // const networkId = selector.options.network.networkId;
 const networkId = "testnet";

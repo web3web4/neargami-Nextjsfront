@@ -4,12 +4,16 @@ import styles from "./MenuLinks.module.css";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { useAuth } from "@/context/authContext";
 
 export default function MenuLinks() {
   const [menuId, setMenuId] = useState<string>("");
   const { data, handleMenuClick } = useHeader(setMenuId);
   const translate = useTranslations("Header");
   const dropdownRef = useRef<HTMLLIElement | null>(null);
+  const { jwtToken } = useAuth();
+
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -58,15 +62,19 @@ export default function MenuLinks() {
                       {translate(menu.title)} <MdOutlineKeyboardArrowDown />
                     </div>
                   ) : (
-                    <div
-                      className={styles.btnHeader}
-                      onClick={(e) =>
-                        handleMenuClick(e, menu.url, menu.isNeedAuth)
-                      }
-                      role="button"
+                    <Link
+                      href={menu.url}
+                      onClick={(e) => {
+                        if (!jwtToken && menu.isNeedAuth) {
+                          e.preventDefault();
+                          handleMenuClick(e, menu.url, menu.isNeedAuth);
+                        }
+                      }}
                     >
-                      {translate(menu.title)}
-                    </div>
+                      <div className={styles.btnHeader} role="button">
+                        {translate(menu.title)}
+                      </div>
+                    </Link>
                   )}
                 </>
               )}
@@ -77,25 +85,23 @@ export default function MenuLinks() {
                     {menu.subMenus?.map((subMenu, j) => (
                       <li key={j}>
                         {subMenu.action ? (
-                          <a>
-                            <div onClick={subMenu.onClick} role="button">
-                              {translate(subMenu.title)}
-                            </div>
-                          </a>
+                          <div onClick={subMenu.onClick} className={styles.btnSubMenu} role="button">
+                            {translate(subMenu.title)}
+                          </div>
                         ) : (
-                          <a>
-                            <div
-                              onClick={(e) =>
-                                handleMenuClick(
-                                  e,
-                                  subMenu.url,
-                                  subMenu.isNeedAuth
-                                )
+                          <Link
+                            href={subMenu.url}
+                            onClick={(e) => {
+                              if (!jwtToken && subMenu.isNeedAuth) {
+                                e.preventDefault();
+                                handleMenuClick(e, subMenu.url, subMenu.isNeedAuth);
                               }
-                            >
+                            }}
+                          >
+                            <div role="button">
                               {translate(subMenu.title)}
                             </div>
-                          </a>
+                          </Link>
                         )}
                       </li>
                     ))}
