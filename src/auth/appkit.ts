@@ -2,21 +2,28 @@
 import { createAppKit } from "@reown/appkit/react";
 import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
 import { QueryClient } from "@tanstack/react-query";
-import { sepolia } from "@reown/appkit/networks";
+import { mainnet, arbitrum , sepolia } from '@reown/appkit/networks'
+import type { AppKitNetwork } from '@reown/appkit/networks'
 
 export const queryClient = new QueryClient();
 
 const projectId = process.env.NEXT_PUBLIC_REOWN_PROJECT_ID as string;
 
+if (!projectId) {
+  throw new Error('Project ID is not defined')
+}
+
+export const networks = [mainnet, arbitrum , sepolia] as [AppKitNetwork, ...AppKitNetwork[]]
 
 export const wagmiAdapter = new WagmiAdapter({
-  networks: [sepolia],
+  ssr: true,
   projectId,
+  networks
 });
 
 export const web3Modal = createAppKit({
   adapters: [wagmiAdapter],
-  networks: [sepolia],
+  networks,
   projectId,
   allWallets: 'HIDE',
   enableWalletConnect: true,
