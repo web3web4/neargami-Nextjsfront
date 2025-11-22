@@ -11,7 +11,7 @@ export interface IAuthContextType {
   }
 
 export interface IWalletContextType {
-    handleNearLogin: (setButtonText:any) => Promise<void>;
+    handleNearOrEvmLogin: (setButtonText:any) => Promise<void>;
     handleNearLogout: () => Promise<void>;
   }
 
