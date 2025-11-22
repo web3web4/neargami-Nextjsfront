@@ -18,7 +18,7 @@ import { wagmiAdapter, web3Modal } from "@/auth/appkit";
 import { getAccount, signMessage } from "@wagmi/core";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
-const CHAIN_ID = process.env.NEXT_PUBLIC_CHAIN_ID;
+const CHAIN_ID = Number(process.env.NEXT_PUBLIC_CHAIN_ID);
 const WalletContext = createContext<IWalletContextType | undefined>(undefined);
 
 export const getSelector = async () => {
@@ -30,7 +30,7 @@ export const getSelector = async () => {
       setupEthereumWallets({
         wagmiConfig: wagmiAdapter.wagmiConfig as any,
         web3Modal: web3Modal as any,
-        chainId: Number(CHAIN_ID),
+        chainId: CHAIN_ID,
       }),
     ],
   });
