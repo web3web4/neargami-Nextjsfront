@@ -37,6 +37,38 @@ export const getSelector = async () => {
   return selector;
 };
 
+/**
+ * Clear all wallet-related state from localStorage
+ * This includes NEAR Wallet Selector state, WalletConnect state, and Wagmi state
+ */
+export const clearWalletState = () => {
+  if (typeof window === "undefined") return;
+  
+  try {
+    const keysToRemove: string[] = [];
+    
+    // Collect all wallet-related keys
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key && (
+        key.startsWith("near-wallet-selector:") ||
+        key.startsWith("wc@2:") ||
+        key.startsWith("wagmi.") ||
+        key.startsWith("reown.") ||
+        key.startsWith("WALLETCONNECT_")
+      )) {
+        keysToRemove.push(key);
+      }
+    }
+    
+    // Remove all collected keys
+    keysToRemove.forEach(key => localStorage.removeItem(key));
+    console.log("Cleared wallet state from localStorage");
+  } catch (error) {
+    console.error("Error clearing wallet state:", error);
+  }
+};
+
 // TODO:: refactor once of those issues are done: https://github.com/near/wallet-selector/issues/1223 or https://github.com/near/wallet-selector/issues/1224
 function appendPrivacyPolicyText() {
   const tryAppendingTextNode = setInterval(() => {
@@ -281,27 +313,55 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
   const handleNearLogout = async () => {
     try {
       /**
-       * Step 1: Initialize Wallet Selector and sign out
+       * Step 1: Disconnect from all wallets (NEAR and EVM)
        */
-      const selector = await setupWalletSelector({
-        network: "testnet",
-        modules: [setupMeteorWallet() /*, setupNightly()*/],
-      });
-      const wallet = await selector.wallet();
-      await wallet.signOut();
+      try {
+        // Try to disconnect from NEAR wallet
+        const selector = await setupWalletSelector({
+          network: "testnet",
+          modules: [setupMeteorWallet() /*, setupNightly()*/],
+        });
+        const wallet = await selector.wallet();
+        if (wallet) {
+          await wallet.signOut();
+        }
+      } catch (nearError) {
+        console.log("No NEAR wallet to disconnect:", nearError);
+      }
+
+      try {
+        // Disconnect from EVM wallet via AppKit
+        const account = getAccount(wagmiAdapter.wagmiConfig);
+        if (account.isConnected) {
+          await web3Modal.disconnect();
+        }
+      } catch (evmError) {
+        console.log("No EVM wallet to disconnect:", evmError);
+      }
 
       /**
-       * Step 2: Clear cookies for the user
+       * Step 2: Clear all wallet state from localStorage
+       */
+      clearWalletState();
+
+      /**
+       * Step 3: Clear cookies for the user
        */
       setAuthData("nearSignature", null);
       deleteCookie("jwtToken");
 
       /**
-       * Step 3: Redirect to homepage
+       * Step 4: Redirect to homepage
        */
       window.location.replace("/");
     } catch (error: any) {
       console.error("Logout error:", error.message);
+      
+      // Even if logout fails, clear state and redirect
+      clearWalletState();
+      setAuthData("nearSignature", null);
+      deleteCookie("jwtToken");
+      window.location.replace("/");
     }
   };
 
