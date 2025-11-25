@@ -37,16 +37,27 @@ export const getSelector = async () => {
   return selector;
 };
 
+export const disconnectWallet = async () => {
+  try {
+    const account = getAccount(wagmiAdapter.wagmiConfig);
+    if (account.isConnected) {
+      await web3Modal.disconnect();
+    }
+  } catch (error) {
+    console.error("Error disconnecting wallet:", error);
+  }
+};
+
 /**
  * Clear all wallet-related state from localStorage
  * This includes NEAR Wallet Selector state, WalletConnect state, and Wagmi state
  */
-export const clearWalletState = () => {
+export const clearWalletState = async () => {
   if (typeof window === "undefined") return;
   
   try {
     const keysToRemove: string[] = [];
-    
+
     // Collect all wallet-related keys
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
@@ -207,35 +218,11 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
           });
 
           if (verifyResponse.status === 201) {
-            const verifyData = await verifyResponse.json();
-            Swal.fire({
-              icon: "success",
-              title: translate("Success"),
-              text: translate("Login successful"),
-            });
-            const jwtToken = verifyData.data.authenticate.token;
-            setAuthData("jwtToken", jwtToken);
-
-            // This Flag For Show Course Intro, When First Show Home Page After Connect
-            if (
-              verifyData.data.signUpUserData.flags
-                .first_request_approved_courses == false
-            ) {
-              setCookie("firstShowingOfHome", false);
-            }
-            /**
-             * Step 6: Navigate user based on login state
-             */
-            if (verifyData.data.signUpUserData.flags.new_user === true) {
-              router.push("/wizard");
-            } else {
-              router.refresh();
-            }
+            handleLoginSuccessfully(verifyResponse);
             modal.hide();
           } else {
-            Swal.fire({ icon: "error", title: "Error", text: "Login failed." });
-          }
-        });
+              Swal.fire({ icon: "error", title: "Error", text: "Login failed." });
+          }});
       } else {
         // ---------- EVM FLOW (SIWE) ----------
 
@@ -243,19 +230,19 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
 
         // 1) Ask server for SIWE message
         const prepare = await getChallengeData(accountId);
-        console.log("prepare=========: ", prepare);
 
         const evmAddress = account.address;
-        console.log("evmAddress=========: ", evmAddress);
 
         // 3) Sign SIWE message using wagmi
         const signature = await signMessage(wagmiAdapter.wagmiConfig, {
           message: prepare.message,
         });
-        console.log("signature=========:", signature);
+
+        // Save initial state to cookies for the user
+        setAuthData("nearSignature", accountId);
 
         // 3) Verify on server
-        const verify = await fetch(`${API_BASE_URL}/auth/ethersignup`, {
+        const response = await fetch(`${API_BASE_URL}/auth/ethersignup`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -266,49 +253,43 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
             signature: signature,
           }),
         });
-        console.log("verify.ok:", verify.ok);
-        if (verify.ok) {
-          const res = await verify.json();
-          const data = res.data;
-          console.log("data:", data);
 
-          Swal.fire({
-            icon: "success",
-            title: translate("Success"),
-            text: translate("Login successful"),
-          });
-          const jwtToken = data.authenticate.token;
-
-          console.log("jwtToken:", jwtToken);
-          setAuthData("nearSignature", accountId);
-          setAuthData("jwtToken", jwtToken);
-          // This Flag For Show Course Intro, When First Show Home Page After Connect
-          if (
-            data.signUpUserData.flags.first_request_approved_courses == false
-          ) {
-            setCookie("firstShowingOfHome", false);
-          }
-          /**
-           * Step 6: Navigate user based on login state
-           */
-          if (data.signUpUserData.flags.new_user === true) {
-            router.push("/wizard");
-          } else {
-            router.refresh();
-          }
+        if (response.ok) {
+          handleLoginSuccessfully(response);
           modal.hide();
-        } else {
-          Swal.fire({
-            icon: "error",
-            title: "Error",
-            text: "EVM login failed.",
-          });
         }
       }
     } catch (e: any) {
       console.error("Login error:", e?.message || e);
     }
   };
+
+  const handleLoginSuccessfully = async (response: any) => {
+      const verifyData = await response.json();
+      Swal.fire({
+        icon: "success",
+        title: translate("Success"),
+        text: translate("Login successful"),
+      });
+      const jwtToken = verifyData.data.authenticate.token;
+      setAuthData("jwtToken", jwtToken);
+
+      // This Flag For Show Course Intro, When First Show Home Page After Connect
+      if (
+        verifyData.data.signUpUserData.flags
+          .first_request_approved_courses == false
+      ) {
+        setCookie("firstShowingOfHome", false);
+      }
+      /**
+       * Step 6: Navigate user based on login state
+       */
+      if (verifyData.data.signUpUserData.flags.new_user === true) {
+        router.push("/wizard");
+      } else {
+        router.refresh();
+      }
+  }
 
   const handleNearLogout = async () => {
     try {
@@ -329,15 +310,10 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
         console.log("No NEAR wallet to disconnect:", nearError);
       }
 
-      try {
-        // Disconnect from EVM wallet via AppKit
-        const account = getAccount(wagmiAdapter.wagmiConfig);
-        if (account.isConnected) {
-          await web3Modal.disconnect();
-        }
-      } catch (evmError) {
-        console.log("No EVM wallet to disconnect:", evmError);
-      }
+      /**
+       * Disconnect EVM Wallet
+       */
+      disconnectWallet();
 
       /**
        * Step 2: Clear all wallet state from localStorage
