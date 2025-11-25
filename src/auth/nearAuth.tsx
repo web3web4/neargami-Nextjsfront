@@ -37,16 +37,27 @@ export const getSelector = async () => {
   return selector;
 };
 
+export const disconnectWallet = async () => {
+  try {
+    const account = getAccount(wagmiAdapter.wagmiConfig);
+    if (account.isConnected) {
+      await web3Modal.disconnect();
+    }
+  } catch (error) {
+    console.error("Error disconnecting wallet:", error);
+  }
+};
+
 /**
  * Clear all wallet-related state from localStorage
  * This includes NEAR Wallet Selector state, WalletConnect state, and Wagmi state
  */
-export const clearWalletState = () => {
+export const clearWalletState = async () => {
   if (typeof window === "undefined") return;
   
   try {
     const keysToRemove: string[] = [];
-    
+
     // Collect all wallet-related keys
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
@@ -299,15 +310,10 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
         console.log("No NEAR wallet to disconnect:", nearError);
       }
 
-      try {
-        // Disconnect from EVM wallet via AppKit
-        const account = getAccount(wagmiAdapter.wagmiConfig);
-        if (account.isConnected) {
-          await web3Modal.disconnect();
-        }
-      } catch (evmError) {
-        console.log("No EVM wallet to disconnect:", evmError);
-      }
+      /**
+       * Disconnect EVM Wallet
+       */
+      disconnectWallet();
 
       /**
        * Step 2: Clear all wallet state from localStorage

@@ -5,7 +5,7 @@ import { setCookie, getCookie/*, deleteCookie */} from "cookies-next";
 import { IAuthContextType } from "@/interfaces/auth";
 import Swal from "sweetalert2";
 import {jwtDecode} from "jwt-decode";
-import { getSelector } from "@/auth/nearAuth";
+import { clearWalletState, disconnectWallet, getSelector } from "@/auth/nearAuth";
 import { UserProfileData } from "@/interfaces/api";
 import { getUserProfile } from "@/apiService";
 
@@ -135,6 +135,8 @@ useEffect(() => {
         //deleteCookie("jwtToken");
         setJwtToken(null);
         setAuthMethod(null);
+        disconnectWallet();
+        clearWalletState();
       } 
       
       else if (authMethod === "NEAR") {
