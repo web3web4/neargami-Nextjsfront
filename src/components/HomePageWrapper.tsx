@@ -1,25 +1,15 @@
 "use client";
 
-import Banner from "@/components/Banner/Banner";
-import Footer from "@/section/Footer/v1/Footer";
-import CoursesList from "@/section/Home/Courses/CoursesList";
-import Header from "@/section/Header/v1/Header";
-import { CoursesResponse } from "@/interfaces/api";
 import ClientSpeedLinesProvider from "@/components/SpeedLines/ClientSpeedLines";
 
 interface HomePageWrapperProps {
-  courses: CoursesResponse[];
+  children: React.ReactNode;
 }
 
-const HomePageWrapper: React.FC<HomePageWrapperProps> = ({ courses }) => {
+const HomePageWrapper: React.FC<HomePageWrapperProps> = ({ children }) => {
   return (
     <ClientSpeedLinesProvider>
-      <>
-        <Header />
-        <Banner />
-        <CoursesList initCourses={courses} />
-        <Footer />
-      </>
+      {children}
     </ClientSpeedLinesProvider>
   );
 };
