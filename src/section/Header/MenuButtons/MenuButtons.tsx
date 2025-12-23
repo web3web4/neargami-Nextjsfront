@@ -9,10 +9,10 @@ import { useState } from "react";
 import { useWallet } from "@/auth/nearAuth";
 import { useAuth } from "@/context/authContext";
 import { MdNotes } from "react-icons/md";
-import styles from "./MenuButtons.module.css";
 import NGCToken from "@/section/Header/NGCToken/NGCToken";
 import MobileMenu from "@/section/Header/MobileMenu/MobileMenu";
 import { useTranslations } from "next-intl";
+import styles from "./MenuButtons.module.css";
 
 export default function MenuButtons({ isShowMenu }: { isShowMenu: boolean }) {
   const translate = useTranslations("Header");
@@ -20,7 +20,7 @@ export default function MenuButtons({ isShowMenu }: { isShowMenu: boolean }) {
   const [isMobileMenu, setMobileMenu] = useState<boolean>(false);
   const { handleNearOrEvmLogin } = useWallet();
   const { userProfile, jwtToken } = useAuth();
-  
+
   const handleMobileMenu = () => {
     setMobileMenu(!isMobileMenu);
   };

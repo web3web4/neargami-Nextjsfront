@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import customer from "@/assets/images/icons/customer.png";
 import Image from "next/image";
 import { getAllRatingForCourse } from "@/lib/nearContractRating";
-import styles from "./TotalRating.module.css";
 import { RatingObject } from "@/interfaces/contracts";
+import styles from "./TotalRating.module.css";
 
 interface TotalRating {
   courseId: number;
@@ -31,9 +31,9 @@ export default function TotalRating({
           id.toString()
         );
         // Here Get Rating Count
-        
-          setRatings(resault);
-        
+
+        setRatings(resault);
+
         if (resault && resault.length > 0) {
           const totalRate = resault.reduce(
             (acc: any, item: any) => acc + item.rate,
@@ -43,7 +43,7 @@ export default function TotalRating({
           // Here Get Avg
           setAverageRating(avgRate);
         }
-      } catch {}
+      } catch { }
     };
 
     fetchAvgRating();

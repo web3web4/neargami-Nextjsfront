@@ -1,12 +1,10 @@
 "use client";
+import { Button, ListManager, RichBoxQuill } from "@/components";
+import { LessonResponse } from "@/interfaces";
+import { useTranslations } from "next-intl";
+import { useLesson } from "@/hooks";
 import React from "react";
 import styles from "./Lesson.module.css";
-import Button from "@/components/button/Button";
-import ListManager from "@/components/listManager/ListManager";
-import RichBoxQuill from "@/components/richBoxQuill/RichBoxQuill";
-import { LessonResponse } from "@/interfaces/api";
-import { useLesson } from "@/hooks/useLesson";
-import { useTranslations } from "next-intl";
 
 
 export default function Lesson({
@@ -50,7 +48,7 @@ export default function Lesson({
                 </div>
                 <div>
                   <h6>{translate("Discription")}</h6>
-                  
+
 
                   <div className={styles.discriptionQuill}>
                     <RichBoxQuill
@@ -59,7 +57,7 @@ export default function Lesson({
                       onChange={(val) => handleOnChangeDescription(val)}
                     />
                   </div>
-                  
+
 
                 </div>
                 <div>
@@ -116,10 +114,10 @@ export default function Lesson({
                     onChange={handleSelectChange}
                   >
                     <option value="Choose Q/A Type" disabled>
-                    {translate("Choose Q/A Type")}
+                      {translate("Choose Q/A Type")}
                     </option>
                     <option value={translate("Multiple-choice questions")}>
-                    {translate("Multiple-choice questions")}
+                      {translate("Multiple-choice questions")}
                     </option>
                   </select>
                   <div>

@@ -1,8 +1,7 @@
-import styles from "./ShowLesson.module.css";
-import ListManager from "@/components/listManager/ListManager";
-import Button from "@/components/button/Button";
+import { ListManager, Button } from "@/components";
 import { LessonResponse } from "@/interfaces/api";
 import { useTranslations } from "next-intl";
+import styles from "./ShowLesson.module.css";
 
 export default function ShowLesson({
   courseId,

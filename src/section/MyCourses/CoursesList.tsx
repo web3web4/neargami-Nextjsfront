@@ -1,11 +1,11 @@
 "use client";
 import { Fragment } from "react";
 import CourseCard from "./CourseCard/CourseCard";
-import styles from "./CoursesList.module.css";
 import { MyCourses } from "@/interfaces/course";
+import styles from "./CoursesList.module.css";
 
 interface CourseList {
-  courses:MyCourses[],
+  courses: MyCourses[],
 }
 
 const CoursesList = ({ courses }: CourseList) => {

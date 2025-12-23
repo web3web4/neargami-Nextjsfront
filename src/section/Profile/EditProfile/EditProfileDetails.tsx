@@ -1,19 +1,16 @@
 "use client";
-import CountrySelector from "@/components/countrySelector/CountrySelector";
-import Button from "@/components/button/Button";
+import { CountrySelector, Button, LoadingWrapper, CropImage, CheckUsername } from "@/components";
 import fbIcon from "@/assets/images/icons/facebook.svg";
 import linkedIcon from "@/assets/images/icons/linkedin.svg";
 import twitterIcon from "@/assets/images/icons/twitter.svg";
 import discordIcon from "@/assets/images/icons/discord.svg";
 import userDefault from "@/assets/images/no-User.png";
-import LoadingWrapper from "@/components/loading/loadingWrapper/LoadingWrapper";
 import styles from "./EditProfileDetails.module.css";
 import Image from "next/image";
-import CropImage from "@/components/cropImage/CropImage";
-import { useEditProfile } from "@/hooks/useEditProfile";
-import { UserProfileResponse } from "@/interfaces/api";
-import CheckUsername from "@/components/checkUsername/CheckUsername";
+import { useEditProfile } from "@/hooks";
+import { UserProfileResponse } from "@/interfaces";
 import { useTranslations } from "next-intl";
+
 interface EditProfile {
   data: UserProfileResponse;
 }
@@ -210,18 +207,18 @@ const EditProfileDetails = ({ data }: EditProfile) => {
                   />
                 </div>
                 <div className={styles.checkBoxContainer}>
-                    <input
-                      type="checkbox"
-                      name="sendMail"
-                      id="sendMail"
-                      checked={formInput.sendMail}
-                      onChange={handleInputChange}
-                      className={styles.checkbox}
-                    />
-                    <label className={styles.label}>
-                      {translate("Receive Email For The Latest Updates")}
-                    </label>
-                  </div>
+                  <input
+                    type="checkbox"
+                    name="sendMail"
+                    id="sendMail"
+                    checked={formInput.sendMail}
+                    onChange={handleInputChange}
+                    className={styles.checkbox}
+                  />
+                  <label className={styles.label}>
+                    {translate("Receive Email For The Latest Updates")}
+                  </label>
+                </div>
               </div>
             </div>
           </div>

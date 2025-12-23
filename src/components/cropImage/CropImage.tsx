@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, RefObject } from "react";
 import InputFile from "./inputFile/InputFile";
 import ImageCrop from "./cropper/Cropper";

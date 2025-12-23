@@ -1,10 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
-import styles from "./Tabs.module.css";
 import CoursesList from "../CourseList/CoursesList";
 import { CoursesResponse } from "@/interfaces/api";
 import { useTranslations } from "next-intl";
 import { MyCourses } from "@/interfaces/course";
+import styles from "./Tabs.module.css";
 
 interface TabsProps {
   tabTwoName: string;
@@ -26,7 +26,7 @@ const Tabs = ({ tabTwoName, finishedCourses, offeredCourses, inProgressCourses }
     if (currTab === "offeredCourses") {
       setCurrCourses(filterCourses ?? []);
       setText("There are no courses published yet");
-    } else if (currTab === "inProgressCourses"){
+    } else if (currTab === "inProgressCourses") {
       setCurrCourses(progressCourse ?? []);
       setText("There are no courses published yet");
     } else {
@@ -36,7 +36,7 @@ const Tabs = ({ tabTwoName, finishedCourses, offeredCourses, inProgressCourses }
   };
 
   useEffect(() => {
-    if(inProgressCourses){
+    if (inProgressCourses) {
       const courses = inProgressCourses.map((curr) => {
         return {
           id: curr.course.id,
@@ -60,7 +60,7 @@ const Tabs = ({ tabTwoName, finishedCourses, offeredCourses, inProgressCourses }
         }
       })
       setProgressCourse(courses);
-    } 
+    }
     console.log(inProgressCourses)
   }, [inProgressCourses]);
 
@@ -79,18 +79,16 @@ const Tabs = ({ tabTwoName, finishedCourses, offeredCourses, inProgressCourses }
     <div className={styles.container}>
       <div className={styles.tabs}>
         <button
-          className={`${styles.tabButton} ${
-            activeTab === "finishedCourses" ? styles.active : ""
-          }`}
+          className={`${styles.tabButton} ${activeTab === "finishedCourses" ? styles.active : ""
+            }`}
           onClick={() => handleOnClick("finishedCourses")}
         >
           {translate("finishedCourses")}
         </button>
 
         <button
-          className={`${styles.tabButton} ${
-            activeTab === tabTwoName ? styles.active : ""
-          }`}
+          className={`${styles.tabButton} ${activeTab === tabTwoName ? styles.active : ""
+            }`}
           onClick={() => handleOnClick(tabTwoName)}
         >
           {translate(tabTwoName)}

@@ -1,7 +1,7 @@
 import Header from "./Header/Header";
-import styles from "./CourseContent.module.css";
 import MenuButtons from "@/section/Header/MenuButtons/MenuButtons";
 import RenderContent from "@/components/RenderContent/RenderContent";
+import styles from "./CourseContent.module.css";
 
 export default function CourseContent({
   data,
@@ -14,11 +14,11 @@ export default function CourseContent({
     <div>
       <Header />
       <div className={styles.contentLeft}>
-        <RenderContent htmlContent={data} className={warningMessage ? styles.truncatedText : ""}/>
+        <RenderContent htmlContent={data} className={warningMessage ? styles.truncatedText : ""} />
         {warningMessage && (
           <div className={styles.warningMessage}>
             <h2>{"\""}{warningMessage}{"\""}</h2>
-            <MenuButtons isShowMenu={false}/>
+            <MenuButtons isShowMenu={false} />
           </div>
         )}
       </div>

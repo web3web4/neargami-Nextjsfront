@@ -1,14 +1,13 @@
-import TotalRating from "@/components/totalRating/TotalRating";
+import { TotalRating, CardHover } from "@/components";
 import ngcIcons from "@/assets/images/brand/Logo/Without-BG/Logo-3-Size/32.png";
-import styles from "./CoursesList.module.css";
 import studentIcon from "@/assets/images/icons/student.svg";
 import viewsIcon from "@/assets/images/icons/view.svg";
 import photoDefault from "@/assets/images/no-Course.png";
 import userDefault from "@/assets/images/no-User.png";
 import Link from "next/link";
 import Image from "next/image";
-import CardHover from "@/components/cardHover/CardHover";
 import { CoursesResponse } from "@/interfaces/api";
+import styles from "./CoursesList.module.css";
 
 const CoursesList = (props: CoursesResponse) => {
   return (

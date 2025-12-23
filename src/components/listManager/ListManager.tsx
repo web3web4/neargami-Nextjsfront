@@ -1,11 +1,10 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Rearrange from "@/components/rearrange/Rearrange";
-import Button from "@/components/button/Button";
+import { Rearrange, Button } from "@/components";
 import { moveUp, moveDown } from "./index";
-import styles from "./ListManager.module.css";
 import { useTranslations } from "next-intl";
 import { extractTextFromHTML } from "@/utils/functions";
+import styles from "./ListManager.module.css";
 
 interface ListManagerProps {
   initialData: any;
@@ -60,7 +59,7 @@ const ListManager = ({
               <Button variant="mint" size="sm" href={`${href}/${col[idField]}`}>
                 {translate("Edit")}
               </Button>
-            </li> 
+            </li>
           </ul>
         ))}
       </div>

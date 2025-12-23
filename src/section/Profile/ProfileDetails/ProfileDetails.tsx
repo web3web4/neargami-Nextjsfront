@@ -6,17 +6,15 @@ import linkedIcon from "@/assets/images/icons/linkedin.svg";
 import twitterIcon from "@/assets/images/icons/twitter.svg";
 import discordIcon from "@/assets/images/icons/discord.svg";
 import logo from "@/assets/images/brand/Logo/Without-BG/Logo-3.png";
-import Button from "@/components/button/Button";
+import { Button, LoadingWrapper } from "@/components";
 import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
 import pointIcon from "@/assets/images/icons/point-info.png";
-import LoadingWrapper from "@/components/loading/loadingWrapper/LoadingWrapper";
-import Image from "next/image";
-import styles from "./ProfileDetails.module.css";
-import { CoursesResponse, UserProfileData } from "@/interfaces/api";
+import { CoursesResponse, UserProfileData, MyCourses } from "@/interfaces";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 import Tabs from "./Tabs/Tabs";
-import { MyCourses } from "@/interfaces/course";
+import styles from "./ProfileDetails.module.css";
 
 interface ProfileDetailsProps {
   username: string | null;
@@ -268,7 +266,7 @@ const ProfileDetails = ({ username, data, courses, myCourses }: ProfileDetailsPr
                             <div className={styles.loadingLogo}>
                               <Image src={logo} alt="Loading Logo" />
                             </div>
-                            
+
                             <div className={styles.progressRing}>
                               <svg width="120" height="120">
                                 <circle
@@ -289,14 +287,14 @@ const ProfileDetails = ({ username, data, courses, myCourses }: ProfileDetailsPr
                                 {Math.round(progress * 100)}%
                               </div>
                             </div>
-                            
+
                             <div className={styles.loadingMessage}>
                               {progress < 0.3 ? translate("Initializing Near Land") :
-                               progress < 0.6 ? translate("Loading game assets") :
-                               progress < 0.9 ? translate("Preparing your city") :
-                               translate("Almost ready")}
+                                progress < 0.6 ? translate("Loading game assets") :
+                                  progress < 0.9 ? translate("Preparing your city") :
+                                    translate("Almost ready")}
                             </div>
-                            
+
                             <div className={styles.loadingTip}>
                               💡 {[
                                 translate("LoadingTip1"),

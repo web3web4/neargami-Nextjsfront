@@ -1,10 +1,10 @@
-import styles from "./PageHeader.module.css";
 import titleShape from "@/assets/images/icons/steps.png";
 import shareIcon from "@/assets/images/icons/shareIcon.png";
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import styles from "./PageHeader.module.css";
 
 interface PageHeaderProps {
   currentPage: string;

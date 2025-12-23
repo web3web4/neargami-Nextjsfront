@@ -1,8 +1,8 @@
 "use client";
 import Link from "next/link";
-import styles from "./Button.module.css";
-import { ButtonProps } from "@/interfaces/button";
 import { useState } from "react";
+import { ButtonProps } from "@/interfaces/button";
+import styles from "./Button.module.css";
 
 const Button = ({
   className,

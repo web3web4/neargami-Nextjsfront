@@ -1,16 +1,15 @@
-import Header from "@/section/Header/v1/Header";
-import PageHeader from "@/components/pageHeader/PageHeader";
-import About from "@/section/About/About";
-import { generateAboutMetadata } from "@/utils/generateMetadata";
+import { HeaderV1, About } from "@/section";
+import { PageHeader } from "@/components";
+import { generateAboutMetadata } from "@/utils";
 
 export const metadata = generateAboutMetadata();
 
 export default function AboutPage() {
   return (
-      <>
-        <Header />
-        <PageHeader currentPage="About" pageTitle="About" style={{ marginTop: 100 }} />
-        <About />
-      </>
+    <>
+      <HeaderV1 />
+      <PageHeader currentPage="About" pageTitle="About" style={{ marginTop: 100 }} />
+      <About />
+    </>
   );
 }

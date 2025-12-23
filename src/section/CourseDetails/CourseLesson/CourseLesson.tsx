@@ -1,9 +1,9 @@
 "use client";
-import styles from "./CourseLesson.module.css";
 import Link from "next/link";
 import { Lecture } from "@/interfaces/lecture";
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
+import styles from "./CourseLesson.module.css";
 
 const CourseLesson = ({ data }: { data: Lecture[] }) => {
   const [lessons, setLessons] = useState<Lecture[]>([]);
@@ -23,26 +23,24 @@ const CourseLesson = ({ data }: { data: Lecture[] }) => {
           {lessons?.map((lecture, i) => (
             <div
               key={lecture.id}
-              className={`${styles.lessonItem} ${
-                lecture?.userLecture &&
-                lecture.userLecture.length > 0 &&
-                lecture?.userLecture[0]?.end_at !== null &&
-                lecture?.userLecture[0]?.end_at !== undefined
+              className={`${styles.lessonItem} ${lecture?.userLecture &&
+                  lecture.userLecture.length > 0 &&
+                  lecture?.userLecture[0]?.end_at !== null &&
+                  lecture?.userLecture[0]?.end_at !== undefined
                   ? styles.shapeActive
                   : ""
-              }`}
+                }`}
             >
               <Link href={`/quiz/${lecture.course.id}/${lecture.id}/${lecture.slug}`}>
                 <div className={styles.lessonItemInner}>
                   <h4
-                    className={`${styles.lessonTitle} ${
-                      lecture?.userLecture &&
-                      lecture.userLecture.length > 0 &&
-                      lecture?.userLecture[0]?.end_at !== null &&
-                      lecture?.userLecture[0]?.end_at !== undefined
+                    className={`${styles.lessonTitle} ${lecture?.userLecture &&
+                        lecture.userLecture.length > 0 &&
+                        lecture?.userLecture[0]?.end_at !== null &&
+                        lecture?.userLecture[0]?.end_at !== undefined
                         ? styles.active
                         : ""
-                    }`}
+                      }`}
                   >
                     {translate("Lesson")} #{lecture.order}
                   </h4>
@@ -55,9 +53,9 @@ const CourseLesson = ({ data }: { data: Lecture[] }) => {
                 <h3
                   className={
                     lecture?.userLecture &&
-                    lecture.userLecture.length > 0 &&
-                    lecture?.userLecture[0]?.end_at !== null &&
-                    lecture?.userLecture[0]?.end_at !== undefined
+                      lecture.userLecture.length > 0 &&
+                      lecture?.userLecture[0]?.end_at !== null &&
+                      lecture?.userLecture[0]?.end_at !== undefined
                       ? styles.active
                       : ""
                   }

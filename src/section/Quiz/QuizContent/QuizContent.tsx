@@ -1,5 +1,4 @@
 "use client";
-import styles from "./QuizContent.module.css";
 import CourseContent from "./CourseContent/CourseContent";
 import QuestionContent from "./QuestionContent/QuestionContent";
 import { QAResponse } from "@/interfaces/api";
@@ -8,6 +7,7 @@ import { useTranslations } from "next-intl";
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import arrowDownIcon from "@/assets/images/icons/arrowDown4.png";
+import styles from "./QuizContent.module.css";
 
 interface QuizContentProps {
   courseId: string;
@@ -58,12 +58,12 @@ export default function QuizContent({ courseId, lectureId, data }: QuizContentPr
       <div className={styles.section1}>
         <CourseContent data={description} warningMessage={warningMessage} />
         {jwtToken && showArrow && (
-          <button 
+          <button
             className={styles.scrollArrow}
             onClick={scrollToSection2}
             aria-label="Scroll to questions"
           >
-            <Image 
+            <Image
               src={arrowDownIcon}
               alt="Scroll down arrow"
               width={24}

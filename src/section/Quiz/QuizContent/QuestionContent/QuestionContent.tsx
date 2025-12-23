@@ -1,14 +1,13 @@
 "use client";
 import { useQuizContent } from "@/hooks/useQuizContent";
 import styles from "./QuestionContent.module.css";
-import ProgressBar from "@/components/progressBar/v1/ProgressBar";
+import { ProgressBarV1, Button } from "@/components";
 import CourseTitle from "./CourseTitle/CourseTitle";
 import correctIcon from "@/assets/images/icons/correct.png";
 import unCorrectIcon from "@/assets/images/icons/unCorrect.png";
 import Image from "next/image";
 import { QAResponse } from "@/interfaces/api";
 import { useTranslations } from "next-intl";
-import Button from "@/components/button/Button";
 
 interface QuizContentProps {
   courseId: string;
@@ -48,10 +47,9 @@ export default function QuestionContent({
       {/* Start Progress */}
       <div className={styles.progreess}>
         <h6>{translate("Progress")}</h6>
-        <ProgressBar
-          progress={`${
-            (currentQuestionSequence / sortedQuestions.length) * 100
-          }%`}
+        <ProgressBarV1
+          progress={`${(currentQuestionSequence / sortedQuestions.length) * 100
+            }%`}
         />
         <div className={styles.number}>
           {currentQuestionSequence}/{sortedQuestions.length}
@@ -148,10 +146,10 @@ export default function QuestionContent({
           }}
         >
           <h4 style={{ marginBottom: "0px" }}>
-            {isLoading? <div className={styles.spinnerContainer}><div className={styles.spinner}/></div>
+            {isLoading ? <div className={styles.spinnerContainer}><div className={styles.spinner} /></div>
               : currentQuestionSequence === sortedQuestions.length
-              ? translate("Finish Lesson")
-              : translate("Next Question")}
+                ? translate("Finish Lesson")
+                : translate("Next Question")}
           </h4>
         </button>
       </div>

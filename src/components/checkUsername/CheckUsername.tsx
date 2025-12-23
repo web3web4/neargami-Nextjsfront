@@ -1,8 +1,8 @@
 import { useCheckUsername } from "@/hooks/useCheckUsername";
-import styles from "./CheckUsername.module.css";
 import { useTranslations } from "next-intl";
 import { CheckUsernameDetailsType } from "@/interfaces/component";
 import { Dispatch, SetStateAction } from "react";
+import styles from "./CheckUsername.module.css";
 
 interface CheckUsernameProps {
   username: string;

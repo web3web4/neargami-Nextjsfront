@@ -1,11 +1,9 @@
 import { getAllCourses } from "@/apiService";
-import { CoursesResponse } from "@/interfaces/api";
-import { generateHomeMetadata } from "@/utils/generateMetadata";
-import HomePageWrapper from "@/components//HomePageWrapper";
-import Header from "@/section/Header/v1/Header";
-import Banner from "@/components/Banner/Banner";
-import CoursesList from "@/section/Home/Courses/CoursesList";
-import Footer from "@/section/Footer/v1/Footer";
+import { CoursesResponse } from "@/interfaces";
+import { generateHomeMetadata } from "@/utils";
+import { HomePageWrapper, Banner } from "@/components";
+import { HeaderV1, HomeCoursesListSection, FooterSectionV1 } from "@/section";
+
 
 export const metadata = generateHomeMetadata();
 
@@ -14,10 +12,10 @@ export default async function HomePage() {
 
   return (
     <HomePageWrapper>
-      <Header />
+      <HeaderV1 />
       <Banner />
-      <CoursesList initCourses={courses} />
-      <Footer />
+      <HomeCoursesListSection initCourses={courses} />
+      <FooterSectionV1 />
     </HomePageWrapper>
   );
 }

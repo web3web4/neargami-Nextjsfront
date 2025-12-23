@@ -1,11 +1,11 @@
 "use client";
 import { useHeader } from "@/hooks/useHeader";
-import styles from "./MenuLinks.module.css";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useAuth } from "@/context/authContext";
+import styles from "./MenuLinks.module.css";
 
 export default function MenuLinks() {
   const [menuId, setMenuId] = useState<string>("");

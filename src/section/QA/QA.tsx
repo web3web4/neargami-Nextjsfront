@@ -1,12 +1,11 @@
 "use client";
 import React from "react";
-import styles from "./QA.module.css";
-import Button from "@/components/button/Button";
-import RichBoxQuill from "@/components/richBoxQuill/RichBoxQuill";
+import { Button, RichBoxQuill } from "@/components";
 import Answers from "./Answers/Answers";
 import { useQA } from "@/hooks/useQA";
 import { QAResponse } from "@/interfaces/api";
 import { useTranslations } from "next-intl";
+import styles from "./QA.module.css";
 
 interface QAProps {
   courseId: string;

@@ -1,6 +1,5 @@
-import Header from "@/section/Header/v2/Header";
-import PageHeader from "@/components/pageHeader/PageHeader";
-import ProfileDetails from "@/section/Profile/ProfileDetails/ProfileDetails";
+import { HeaderV2, ProfileDetails } from "@/section";
+import { PageHeader } from "@/components";
 import { getInProgressCourses, getUserProfile } from "@/apiService";
 import { UserProfileData } from "@/interfaces/api";
 import { generateProfileMetadata } from "@/utils/generateMetadata";
@@ -18,9 +17,9 @@ export default async function ProfilePage() {
 
   return (
     <>
-      <Header />
+      <HeaderV2 />
       <PageHeader currentPage={"Profile"} pageTitle={"Profile Details"} />
-      <ProfileDetails username={null} data={data} myCourses={inProgressCourses}/>
+      <ProfileDetails username={null} data={data} myCourses={inProgressCourses} />
     </>
   );
 }

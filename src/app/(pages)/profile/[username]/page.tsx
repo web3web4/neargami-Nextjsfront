@@ -1,6 +1,5 @@
-import Header from "@/section/Header/v2/Header";
-import PageHeader from "@/components/pageHeader/PageHeader";
-import ProfileDetails from "@/section/Profile/ProfileDetails/ProfileDetails";
+import { HeaderV2, ProfileDetails } from "@/section";
+import { PageHeader } from "@/components";
 import {
   getProfileCoursesByUsername,
   getUserProfileByUsername,
@@ -26,7 +25,7 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
 
   return (
     <>
-      <Header />
+      <HeaderV2 />
       <PageHeader currentPage={"Player"} pageTitle={"Player Details"} />
       <ProfileDetails username={username} data={data} courses={courses} />
     </>

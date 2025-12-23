@@ -1,11 +1,11 @@
 import ngcIcons from "@/assets/images/brand/Logo/Without-BG/Logo-3-Size/32.png";
 import photoDefault from "@/assets/images/no-Course.png";
 import Image from "next/image";
-import styles from "./CourseTitle.module.css";
 import { useTranslations } from "next-intl";
+import styles from "./CourseTitle.module.css";
 
-interface CourseTitleProps{
-  courseLogo: string, 
+interface CourseTitleProps {
+  courseLogo: string,
   lessonNumber: number,
   points: number
 }

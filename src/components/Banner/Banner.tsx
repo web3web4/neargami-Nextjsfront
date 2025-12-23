@@ -1,20 +1,19 @@
 "use client";
-
 import Image from "next/image";
-import styles from "./Banner.module.css";
 import bannerIcon from "@/assets/images/brand/Logo/Without-BG/Logo-6.png";
 import { useTranslations } from "next-intl";
 import { FiChevronDown } from "react-icons/fi";
 import { useSpeedLines } from "@/components/SpeedLines/ClientSpeedLines";
+import styles from "./Banner.module.css";
 
 const Banner = () => {
   const translate = useTranslations("Banner");
   const { activateSpeedLines } = useSpeedLines();
-  
+
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     e.preventDefault();
     activateSpeedLines();
-    
+
     setTimeout(() => {
       const coursesSection = document.getElementById('courses-list');
       if (coursesSection) {
@@ -45,9 +44,9 @@ const Banner = () => {
           <div className={styles.description}>
             {translate("Play to learn & learn to earn")}
           </div>
-          <a 
-            href="#courses-list" 
-            className={styles.scrollButton} 
+          <a
+            href="#courses-list"
+            className={styles.scrollButton}
             aria-label="Scroll to courses"
             onClick={handleScroll}
           >

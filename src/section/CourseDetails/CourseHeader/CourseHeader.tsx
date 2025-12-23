@@ -1,26 +1,21 @@
 "use client"; // need refactor
-import styles from "./CourseHeader.module.css";
-import ProgressBar from "@/components/progressBar/v1/ProgressBar";
+import { ProgressBarV1, TotalRating, CustomPopup, Rating, Button, PlayerListPopup } from "@/components";
+import { fetchEndPlayers, fetchStartPlayers } from "@/apiService";
 import studentIcon from "@/assets/images/icons/student.svg";
-import viewsIcon from "@/assets/images/icons/view.svg";
+import { DataPopup, LessonResponse } from "@/interfaces";
 import photoDefault from "@/assets/images/no-Course.png";
+import viewsIcon from "@/assets/images/icons/view.svg";
 import userDefault from "@/assets/images/no-User.png";
 import { Fragment, useEffect, useState } from "react";
-import TotalRating from "@/components/totalRating/TotalRating";
-import CustomPopup from "@/components/customPopup/CustomPopup";
-import Rating from "@/components/rating/Rating";
-import Button from "@/components/button/Button";
+import { useTranslations } from "next-intl";
+import { useAuth } from "@/context";
 import Image from "next/image";
 import Link from "next/link";
-import { DataPopup, LessonResponse } from "@/interfaces/api";
-import PlayerListPopup from "@/components/PlayerListPopup/PlayerListPopup";
-import { useAuth } from "@/context/authContext";
-import { useTranslations } from "next-intl";
-import { fetchEndPlayers, fetchStartPlayers } from "@/apiService";
+import styles from "./CourseHeader.module.css";
 
 interface HeaderCourses {
   data: LessonResponse;
-  courseSlug:string
+  courseSlug: string
 }
 
 const CourseHeader = ({
@@ -35,7 +30,7 @@ const CourseHeader = ({
   const { jwtToken } = useAuth();
   const [popupEndUser, setPopupEndUser] = useState<DataPopup[]>([]);
   const [popupStartUser, setPopupStartUser] = useState<DataPopup[]>([]);
-  
+
 
 
   useEffect(() => {
@@ -67,10 +62,10 @@ const CourseHeader = ({
         console.error("Error fetching players:", error);
       }
     };
-  
+
     if (courseSlug) {
-        fetchPlayers(courseSlug);
-      
+      fetchPlayers(courseSlug);
+
     }
   }, [courseSlug]);
 
@@ -141,11 +136,11 @@ const CourseHeader = ({
               <>
                 <div className={styles.courseText}>
                   <h5>
-                  {translate("Course Progress")} {data?.completedLessons}/
+                    {translate("Course Progress")} {data?.completedLessons}/
                     {data?.lectures?.length}
                   </h5>
                 </div>
-                <ProgressBar
+                <ProgressBarV1
                   progress={`
                 ${(data?.completedLessons * 100) / data?.lectures?.length}%`}
                 />

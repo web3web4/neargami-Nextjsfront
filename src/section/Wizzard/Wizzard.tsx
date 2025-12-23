@@ -1,16 +1,12 @@
 "use client";
+import { ProgressBarV2, Button, CountrySelector, PlayerListPopup, CheckUsername } from "@/components";
 import React, { Fragment, useState } from "react";
-import ProgressBar from "@/components/progressBar/v2/ProgressBar";
-import Button from "@/components/button/Button";
-import CountrySelector from "@/components/countrySelector/CountrySelector";
 import banner from "@/assets/images/banner-bg.jpg";
 import land from "@/assets/images/Land.png";
-import styles from "./Wizzard.module.css";
 import Image from "next/image";
-import { useWizard } from "@/hooks/useWizard";
-import PlayerListPopup from "@/components/PlayerListPopup/PlayerListPopup";
-import CheckUsername from "@/components/checkUsername/CheckUsername";
+import { useWizard } from "@/hooks";
 import { useTranslations } from "next-intl";
+import styles from "./Wizzard.module.css";
 
 const Wizard = () => {
   const [showStartPopup, setShowStartPopup] = useState<boolean>(false);
@@ -46,7 +42,7 @@ const Wizard = () => {
         </div>
         <div className={styles.WizardContent}>
           <div className={styles.Content}>
-            <ProgressBar progress={`${step * 50}%`} />
+            <ProgressBarV2 progress={`${step * 50}%`} />
             <div className={styles.WizardSubText}>{step}/2</div>
             <form>
               {step === 1 && (
@@ -117,7 +113,7 @@ const Wizard = () => {
                       {translate("Would you like to receive notifications to stay updated with the latest updates")}
                     </label>
                   </div>
-                  <div  className={styles.checkBoxContainer}>
+                  <div className={styles.checkBoxContainer}>
                     <input
                       type="checkbox"
                       name="accept"

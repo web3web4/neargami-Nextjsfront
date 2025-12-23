@@ -1,8 +1,9 @@
+"use client";
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Button from "@/components/button/Button";
-import styles from "./Rating.module.css";
 import { addRating, getOldRatingForUser } from "@/lib/nearContractRating";
 import Swal from "sweetalert2";
+import styles from "./Rating.module.css";
 
 interface RatinfProps {
   courseId: number;

@@ -1,8 +1,8 @@
 "use client"
 import { useEffect } from "react";
-import Button from "@/components/button/Button";
+import { Button } from "@/components";
 import { useTranslations } from "next-intl";
-import Header from "@/section/Header/v1/Header";
+import { HeaderV1 } from "@/section";
 
 export default function GlobalError({
   error,
@@ -18,18 +18,18 @@ export default function GlobalError({
 
   return (
     <>
-    <Header />
+      <HeaderV1 />
       <div style={{ textAlign: "center", marginTop: "15%" }}>
         <h1 style={{ fontSize: "72px", color: "#ff6347" }}>🚧</h1>
         <h2>{translate("The Request is Currently Unavailable")}</h2>
         <p>{translate("We are working on development")}</p>
         <div style={{ display: "flex", justifyContent: "center" }}>
-            <Button href="/" variant="mint" size="md">
+          <Button href="/" variant="mint" size="md">
             {translate("Go To Home")}
-            </Button>
+          </Button>
         </div>
 
       </div>
-      </>
+    </>
   );
 }

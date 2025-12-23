@@ -1,17 +1,14 @@
 "use client";
-import CharacterCounter from "@/components/characterCounter/CharacterCounter";
+import { CharacterCounter, RichBoxQuill, CropImage, Button } from "@/components";
 import { courseDifficultyList, languageOptions, customStyles } from "./index";
-import { useCourseInfo } from "@/hooks/useCourseInfo";
-import { CoursesResponse } from "@/interfaces/api";
 import uploadIcon from "@/assets/images/icons/uploadIcon.svg";
-import RichBoxQuill from "@/components/richBoxQuill/RichBoxQuill";
-import CropImage from "@/components/cropImage/CropImage";
+import { CoursesResponse } from "@/interfaces";
+import { useTranslations } from "next-intl";
+import { useCourseInfo } from "@/hooks";
 import React, { Fragment } from "react";
-import styles from "./CourseInfo.module.css";
-import Button from "@/components/button/Button";
 import Select from "react-select";
 import Image from "next/image";
-import { useTranslations } from "next-intl";
+import styles from "./CourseInfo.module.css";
 
 export default function CourseInfo({
   isEdit,

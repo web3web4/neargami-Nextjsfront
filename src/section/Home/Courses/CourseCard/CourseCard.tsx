@@ -1,18 +1,18 @@
-import TotalRating from "@/components/totalRating/TotalRating";
+"use client";
+import { TotalRating, PlayerListPopup, CardHover } from "@/components";
 import ngcIcons from "@/assets/images/brand/Logo/Without-BG/Logo-3-Size/32.png";
-import styles from "./CourseCard.module.css";
 import studentIcon from "@/assets/images/icons/student.svg";
 import viewsIcon from "@/assets/images/icons/view.svg";
 import photoDefault from "@/assets/images/no-Course.png";
 import userDefault from "@/assets/images/no-User.png";
 import Link from "next/link";
 import Image from "next/image";
-import CardHover from "@/components/cardHover/CardHover";
 import { useState } from "react";
-import PlayerListPopup from "@/components/PlayerListPopup/PlayerListPopup";
 import { useTranslations } from "next-intl";
 import { fetchEndPlayers, fetchStartPlayers } from "@/apiService";
 import { CoursesResponse, DataPopup } from "@/interfaces/api";
+import styles from "./CourseCard.module.css";
+
 interface CourseCardProps {
   props: CoursesResponse;
 }
@@ -25,7 +25,7 @@ const CourseCard = ({
   const transDifficulty = useTranslations("CourseDifficulty");
   const [popupEndUser, setPopupEndUser] = useState<DataPopup[]>([]);
   const [popupStartUser, setPopupStartUser] = useState<DataPopup[]>([]);
-  
+
 
   const handleOpenStartPopup = async () => {
     try {
@@ -50,18 +50,18 @@ const CourseCard = ({
   return (
     <>
       <PlayerListPopup
-          open={showStartPopup}
-          onClose={() => setShowStartPopup(false)}
-          title="Students Attending the course"
-          fetchPlayers={popupStartUser}
-        />
+        open={showStartPopup}
+        onClose={() => setShowStartPopup(false)}
+        title="Students Attending the course"
+        fetchPlayers={popupStartUser}
+      />
 
-        <PlayerListPopup
-          open={showEndPopup}
-          onClose={() => setShowEndPopup(false)}
-          title="Students Who Completed the Course"
-          fetchPlayers={popupEndUser}
-        />
+      <PlayerListPopup
+        open={showEndPopup}
+        onClose={() => setShowEndPopup(false)}
+        title="Students Who Completed the Course"
+        fetchPlayers={popupEndUser}
+      />
       <div className={styles.courseCard}>
         <Link href={`/course-details/${props.slug}`}>
           <div className={styles.courseInfo}>

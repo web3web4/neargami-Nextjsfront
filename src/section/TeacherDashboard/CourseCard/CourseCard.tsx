@@ -1,13 +1,14 @@
-import Button from "@/components/button/Button";
+
+"use client";
+import { CoursesResponse, CoursesVersionResponse } from "@/interfaces/api";
+import { Button, PlayerListPopup } from "@/components";
 import photoDefault from "@/assets/images/no-Course.png";
-import styles from "./CourseCard.module.css";
 import Image from "next/image";
 import Link from "next/link";
-import { CoursesResponse, CoursesVersionResponse } from "@/interfaces/api";
 import { useTranslations } from "next-intl";
-import PlayerListPopup from "@/components/PlayerListPopup/PlayerListPopup";
 import { useState } from "react";
 import { getCourseVersion } from "@/apiServiceDashboard";
+import styles from "./CourseCard.module.css";
 
 const CourseCard = ({
   id,
@@ -19,12 +20,12 @@ const CourseCard = ({
   slug,
   is_version,
   parent_version_id
-  
+
 }: CoursesResponse) => {
   const translate = useTranslations("TeacherDashboard");
   const transDifficulty = useTranslations("CourseDifficulty");
   const [showStartPopup, setShowStartPopup] = useState<boolean>(false);
-  const [popupversions, setPopupversions] = useState<CoursesVersionResponse[] >([]);
+  const [popupversions, setPopupversions] = useState<CoursesVersionResponse[]>([]);
 
   const handleOpenStartPopup = async () => {
     try {
@@ -111,8 +112,8 @@ const CourseCard = ({
               <h4>{transDifficulty(difficulty)}</h4>
             </div>
             {(is_version || id !== parent_version_id) && (
-                <h4 className={styles.courseversion}>New Version</h4>
-              )}
+              <h4 className={styles.courseversion}>New Version</h4>
+            )}
           </div>
         </div>
 
