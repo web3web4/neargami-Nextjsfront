@@ -24,8 +24,13 @@ const Button = ({
     if (!callback) return;
     event.preventDefault();
     setIsLoading(true);
-    await callback();
-    setIsLoading(false);
+    try {
+      await callback();
+    } catch (error) {
+      console.error("Button onClick error:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (

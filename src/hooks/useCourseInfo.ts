@@ -1,90 +1,66 @@
-import { useState, useEffect, useRef } from "react";
+import { useRef } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { createCourse, updateCourse, uploadFile } from "@/apiService";
 import { CourseDifficulty, CourseLanguage } from "@/utils/Enums";
 import { useRouter } from "next/navigation";
 import { CoursesResponse } from "@/interfaces/api";
 import Swal from "sweetalert2";
 import { useTranslations } from "next-intl";
+import {
+  courseInfoSchema,
+  CourseInfoFormData,
+} from "@/schemas/courseInfoSchema";
 
 export const useCourseInfo = (data: CoursesResponse | null) => {
   const router = useRouter();
   const translate = useTranslations("messages");
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [image, setImage] = useState<string | null>(null);
-  const [formInput, setFormInput] = useState<CoursesResponse>({
-    name: "",
-    title: "",
-    tag: "",
-    difficulty: CourseDifficulty.Beginner,
-    description: "",
-    logo: "",
-    slug: "",
-    language: CourseLanguage.English,
+
+  const {
+    register,
+    handleSubmit: handleFormSubmit,
+    formState: { errors },
+    setValue,
+    watch,
+  } = useForm<CourseInfoFormData>({
+    resolver: zodResolver(courseInfoSchema),
+    mode: "onChange",
+    defaultValues: {
+      name: data?.name || "",
+      title: data?.title || "",
+      tag: data?.tag || "",
+      difficulty: data?.difficulty as CourseDifficulty || CourseDifficulty.Beginner,
+      description: data?.description || "",
+      logo: data?.logo || "",
+      language: data?.language || CourseLanguage.English,
+    },
   });
 
+  const image = watch("logo");
+
   const handleSelectChange = (selectedOption: any) => {
-    setFormInput((prevInput) => ({
-      ...prevInput,
-      language: selectedOption.value,
-    }));
+    setValue("language", selectedOption.value, { shouldValidate: true });
   };
 
   const handleCroppedImage = async (img: any) => {
-    setImage(img);
     const url = await uploadFile(img);
-    setFormInput((prevInput: any) => ({
-      ...prevInput,
-      logo: url,
-    }));
+    // uploadFile returns UploadFileResponse which can be string or error object
+    if (typeof url === "string") {
+      setValue("logo", url, { shouldValidate: true });
+    }
   };
 
   const handleButtonClick = () => {
     fileInputRef.current?.click();
   };
 
-  const handleInputChange = (e: any) => {
-    const { name, value } = e.target;
-    setFormInput((prevInput) => ({
-      ...prevInput,
-      [name]: value,
-    }));
-  };
-
-  useEffect(() => {
-    if (data !== null) {
-      setFormInput({
-        name: data!.name,
-        title: data!.title,
-        difficulty: data!.difficulty,
-        description: data!.description,
-        logo: data!.logo,
-        tag: data!.tag,
-        slug: data!.slug,
-        language: data!.language,
-      });
-      setImage(data!.logo);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   /**
    * This is to send data to the back end in case of creating a new course.
    */
-  const handleSubmit = async () => {
-    if (!formInput.tag || !formInput.tag.trim()) {
-      Swal.fire({
-        icon: "warning",
-        title: translate("Required Field"),
-        text: translate(
-          "The Tags field is required Please enter all related tags"
-        ),
-      });
-      return;
-    }
+  const onSubmit = async (formData: CourseInfoFormData) => {
     try {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { slug, ...courseData } = formInput;
-      const create = await createCourse(courseData);
+      const create = await createCourse(formData);
 
       if ("error" in create) {
         throw create;
@@ -108,21 +84,9 @@ export const useCourseInfo = (data: CoursesResponse | null) => {
   /**
    * This works when modifying course data and sending data to the back end.
    */
-  const handleUpdate = async () => {
-    if (!formInput.tag || !formInput.tag.trim()) {
-      Swal.fire({
-        icon: "warning",
-        title: translate("Required Field"),
-        text: translate(
-          "The Tags field is required Please enter all related tags"
-        ),
-      });
-      return;
-    }
+  const onUpdate = async (formData: CourseInfoFormData) => {
     try {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { slug, ...courseData } = formInput;
-      const update = await updateCourse(courseData, data!.id!.toString());
+      const update = await updateCourse(formData, data!.id!.toString());
 
       if ("error" in update) {
         throw update;
@@ -145,14 +109,16 @@ export const useCourseInfo = (data: CoursesResponse | null) => {
   };
 
   return {
-    formInput,
+    register,
+    errors,
+    watch,
+    setValue,
     image,
-    handleSubmit,
-    handleUpdate,
+    handleSubmit: handleFormSubmit(onSubmit),
+    handleUpdate: handleFormSubmit(onUpdate),
     fileInputRef,
     handleSelectChange,
     handleCroppedImage,
     handleButtonClick,
-    handleInputChange,
   };
 };

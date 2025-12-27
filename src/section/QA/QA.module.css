@@ -36,6 +36,7 @@
 .discriptionQuill {
   width: 90%;
 }
+
 .qaStyleWrapper :global(.ql-container) {
   height: 175px;
 }
@@ -65,9 +66,21 @@
   .rightContent {
     margin-top: 15px;
   }
+
+  .qaStyleWrapper h4 {
+    margin-top: 15px;
+  }
 }
+
 @media only screen and (max-width: 999px) {
   .discriptionQuill {
     width: 100%;
   }
+}
+
+.errorMessage {
+  position: relative !important;
+  color: #ef4444;
+  font-size: 0.875rem;
+  margin-top: .25rem;
 }

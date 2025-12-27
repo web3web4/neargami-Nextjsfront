@@ -26,6 +26,10 @@
   border-radius: 10px;
 }
 
+.courseInfoWrapper input[type="text"] {
+  margin-bottom: 5px;
+}
+
 .styledTextArea {
   width: 90%;
   background: transparent;
@@ -104,7 +108,7 @@
   margin-bottom: 12px;
 }
 
-.courseLogo + label {
+.courseLogo+label {
   font-weight: 600;
 }
 
@@ -126,7 +130,7 @@
 }
 
 .courseInfoWrapper :global(.ql-container) {
-  height: 686px;
+  height: 696px;
 }
 
 [dir="rtl"] .courseInfoWrapper :global(.ql-editor) {
@@ -183,15 +187,19 @@
   .courseInfoWrapper :global(.css-rrhtqz-control) {
     width: 100%;
   }
+
   .courseInfoWrapper :global(.css-5736gi-menu) {
     width: 100%;
   }
+
   .courseInfoWrapper :global(.css-19nvztv-control) {
     width: 100%;
   }
+
   .courseInfoWrapper :global(.charCounter) {
     width: 100%;
   }
+
   .styledTextArea {
     width: 100%;
   }

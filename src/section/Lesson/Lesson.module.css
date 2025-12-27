@@ -14,7 +14,6 @@
 
 .lessonWrapper input {
   width: 90%;
-  margin-bottom: 15px;
   background: transparent;
   outline: none;
   height: 60px;
@@ -29,6 +28,17 @@
   padding: 0px 21px;
   height: 50px;
   border-radius: 10px;
+}
+
+.lessonWrapper h6 {
+  margin-top: 15px;
+}
+
+.errorMessage {
+  position: relative !important;
+  color: #ef4444;
+  font-size: 0.875rem;
+  margin-top: .25rem;
 }
 
 .editLesson {
@@ -80,10 +90,12 @@
     margin-top: 15px;
   }
 }
+
 @media only screen and (max-width: 999px) {
   .discriptionQuill {
     width: 100%;
   }
+
   .lessonWrapper input {
     width: 100%;
   }

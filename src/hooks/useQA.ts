@@ -1,44 +1,86 @@
+"use client";
 import { createQA, updateQA } from "@/apiService";
-import { QA } from "@/interfaces/qa";
+import { Options, QA } from "@/interfaces/qa";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import { QAResponse } from "@/interfaces/api";
 import { useTranslations } from "next-intl";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { qaSchema, QAFormData } from "@/schemas/qaSchema";
 
-export const useQA = (courseId: string, lessonId: string, qaId: string, data: QAResponse | null ) => {
+export const useQA = (
+  courseId: string,
+  lessonId: string,
+  qaId: string,
+  data: QAResponse | null
+) => {
   const route = useRouter();
   const translate = useTranslations("messages");
-  const [formInput, setFormInput] = useState<QA>({
-    description: "",
-    options: [],
+
+  const {
+    handleSubmit: handleFormSubmit,
+    formState: { errors },
+    setValue,
+    watch,
+    reset,
+  } = useForm<QAFormData>({
+    resolver: zodResolver(qaSchema),
+    mode: "onChange",
+    defaultValues: {
+      description: data?.description || "",
+    },
   });
+
+  const [options, setOptions] = useState<Options[]>([]);
+
+  /**
+   * Compatibility layer for Answers component which expects formInput.options and setFormInput
+   */
+  const formInput = {
+    description: watch("description"),
+    options: options,
+  };
+
+  const setFormInput: Dispatch<SetStateAction<QA>> = (value) => {
+    if (typeof value === "function") {
+      setOptions((prev) => {
+        const result = value({ description: formInput.description, options: prev });
+        return result.options;
+      });
+    } else {
+      setOptions(value.options);
+    }
+  };
+
+  const handleOnChangeDescription = (value: string) => {
+    setValue("description", value, { shouldValidate: true });
+  };
 
   /**
    * send data to backend
    */
-  const handleSubmit = async () => {
-
-    const hasCorrectAnswer = formInput.options.some(
-      (option) => option.is_correct === true
-    );
+  const onSubmit = async (formData: QAFormData) => {
+    const hasCorrectAnswer = options.some((option) => option.is_correct === true);
 
     if (!hasCorrectAnswer) {
       Swal.fire({
         icon: "warning",
         title: translate("Warning"),
-        text: translate("Please select at least one correct answer before submitting"),
+        text: translate(
+          "Please select at least one correct answer before submitting"
+        ),
       });
       return;
     }
 
     // extract id answer from array options (answer)
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const optionsWithoutId = formInput.options.map(({ id, question_id , ...rest }) => rest);
+    const optionsWithoutId = options.map(({ id, question_id, ...rest }) => rest);
 
-    //Prepare the sent data without index 0,1,2....etc from array options (answer)
     const updatedFormInput = {
-      description: formInput.description,
+      description: formData.description,
       options: optionsWithoutId,
     };
 
@@ -69,32 +111,31 @@ export const useQA = (courseId: string, lessonId: string, qaId: string, data: QA
   /**
    * update QA data and send backend
    */
-  const handleUpdate = async () => {
-    const hasCorrectAnswer = formInput.options.some(
-      (option) => option.is_correct === true
-    );
+  const onUpdate = async (formData: QAFormData) => {
+    const hasCorrectAnswer = options.some((option) => option.is_correct === true);
 
     if (!hasCorrectAnswer) {
       Swal.fire({
         icon: "warning",
         title: translate("Warning"),
-        text: translate("Please select at least one correct answer before submitting"),
+        text: translate(
+          "Please select at least one correct answer before submitting"
+        ),
       });
       return;
     }
 
     //extract question_id from array options (answer)
-    const optionsWithoutId = formInput.options.map(
+    const optionsWithoutId = options.map(
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       ({ question_id, created_at, updated_at, ...rest }) => rest
     );
-    
-    //Prepare the sent data without index 0,1,2....etc from array options (answer)
+
     const updatedFormInput = {
-      description: formInput.description,
+      description: formData.description,
       options: optionsWithoutId,
     };
-    
+
     try {
       const update = await updateQA(updatedFormInput, courseId, lessonId, qaId);
 
@@ -122,29 +163,21 @@ export const useQA = (courseId: string, lessonId: string, qaId: string, data: QA
   /**
    * This works when you click on the Edit Course button to retrieve the course data and include this data in the fields.
    */
-
   useEffect(() => {
-      if (data != null) {
-          setFormInput({
-            description: data.description,
-            options: data.answer,
-          });
-      }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const handleOnChangeDescription = (value: string, setFormInput: Dispatch<SetStateAction<QA>>) => {
-  setFormInput((prevInput) => ({
-    ...prevInput,
-    description: value,
-  }));
-};
+    if (data != null) {
+      reset({
+        description: data.description,
+      });
+      setOptions(data.answer);
+    }
+  }, [data, reset]);
 
   return {
     formInput,
     setFormInput,
-    handleSubmit,
-    handleUpdate,
-    handleOnChangeDescription
+    errors,
+    handleSubmit: handleFormSubmit(onSubmit),
+    handleUpdate: handleFormSubmit(onUpdate),
+    handleOnChangeDescription,
   };
 };

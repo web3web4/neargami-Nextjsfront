@@ -1,5 +1,5 @@
 "use client";
-import { Button, ListManager, RichBoxQuill } from "@/components";
+import { Button, ListManager, RichBoxQuill, FormError } from "@/components";
 import { LessonResponse } from "@/interfaces";
 import { useTranslations } from "next-intl";
 import { useLesson } from "@/hooks";
@@ -17,14 +17,18 @@ export default function Lesson({
   data: LessonResponse | null;
 }) {
   const {
-    formInput,
+    register,
+    errors,
+    watch,
+    setValue,
+    qaList,
     showQA,
-    handleUpdate,
     handleSubmit,
+    handleUpdate,
     handleSelectChange,
-    handleInputChange,
-    handleOnChangeDescription,
   } = useLesson(courseId, lessonId, data);
+
+  const descriptionValue = watch("description") || "";
   const translate = useTranslations("Lesson");
 
 
@@ -40,22 +44,20 @@ export default function Lesson({
                   <h6>{translate("Lesson Name")}</h6>
                   <input
                     type="text"
-                    name="title"
                     placeholder={translate("Enter your lesson name")}
-                    value={formInput.title}
-                    onChange={handleInputChange}
+                    {...register("title")}
                   />
+                  <FormError message={errors.title?.message} className={styles.errorMessage} />
                 </div>
                 <div>
                   <h6>{translate("Discription")}</h6>
-
-
                   <div className={styles.discriptionQuill}>
                     <RichBoxQuill
                       placeholder={translate("Enter discription talking about this lesson")}
-                      value={formInput.description}
-                      onChange={(val) => handleOnChangeDescription(val)}
+                      value={descriptionValue}
+                      onChange={(val) => setValue("description", val, { shouldValidate: true })}
                     />
+                    <FormError message={errors.description?.message} className={styles.errorMessage} />
                   </div>
 
 
@@ -64,33 +66,28 @@ export default function Lesson({
                   <h6>{translate("Pre Lesson Note")}</h6>
                   <input
                     type="text"
-                    name="pre_note"
                     placeholder={translate("Enter pre note")}
-                    value={formInput.pre_note}
-                    onChange={handleInputChange}
+                    {...register("pre_note")}
                   />
-                </div>
-
+                  <FormError message={errors.pre_note?.message} className={styles.errorMessage} />                </div>
                 <div>
                   <h6>{translate("After Lesson Note")}</h6>
                   <input
                     type="text"
-                    name="next_note"
                     placeholder={translate("Enter next note")}
-                    value={formInput.next_note}
-                    onChange={handleInputChange}
+                    {...register("next_note")}
                   />
+                  <FormError message={errors.next_note?.message} className={styles.errorMessage} />
                 </div>
 
                 <div>
                   <h6>{translate("Lesson arrangement")}</h6>
                   <input
                     type="number"
-                    name="order"
                     placeholder={translate("Lesson arrangement")}
-                    value={formInput.order}
-                    onChange={handleInputChange}
+                    {...register("order", { valueAsNumber: true })}
                   />
+                  <FormError message={errors.order?.message} className={styles.errorMessage} />
                 </div>
 
                 <div className="mt-3">
@@ -122,7 +119,7 @@ export default function Lesson({
                   </select>
                   <div>
                     <ListManager
-                      initialData={formInput.qaList}
+                      initialData={qaList}
                       mainField={"description"}
                       href={`/question-answer/${courseId}/${lessonId}`}
                       idField={"id"}

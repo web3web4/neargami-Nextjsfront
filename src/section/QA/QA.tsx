@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Button, RichBoxQuill } from "@/components";
+import { Button, RichBoxQuill, FormError } from "@/components";
 import Answers from "./Answers/Answers";
 import { useQA } from "@/hooks/useQA";
 import { QAResponse } from "@/interfaces/api";
@@ -15,7 +15,7 @@ interface QAProps {
 }
 
 export default function QA({ courseId, lessonId, qaId, data }: QAProps) {
-  const { formInput, setFormInput, handleSubmit, handleUpdate, handleOnChangeDescription } = useQA(
+  const { formInput, setFormInput, handleSubmit, handleUpdate, handleOnChangeDescription, errors } = useQA(
     courseId,
     lessonId,
     qaId,
@@ -36,9 +36,10 @@ export default function QA({ courseId, lessonId, qaId, data }: QAProps) {
                       placeholder={translate("Enter discription talking about this course")}
                       value={formInput.description}
                       onChange={(val) =>
-                        handleOnChangeDescription(val, setFormInput)
+                        handleOnChangeDescription(val)
                       }
                     />
+                    <FormError message={errors.description?.message} />
                   </div>
                 </div>
               </div>

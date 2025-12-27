@@ -1,5 +1,5 @@
 "use client";
-import { CharacterCounter, RichBoxQuill, CropImage, Button } from "@/components";
+import { CharacterCounter, RichBoxQuill, CropImage, Button, FormError } from "@/components";
 import { courseDifficultyList, languageOptions, customStyles } from "./index";
 import uploadIcon from "@/assets/images/icons/uploadIcon.svg";
 import { CoursesResponse } from "@/interfaces";
@@ -18,16 +18,25 @@ export default function CourseInfo({
   data: CoursesResponse | null;
 }) {
   const {
-    fileInputRef,
-    formInput,
+    register,
+    errors,
+    watch,
+    setValue,
     image,
     handleSubmit,
     handleUpdate,
+    fileInputRef,
     handleSelectChange,
     handleCroppedImage,
     handleButtonClick,
-    handleInputChange,
   } = useCourseInfo(data);
+
+  const nameValue = watch("name") || "";
+  const titleValue = watch("title") || "";
+  const tagValue = watch("tag") || "";
+  const descriptionValue = watch("description") || "";
+  const difficultyValue = watch("difficulty");
+  const languageValue = watch("language");
   const translate = useTranslations("CourseInfo");
   const transDifficulty = useTranslations("CourseDifficulty");
 
@@ -47,14 +56,13 @@ export default function CourseInfo({
                     <h6>{translate("Course Name")}</h6>
                     <input
                       type="text"
-                      name="name"
                       placeholder={translate("Enter the course name")}
                       maxLength={50}
-                      value={formInput.name}
-                      onChange={handleInputChange}
+                      {...register("name")}
                     />
+                    <FormError message={errors.name?.message} />
                     <CharacterCounter
-                      currentCount={formInput.name?.length}
+                      currentCount={nameValue.length}
                       maxCount={50}
                     />
                   </div>
@@ -62,16 +70,15 @@ export default function CourseInfo({
                     <h6>{translate("Course Description")}</h6>
                     <textarea
                       className={styles.styledTextArea}
-                      name="title"
                       placeholder={translate(
                         "Ex: Learn about near protocol and"
                       )}
                       maxLength={150}
-                      value={formInput.title}
-                      onChange={handleInputChange}
+                      {...register("title")}
                     />
+                    <FormError message={errors.title?.message} />
                     <CharacterCounter
-                      currentCount={formInput.title?.length}
+                      currentCount={titleValue.length}
                       maxCount={150}
                     />
                   </div>
@@ -79,16 +86,15 @@ export default function CourseInfo({
                     <h6>{translate("Course Tags")}</h6>
                     <input
                       type="text"
-                      name="tag"
                       placeholder={translate(
                         "Tags of the course like: JavaScript, Smart-Contract, AI"
                       )}
                       maxLength={150}
-                      value={formInput.tag}
-                      onChange={handleInputChange}
+                      {...register("tag")}
                     />
+                    <FormError message={errors.tag?.message} />
                     <CharacterCounter
-                      currentCount={formInput.tag?.length}
+                      currentCount={tagValue.length}
                       maxCount={150}
                     />
                   </div>
@@ -103,12 +109,9 @@ export default function CourseInfo({
                             <div key={index}>
                               <input
                                 type="radio"
-                                name="difficulty"
                                 value={difficulty.value}
-                                checked={
-                                  formInput.difficulty === difficulty.value
-                                }
-                                onChange={handleInputChange}
+                                checked={difficultyValue === difficulty.value}
+                                {...register("difficulty")}
                               />
                               <label>{`${index + 1}${". "} ${transDifficulty(difficulty.label)}`}</label>
                             </div>
@@ -121,18 +124,16 @@ export default function CourseInfo({
                             <div key={index}>
                               <input
                                 type="radio"
-                                name="difficulty"
                                 value={difficulty.value}
-                                checked={
-                                  formInput.difficulty === difficulty.value
-                                }
-                                onChange={handleInputChange}
+                                checked={difficultyValue === difficulty.value}
+                                {...register("difficulty")}
                               />
                               <label>{`${index + 4}${". "} ${transDifficulty(difficulty.label)}`}</label>
                             </div>
                           ))}
                       </div>
                     </div>
+                    <FormError message={errors.difficulty?.message} />
                   </div>
                   {/* End Radio Option */}
                   <div className={styles.fieldContent}>
@@ -159,11 +160,12 @@ export default function CourseInfo({
                         options={languageOptions}
                         placeholder={translate("Select language a course")}
                         value={languageOptions.find(
-                          (option) => option.value === formInput.language
+                          (option) => option.value === languageValue
                         )}
                         onChange={handleSelectChange}
                       />
                     </div>
+                    <FormError message={errors.language?.message} />
                   </div>
                 </div>
 
@@ -175,14 +177,13 @@ export default function CourseInfo({
                         placeholder={translate(
                           "Enter a detailed outline of the course"
                         )}
-                        value={formInput.description}
+                        value={descriptionValue}
                         onChange={(val) =>
-                          handleInputChange({
-                            target: { name: "description", value: val },
-                          })
+                          setValue("description", val, { shouldValidate: true })
                         }
                       />
                     </div>
+                    <FormError message={errors.description?.message} />
                   </div>
                 </div>
               </div>

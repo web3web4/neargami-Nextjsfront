@@ -31,6 +31,9 @@ export { Footer } from './Footer/Footer';
 export { SimpleForm } from './Form/SimpleForm';
 export { UploadForm } from './Form/UploadForm';
 
+// Form Error
+export { FormError } from './FormError';
+
 // Headers
 export { AdminHeader } from './Headers/AdminHeader';
 
